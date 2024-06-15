@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:weights@400,600,700,800');
+
+*{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    user-select: none;
+}
+.color-fondo{
+    background-color: rgb(30, 37, 46);
+}
+
+.ui-growl {
+    font-size: 10px;
+    width: 150px;
+}
+
+.ui-growl-title {
+    font-size: 13px;
+}
+
+.container-form {
+    background:
+            url("https://d29jy8ovkd5kcx.cloudfront.net/wp-content/uploads/2021/12/20142135/Software-de-gestion-de-almacenes.jpg")
+            center;
+    background-size: cover;
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.8);
+}
+.form {
+    background-color: white;
+    left: -20px;
+    position: relative;
+    width: 32%;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+}
+
+.container-logo {
+    top:8%;
+    position: absolute;
+    width: 100%;
+    height: 25%;
+    text-align: center;
+    background-color: white;
+}
+
+.logo {
+    width: 42%;
+    text-align: center;
+    background-color: white;
+}
+
+.container-items {
+    padding:10px;
+    top:36%;
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    text-align: center;
+}
+
+.container-bienvenido {
+    position: absolute;
+    top:2%;
+    width: 100%;
+    height: 20%;
+    text-align: center;
+}
+
+.bienvenido {
+    font-size: 140%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container-inputs{
+    position: absolute;
+    top:22%;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+}
+
+.correo{
+    text-align: center;
+    width: 270px;
+}
+
+.button {
+    width: 270px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

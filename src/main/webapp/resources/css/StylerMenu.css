@@ -1,0 +1,56 @@
+.container-logo-empresa{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    user-select: none;
+    text-align: center;
+}
+.logo {
+    width: 90px;
+    text-align: center;
+}
+
+.content {
+    background: #ce232b;
+}
+
+.contenedor-logo-Empresa{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    user-select: none;
+    background-color: rgb(34, 45, 48);
+}
+
+.logo {
+    width: 90px;
+}
+
+.Contenedor-menu-opciones{
+    width: 100%;
+    background-color:rgb(30, 37, 46);
+    height: 630px;
+    border: none;
+    overflow-y: auto;
+}
+
+
+.Contenedor-menu-opciones::-webkit-scrollbar{
+    width: 9px;
+}
+
+.Contenedor-menu-opciones::-webkit-scrollbar-track {
+    background: rgb(30, 37, 46);;
+}
+
+.Contenedor-menu-opciones::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 3px solid rgb(30, 37, 46);
+}
