@@ -25,6 +25,9 @@ public class BeansLogin implements Serializable {
     private MenuModel model;
 
 
+
+
+
     @PostConstruct
     public void init() {
         model = new DefaultMenuModel();
