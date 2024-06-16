@@ -9,12 +9,13 @@
 <h:head>
    <title><h:outputText value="Dasboard"/></title>
    <link href="http://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-   <h:outputStylesheet library="primefaces-saga" name="theme.css"/>
+   <h:outputStylesheet library="primefaces-vela" name="theme.css"/>
    <h:outputStylesheet library="css" name="StylesDasboard.css"/>
    <h:outputStylesheet library="css" name="StylerMenu.css"/>
 </h:head>
 <h:body>
    <h:form id="myform">
+
       <h:panelGrid styleClass="contenido-banner">
          <h:outputLabel value="Sistema de Almacen" styleClass="titulo-banner"/>
       </h:panelGrid>
@@ -23,14 +24,48 @@
             <h:graphicImage styleClass="logo" url="https://www.zarla.com/images/zarla-top-almacn-1x1-2400x2400-20220204-fbm4jgvkfpqm7pcvqqfv.png" />
          </h:panelGrid>
          <div class="Contenedor-menu-opciones"><br/>
+            <div>
+               <input TYPE="checkbox" id="perfil" class="visually-hidden"/>
+               <label for="perfil">
+                  <p:panel>
+                     <h:panelGrid columns="4" styleClass="perfil-container">
+                        <h:panelGrid>
+                           <p:avatar styleClass="mr-2" size="xlarge" shape="circle">
+                            <p:graphicImage  url="https://www.zarla.com/images/zarla-top-almacn-1x1-2400x2400-20220204-fbm4jgvkfpqm7pcvqqfv.png" />
+                           </p:avatar>
+                        </h:panelGrid><h:panelGrid />
+                        <h:panelGrid style="width:150px" >
+                           <h:panelGrid>
+                              <h:outputText value="Jonattan Sebastian Contreras Baltazar" styleClass="nombre-usuario" />
+                           </h:panelGrid>
+                           <h:panelGrid>
+                              <h:outputText value="Ayudante de almacen" styleClass="cargo-usuario" />
+                           </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                           <i class="bi bi-caret-down-fill " />
+                        </h:panelGrid>
+                     </h:panelGrid>
+                  </p:panel>
+               </label>
+               <div class="submenu-perfil">
+                  <h:panelGrid styleClass="mover-perfil">
+                    <h:panelGrid columns="2"  styleClass="color-mover-perfil">
+                       <h:panelGrid><i class="bi bi-caret-down-fill " /></h:panelGrid>
+                       <h:panelGrid><h:commandLink  value="Editar Perfil" styleClass="opciones-perfil-mover" /></h:panelGrid>
+                    </h:panelGrid>
+                     <h:panelGrid columns="2"  styleClass="color-mover-perfil">
+                        <h:panelGrid><i class="bi bi-caret-down-fill " /></h:panelGrid>
+                        <h:panelGrid><h:commandLink  value="Cerrar Sesion" styleClass="opciones-perfil-mover" /></h:panelGrid>
+                     </h:panelGrid>
+                  </h:panelGrid>
+               </div>
+            </div><br/>
+            <p:menu  model="#{beansLogin.model}"/>
 
-            <p:menu  model="#{beansLogin.model}">
-
-            </p:menu>
 
 
-
-
+            <!--
             <h:outputLabel   /><br />
 
             <h:commandLink target="escritorio" value="Dasboard" action="panels" /><br />
@@ -42,6 +77,8 @@
             <h:commandLink target="escritorio" value="Tipo de Empresa"/><br/>
             <h:commandLink target="escritorio" value="proveedor" /><br/>
             <h:commandLink target="escritorio" value="producto"  /><br/>
+
+            -->
 
          </div>
       </div>

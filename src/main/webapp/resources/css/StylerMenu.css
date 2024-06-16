@@ -1,3 +1,7 @@
+@import
+url('https://fonts.googleapis.com/css?family=Montserrat:weights@400,600,700,800')
+;
+
 .container-logo-empresa{
     width: 100%;
     height: 100px;
@@ -32,6 +36,7 @@
     width: 90px;
 }
 
+
 .Contenedor-menu-opciones{
     width: 100%;
     background-color:rgb(30, 37, 46);
@@ -40,6 +45,28 @@
     overflow-y: auto;
 }
 
+body .ui-menu {
+    background: #1e252e;
+    border-color: #1e252e;
+    width: 100%;
+}
+
+.ui-accordion-header .ui-accordion-toggle-icon{
+    display: none;
+}
+
+body .ui-menu .ui-menu-list .ui-widget-header h3 {
+    font-size: 1rem;
+}
+
+body .ui-menu .ui-menu-list .ui-widget-header {
+    background: #1e252e;
+}
+
+
+.ui-menuitem-link{
+    font-size: 13px;
+}
 
 .Contenedor-menu-opciones::-webkit-scrollbar{
     width: 9px;
@@ -54,3 +81,78 @@
     border-radius: 20px;
     border: 3px solid rgb(30, 37, 46);
 }
+
+.ui-panel {
+    background: #1e252e;
+}
+
+
+body .ui-panel .ui-panel-content{
+    background: #1e252e;
+    border: 1px solid #1e252e;
+}
+
+.ui-panel .ui-panel-content:hover {
+    background: #252c35;
+}
+
+.visually-hidden {
+    position: absolute;
+    left: -100vw;
+}
+
+.submenu-perfil{
+    display: none;
+}
+
+#perfil:checked ~ .submenu-perfil{
+    display: block;
+
+}
+
+.nombre-usuario{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cargo-usuario{
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mover-perfil{
+    width: 100%;
+}
+
+.color-mover-perfil{
+    padding: 0 20px;
+    width: 100%;
+}
+
+.color-mover-perfil:hover{
+    background: #252c35;
+}
+
+.opciones-perfil-mover{
+    font-size: 12px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    color: #e0e0e0;
+}
+
+.color-mover-perfil:hover i,
+.color-mover-perfil:hover .opciones-perfil-mover{
+    color: #ce232b;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.perfil-container:hover .nombre-usuario,
+.perfil-container:hover .cargo-usuario,
+.perfil-container:hover .bi-caret-down-fill {
+    color: #ce232b;
+    font-weight: bold;
+}
+
+
+

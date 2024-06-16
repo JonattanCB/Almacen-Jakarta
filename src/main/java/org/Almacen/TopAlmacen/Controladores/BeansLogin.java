@@ -5,6 +5,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.TopAlmacen.Model.Panels;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
@@ -25,23 +27,36 @@ public class BeansLogin implements Serializable {
 
     @PostConstruct
     public void init() {
-        lst = new ArrayList<>();
-        lst.add(new Panels(1,"messi","e"));
-        lst.add(new Panels(2,"ronaldo","e"));
-        lst.add(new Panels(3,"Cristiano","e"));
-        System.out.println(lst);
+        model = new DefaultMenuModel();
+        DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("wa").expanded(true).icon("pi pi-angle-right").build();
+        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);
+        DefaultSubMenu p = DefaultSubMenu.builder().label("we").expanded(true).build();
+
+        model.getElements().add(firstSubmenu);
+        model.getElements().add(p);
     }
 
 
     public  String initi2(){
+
+        model = new DefaultMenuModel();
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("wa").expanded(true).build();
-            DefaultSubMenu itemMenu = DefaultSubMenu.builder().label("item").build();
-            firstSubmenu.getElements().add(itemMenu);
-            itemMenu = DefaultSubMenu.builder().label("we").build();
+            DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").target("W").build();
             firstSubmenu.getElements().add(itemMenu);
 
+
+            itemMenu = DefaultMenuItem.builder().value("maria").build();
+            firstSubmenu.getElements().add(itemMenu);
+        DefaultSubMenu p = DefaultSubMenu.builder().label("we").expanded(true).build();
+
+            model.getElements().add(firstSubmenu);
+            model.getElements().add(p);
         return "Gestion/Dashboard";
     }
-
 
 }

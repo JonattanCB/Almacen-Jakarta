@@ -37,9 +37,6 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 26px;
     padding: 0%  3%;
-    color: #e0e0e0;
-}
-.titulo-banner:hover{
     color: #ce232b;
     font-weight: bold;
 }
