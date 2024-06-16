@@ -1,19 +1,8 @@
 @import
-url('https://fonts.googleapis.com/css?family=Montserrat:weights@400,600,700,800')
-;
+url('https://fonts.googleapis.com/css?family=Montserrat:weights@400,600,700,800');
 
-.container-logo-empresa{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    user-select: none;
-    text-align: center;
-}
-.logo {
-    width: 90px;
+.logo-menu {
+    width: 60px;
     text-align: center;
 }
 
@@ -27,9 +16,8 @@ url('https://fonts.googleapis.com/css?family=Montserrat:weights@400,600,700,800'
     display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
     user-select: none;
-    background-color: rgb(34, 45, 48);
+    background-color: rgb(52,58,64);
 }
 
 .logo {
@@ -39,7 +27,7 @@ url('https://fonts.googleapis.com/css?family=Montserrat:weights@400,600,700,800'
 
 .Contenedor-menu-opciones{
     width: 100%;
-    background-color:rgb(30, 37, 46);
+    background-color:rgb(52,58,64);
     height: 630px;
     border: none;
     overflow-y: auto;
@@ -101,14 +89,7 @@ body .ui-panel .ui-panel-content{
     left: -100vw;
 }
 
-.submenu-perfil{
-    display: none;
-}
 
-#perfil:checked ~ .submenu-perfil{
-    display: block;
-
-}
 
 .nombre-usuario{
     font-size: 14px;
@@ -140,19 +121,26 @@ body .ui-panel .ui-panel-content{
     color: #e0e0e0;
 }
 
-.color-mover-perfil:hover i,
-.color-mover-perfil:hover .opciones-perfil-mover{
-    color: #ce232b;
-    font-weight: bold;
-    cursor: pointer;
+#perfil:checked ~ .submenu-perfil{
+    display: block;
 }
 
-.perfil-container:hover .nombre-usuario,
-.perfil-container:hover .cargo-usuario,
-.perfil-container:hover .bi-caret-down-fill {
-    color: #ce232b;
-    font-weight: bold;
+.contenedor-perfil {
+    position: relative;
+    z-index: 1;
 }
 
+.submenu-perfil {
+    display: none;
+    position: absolute; /* Posicionamiento absoluto para superponer */
+    top: calc(100% + 10px); /* Coloca el submenu debajo del label */
+    left: 0;
+    background-color: #3c763d; /* Color de fondo opcional */
+    border: 1px solid #ce232b; /* Borde opcional */
+    padding: 10px; /* Espaciado interior opcional */
+    z-index: 2; /* Asegura que el submenu esté por encima del resto del contenido */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    box-sizing: border-box;
+}
 
 

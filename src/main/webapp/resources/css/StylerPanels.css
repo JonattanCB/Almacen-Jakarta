@@ -63,22 +63,6 @@ url('https://fonts.googleapis.com/css2?family=Corporate+S+Plus+Volume&display=sw
     color: #a94442; /* Dark red text */
 }
 
-
-.card {
-    width: 95%;
-    height: 140px;
-}
-
-.estructura-card {
-    width: 100%;
-    height: 50px;
-    text-align: center;
-}
-
-.icon {
-    width: 70%;
-}
-
 .nuevo-button{
     margin-right: .5rem;
     width: 250px;
@@ -90,25 +74,6 @@ url('https://fonts.googleapis.com/css2?family=Corporate+S+Plus+Volume&display=sw
 
 .nuevo-button .ui-button-success .ui-icon{
     font-size: 12px;
-}
-
-.esturctura-opciones {
-    width: 100px;
-    height: 70px;
-}
-
-.texto-numero-opciones{
-    font-family: 'Corporate S Plus Volume', sans-serif;
-    font-size: 250%;
-    color: #e0e0e0;
-    text-align: center;
-}
-
-.texto-letra-opciones{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 80%;
-    color: #e0e0e0;
-    text-align: center;
 }
 
 .contenedor-informacion {
