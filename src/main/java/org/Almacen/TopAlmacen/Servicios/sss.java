@@ -10,8 +10,6 @@ import java.io.Serializable;
 @LocalBean
 public class sss implements Serializable {
 
-    @PersistenceContext(unitName = "TElectronica_jpa"  ///nombre del jpa
-    private EntityManager em;
 
 
 }
