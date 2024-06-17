@@ -12,5 +12,7 @@ import java.util.List;
 public class Panels {
     private int id;
     private String name;
-    private String url;
+    private String descripcio;
+    private String estado;
+    private int cantidad;
 }

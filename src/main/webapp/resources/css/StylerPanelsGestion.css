@@ -41,48 +41,7 @@ url('https://fonts.googleapis.com/css2?family=Corporate+S+Plus+Volume&display=sw
     font-weight: bold;
     font-family: Arial, sans-serif;
     border-radius: 3px;
-}
 
-.titulo-card-inf{
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    color: #4c535a;
-    font-size: 15px;
-    padding: 2px 10px;
-}
-
-.texto-letra-opciones{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 80%;
-    color: #4c535a;
-    text-align: center;
-}
-
-
-.columnas-texto-table{
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-}
-
-body .ui-datatable thead th{
-    background: #ffffff;
-}
-
-.status-Activo {
-    background-color: #dff0d8; /* Light green background */
-    color: #3c763d; /* Dark green text */
-}
-
-.status-Inactivo {
-    background-color: #f2dede; /* Light red background */
-    color: #a94442; /* Dark red text */
-}
-
-.card-ifon{
-    border-radius: 4px;
-    flex: 1;
-    margin: 10px;
-    box-shadow: 0px 0px 2px  rgb(211,212,213);
 }
 
 .ui-growl {
@@ -104,6 +63,11 @@ body .ui-datatable thead th{
     color: #a94442; /* Dark red text */
 }
 
+
+.icon {
+    width: 70%;
+}
+
 .nuevo-button{
     margin-right: .5rem;
     width: 250px;
@@ -115,6 +79,25 @@ body .ui-datatable thead th{
 
 .nuevo-button .ui-button-success .ui-icon{
     font-size: 12px;
+}
+
+.esturctura-opciones {
+    width: 100px;
+    height: 70px;
+}
+
+.texto-numero-opciones{
+    font-family: 'Corporate S Plus Volume', sans-serif;
+    font-size: 250%;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+.texto-letra-opciones{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80%;
+    color: #e0e0e0;
+    text-align: center;
 }
 
 .contenedor-informacion {

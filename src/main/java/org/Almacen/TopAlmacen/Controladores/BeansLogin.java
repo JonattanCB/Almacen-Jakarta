@@ -20,28 +20,67 @@ import java.util.List;
 @Data
 public class BeansLogin implements Serializable {
 
-    private List<Panels> lst;
 
     private MenuModel model;
 
+    private boolean abrirPerfil;
 
-
+    private List<Panels> list;
 
 
     @PostConstruct
     public void init() {
         model = new DefaultMenuModel();
-        DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("wa").expanded(true).icon("pi pi-angle-right").build();
-        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").build();
+        DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("wa").expanded(true).build();
+        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").target("W").build();
         firstSubmenu.getElements().add(itemMenu);
+
 
 
         itemMenu = DefaultMenuItem.builder().value("maria").build();
         firstSubmenu.getElements().add(itemMenu);
+        itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);
+        firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);
+
         DefaultSubMenu p = DefaultSubMenu.builder().label("we").expanded(true).build();
 
         model.getElements().add(firstSubmenu);
         model.getElements().add(p);
+
+        list = new ArrayList<>();
+
+        for (int id=1;id<=10;id++){
+            list.add(new Panels(id,"nombre","descrcipcion","Activo",80));
+            System.out.println(id);
+        }
+
+
+
+
     }
 
 
@@ -53,8 +92,36 @@ public class BeansLogin implements Serializable {
             firstSubmenu.getElements().add(itemMenu);
 
 
+
             itemMenu = DefaultMenuItem.builder().value("maria").build();
             firstSubmenu.getElements().add(itemMenu);
+        itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);
+        firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
+        firstSubmenu.getElements().add(itemMenu);
+
         DefaultSubMenu p = DefaultSubMenu.builder().label("we").expanded(true).build();
 
             model.getElements().add(firstSubmenu);

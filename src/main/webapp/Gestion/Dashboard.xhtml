@@ -16,28 +16,55 @@
    <h:form id="myform">
       <div class="contenido-menu">
          <h:panelGrid class="contenedor-logo-Empresa" >
-            <h:graphicImage styleClass="logo-menu" url="https://st.depositphotos.com/56892904/55684/v/450/depositphotos_556841084-stock-illustration-illustration-vector-graphic-self-storage.jpg" />
+            <h:graphicImage styleClass="logo-menu" url="https://www.zarla.com/images/zarla-top-almacn-1x1-2400x2400-20220204-fbm4jgvkfpqm7pcvqqfv.png" />
          </h:panelGrid>
-         <div class="Contenedor-menu-opciones"><br/>
+         <div class="Contenedor-menu-opciones">
             <p:menu  model="#{beansLogin.model}"/>
          </div>
       </div>
      <div class="Contenido-escritorio-opciones">
-        <h:panelGrid styleClass="contenido-banner">
-
-         <div class="contenedor-perfil">
-                  <input TYPE="checkbox" id="perfil"/>
-                  <label for="perfil" style="color: #ce232b">w</label>
-                  <div class="submenu-perfil">
-                      <div style="color: black;width: 509px;height: 500px">
-                          <h3>Hola mudno</h3><h3>Hola mudno</h3><h3>Hola mudno</h3><h3>Hola mudno</h3><h3>Hola mudno</h3><h3>Hola mudno</h3><h3>1Hola mudno</h3>
-                      </div>
-                  </div>
+         <h:panelGrid styleClass="contenido-banner" columns="2">
+             <h:panelGrid columns="2" style="width: 700px" >
+                 <h:panelGrid style="width: 1px;  margin-left: auto;">
+                     <h:panelGrid styleClass="vertical-line-titulo" />
+                 </h:panelGrid>
+                 <h:panelGrid>
+                     <h:outputText value="Sistema de Almacen" styleClass="titulo-banner" />
+                 </h:panelGrid>
+             </h:panelGrid>
+             <h:panelGrid >
+                 <h:panelGrid columns="2"  onclick="toggleSubmenu()" styleClass="btn-perfil">
+                     <h:panelGrid>
+                         <p:avatar icon="pi pi-user" styleClass="mr-2" style="background-color:#9c27b0; color:#fff" />
+                     </h:panelGrid>
+                     <h:panelGrid>
+                         <h:outputText value="Jonattan Contreras"  styleClass="nombre-usuario"/>
+                     </h:panelGrid>
+                 </h:panelGrid>
+             </h:panelGrid>
+         </h:panelGrid>
+         <div id="submenu-perfil" class="submenu-perfil">
+             <h:panelGrid style="padding: 5px 10px;">
+                 <h:commandLink   styleClass="opciones-perfil"  style="width: 100%">
+                     <i class="pi pi-user" /><h:outputText  value="Editar Perfil" styleClass="perfil-editar"/>
+                 </h:commandLink>
+                 <h:commandLink   styleClass="opciones-perfil"  style="width: 100%">
+                     <i class="pi pi-power-off" /><h:outputText  value="Cerrar Sesion" styleClass="perfil-editar"/>
+                 </h:commandLink>
+             </h:panelGrid>
          </div>
-        </h:panelGrid>
-
-
+         <iframe  class="contenido-escritorio" src="Panel.xhtml" />
      </div>
    </h:form>
+    <h:outputScript>
+        function toggleSubmenu() {
+            var submenu = document.getElementById("submenu-perfil");
+            if (submenu) {
+                submenu.classList.toggle("visible");
+            } else {
+                console.error("Elemento 'submenu-perfil' no encontrado.");
+            }
+        }
+    </h:outputScript>
 </h:body>
 </html>
