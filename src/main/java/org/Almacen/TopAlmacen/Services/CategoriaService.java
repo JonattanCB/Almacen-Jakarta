@@ -3,6 +3,7 @@ package org.Almacen.TopAlmacen.Services;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
+import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.util.List;
 
@@ -12,6 +13,6 @@ public class CategoriaService {
     @Inject
     private ICategoriaDao iCategoriaDao;
     public List<Categoria> getAll() {
-
+        return null;
     }
 }
