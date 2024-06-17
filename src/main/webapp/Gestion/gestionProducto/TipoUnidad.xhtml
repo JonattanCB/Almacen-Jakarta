@@ -9,7 +9,7 @@
     <title>Tipo Unidad</title>
     <h:outputStylesheet  library="primefaces-saga" name="theme.css" />
     <h:outputStylesheet library="css" name="SylerTodo.css"/>
-    <h:outputStylesheet library="css" name="StylerPanels.css"/>
+    <h:outputStylesheet library="css" name="StylerPanelsGestion.css"/>
 </h:head>
 <h:body styleClass="contendor-panel" >
     <h:form  id="form">
@@ -20,17 +20,17 @@
             </f:facet>
             <p:toolbar style="height: 25%">
                 <p:toolbarGroup >
-                    <p:commandButton value="Nuevo Tipo de Unidad" icon="pi pi-plus" actionListener="#{beansGestionTipoUnidad.nuevaTipoUnidad()}"
+                    <p:commandButton value="Nuevo Tipo de Unidad" icon="pi pi-plus" actionListener=""
                                      update=":dialogs:dialog-content" oncomplete="PF('dialog').show()"
                                      styleClass="nuevo-button ui-button-success">
                         <p:resetInput target=":dialogs:dialog-content" />
                     </p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar><br/>
-            <p:dataTable id="dt" var="tu" value="#{beansGestionTipoUnidad.lstTabla}"  widgetVar="tu"
+            <p:dataTable id="dt" var="tu" value=""  widgetVar="tu"
                          emptyMessage="No hay elementos disponibles."
-                         filteredValue="#{beansGestionTipoUnidad.lstSeleccionado}"
-                         globalFilterFunction="#{beansGestionTipoUnidad.globalFilterFunction}"
+                         filteredValue=""
+                         globalFilterFunction=""
                          rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                 <f:facet name="header">
                     <div class="buscador-table" style="height: 20%">
@@ -43,28 +43,28 @@
                             </span>
                     </div>
                 </f:facet>
-                <p:column headerText="#" sortBy="#{tu.id}" width="10" >
-                    <h:outputText value="#{tu.id}" styleClass="columnas-texto-table" />
+                <p:column headerText="#" sortBy="" width="10" >
+                    <h:outputText value="" styleClass="columnas-texto-table" />
                 </p:column>
-                <p:column headerText="Nombre" sortBy="#{tu.nombre}" width="200"  >
-                    <h:outputText value="#{tu.nombre}" styleClass="columnas-texto-table"/>
+                <p:column headerText="Nombre" sortBy="" width="200"  >
+                    <h:outputText value="" styleClass="columnas-texto-table"/>
                 </p:column>
-                <p:column headerText="Abreviatura" sortBy="#{tu.abrev}" width="100" >
-                    <h:outputText value="#{tu.abrev}" styleClass="columnas-texto-table" />
+                <p:column headerText="Abreviatura" sortBy="" width="100" >
+                    <h:outputText value="" styleClass="columnas-texto-table" />
                 </p:column>
-                <p:column headerText="Estado" sortBy="#{tu.estado}" width="70">
-                    <h:outputText value="#{tu.estado}"
-                                  styleClass="columnas-texto-table customer-badge status-#{tu.estado}"/>
+                <p:column headerText="Estado" sortBy="" width="70">
+                    <h:outputText value=""
+                                  styleClass="columnas-texto-table customer-badge status-"/>
                 </p:column>
                 <p:column headerText="Acciones" width="80">
                     <p:commandButton icon="pi pi-pencil" update=":dialogs:dialog-content"
-                                     oncomplete="PF('dialog').show()" action="#{beansGestionTipoUnidad.ireditar()}"
+                                     oncomplete="PF('dialog').show()" action=""
                                      styleClass="edit-button rounded-button ui-button-warning"  process="@this">
-                        <f:setPropertyActionListener value="#{tu.id}" target="#{beansGestionTipoUnidad.id_seleccionada}" />
+                        <f:setPropertyActionListener value="" target="" />
                     </p:commandButton> |
                     <p:commandButton class="edit-button ui-button-secondary rounded-button"
-                                     icon="pi pi-arrow-right-arrow-left"  action="#{beansGestionTipoUnidad.CambiarEstado()}" >
-                        <f:setPropertyActionListener value="#{tu.id}" target="#{beansGestionTipoUnidad.id_seleccionada}" />
+                                     icon="pi pi-arrow-right-arrow-left"  action="" >
+                        <f:setPropertyActionListener value="" target="" />
                         <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado del tipo de unidad?" icon="pi pi-info-circle"/>
                     </p:commandButton>
                 </p:column>
@@ -77,15 +77,15 @@
                 <div class="field">
                     <p:outputLabel  for="nombre"  value="Nombre" />
                     <br/>
-                    <p:inputText id="nombre" value="#{beansGestionTipoUnidad.tipoUnidad.nombre}"  required="true"/>
+                    <p:inputText id="nombre" value=""  required="true"/>
                 </div><br/>
                 <div class="field">
                     <p:outputLabel for="abrev" value="Abreviatura" />
-                    <br/><p:inputText id="abrev" value="#{beansGestionTipoUnidad.tipoUnidad.abrev}"   required="true" />
+                    <br/><p:inputText id="abrev" value=""   required="true" />
                 </div>
             </p:outputPanel>
             <f:facet name="footer">
-                <p:commandButton value="Guardar"  icon="pi pi-check" action="#{beansGestionTipoUnidad.guardar()}" update="dialog-content" process="dialog-content @this" />
+                <p:commandButton value="Guardar"  icon="pi pi-check" action="" update="dialog-content" process="dialog-content @this" />
                 <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialog').hide()"  styleClass="ui-button-secondary" type="button"/>
             </f:facet>
         </p:dialog>
