@@ -1,4 +1,4 @@
-package org.Almacen.TopAlmacen.Servicios;
+package org.Almacen.TopAlmacen.Services;
 
 
 import jakarta.ejb.LocalBean;
