@@ -1,13 +1,16 @@
 package org.Almacen.TopAlmacen.DAO.DaoImp;
 
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.util.List;
 
+@Stateless
 public class CategoriaDaoImp implements ICategoriaDao {
-
+    @PersistenceContext
     private EntityManager _entityManager;
 
     @Override
