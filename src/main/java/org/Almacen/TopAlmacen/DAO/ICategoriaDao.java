@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.DAO;
 
+import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ICategoriaDao {
 
     void create(Categoria c);
 
-    void update(Categoria c, int id);
+    void update(UpdateCategoriaDto c, int id);
 
     void delete(int id);
 }

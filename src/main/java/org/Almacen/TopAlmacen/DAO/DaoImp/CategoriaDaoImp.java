@@ -4,6 +4,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
+import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.util.List;
@@ -35,9 +36,14 @@ public class CategoriaDaoImp implements ICategoriaDao {
     }
 
     @Override
-    public void update(Categoria c,int id) {
-        var categoria = _entityManager.find(Categoria.class, id);
-        _entityManager.merge(c);
+    public void update(UpdateCategoriaDto updateCategoriaDto, int id) {
+        var existingCategoria = _entityManager.find(Categoria.class, id);
+        if (existingCategoria != null) {
+            existingCategoria.setNombre(updateCategoriaDto.getNombre());
+            existingCategoria.setDescripcion(updateCategoriaDto.getDescripcion());
+            existingCategoria.setEstado(updateCategoriaDto.getEstado());
+            _entityManager.merge(existingCategoria);
+        }
     }
 
     @Override

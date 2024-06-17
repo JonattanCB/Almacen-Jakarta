@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCategoriaDto {
+public class UpdateCategoriaDto {
     private String nombre;
     private String descripcion;
     private int estado;
-
 }
