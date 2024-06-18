@@ -17,7 +17,7 @@ public class CategoriaDto {
     private int id;
     private String nombre;
     private String descripcion;
-    private int estado;
+    private String estado;
     private LocalDate FechaRegistro=LocalDate.now();
 
 

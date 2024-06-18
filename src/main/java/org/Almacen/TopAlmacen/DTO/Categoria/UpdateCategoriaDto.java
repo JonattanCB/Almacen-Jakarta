@@ -12,5 +12,5 @@ import lombok.Setter;
 public class UpdateCategoriaDto {
     private String nombre;
     private String descripcion;
-    private int estado;
+    private String estado;
 }

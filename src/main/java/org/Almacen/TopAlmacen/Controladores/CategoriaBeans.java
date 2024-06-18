@@ -2,8 +2,11 @@ package org.Almacen.TopAlmacen.Controladores;
 
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.annotation.ViewMap;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
@@ -12,14 +15,13 @@ import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
 
+import java.io.Serializable;
 import java.util.List;
-@Getter
-@Setter
 
-@ManagedBean
-@ViewMap
-
-public class CategoriaBeans {
+@Data
+@Named
+@SessionScoped
+public class CategoriaBeans implements Serializable {
 
     @Inject
     CategoriaService categoriaService;
@@ -35,9 +37,21 @@ public class CategoriaBeans {
     }
 
     public void loadCategorias() {
+        System.out.println("entrado aca");
         categorias = categoriaService.getAllCategorias();
+        if (categorias == null){
+            System.out.println("lista vacia");
+        }else{
+            System.out.println("lista llena "+categorias.size());
+        }
+        for (CategoriaDto categoria : categorias) {
+            System.out.println(categoria.getNombre());
+        }
     }
     public void createCategoria() {
+        nuevaCategoria.setEstado("Activo");
+        nuevaCategoria.setNombre("Cate");
+        nuevaCategoria.setDescripcion("ddescripcion");
         categoriaService.createCategoria(nuevaCategoria);
         loadCategorias();
         nuevaCategoria = new CreateCategoriaDto();

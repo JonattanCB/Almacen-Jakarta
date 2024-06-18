@@ -24,7 +24,7 @@ public class Usuario {
     private String correo;
     @Column(name = "Contra", nullable = false)
     private String contra;
-    @OneToMany(mappedBy = "Comprobantes")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<ComprobanteSalida>comprobantes;
     @ManyToOne
     @JoinColumn(name = "Rol", nullable = false)

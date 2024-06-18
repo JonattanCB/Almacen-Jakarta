@@ -21,7 +21,7 @@ public class ComprobanteSalida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @Column(name = "Usuario", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     @Column(name = "Para_uso", nullable = false)
     private String paraUso;

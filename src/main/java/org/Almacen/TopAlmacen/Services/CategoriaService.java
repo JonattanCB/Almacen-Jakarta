@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.Services;
 
+import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
@@ -9,16 +10,19 @@ import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Mappers.CategoriaMapper;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Stateless
-public class CategoriaService {
+@LocalBean
+public class CategoriaService implements Serializable {
 
     @Inject
     private ICategoriaDao iCategoriaDao;
 
     public List<CategoriaDto> getAllCategorias() {
         List<Categoria> categorias = iCategoriaDao.getAll();
+        System.out.println("categoria service ejecutando ");
         return CategoriaMapper.toDTOList(categorias);
     }
 

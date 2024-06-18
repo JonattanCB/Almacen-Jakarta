@@ -12,6 +12,5 @@ import lombok.Setter;
 public class CreateCategoriaDto {
     private String nombre;
     private String descripcion;
-    private int estado;
-
+    private String estado;
 }

@@ -27,6 +27,6 @@ public class Rol {
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate fechaRegistro;
-    @OneToMany(mappedBy = "Usuarios")
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
     private List<Usuario> usuarios;
 }

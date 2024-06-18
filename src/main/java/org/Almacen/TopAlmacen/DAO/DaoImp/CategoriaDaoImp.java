@@ -1,24 +1,34 @@
 package org.Almacen.TopAlmacen.DAO.DaoImp;
 
 import jakarta.ejb.Stateless;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.util.List;
 
-@Stateless
+@Named
 public class CategoriaDaoImp implements ICategoriaDao {
-    @PersistenceContext
+    @PersistenceContext(name = "YourPU")
     private EntityManager _entityManager;
 
     @Override
     public List<Categoria> getAll() {
-        var categories = _entityManager.createQuery("SELECT c FROM Categoria c", Categoria.class).getResultList();
-        for (Categoria c : categories) {
-            _entityManager.detach(c);
+        System.out.println("Ingresando a la consulta de categorías");
+        List<Categoria> categories = null;
+        try {
+            TypedQuery<Categoria> query = _entityManager.createQuery("SELECT c FROM Categoria c", Categoria.class);
+            categories = query.getResultList();
+            for (Categoria c : categories) {
+                _entityManager.detach(c);
+                System.out.println(c.getNombre());
+            }
+        } catch (Exception e) {
+            System.out.println("error en la consulta: "+e.getMessage());
         }
         return categories;
     }

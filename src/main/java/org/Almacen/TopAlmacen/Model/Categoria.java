@@ -25,7 +25,7 @@ public class Categoria {
     @Column(name = "descripcion",nullable = false)
     private String descripcion;
     @Column(name ="estado",nullable = false)
-    private int estado;
+    private String estado;
     @Column(name="FechaRegistro",nullable = false)
     private LocalDate FechaRegistro = LocalDate.now();
     @OneToMany(mappedBy = "categoria")
