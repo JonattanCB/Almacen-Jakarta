@@ -37,7 +37,7 @@ public class CategoriaBeans implements Serializable {
     }
 
     public void loadCategorias() {
-        System.out.println("entrado aca");
+        System.out.println("Capa CategoriaBeans");
         categorias = categoriaService.getAllCategorias();
         if (categorias == null){
             System.out.println("lista vacia");

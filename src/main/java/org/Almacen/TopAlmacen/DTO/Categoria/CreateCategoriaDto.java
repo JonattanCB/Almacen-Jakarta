@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,4 +15,5 @@ public class CreateCategoriaDto {
     private String nombre;
     private String descripcion;
     private String estado;
+    private LocalTime FechaRegistro=LocalTime.now();
 }

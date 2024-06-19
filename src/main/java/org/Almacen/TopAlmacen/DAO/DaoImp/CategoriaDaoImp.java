@@ -9,6 +9,7 @@ import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -18,19 +19,7 @@ public class CategoriaDaoImp implements ICategoriaDao {
 
     @Override
     public List<Categoria> getAll() {
-        System.out.println("Ingresando a la consulta de categorías");
-        List<Categoria> categories = null;
-        try {
-            TypedQuery<Categoria> query = _entityManager.createQuery("SELECT c FROM Categoria c", Categoria.class);
-            categories = query.getResultList();
-            for (Categoria c : categories) {
-                _entityManager.detach(c);
-                System.out.println(c.getNombre());
-            }
-        } catch (Exception e) {
-            System.out.println("error en la consulta: "+e.getMessage());
-        }
-        return categories;
+        return  _entityManager.createQuery("SELECT c FROM Categoria c", Categoria.class).getResultList();
     }
 
     @Override
@@ -42,7 +31,9 @@ public class CategoriaDaoImp implements ICategoriaDao {
 
     @Override
     public void create(Categoria c) {
+
         _entityManager.persist(c);
+        System.out.println("Categoria creada: " + c.getNombre());
     }
 
     @Override

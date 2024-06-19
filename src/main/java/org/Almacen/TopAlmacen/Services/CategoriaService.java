@@ -22,7 +22,7 @@ public class CategoriaService implements Serializable {
 
     public List<CategoriaDto> getAllCategorias() {
         List<Categoria> categorias = iCategoriaDao.getAll();
-        System.out.println("categoria service ejecutando ");
+        System.out.println("categoria service ejecutandose ");
         return CategoriaMapper.toDTOList(categorias);
     }
 
@@ -32,8 +32,10 @@ public class CategoriaService implements Serializable {
     }
 
     public Categoria createCategoria(CreateCategoriaDto createCategoriaDto) {
+
         var categoria = CategoriaMapper.toCategoriaFromCreate(createCategoriaDto);
         iCategoriaDao.create(categoria);
+        System.out.println("Creado en Services");
         return categoria;
     }
 
