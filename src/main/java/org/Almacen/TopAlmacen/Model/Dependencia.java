@@ -26,4 +26,6 @@ public class Dependencia {
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate fechaRegistro = LocalDate.now();
+    @OneToMany(mappedBy = "dependencia")
+    private List<UnidadDependencia> unidades;
 }

@@ -33,4 +33,10 @@ public class Usuario {
     private String estado;
     @Column(name = "FechaRegistro")
     private LocalDate fechaRegistro = LocalDate.now();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unidadDependencia", nullable = false)
+    private UnidadDependencia unidadDependencia;
+
+
 }

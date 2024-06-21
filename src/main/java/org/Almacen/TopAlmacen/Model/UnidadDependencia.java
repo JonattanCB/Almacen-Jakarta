@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +28,6 @@ public class UnidadDependencia {
     private Usuario responsable;
     @Column(name = "fechaRegistro",nullable = false)
     private LocalDate fechaRegistro;
+    @OneToMany(mappedBy = "unidadDependencia")
+    private List<Usuario> usuarios;
 }
