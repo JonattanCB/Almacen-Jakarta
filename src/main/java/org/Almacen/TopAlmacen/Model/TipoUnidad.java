@@ -28,6 +28,14 @@ public class TipoUnidad {
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate FechaRegistro=LocalDate.now();
+
+
     @OneToMany(mappedBy = "tipoUnidad")
     private List<Producto> producto;
+    @OneToMany(mappedBy = "tipoUnidad")
+    private List<PrecioPorTipoUnidad> preciosPorTipoUnidad;
+    @OneToMany(mappedBy = "tipoUnidad ")
+    private List<TipoUnidad> tipoUnidades;
+
+
 }
