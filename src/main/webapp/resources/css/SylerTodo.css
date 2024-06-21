@@ -17,16 +17,6 @@
     mix-blend-mode: multiply;
 }
 
-.contendor-panel{
-    width: 100%;
-    height: 655px;
-    padding: 1% 1%;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: rgb(243,243,247);
-}
-
 .estructura-card{
     width: 100%;
     display: flex;
@@ -87,33 +77,6 @@ body .ui-widget .cantidad-card{
     height: 460px;
 }
 
-.contendor-panel::-webkit-scrollbar {
-    width: 9px;
-}
-
-.contendor-panel::-webkit-scrollbar-track {
-    background: rgb(241,241,241);
-}
-
-.contendor-panel::-webkit-scrollbar-thumb {
-    background-color: #c1c1c1;
-    border-radius: 20px;
-    border: 3px solid rgb(241,241,241);
-}
-
-.contendor::-webkit-scrollbar {
-    width: 9px;
-}
-
-.contendor::-webkit-scrollbar-track {
-    background: rgb(241,241,241);
-}
-
-.contendor::-webkit-scrollbar-thumb {
-    background-color: #c1c1c1;
-    border-radius: 20px;
-    border: 3px solid rgb(241,241,241);
-}
 
 .ui-dialog-content::-webkit-scrollbar {
     width: 9px;

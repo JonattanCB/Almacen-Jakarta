@@ -23,6 +23,8 @@ public class BeansLogin implements Serializable {
 
     private MenuModel model;
 
+    private String Nombre;
+
     private boolean abrirPerfil;
 
     private List<Panels> list;
@@ -30,15 +32,20 @@ public class BeansLogin implements Serializable {
 
     @PostConstruct
     public void init() {
+        Nombre = "Jonattan Sebastian Contreras Baltazar";
+
         model = new DefaultMenuModel();
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("wa").expanded(true).build();
-        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").target("W").build();
+        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").icon("pi pi-home").url("http://localhost:8080/Almacen-Jakarta/protegido/Personal/j.xhtml").update("myform").build();
         firstSubmenu.getElements().add(itemMenu);
 
 
 
-        itemMenu = DefaultMenuItem.builder().value("maria").build();
+        itemMenu = DefaultMenuItem.builder().value("maria").value("pepe").icon("pi pi-home").url("http://localhost:8080/Almacen-Jakarta/protegido/Personal/k.xhtml").build();
         firstSubmenu.getElements().add(itemMenu);
+
+
+
         itemMenu = DefaultMenuItem.builder().value("maria").build();
         firstSubmenu.getElements().add(itemMenu);itemMenu = DefaultMenuItem.builder().value("maria").build();
         firstSubmenu.getElements().add(itemMenu);
