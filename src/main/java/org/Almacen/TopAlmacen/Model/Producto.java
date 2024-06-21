@@ -22,14 +22,16 @@ public class Producto {
     private int id;
     @Column(name = "Nombre", nullable = false)
     private String nombre;
-    @Column(name = "Marca", nullable = false)
-    private String marca;
+    @Column(name = "Color")
+    private String Color="";
+    @Column(name = "Peso")
+    private String Peso="";
+    @ManyToOne()
+    @JoinColumn(name = "Marca_ID", nullable = false)
+    private Marca marca;
     @ManyToOne
     @JoinColumn(name = "Categoria_ID", nullable = false)
     private Categoria categoria;
-    @ManyToOne
-    @JoinColumn(name = "TipoUnidad_ID", nullable = false)
-    private TipoUnidad tipoUnidad;
     @Column(name = "Estado", nullable = false)
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)

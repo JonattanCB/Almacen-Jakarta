@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Panels {
+public class    Panels {
     private int id;
     private String name;
     private String descripcio;
