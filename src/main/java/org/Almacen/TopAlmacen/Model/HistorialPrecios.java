@@ -19,8 +19,11 @@ public class HistorialPrecios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name ="PrecioPorTipoUnidad", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PrecioPorTipoUnidad", nullable = false)
     private PrecioPorTipoUnidad precioPorTipoUnidad;
+    @Column(name = "precioRegistro", nullable = false)
+    private String precioRegistro;
+    @Column(name = "FechaRegistro", nullable = false)
     private LocalTime fechaRegistro;
 }

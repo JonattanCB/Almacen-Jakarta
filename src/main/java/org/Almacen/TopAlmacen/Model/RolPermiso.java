@@ -6,23 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 @Entity
-@Table(name = "TipoDocumento")
-public class TipoDocumento {
+@Table(name = "RolPermiso")
+public class RolPermiso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "Nombre", nullable = false)
-    private String nombre;
-    @Column(name = "Descripcion", nullable = false)
-    private String descripcion;
-    @OneToMany(mappedBy = "tipoDocumento")
-    private List<Persona>personas;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Rol_id",nullable = false)
+    private Rol rol;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Permiso_ID",nullable = false)
+    private Permiso permiso;
+
 }

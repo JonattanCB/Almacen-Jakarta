@@ -18,12 +18,14 @@ public class StockUnidades {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PrecioPorTipoUnidad", nullable = false)
     private PrecioPorTipoUnidad precioPorTipoUnidad;
+
     @Column(name = "CantidadStockUnidad")
     private double CantidadStockUnidad;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TipoUnidad", nullable = false)
     private TipoUnidad tipoUnidad;
 }

@@ -30,12 +30,4 @@ public class TipoUnidad {
     private LocalDate FechaRegistro=LocalDate.now();
 
 
-    @OneToMany(mappedBy = "tipoUnidad")
-    private List<Producto> producto;
-    @OneToMany(mappedBy = "tipoUnidad")
-    private List<PrecioPorTipoUnidad> preciosPorTipoUnidad;
-    @OneToMany(mappedBy = "tipoUnidad ")
-    private List<TipoUnidad> tipoUnidades;
-
-
 }

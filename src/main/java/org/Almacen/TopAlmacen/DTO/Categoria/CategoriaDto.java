@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.Model.Producto;
 
 import java.time.LocalDate;
@@ -19,6 +20,6 @@ public class CategoriaDto {
     private String descripcion;
     private String estado;
     private LocalDate FechaRegistro;
-
+    private List<ProductoDto> productos;
 
 }

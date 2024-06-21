@@ -6,24 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 @Entity
-@Table(name = "Depedencia")
-public class Dependencia {
+@Table(name = "TipoEmpresa")
+public class TipoEmpresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "Nombre", nullable = false)
+    @Column(name = "Nombre",length = 100, nullable = false)
     private String nombre;
-    @Column(name = "Estado", nullable = false)
-    private String estado;
-    @Column(name = "FechaRegistro", nullable = false)
-    private LocalDate fechaRegistro = LocalDate.now();
+    @Column(name = "Abreviatura",length = 8, nullable = false)
+    private String abrev;
 }

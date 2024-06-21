@@ -3,6 +3,7 @@ package org.Almacen.TopAlmacen.Services;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
@@ -19,7 +20,7 @@ public class CategoriaService implements Serializable {
 
     @Inject
     private ICategoriaDao iCategoriaDao;
-
+    @Transactional
     public List<CategoriaDto> getAllCategorias() {
         List<Categoria> categorias = iCategoriaDao.getAll();
         System.out.println("categoria service ejecutandose ");
@@ -42,6 +43,7 @@ public class CategoriaService implements Serializable {
     public void updateCategoria(int id, UpdateCategoriaDto updateCategoriaDto) {
         iCategoriaDao.update(updateCategoriaDto, id);
     }
+
     public void deleteCategoria(int id) {
         iCategoriaDao.delete(id);
     }

@@ -7,24 +7,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
-@Table(name = "Rol")
-public class Rol {
+@Table(name = "UnidadDependencia")
+public class UnidadDependencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "Nombre", nullable = false)
-    private String nombre;
-    @Column(name = "Estado", nullable = false)
-    private String estado;
-    @Column(name = "FechaRegistro", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dependencia", nullable = false)
+    private Dependencia dependencia;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "responsable")
+    private Usuario responsable;
+    @Column(name = "fechaRegistro",nullable = false)
     private LocalDate fechaRegistro;
-    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
-    private List<Usuario> usuarios;
 }

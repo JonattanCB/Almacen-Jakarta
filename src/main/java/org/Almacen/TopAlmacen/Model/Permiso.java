@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
+@Entity
 @Table(name = "Permiso")
 public class Permiso {
     @Id

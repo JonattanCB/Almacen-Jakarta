@@ -12,23 +12,22 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name ="PrecioPorTipoUnidad")
-public class PrecioPorTipoUnidad {
+@Table(name = "ItemsRequerimiento")
+public class ItemsRequerimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TipoUnidad_ID", nullable = false)
+    @JoinColumn(name = "requerimiento", nullable = false)
+    private Requerimiento requerimiento;
+    @Column(name = "Cantidad", nullable = false)
+    private double Cantidad;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipoUnidad", nullable = false)
     private TipoUnidad tipoUnidad;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Producto_ID", nullable = false)
+    @JoinColumn(name = "producto", nullable = false)
     private Producto producto;
-
-    @Column(name = "PrecioUnitario",nullable = false)
-    private double precioUnitario;
-    @Column(name = "unidadesPorTipoUnidadDeProducto")
-    private double unidadesPorTipoUnidadDeProducto;
-
 
 }

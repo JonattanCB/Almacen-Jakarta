@@ -26,19 +26,20 @@ public class Producto {
     private String Color="";
     @Column(name = "Peso")
     private String Peso="";
+
     @ManyToOne()
     @JoinColumn(name = "Marca_ID", nullable = false)
     private Marca marca;
+
     @ManyToOne
     @JoinColumn(name = "Categoria_ID", nullable = false)
     private Categoria categoria;
+
     @Column(name = "Estado", nullable = false)
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate FechaRegistro = LocalDate.now();
-    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
-    private Stock stock;
-    @OneToMany(mappedBy = "producto")
-    private List<DetalleComprobanteSalida> detalleComprobanteSalida;
+
+
 
 }
