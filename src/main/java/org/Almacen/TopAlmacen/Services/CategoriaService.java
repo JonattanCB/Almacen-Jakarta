@@ -1,9 +1,9 @@
 package org.Almacen.TopAlmacen.Services;
 
+import jakarta.ejb.Asynchronous;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
-import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.ICategoriaDao;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaConProductosDto;
@@ -17,6 +17,8 @@ import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -26,23 +28,25 @@ public class CategoriaService implements Serializable {
     @Inject
     private ICategoriaDao iCategoriaDao;
 
-    @Transactional
-    public List<CategoriaDto> getAllCategorias() {
+    @Asynchronous
+    public Future<List<CategoriaDto>> getAllCategoriasAsync() {
         List<Categoria> categorias = iCategoriaDao.getAll();
         if (categorias == null || categorias.isEmpty()) {
-            return null;
+            return CompletableFuture.completedFuture(null);
         }
-
-        System.out.println("categoria service ejecutandose ");
-        return categorias.stream()
-                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), String.valueOf(c.getEstado()), c.getFechaRegistro()))
-                .collect(Collectors.toList());
+        return CompletableFuture.completedFuture(categorias.stream()
+                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), c.getEstado(), c.getFechaRegistro()))
+                .collect(Collectors.toList()));
     }
 
-    @Transactional
+    @Asynchronous
+    public Future<CategoriaConProductosDto> getCategoriaByIdAsync(int id) {
+        return CompletableFuture.completedFuture(getCategoriaById(id));
+    }
+
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
-        if (categoria == null|| !categoria.getEstado().equals("Activo")) {
+        if (categoria == null || !categoria.getEstado().equals("Activo")) {
             return null;
         }
         List<ProductoDto> productosDto = categoria.getProductos().stream()
@@ -57,7 +61,6 @@ public class CategoriaService implements Serializable {
                 .collect(Collectors.toList());
 
         return new CategoriaConProductosDto(
-
                 categoria.getId(),
                 categoria.getNombre(),
                 categoria.getDescripcion(),
@@ -67,21 +70,19 @@ public class CategoriaService implements Serializable {
         );
     }
 
-    public Categoria createCategoria(CreateCategoriaDto createCategoriaDto) {
-        System.out.println("Datos recibidos en el servicio: " + createCategoriaDto.getNombre() + ", " + createCategoriaDto.getDescripcion());
+    @Asynchronous
+    public void createCategoriaAsync(CreateCategoriaDto createCategoriaDto) {
         var categoria = CategoriaMapper.toCategoriaFromCreate(createCategoriaDto);
         iCategoriaDao.create(categoria);
-        System.out.println("Creado en Services");
-        return categoria;
     }
 
-    public void updateCategoria(int id, UpdateCategoriaDto updateCategoriaDto) {
+    @Asynchronous
+    public void updateCategoriaAsync(int id, UpdateCategoriaDto updateCategoriaDto) {
         iCategoriaDao.update(updateCategoriaDto, id);
     }
 
-    public void deleteCategoria(int id) {
+    @Asynchronous
+    public void deleteCategoriaAsync(int id) {
         iCategoriaDao.delete(id);
     }
 }
-
-

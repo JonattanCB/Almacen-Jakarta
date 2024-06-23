@@ -7,16 +7,14 @@ import jakarta.faces.annotation.ViewMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
-import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Data
 @Named
@@ -36,19 +34,20 @@ public class CategoriaBeans implements Serializable {
     }
 
     public void loadCategorias() {
-        System.out.println("Capa CategoriaBeans");
-        if (categoriaService == null) {
-            System.out.println("categoriaService es null");
-            return;
-        }
-        categorias = categoriaService.getAllCategorias();
-        if (categorias == null) {
-            System.out.println("lista vacia");
-        } else {
+        try {
+            var futureCategorias = categoriaService.getAllCategoriasAsync();
+            categorias = futureCategorias.get();
+            if (categorias == null) {
+                System.out.println("lista vacia");
+            }
+
             System.out.println("lista llena " + categorias.size());
-        }
-        for (CategoriaDto categoria : categorias) {
-            System.out.println(categoria.getNombre());
+
+            for (CategoriaDto categoria : categorias) {
+                System.out.println(categoria.getNombre());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -56,7 +55,7 @@ public class CategoriaBeans implements Serializable {
         nuevaCategoria.setEstado("Activo");
         nuevaCategoria.setNombre("Cate");
         nuevaCategoria.setDescripcion("ddescripcion");
-        categoriaService.createCategoria(nuevaCategoria);
+        categoriaService.createCategoriaAsync(nuevaCategoria);
         loadCategorias();
         nuevaCategoria = new CreateCategoriaDto();
     }
@@ -73,13 +72,13 @@ public class CategoriaBeans implements Serializable {
 
     public void updateCategoria() {
         if (categoriaId != 0) {
-            categoriaService.updateCategoria(categoriaId, updateCategoria);
+            categoriaService.updateCategoriaAsync(categoriaId, updateCategoria);
             loadCategorias();
         }
     }
 
     public void eliminarCategoria() {
-        categoriaService.deleteCategoria(categoriaId);
+        categoriaService.deleteCategoriaAsync(categoriaId);
         loadCategorias();
     }
 
