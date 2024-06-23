@@ -39,6 +39,7 @@ public class CategoriaService implements Serializable {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
         if (categoria == null|| !categoria.getEstado().equals("Activo")) {
@@ -67,7 +68,7 @@ public class CategoriaService implements Serializable {
     }
 
     public Categoria createCategoria(CreateCategoriaDto createCategoriaDto) {
-
+        System.out.println("Datos recibidos en el servicio: " + createCategoriaDto.getNombre() + ", " + createCategoriaDto.getDescripcion());
         var categoria = CategoriaMapper.toCategoriaFromCreate(createCategoriaDto);
         iCategoriaDao.create(categoria);
         System.out.println("Creado en Services");

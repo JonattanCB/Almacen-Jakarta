@@ -33,21 +33,25 @@ public class CategoriaBeans implements Serializable {
 
     @PostConstruct
     public void init() {
-        loadCategorias();
     }
 
     public void loadCategorias() {
         System.out.println("Capa CategoriaBeans");
+        if (categoriaService == null) {
+            System.out.println("categoriaService es null");
+            return;
+        }
         categorias = categoriaService.getAllCategorias();
-        if (categorias == null){
+        if (categorias == null) {
             System.out.println("lista vacia");
-        }else{
-            System.out.println("lista llena "+categorias.size());
+        } else {
+            System.out.println("lista llena " + categorias.size());
         }
         for (CategoriaDto categoria : categorias) {
             System.out.println(categoria.getNombre());
         }
     }
+
     public void createCategoria() {
         nuevaCategoria.setEstado("Activo");
         nuevaCategoria.setNombre("Cate");
@@ -56,21 +60,24 @@ public class CategoriaBeans implements Serializable {
         loadCategorias();
         nuevaCategoria = new CreateCategoriaDto();
     }
+
     public void cargarCategoriaParaEdicion(int id) {
-        var categoria=categoriaService.getCategoriaById(id);
-        if (categoria!=null){
+        var categoria = categoriaService.getCategoriaById(id);
+        if (categoria != null) {
             updateCategoria.setNombre(categoria.getNombre());
             updateCategoria.setDescripcion(categoria.getDescripcion());
             updateCategoria.setEstado(categoria.getEstado());
-            categoriaId=id;
+            categoriaId = id;
         }
     }
+
     public void updateCategoria() {
-        if (categoriaId!=0){
+        if (categoriaId != 0) {
             categoriaService.updateCategoria(categoriaId, updateCategoria);
             loadCategorias();
         }
     }
+
     public void eliminarCategoria() {
         categoriaService.deleteCategoria(categoriaId);
         loadCategorias();
