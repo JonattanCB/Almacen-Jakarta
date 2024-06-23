@@ -25,11 +25,10 @@ public class DetalleProductoProveedorEntrada {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TipoUnidad_ID")
     private TipoUnidad tipoUnidad;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Producto_ID")
-    private Producto producto;
-    @Column(name = "Descuento", nullable = false)
-    private double descuento;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
+    @Column(name = "Descuento")
+    private double descuento=0.00;
     @Column(name = "PrecioUnitario", nullable = false)
     private double precioUnitario;
     @Column(name = "precioTotal", nullable = false)

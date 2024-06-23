@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -23,6 +24,8 @@ public class Marca {
     private String nombre;
     @Column(name = "Descripcion")
     private String descripcion;
+    @Column(name = "FechaRegistro")
+    private LocalDate fechaRegistro=LocalDate.now();
     @OneToMany(mappedBy = "marca")
     private List<Producto> productos;
 }

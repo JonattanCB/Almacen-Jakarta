@@ -27,7 +27,7 @@ public class UnidadDependencia {
     @JoinColumn(name = "responsable")
     private Usuario responsable;
     @Column(name = "fechaRegistro",nullable = false)
-    private LocalDate fechaRegistro;
+    private LocalDate fechaRegistro=LocalDate.now();
     @OneToMany(mappedBy = "unidadDependencia")
     private List<Usuario> usuarios;
 }

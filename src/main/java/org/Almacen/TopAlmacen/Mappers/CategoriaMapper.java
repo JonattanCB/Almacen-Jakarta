@@ -11,23 +11,15 @@ import java.util.stream.Collectors;
 public class CategoriaMapper {
 
     public static CategoriaDto toDto(Categoria categoria) {
-        if (categoria == null) {
-            return null;
-        } else {
-            CategoriaDto dto = new CategoriaDto();
-            dto.setId(categoria.getId());
-            dto.setNombre(categoria.getNombre());
-            dto.setDescripcion(categoria.getDescripcion());
-            dto.setEstado(categoria.getEstado());
-            dto.setFechaRegistro(categoria.getFechaRegistro());
-            return dto;
-        }
+        return new CategoriaDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getEstado(), categoria.getFechaRegistro());
     }
+
     public static List<CategoriaDto> toDTOList(List<Categoria> categorias) {
         return categorias.stream()
                 .map(CategoriaMapper::toDto)
                 .collect(Collectors.toList());
     }
+
     public static Categoria toCategoriaFromCreate(CreateCategoriaDto dto) {
         Categoria categoria = new Categoria();
         categoria.setNombre(dto.getNombre());
@@ -35,6 +27,7 @@ public class CategoriaMapper {
         categoria.setEstado(dto.getEstado());
         return categoria;
     }
+
     public static Categoria toCategoriaFromUpdate(UpdateCategoriaDto dto) {
         Categoria categoria = new Categoria();
         categoria.setNombre(dto.getNombre());

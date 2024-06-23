@@ -14,6 +14,4 @@ public class TipoUnidadDto {
     private int id;
     private String nombre;
     private String Abrev;
-    private String estado;
-    private LocalDate FechaRegistro;
 }

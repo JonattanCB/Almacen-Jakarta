@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -39,7 +38,5 @@ public class Producto {
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate FechaRegistro = LocalDate.now();
-
-
 
 }

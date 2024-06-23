@@ -25,8 +25,6 @@ public class ProductoProveedorEntrada {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario",nullable = false)
     private  Usuario usuario;
-    @Column(name = "IGV",nullable = false)
-    private double IGV;
     @Column(name = "PrecioFinal",nullable = false)
     private double precioFinal;
     @OneToMany(mappedBy = "OC_id")

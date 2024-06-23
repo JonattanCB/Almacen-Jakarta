@@ -1,4 +1,4 @@
-package org.Almacen.TopAlmacen.DTO.TipoDocumento;
+package org.Almacen.TopAlmacen.DTO.TipoEmpresa;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TipoDocumentoDto {
-    private int id;
+
+public class CreateTipoEmpresaDto {
     private String nombre;
-    private String descripcion;
+    private String abrev;
 }

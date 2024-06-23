@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -26,7 +27,7 @@ public class ComprobanteSalida {
     @Column(name = "paraUso")
     private String paraUso;
     @Column(name = "fechaRegistro")
-    private LocalDate fechaRegistro;
+    private LocalDateTime fechaRegistro= LocalDateTime.now();
     @Column(name = "precioFinal")
     private double precioFinal;
     @OneToMany(mappedBy = "comprobanteSalida")

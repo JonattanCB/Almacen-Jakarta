@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
+import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
+import org.Almacen.TopAlmacen.Model.Marca;
 
 import java.time.LocalDate;
 @Getter
@@ -15,9 +17,9 @@ import java.time.LocalDate;
 public class ProductoDto {
     private int id;
     private String nombre;
-    private String marca;
-    private CategoriaDto categoria;
-    private TipoUnidadDto tipoUnidadDto;
-    private String estado;
-    private LocalDate FechaRegistro;
+    private String color;
+    private String peso;
+    private CategoriaDto categoriaDto;
+    private MarcaDto marcaDto;
+    private LocalDate fechaRegistro;
 }

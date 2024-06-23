@@ -24,7 +24,7 @@ public class Rol {
     @Column(name = "Estado", nullable = false)
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
-    private LocalDate fechaRegistro;
+    private LocalDate fechaRegistro=LocalDate.now();
     @OneToMany(mappedBy = "rol")
     private List<Usuario> usuarios;
 }

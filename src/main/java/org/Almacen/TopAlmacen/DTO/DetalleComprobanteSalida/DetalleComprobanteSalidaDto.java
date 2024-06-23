@@ -1,11 +1,13 @@
 package org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.ComprobanteSalidaDto;
-import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
+
+import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
+import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 @Getter
 @Setter
@@ -13,7 +15,10 @@ import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 @NoArgsConstructor
 public class DetalleComprobanteSalidaDto {
     private int id;
-    private ComprobanteSalidaDto comprobanteSalidaDto;
-    private ProductoDto productoDto;
+    private ComprobanteSalida comprobanteSalida;
     private double cantidad;
+    private TipoUnidad tipoUnidad;
+    private String descripcion;
+    private double precioUnitario;
+    private double precioTotal;
 }

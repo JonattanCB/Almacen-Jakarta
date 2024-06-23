@@ -15,5 +15,4 @@ public class CreateCategoriaDto {
     private String nombre;
     private String descripcion;
     private String estado;
-    private LocalTime FechaRegistro=LocalTime.now();
 }

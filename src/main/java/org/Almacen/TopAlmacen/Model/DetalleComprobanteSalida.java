@@ -20,9 +20,19 @@ public class DetalleComprobanteSalida {
     @ManyToOne
     @JoinColumn(name = "ComprobanteSalida_ID", nullable = false)
     private ComprobanteSalida comprobanteSalida;
-    @ManyToOne
-    @JoinColumn(name = "Producto_ID", nullable = false)
-    private Producto producto;
+
     @Column(name = "Cantidad", nullable = false)
-    private double cantidad=0.00;
+    private double cantidad;
+    @ManyToOne
+    @JoinColumn(name = "TipoUnidad",nullable = false)
+    private TipoUnidad tipoUnidad;
+
+    @Column(name = "Descripcion",nullable = false)
+    private String descripcion;
+
+    @Column(name = "PrecioUnitario",nullable = false)
+    private double precioUnitario;
+
+    @Column(name = "PrecioTotal",nullable = false)
+    private double precioTotal;
 }

@@ -20,6 +20,5 @@ public class CategoriaDto {
     private String descripcion;
     private String estado;
     private LocalDate FechaRegistro;
-    private List<ProductoDto> productos;
 
 }

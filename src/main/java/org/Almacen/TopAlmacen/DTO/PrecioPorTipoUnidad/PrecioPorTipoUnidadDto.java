@@ -1,20 +1,21 @@
-package org.Almacen.TopAlmacen.DTO.Stock;
+package org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
-
-import java.time.LocalDate;
+import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockDto {
+public class PrecioPorTipoUnidadDto {
     private int id;
+    private TipoUnidadDto tipoUnidadDto;
     private ProductoDto productoDto;
-    private double cantidad;
-    private LocalDate fechaRegistro;
+    private double precio;
+    private double unidadesPorTipoUnidadPorProducto;
+
 }

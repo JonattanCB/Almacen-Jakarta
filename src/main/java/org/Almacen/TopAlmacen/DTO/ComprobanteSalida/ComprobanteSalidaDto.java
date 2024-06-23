@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 
 import java.time.LocalDate;
@@ -14,11 +15,9 @@ import java.time.LocalDate;
 
 public class ComprobanteSalidaDto {
     private int id;
-    private UsuarioDto usuarioDto;
+    private DependenciaDto dependenciaDto;
     private String paraUso;
-    private LocalDate fechaEntrega;
-    private String estadoAprobacion;
-    private String estadoDisponibilidad;
     private String observacion;
     private LocalDate fechaRegistro;
+    private double precioFinal;
 }

@@ -14,7 +14,6 @@ import java.time.LocalDate;
 public class RolDto {
     private int id;
     private String nombre;
-    private String descripcion;
     private String estado;
     private LocalDate fechaRegistro;
 }

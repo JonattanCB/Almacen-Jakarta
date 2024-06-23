@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class Requerimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "fechaRegistrada", nullable = false)
-    private LocalDate fechaRegistrada;
+    private LocalDateTime fechaRegistrada=LocalDateTime.now();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unidadDependencia", nullable = false)
     private UnidadDependencia unidadDependencia;

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -22,7 +23,7 @@ public class MovimientoStock {
     private int id;
 
     @Column(name = "Fecha_Registro",nullable = false)
-    private LocalDate fechaRegistro;
+    private LocalDateTime fechaRegistro=LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PrecioPorTipoUnidad_id",nullable = false)

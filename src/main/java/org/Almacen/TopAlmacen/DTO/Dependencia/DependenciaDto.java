@@ -14,7 +14,6 @@ import java.time.LocalDate;
 public class DependenciaDto {
     private int id;
     private String nombre;
-    private String ubicacion;
     private String estado;
     private LocalDate fechaRegistro;
 }

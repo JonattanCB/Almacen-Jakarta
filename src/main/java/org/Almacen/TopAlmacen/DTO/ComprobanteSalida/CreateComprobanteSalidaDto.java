@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
+import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
 
 import java.time.LocalDate;
+
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,12 +16,9 @@ import java.time.LocalDate;
 
 public class CreateComprobanteSalidaDto {
 
+    private DependenciaDto usuarioDto;
     private String paraUso;
-    private LocalDate fechaEntrega;
-    private String estadoAprobacion;
-    private String estadoDisponibilidad;
     private String observacion;
-    private LocalDate fechaRegistro=LocalDate.now();
-    private UsuarioDto usuarioDto;
+    private double precioFinal;
 
 }
