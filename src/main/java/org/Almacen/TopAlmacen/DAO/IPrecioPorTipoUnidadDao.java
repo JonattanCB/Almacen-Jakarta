@@ -1,6 +1,7 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad.UpdateCategoriaDto;
+import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
+import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface IPrecioPorTipoUnidadDao {
 
     PrecioPorTipoUnidad getById(int id);
 
-    void create(PrecioPorTipoUnidad c);
+    void create(PrecioPorTipoUnidadDto c);
 
-    void update(UpdateCategoriaDto c, int id);
+    void update(UpdatePrecioPorTipoUnidadDto c, int id);
 
     void delete(int id);
 }

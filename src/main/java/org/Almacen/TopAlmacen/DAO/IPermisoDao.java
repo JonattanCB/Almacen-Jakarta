@@ -1,6 +1,7 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import org.Almacen.TopAlmacen.Model.Permiso.UpdateCategoriaDto;
+import org.Almacen.TopAlmacen.DTO.Permiso.UpdatePermisoDto;
+
 import org.Almacen.TopAlmacen.Model.Permiso;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface IPermisoDao {
 
     void create(Permiso c);
 
-    void update(UpdateCategoriaDto c, int id);
+    void update(UpdatePermisoDto c, int id);
 
     void delete(int id);
 }

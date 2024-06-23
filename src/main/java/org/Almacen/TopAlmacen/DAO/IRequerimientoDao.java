@@ -1,6 +1,6 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import org.Almacen.TopAlmacen.Model.Requerimiento.UpdateCategoriaDto;
+import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.UpdateRequerimientoDto;
 import org.Almacen.TopAlmacen.Model.Requerimiento;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public interface IRequerimientoDao {
 
     void create(Requerimiento c);
 
-    void update(UpdateCategoriaDto c, int id);
+    void update(UpdateRequerimientoDto c, int id);
 
     void delete(int id);
 }

@@ -1,6 +1,6 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada.UpdateCategoriaDto;
+import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public interface IProductoProveedorEntradaDao {
 
     void create(ProductoProveedorEntrada c);
 
-    void update(UpdateCategoriaDto c, int id);
+    void update(UpdateProductoProveedorEntradaDto c, int id);
 
     void delete(int id);
 }

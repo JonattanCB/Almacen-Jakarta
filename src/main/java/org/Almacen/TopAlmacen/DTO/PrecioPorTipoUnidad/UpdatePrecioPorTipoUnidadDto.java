@@ -10,7 +10,7 @@ import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePrecioPorTipoUnidad {
+public class UpdatePrecioPorTipoUnidadDto {
     private TipoUnidadDto tipoUnidadDto;
     private ProductoDto productoDto;
     private double precio;
