@@ -42,7 +42,6 @@ public class CategoriaBeans implements Serializable {
         nuevaCategoria = new CreateCategoriaDto();
     }
 
-    public  void
 
     public void loadCategorias() {
         try {
