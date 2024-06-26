@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+.contenido-panel{
+    padding: 1.5rem;
+    width:100%;
+}
+
+.contendedor-card-paneles{
+    width: 100%;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 1.25rem;
+}
+
+body .ui-toolbar{
+    border: 1px solid #dee2e6;
+    background: #f8f9fa;
+    color: #495057;
+    padding: 0.7rem;
+    border-radius: 4px;
+    height: 3.99rem;
+}
+
+body .disenio-nuevo .ui-button-success{
+    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.5rem;
+}
+
+.disenio-nuevo .ui-button-success .ui-icon{
+    font-size: 0.5rem;
+}
+
+body .disenio-export .ui-button-help{
+    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.5rem;
+}
+
+.disenio-export .ui-button-help .ui-icon{
+    font-size: 0.5rem;
+}
+
+.header-tabla{
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.titulo-hearder-tabla{
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.busqueda-hearder-tabla{
+    float: right
+}
+
+.customer-badge {
+    border-radius: 2px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.customer-badge.status-Activo {
+    background: #C8E6C9;
+    color: #256029;
+}
+
+.customer-badge.status-Inactivo {
+    background: #FFCDD2;
+    color: #C63737;
+}
+
+body .ui-datatable thead th .ui-column-title{
+    font-size: 1rem;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td{
+    font-size: 1rem;
+}
+
+.ui-dialog-content::-webkit-scrollbar {
+    width: 9px;
+}
+
+.ui-dialog-content::-webkit-scrollbar-track {
+    background: rgb(255,255,255);
+}
+
+.ui-dialog-content::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 20px;
+    border: 3px solid rgb(255,255,255);
+}
+
+.texto_dialog{
+    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25rem;
+}
+
+body .ui-fluid .ui-inputtext {
+    width: 30rem;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+body .ui-fluid .ui-inputtextarea {
+    width: 30rem;
+    font-size: 0.9rem;
+    color: #495057;
+}

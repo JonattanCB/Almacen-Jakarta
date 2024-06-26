@@ -35,7 +35,6 @@ public class UsuarioDaoImp implements IUsuarioDao {
     public void update(Usuario c) {
         _entityManager.merge(c);
 
-
     }
 
     @Override

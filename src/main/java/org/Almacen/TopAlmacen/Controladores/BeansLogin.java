@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.Controladores;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.TopAlmacen.Model.Panels;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Named
+@Named("BeansLogin")
 @SessionScoped
 @Data
 public class BeansLogin implements Serializable {
@@ -30,19 +31,47 @@ public class BeansLogin implements Serializable {
     private List<Panels> list;
 
 
+    public String onMenuItemClick() {
+        // Acción a ejecutar cuando el ítem del menú sea seleccionado
+        System.out.println("¡Ítem del menú seleccionado!");
+        return "Personal/j";
+    }
+
+
+    public String irK() {
+        // Acción a ejecutar cuando el ítem del menú sea seleccionado
+        System.out.println("¡Ítem del menú ando aca!");
+        return "Personal/k";
+    }
+
+
+
+
+
+
+
     @PostConstruct
     public void init() {
         Nombre = "Jonattan Sebastian Contreras Baltazar";
 
+
+
+        String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
         model = new DefaultMenuModel();
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("wa").expanded(true).build();
-        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").icon("pi pi-home").url("http://localhost:8080/Almacen-Jakarta/protegido/Personal/j.xhtml").update("myform").build();
+        DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("pepe").icon("pi pi-home").url(contextPath+"/protegido/Personal/j.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
 
 
-        itemMenu = DefaultMenuItem.builder().value("maria").value("pepe").icon("pi pi-home").url("http://localhost:8080/Almacen-Jakarta/protegido/Personal/k.xhtml").build();
-        firstSubmenu.getElements().add(itemMenu);
+
+    //    itemMenu = DefaultMenuItem.builder().value("maria").icon("pi pi-home").url(contextPath+"/protegido/Personal/k.xhtml").update("contenido_escritorio-update").build();
+     //   firstSubmenu.getElements().add(itemMenu);
+
+
+
+       // itemMenu = DefaultMenuItem.builder().value("maria").icon("pi pi-home").command("#{BeansLogin.irK}").update("contenido_escritorio-update").build();
+     ///   firstSubmenu.getElements().add(itemMenu);
 
 
 
@@ -82,7 +111,6 @@ public class BeansLogin implements Serializable {
 
         for (int id=1;id<=10;id++){
             list.add(new Panels(id,"nombre","descrcipcion","Activo",80));
-            System.out.println(id);
         }
 
 

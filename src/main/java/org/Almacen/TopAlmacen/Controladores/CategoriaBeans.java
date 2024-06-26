@@ -10,10 +10,13 @@ import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
+import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
+import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Future;
 
 @Data
@@ -27,11 +30,19 @@ public class CategoriaBeans implements Serializable {
     private CreateCategoriaDto nuevaCategoria = new CreateCategoriaDto();
     private UpdateCategoriaDto updateCategoria = new UpdateCategoriaDto();
     private List<CategoriaDto> categorias;
+    private List<CategoriaDto> categoriasSeleccionadas;
     private int categoriaId;
 
     @PostConstruct
     public void init() {
+        loadCategorias();
     }
+
+    public void nuevaCategoria() {
+        nuevaCategoria = new CreateCategoriaDto();
+    }
+
+    public  void
 
     public void loadCategorias() {
         try {
@@ -52,6 +63,7 @@ public class CategoriaBeans implements Serializable {
     }
 
     public void createCategoria() {
+        System.out.println("entra aca");
         nuevaCategoria.setEstado("Activo");
         nuevaCategoria.setNombre("Cate");
         nuevaCategoria.setDescripcion("ddescripcion");
@@ -81,5 +93,29 @@ public class CategoriaBeans implements Serializable {
         categoriaService.deleteCategoriaAsync(categoriaId);
         loadCategorias();
     }
+
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (LangUtils.isValueBlank(filterText)) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+        CategoriaDto c = (CategoriaDto) value;
+        return  (c.getId()>=filterInt && c.getId()<=filterInt)
+                ||c.getNombre().toLowerCase().contains(filterText)
+                || c.getDescripcion().toLowerCase().contains(filterText);
+    }
+
+    private int getInteger(String string) {
+        try {
+            return Integer.parseInt(string);
+        }
+        catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+
+
+
 
 }

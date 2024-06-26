@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
+    <ui:define name="contenido">
+        <h:body>
+            <h:form id="form-datos">
+                <h:panelGrid styleClass="contenido-panel">
+                    <p:growl id="messages" showDetail="true" />
+                    <h:panelGrid styleClass="contendedor-card-paneles">
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton value="Nueva Categoria" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{categoriaBeans.createCategoria()}"
+                                                 update=":dialogs" oncomplete="PF('dialog').show()">
+                                    <p:resetInput target=":dialogs:dialog-content" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right" >
+                                <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
+                                    <p:dataExporter type="pdf" target="tabla" fileName="Categoria" exportHeader="false"/>
+                                </p:commandButton>
+                                <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
+                                    <p:dataExporter type="csv" target="tabla" fileName="Categoria" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="tabla" var="obj" value="#{categoriaBeans.categorias}" widgetVar="obj" style="margin-top: 1rem"
+                            emptyMessage="No hay elementos disponibles"  filteredValue="#{categoriaBeans.categoriasSeleccionadas}"
+                            globalFilterFunction="#{categoriaBeans.globalFilterFunction}"
+                            rows="10"  paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                    <div class="header-tabla">
+                                        <span class="titulo-hearder-tabla">Catálogo de categorias</span>
+                                        <span class="ui-input-icon-left busqueda-hearder-tabla">
+                                            <i class="pi pi-search"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
+                                                         style="font-size: 13px;width: 300px"
+                                                         placeholder="Buscar entre los datos de categorias"/>
+                                        </span>
+                                    </div>
+                            </f:facet>
+                            <p:column headerText="#" value="#{obj.id}" sortBy="#{obj.id}" width="50"  >
+                                <h:outputText value="#{obj.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="120" >
+                                <h:outputText value="#{obj.nombre}" />
+                            </p:column>
+                            <p:column headerText="Descripcion" sortBy="#{obj.descripcion}" width="300" >
+                                <h:outputText value="#{obj.descripcion}" styleClass="columnas-texto-table"/>
+                            </p:column>
+                            <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
+                                <h:outputText value="#{obj.estado}"
+                                              styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                            </p:column>
+                            <p:column exportable="false" width="40">
+                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                                 styleClass="edit-button rounded-button ui-button-warning" process="@this" >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{categoriaBeans.categoriaId}" />
+                                </p:commandButton>
+                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                                 icon="pi pi-arrow-right-arrow-left"  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{categoriaBeans.categoriaId}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="dialogs" >
+                <p:dialog header="Detalles de Categoria" showEffect="fade" modal="true" widgetVar="dialog" width="550" height="350" appendTo="@(body)" styleClass="dialogs-barra"  responsive="true">
+                    <p:outputPanel id="dialog-content" styleClass="ui-fluid" >
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
+                            <h:panelGrid>
+                                  <p:inputText styleClass="input-custom" value="#{categoriaBeans.nuevaCategoria.nombre}"/>
+                              </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid  style="margin-top: 1rem">
+                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
+                            <h:panelGrid>
+                                <p:inputTextarea  rows="6" cols="33"  value="#{categoriaBeans.nuevaCategoria.descripcion}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar"  icon="pi pi-check"  update="dialog-content" process="dialog-content @this" />
+                        <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialog').hide()"  styleClass="ui-button-secondary" type="button"/>
+                    </f:facet>
+                </p:dialog>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
+</html>
