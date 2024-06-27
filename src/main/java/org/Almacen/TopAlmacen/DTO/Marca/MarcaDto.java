@@ -14,6 +14,5 @@ import java.time.LocalDate;
 public class MarcaDto {
     private int id;
     private String nombre;
-    private String estado;
     private LocalDate fechaRegistro;
 }

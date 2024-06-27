@@ -10,9 +10,9 @@ public interface IMarcaDao {
 
     Marca getById(int id);
 
-    void create(Marca c);
+    Marca create(Marca c);
 
-    void update(UpdateMarcaDto c, int id);
+    Marca update(UpdateMarcaDto c, int id);
 
-    void delete(int id);
+    Marca delete(int id);
 }

@@ -28,6 +28,6 @@ public class Categoria {
     private String estado;
     @Column(name="FechaRegistro",nullable = false)
     private LocalDate FechaRegistro = LocalDate.now();
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria",fetch = FetchType.LAZY)
     private List<Producto>productos;
 }

@@ -56,8 +56,7 @@ public class CategoriaBeans implements Serializable {
     private void loadCategorias() {
         System.out.println("Iniciando LoadCategorias");
         try {
-            var futureCategorias = categoriaService.getAllCategoriasAsync();
-            categorias = futureCategorias.get();
+            categorias= categoriaService.getAllCategorias();
             for (CategoriaDto d : categorias) {
                 System.out.println(d.getNombre());
             }
@@ -73,7 +72,7 @@ public class CategoriaBeans implements Serializable {
         categoriaCreate.setNombre(categoriaDatosDto.getNombre());
         categoriaCreate.setDescripcion(categoriaDatosDto.getDescripcion());
         categoriaCreate.setEstado("Activo");
-        categoriaService.createCategoriaAsync(categoriaCreate);
+        categoriaService.createCategoria(categoriaCreate);
         System.out.println("AgregadoCorrectamente");
     }
 
@@ -92,13 +91,13 @@ public class CategoriaBeans implements Serializable {
         CategoriaUpdate.setDescripcion(categoriaDto.getDescripcion());
         CategoriaUpdate.setEstado(categoriaDto.getEstado());*/
         if (categoriaId != 0) {
-            categoriaService.updateCategoriaAsync(id, CategoriaUpdate);
+            categoriaService.updateCategoria(id, CategoriaUpdate);
             loadCategorias();
         }
     }
 
     public void eliminarCategoria() {
-        categoriaService.deleteCategoriaAsync(categoriaId);
+        categoriaService.deleteCategoria(categoriaId);
         loadCategorias();
     }
 

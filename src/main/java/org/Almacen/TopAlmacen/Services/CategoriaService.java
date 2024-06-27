@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
-
 @Stateless
 @LocalBean
 public class CategoriaService implements Serializable {
@@ -28,23 +27,15 @@ public class CategoriaService implements Serializable {
     @Inject
     private ICategoriaDao iCategoriaDao;
 
-    @Asynchronous
-    public Future<List<CategoriaDto>> getAllCategoriasAsync() {
-        System.out.println("Ingresando a categoria Services");
+    @Transactional
+    public List<CategoriaDto> getAllCategorias() {
         List<Categoria> categorias = iCategoriaDao.getAll();
-        if (categorias == null || categorias.isEmpty()) {                                                         
-            return CompletableFuture.completedFuture(null);
-        }
-        return CompletableFuture.completedFuture(categorias.stream()
-                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), c.getEstado(), c.getFechaRegistro()))
-                .collect(Collectors.toList()));
+        return categorias.stream()
+                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), String.valueOf(c.getEstado()), c.getFechaRegistro()))
+                .collect(Collectors.toList());
     }
 
-    @Asynchronous
-    public Future<CategoriaConProductosDto> getCategoriaByIdAsync(int id) {
-        return CompletableFuture.completedFuture(getCategoriaById(id));
-    }
-
+    @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
         if (categoria == null || !categoria.getEstado().equals("Activo")) {
@@ -71,20 +62,19 @@ public class CategoriaService implements Serializable {
         );
     }
 
-    @Asynchronous
-    public void createCategoriaAsync(CreateCategoriaDto createCategoriaDto) {
-        System.out.println("ingresando a la capa services createCategoria");
+    @Transactional
+    public Categoria createCategoria(CreateCategoriaDto createCategoriaDto) {
         var categoria = CategoriaMapper.toCategoriaFromCreate(createCategoriaDto);
-        iCategoriaDao.create(categoria);
+        return iCategoriaDao.create(categoria);
     }
 
-    @Asynchronous
-    public void updateCategoriaAsync(int id, UpdateCategoriaDto updateCategoriaDto) {
-        iCategoriaDao.update(updateCategoriaDto, id);
+    @Transactional
+    public Categoria updateCategoria(int id, UpdateCategoriaDto updateCategoriaDto) {
+        return iCategoriaDao.update(updateCategoriaDto, id);
     }
 
-    @Asynchronous
-    public void deleteCategoriaAsync(int id) {
-        iCategoriaDao.delete(id);
+    @Transactional
+    public Categoria deleteCategoria(int id) {
+        return iCategoriaDao.delete(id);
     }
 }
