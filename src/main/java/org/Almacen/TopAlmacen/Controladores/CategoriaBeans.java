@@ -5,6 +5,7 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
+import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaConProductosDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
@@ -26,7 +27,6 @@ public class CategoriaBeans implements Serializable {
     UpdateCategoriaDto CategoriaUpdate = new UpdateCategoriaDto();
     private CategoriaDto categoriaDto;
     private List<CategoriaDto> categorias;
-    private List<CategoriaDto> categoriasSeleccionadas;
     private int categoriaId;
 
     @PostConstruct
@@ -73,6 +73,10 @@ public class CategoriaBeans implements Serializable {
         categoriaCreate.setEstado("Activo");
         categoriaService.createCategoria(categoriaCreate);
         System.out.println("AgregadoCorrectamente");
+    }
+    public void cargarCategoriaConProductos(){
+        CategoriaConProductosDto categoriaConProductosDto = new CategoriaConProductosDto();
+        categoriaService.getCategoriaById(categoriaId);
     }
 
     public void cargarCategoriaParaEdicion() {
