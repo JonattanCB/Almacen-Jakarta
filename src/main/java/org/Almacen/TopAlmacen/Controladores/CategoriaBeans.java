@@ -24,8 +24,8 @@ public class CategoriaBeans implements Serializable {
 
     @Inject
     private CategoriaService categoriaService;
-    UpdateCategoriaDto CategoriaUpdate = new UpdateCategoriaDto();
-    private CategoriaDto categoriaDto;
+
+    private CategoriaDto categoriaDatosDto;
     private List<CategoriaDto> categorias;
     private int categoriaId;
 
@@ -37,11 +37,11 @@ public class CategoriaBeans implements Serializable {
 
     public void nuevaCategoria() {
 
-        categoriaDto = new CategoriaDto();
+        categoriaDatosDto = new CategoriaDto();
     }
 
     public void determinarAccion() {
-        if (categoriaDto.getId() == 0) {
+        if (categoriaDatosDto.getId() == 0) {
             createCategoria();
             loadCategorias();
         } else {
@@ -55,7 +55,7 @@ public class CategoriaBeans implements Serializable {
     private void loadCategorias() {
         System.out.println("Iniciando LoadCategorias");
         try {
-            categorias = categoriaService.getAllCategorias();
+            categorias= categoriaService.getAllCategorias();
             for (CategoriaDto d : categorias) {
                 System.out.println(d.getNombre());
             }
@@ -68,8 +68,8 @@ public class CategoriaBeans implements Serializable {
     private void createCategoria() {
         System.out.println("Iniciando CrearCategoria");
         CreateCategoriaDto categoriaCreate = new CreateCategoriaDto();
-        categoriaCreate.setNombre(categoriaDto.getNombre());
-        categoriaCreate.setDescripcion(categoriaDto.getDescripcion());
+        categoriaCreate.setNombre(categoriaDatosDto.getNombre());
+        categoriaCreate.setDescripcion(categoriaDatosDto.getDescripcion());
         categoriaCreate.setEstado("Activo");
         categoriaService.createCategoria(categoriaCreate);
         System.out.println("AgregadoCorrectamente");
@@ -82,18 +82,19 @@ public class CategoriaBeans implements Serializable {
     public void cargarCategoriaParaEdicion() {
         var categoria = categoriaService.getCategoriaById(categoriaId);
         if (categoria != null) {
-            categoriaDto.setNombre(categoria.getNombre());
-            categoriaDto.setDescripcion(categoria.getDescripcion());
-            categoriaDto.setEstado(categoria.getEstado());
+            // categoriaDto.setNombre(categoria.getNombre());
+            //categoriaDto.setDescripcion(categoria.getDescripcion());
+            //categoriaDto.setEstado(categoria.getEstado());
         }
     }
 
-    private void updateCategoria() {
-        CategoriaUpdate.setNombre(categoriaDto.getNombre());
+    private void updateCategoria(int id) {
+        UpdateCategoriaDto CategoriaUpdate = new UpdateCategoriaDto();
+       /* CategoriaUpdate.setNombre(categoriaDto.getNombre());
         CategoriaUpdate.setDescripcion(categoriaDto.getDescripcion());
-        CategoriaUpdate.setEstado(categoriaDto.getEstado());
+        CategoriaUpdate.setEstado(categoriaDto.getEstado());*/
         if (categoriaId != 0) {
-            categoriaService.updateCategoria(categoriaId, CategoriaUpdate);
+            categoriaService.updateCategoria(id, CategoriaUpdate);
             loadCategorias();
         }
     }
