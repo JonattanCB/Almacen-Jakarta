@@ -9,29 +9,30 @@
     <h:outputStylesheet  library="primefaces-saga" name="theme.css"  />
     <h:outputStylesheet  library="css" name="styles1.css"  />
 </h:head>
-      <h:body styleClass="color-fondo">
-          <h:form id="form">
-              <p:growl id="messages" />
-              <div class="container-form">
-                  <div class="form">
-                      <h:panelGrid styleClass="container-logo">
-                          <h:graphicImage styleClass="logo" library="imagenes" name="logo.png" />
-                      </h:panelGrid>
-                      <h:panelGrid styleClass="container-items">
-                          <h:panelGrid styleClass="container-bienvenido">
-                              <p>
-                                  <h:outputText value="¡Bienvenido de nuevo!" styleClass="bienvenido" />
-                              </p>
-                          </h:panelGrid>
-                          <h:panelGrid styleClass="container-inputs">
-                              <p:inputText value="a" placeholder="Correo" styleClass="correo"  type="email" /><br/>
-                              <p:password value="a" toggleMask="true" redisplay="true"
-                                          placeholder="Contraseña" styleClass="correo" /><br/>
-                              <p:commandButton value="Iniciar Sesion"   styleClass="button ui-button-danger"  update="form" />
-                          </h:panelGrid>
-                      </h:panelGrid>
-                  </div>
-              </div>
-          </h:form>
-      </h:body>
+<h:body styleClass="color-fondo">
+    <h:form id="form">
+        <p:growl id="messages" />
+        <div class="container-form">
+            <div class="form">
+                <h:panelGrid styleClass="container-logo">
+                    <h:graphicImage styleClass="logo" library="imagenes" name="logo.png" />
+                </h:panelGrid>
+                <h:panelGrid styleClass="container-items">
+                    <h:panelGrid styleClass="container-bienvenido">
+                        <p>
+                            <h:outputText value="¡Bienvenido de nuevo!" styleClass="bienvenido" />
+                        </p>
+                    </h:panelGrid>
+                    <h:panelGrid styleClass="container-inputs">
+                        <p:inputText value="a" placeholder="Correo" styleClass="correo"  type="email" /><br/>
+                        <p:password value="a" toggleMask="true" redisplay="true"
+                                    placeholder="Contraseña" styleClass="correo" /><br/>
+                        <p:commandButton value="Iniciar Sesion" styleClass="button ui-button-danger"
+                                         action="#{categoriaBeans.createCategoria()}" update="form" />
+                    </h:panelGrid>
+                </h:panelGrid>
+            </div>
+        </div>
+    </h:form>
+</h:body>
 </html>

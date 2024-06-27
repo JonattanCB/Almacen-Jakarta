@@ -30,8 +30,9 @@ public class CategoriaService implements Serializable {
 
     @Asynchronous
     public Future<List<CategoriaDto>> getAllCategoriasAsync() {
+        System.out.println("Ingresando a categoria Services");
         List<Categoria> categorias = iCategoriaDao.getAll();
-        if (categorias == null || categorias.isEmpty()) {
+        if (categorias == null || categorias.isEmpty()) {                                                         
             return CompletableFuture.completedFuture(null);
         }
         return CompletableFuture.completedFuture(categorias.stream()
@@ -72,6 +73,7 @@ public class CategoriaService implements Serializable {
 
     @Asynchronous
     public void createCategoriaAsync(CreateCategoriaDto createCategoriaDto) {
+        System.out.println("ingresando a la capa services createCategoria");
         var categoria = CategoriaMapper.toCategoriaFromCreate(createCategoriaDto);
         iCategoriaDao.create(categoria);
     }

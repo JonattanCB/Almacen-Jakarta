@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
+import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
 
-import java.time.LocalDate;
 
 
 @Getter
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 
 public class CreateComprobanteSalidaDto {
 
-    private DependenciaDto usuarioDto;
+    private UnidadDependenciaDto unidadDependenciaDto;
     private String paraUso;
     private String observacion;
     private double precioFinal;

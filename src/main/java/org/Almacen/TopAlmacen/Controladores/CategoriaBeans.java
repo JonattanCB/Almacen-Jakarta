@@ -52,6 +52,7 @@ public class CategoriaBeans implements Serializable {
 
 
     private void loadCategorias() {
+        System.out.println("Iniciando LoadCategorias");
         try {
             var futureCategorias = categoriaService.getAllCategoriasAsync();
             categorias = futureCategorias.get();
@@ -65,12 +66,14 @@ public class CategoriaBeans implements Serializable {
     }
 
     private void createCategoria() {
+        System.out.println("Iniciando CrearCategoria");
         CreateCategoriaDto categoriaCreate = new CreateCategoriaDto();
         categoriaCreate.setNombre(categoriaDatosDto.getNombre());
         categoriaCreate.setDescripcion(categoriaDatosDto.getDescripcion());
         categoriaCreate.setEstado("Activo");
         categoriaService.createCategoriaAsync(categoriaCreate);
         loadCategorias();
+        System.out.println("AgregadoCorrectamente");
     }
 
     public void cargarCategoriaParaEdicion() {

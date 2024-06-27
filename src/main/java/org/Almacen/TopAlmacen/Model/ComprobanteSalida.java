@@ -30,6 +30,8 @@ public class ComprobanteSalida {
     private LocalDateTime fechaRegistro= LocalDateTime.now();
     @Column(name = "precioFinal")
     private double precioFinal;
+    @Column(name = "Observacion")
+    private String Observacion;
     @OneToMany(mappedBy = "comprobanteSalida")
     private List<DetalleComprobanteSalida> detalleComprobanteSalida;
 }

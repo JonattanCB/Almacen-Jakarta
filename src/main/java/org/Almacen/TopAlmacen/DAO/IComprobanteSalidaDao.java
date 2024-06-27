@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.DAO;
 
+import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.UpdateComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
 
 import java.util.List;
@@ -9,9 +10,9 @@ public interface IComprobanteSalidaDao {
 
     ComprobanteSalida getById(int id);
 
-    void create(ComprobanteSalida c);
+    ComprobanteSalida create(ComprobanteSalida c);
 
-    void update(ComprobanteSalida c);
+    ComprobanteSalida update(UpdateComprobanteSalidaDto c, int id);
 
-    void delete(ComprobanteSalida c);
+    ComprobanteSalida delete(int id);
 }

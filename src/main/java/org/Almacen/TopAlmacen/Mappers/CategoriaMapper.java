@@ -35,4 +35,10 @@ public class CategoriaMapper {
         categoria.setEstado(dto.getEstado());
         return categoria;
     }
+
+    public static Categoria changeEstadoActive(Categoria c, String estado) {
+        c.setEstado(estado);
+        return c;
+    }
+
 }

@@ -10,11 +10,13 @@ import java.util.List;
 public interface ICategoriaDao {
     List<Categoria> getAll();
 
+    List<Categoria> getAllByEstadoActivo();
+
     Categoria getById(int id);
 
-    void create(Categoria c);
+    Categoria create(Categoria c);
 
-    void update(UpdateCategoriaDto c, int id);
+    Categoria update(UpdateCategoriaDto c, int id);
 
-    void delete(int id);
+    Categoria delete(int id);
 }

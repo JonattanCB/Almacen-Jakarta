@@ -6,13 +6,16 @@ import org.Almacen.TopAlmacen.Model.DetalleComprobanteSalida;
 import java.util.List;
 
 public interface IDetalleComprobanteSalidaDao {
+
     List<DetalleComprobanteSalida> getAll();
+
+    List<DetalleComprobanteSalida> getAllByComprobanteSalida(int id);
 
     DetalleComprobanteSalida getById(int id);
 
-    void create(DetalleComprobanteSalida c);
+    DetalleComprobanteSalida create(DetalleComprobanteSalida c);
 
-    void update(DetalleComprobanteSalida c);
+    DetalleComprobanteSalida update(DetalleComprobanteSalida c, int id);
 
-    void delete(DetalleComprobanteSalida c);
+    DetalleComprobanteSalida delete(int id);
 }

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
+import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
 @Getter
 @Setter
@@ -12,7 +12,7 @@ import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
 @NoArgsConstructor
 
 public class UpdateComprobanteSalidaDto {
-    private DependenciaDto usuarioDto;
+    private UnidadDependencia unidadDependencia;
     private String paraUso;
     private String observacion;
     private double precioFinal;
