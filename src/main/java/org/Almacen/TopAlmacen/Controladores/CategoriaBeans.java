@@ -32,17 +32,19 @@ public class CategoriaBeans implements Serializable {
 
     @PostConstruct
     public void init() {
+
         loadCategorias();
     }
 
     public void nuevaCategoria() {
+
         categoriaDatosDto = new CategoriaDatosDto();
     }
 
-    public void determinarAccion(){
-        if (categoriaDatosDto.getId() == 0){
+    public void determinarAccion() {
+        if (categoriaDatosDto.getId() == 0) {
             createCategoria();
-        }else{
+        } else {
 
         }
         loadCategorias();
@@ -56,7 +58,7 @@ public class CategoriaBeans implements Serializable {
         try {
             var futureCategorias = categoriaService.getAllCategoriasAsync();
             categorias = futureCategorias.get();
-            for (CategoriaDto d : categorias){
+            for (CategoriaDto d : categorias) {
                 System.out.println(d.getNombre());
             }
             System.out.println("-".repeat(199));
@@ -72,14 +74,13 @@ public class CategoriaBeans implements Serializable {
         categoriaCreate.setDescripcion(categoriaDatosDto.getDescripcion());
         categoriaCreate.setEstado("Activo");
         categoriaService.createCategoriaAsync(categoriaCreate);
-        loadCategorias();
         System.out.println("AgregadoCorrectamente");
     }
 
     public void cargarCategoriaParaEdicion() {
         var categoria = categoriaService.getCategoriaById(categoriaId);
         if (categoria != null) {
-           // categoriaDto.setNombre(categoria.getNombre());
+            // categoriaDto.setNombre(categoria.getNombre());
             //categoriaDto.setDescripcion(categoria.getDescripcion());
             //categoriaDto.setEstado(categoria.getEstado());
         }
@@ -108,21 +109,18 @@ public class CategoriaBeans implements Serializable {
         }
         int filterInt = getInteger(filterText);
         CategoriaDto c = (CategoriaDto) value;
-        return  (c.getId()>=filterInt && c.getId()<=filterInt)
-                ||c.getNombre().toLowerCase().contains(filterText)
+        return (c.getId() >= filterInt && c.getId() <= filterInt)
+                || c.getNombre().toLowerCase().contains(filterText)
                 || c.getDescripcion().toLowerCase().contains(filterText);
     }
 
     private int getInteger(String string) {
         try {
             return Integer.parseInt(string);
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return 0;
         }
     }
-
-
 
 
 }

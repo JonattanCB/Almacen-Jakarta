@@ -10,9 +10,9 @@ public interface IItemsRequerimientoDao {
 
     ItemsRequerimiento getById(int id);
 
-    void create(ItemsRequerimiento c);
+    ItemsRequerimiento create(ItemsRequerimiento c);
 
-    void update(UpdateRequerimientoDto c, int id);
+    ItemsRequerimiento update(UpdateRequerimientoDto c, int id);
 
-    void delete(int id);
+    ItemsRequerimiento delete(int id);
 }

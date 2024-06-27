@@ -9,7 +9,7 @@ public interface IHistorialPreciosDao {
 
     HistorialPrecios getById(int id);
 
-    void create(HistorialPrecios c);
+    HistorialPrecios create(HistorialPrecios c);
 
-    void delete(int id);
+    HistorialPrecios delete(int id);
 }

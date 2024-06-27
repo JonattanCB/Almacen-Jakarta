@@ -10,9 +10,9 @@ public interface IEmpresaDao {
 
     Empresa getById(int id);
 
-    void create(Empresa c);
+    Empresa create(Empresa c);
 
-    void update(UpdateEmpresaDto c, int id);
+    Empresa update(UpdateEmpresaDto c, int id);
 
-    void delete(int id);
+    Empresa delete(int id);
 }

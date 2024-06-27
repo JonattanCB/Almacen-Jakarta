@@ -12,7 +12,6 @@ import org.Almacen.TopAlmacen.Model.TipoUnidad;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateRequerimientoDto {
-    private RequerimientoDto requerimientoDto;
     private double Cantidad;
     private TipoUnidad tipoUnidad;
     private String descripcion;
