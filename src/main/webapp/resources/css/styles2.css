@@ -12,7 +12,7 @@
 .contenido-menu {
     background-color: rgb(52,58,64);
     width: 16%;
-    height: 730px;
+    height: 100vw;
     position: absolute;
     box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.8);
 }

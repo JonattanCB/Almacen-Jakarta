@@ -1,34 +1,31 @@
 package org.Almacen.TopAlmacen.Controladores;
 
-import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.annotation.ViewMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
+import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDatosDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
-import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
+import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Future;
 
 @Data
-@Named
+@Named("CategoriaBeans")
 @SessionScoped
 public class CategoriaBeans implements Serializable {
 
     @Inject
-    CategoriaService categoriaService;
+    private CategoriaService categoriaService;
 
-    private CreateCategoriaDto nuevaCategoria = new CreateCategoriaDto();
-    private UpdateCategoriaDto updateCategoria = new UpdateCategoriaDto();
+    private CategoriaDatosDto categoriaDatosDto;
     private List<CategoriaDto> categorias;
     private List<CategoriaDto> categoriasSeleccionadas;
     private int categoriaId;
@@ -39,51 +36,59 @@ public class CategoriaBeans implements Serializable {
     }
 
     public void nuevaCategoria() {
-        nuevaCategoria = new CreateCategoriaDto();
+        categoriaDatosDto = new CategoriaDatosDto();
+    }
+
+    public void determinarAccion(){
+        if (categoriaDatosDto.getId() == 0){
+            createCategoria();
+        }else{
+
+        }
+        loadCategorias();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
 
-    public void loadCategorias() {
+    private void loadCategorias() {
         try {
             var futureCategorias = categoriaService.getAllCategoriasAsync();
             categorias = futureCategorias.get();
-            if (categorias == null) {
-                System.out.println("lista vacia");
+            for (CategoriaDto d : categorias){
+                System.out.println(d.getNombre());
             }
-
-            System.out.println("lista llena " + categorias.size());
-
-            for (CategoriaDto categoria : categorias) {
-                System.out.println(categoria.getNombre());
-            }
+            System.out.println("-".repeat(199));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void createCategoria() {
-        System.out.println("entra aca");
-        nuevaCategoria.setEstado("Activo");
-        nuevaCategoria.setNombre("Cate");
-        nuevaCategoria.setDescripcion("ddescripcion");
-        categoriaService.createCategoriaAsync(nuevaCategoria);
+    private void createCategoria() {
+        CreateCategoriaDto categoriaCreate = new CreateCategoriaDto();
+        categoriaCreate.setNombre(categoriaDatosDto.getNombre());
+        categoriaCreate.setDescripcion(categoriaDatosDto.getDescripcion());
+        categoriaCreate.setEstado("Activo");
+        categoriaService.createCategoriaAsync(categoriaCreate);
         loadCategorias();
-        nuevaCategoria = new CreateCategoriaDto();
     }
 
-    public void cargarCategoriaParaEdicion(int id) {
-        var categoria = categoriaService.getCategoriaById(id);
+    public void cargarCategoriaParaEdicion() {
+        var categoria = categoriaService.getCategoriaById(categoriaId);
         if (categoria != null) {
-            updateCategoria.setNombre(categoria.getNombre());
-            updateCategoria.setDescripcion(categoria.getDescripcion());
-            updateCategoria.setEstado(categoria.getEstado());
-            categoriaId = id;
+           // categoriaDto.setNombre(categoria.getNombre());
+            //categoriaDto.setDescripcion(categoria.getDescripcion());
+            //categoriaDto.setEstado(categoria.getEstado());
         }
     }
 
-    public void updateCategoria() {
+    private void updateCategoria(int id) {
+        UpdateCategoriaDto CategoriaUpdate = new UpdateCategoriaDto();
+       /* CategoriaUpdate.setNombre(categoriaDto.getNombre());
+        CategoriaUpdate.setDescripcion(categoriaDto.getDescripcion());
+        CategoriaUpdate.setEstado(categoriaDto.getEstado());*/
         if (categoriaId != 0) {
-            categoriaService.updateCategoriaAsync(categoriaId, updateCategoria);
+            categoriaService.updateCategoriaAsync(id, CategoriaUpdate);
             loadCategorias();
         }
     }

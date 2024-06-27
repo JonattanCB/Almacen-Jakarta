@@ -20,5 +20,4 @@ public class CategoriaConProductosDto {
     private String estado;
     private LocalDate FechaRegistro;
     private List<ProductoDto> productos;
-
 }

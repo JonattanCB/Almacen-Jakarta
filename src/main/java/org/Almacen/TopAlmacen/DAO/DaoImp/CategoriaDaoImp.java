@@ -31,9 +31,7 @@ public class CategoriaDaoImp implements ICategoriaDao {
 
     @Override
     public void create(Categoria c) {
-
         _entityManager.persist(c);
-        System.out.println("Categoria creada: " + c.getNombre());
     }
 
     @Override

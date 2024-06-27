@@ -1,17 +1,13 @@
 package org.Almacen.TopAlmacen.DTO.Categoria;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.Model.Producto;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoriaDto {
@@ -20,5 +16,4 @@ public class CategoriaDto {
     private String descripcion;
     private String estado;
     private LocalDate FechaRegistro;
-
 }

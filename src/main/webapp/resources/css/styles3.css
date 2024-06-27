@@ -111,6 +111,27 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-me
     border: 3px solid rgb(52,58,64);
 }
 
+.dialogs-barra{
+    width: 30rem;
+    height: 25rem;
+    border: none;
+    overflow-y: auto;
+}
+
+.dialogs-barra::-webkit-scrollbar{
+    width: 9px;
+}
+
+.dialogs-barra::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.dialogs-barra::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 3px solid #ffffff;
+}
+
 .ui-panel .menu-dinamico {
     background: #1e252e;
 }
