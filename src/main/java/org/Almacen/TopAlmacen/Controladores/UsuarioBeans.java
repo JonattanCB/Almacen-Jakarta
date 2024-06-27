@@ -30,7 +30,22 @@ public class UsuarioBeans implements Serializable {
         usuarioDto = new UsuarioDto();
     }
 
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (LangUtils.isValueBlank(filterText)) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+        UsuarioDto u = (UsuarioDto) value;
+        return (u.getId() >= filterInt && u.getId() <= filterInt);
+    }
 
-
+    private int getInteger(String string) {
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
 
 }

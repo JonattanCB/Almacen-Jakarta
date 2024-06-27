@@ -13,6 +13,7 @@
    <h:outputStylesheet library="css" name="styles2.css"/>
    <h:outputStylesheet library="css" name="styles3.css"/>
     <h:outputStylesheet  library="css" name="styles4.css" />
+    <f:event type="preRenderView" listener="#{PantillaBeans.verificarSesion()}"/>
 </h:head>
 <h:body>
       <div class="contenido-menu">
@@ -55,12 +56,14 @@
          </h:panelGrid>
          <div id="submenu-perfil" class="submenu-perfil">
              <h:panelGrid style="padding: 0.5rem;">
-                 <h:commandLink   styleClass="opciones-perfil" >
-                     <i class="pi pi-user" /><h:outputText  value="Editar Perfil" styleClass="perfil-editar"/>
-                 </h:commandLink>
-                 <h:commandLink   styleClass="opciones-perfil">
-                     <i class="pi pi-power-off" /><h:outputText  value="Cerrar Sesion" styleClass="perfil-editar"/>
-                 </h:commandLink>
+                 <h:form>
+                     <h:commandLink   styleClass="opciones-perfil" >
+                         <i class="pi pi-user" /><h:outputText  value="Editar Perfil" styleClass="perfil-editar"/>
+                     </h:commandLink>
+                     <h:commandLink  actionListener="#{LoginBeans.cerrarSession()}" action="/index?faces-redirect=true"  styleClass="opciones-perfil">
+                         <i class="pi pi-power-off" /><h:outputText  value="Cerrar Sesion" styleClass="perfil-editar"/>
+                     </h:commandLink>
+                 </h:form>
              </h:panelGrid>
          </div>
          <div id="contenido" class="contenido-escritorio">

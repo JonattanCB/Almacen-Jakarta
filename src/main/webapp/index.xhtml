@@ -24,11 +24,11 @@
                         </p>
                     </h:panelGrid>
                     <h:panelGrid styleClass="container-inputs">
-                        <p:inputText value="a" placeholder="Correo" styleClass="correo"  type="email" /><br/>
-                        <p:password value="a" toggleMask="true" redisplay="true"
+                        <p:inputText value="#{LoginBeans.usuarioDto.correo}" placeholder="Correo" styleClass="correo"  type="email" /><br/>
+                        <p:password value="#{LoginBeans.usuarioDto.contra}" toggleMask="true" redisplay="true"
                                     placeholder="Contraseña" styleClass="correo" /><br/>
                         <p:commandButton value="Iniciar Sesion" styleClass="button ui-button-danger"
-                                         action="#{categoriaBeans.createCategoria()}" update="form" />
+                                         action="#{LoginBeans.iniciarSesion()}" update="form" />
                     </h:panelGrid>
                 </h:panelGrid>
             </div>
