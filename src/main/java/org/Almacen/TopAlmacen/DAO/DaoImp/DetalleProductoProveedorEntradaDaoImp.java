@@ -36,7 +36,8 @@ public class DetalleProductoProveedorEntradaDaoImp implements IDetalleProductoPr
 
     @Override
     public DetalleProductoProveedorEntrada create(DetalleProductoProveedorEntrada c) {
-        return _entityManager.merge(c);
+        _entityManager.persist(c);
+        return c;
     }
 
     @Override

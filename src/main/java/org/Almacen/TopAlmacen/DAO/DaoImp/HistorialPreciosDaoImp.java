@@ -7,6 +7,7 @@ import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 
 import java.util.List;
+
 @Named
 public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
     @PersistenceContext
@@ -24,7 +25,8 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
 
     @Override
     public HistorialPrecios create(HistorialPrecios c) {
-        return _entityManager.merge(c);
+        _entityManager.persist(c);
+        return c;
     }
 
     @Override

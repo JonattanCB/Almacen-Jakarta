@@ -25,7 +25,9 @@ public class DependenciaDaoImp implements IDependenciaDao {
 
     @Override
     public Dependencia create(Dependencia c) {
-        return _entityManager.merge(c);
+
+        _entityManager.persist(c);
+        return c;
     }
 
     @Override

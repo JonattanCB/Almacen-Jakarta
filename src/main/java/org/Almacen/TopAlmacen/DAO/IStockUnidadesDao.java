@@ -10,9 +10,9 @@ public interface IStockUnidadesDao {
 
     StockUnidades getById(int id);
 
-    void create(StockUnidades c);
+    StockUnidades create(StockUnidades c);
 
-    void update(UpdateStockUnidadesDto c, int id);
+    StockUnidades update(UpdateStockUnidadesDto c, int id);
 
-    void delete(int id);
+    StockUnidades delete(int id);
 }

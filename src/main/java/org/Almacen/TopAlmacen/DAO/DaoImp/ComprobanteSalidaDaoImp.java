@@ -30,9 +30,8 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
 
     @Override
     public ComprobanteSalida create(ComprobanteSalida c) {
-        var comprobanteSalida = _entityManager.merge(c);
-        _entityManager.detach(comprobanteSalida);
-        return  comprobanteSalida;
+        _entityManager.persist(c);
+        return c;
 
     }
 

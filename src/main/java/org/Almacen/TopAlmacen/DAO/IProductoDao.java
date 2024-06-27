@@ -1,6 +1,7 @@
 package org.Almacen.TopAlmacen.DAO;
 
 
+import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
 import org.Almacen.TopAlmacen.Model.Producto;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface IProductoDao {
 
     Producto getById(int id);
 
-    void create(Producto c);
+    Producto create(Producto c);
 
-    void update(Producto c);
+    Producto update(UpdateProductoDto u,int id);
 
-    void delete(Producto c);
+    Producto delete(int id);
 }

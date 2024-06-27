@@ -1,6 +1,5 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 
@@ -11,9 +10,9 @@ public interface IPrecioPorTipoUnidadDao {
 
     PrecioPorTipoUnidad getById(int id);
 
-    void create(PrecioPorTipoUnidadDto c);
+    PrecioPorTipoUnidad create(PrecioPorTipoUnidad c);
 
-    void update(UpdatePrecioPorTipoUnidadDto c, int id);
+    PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto c, int id);
 
-    void delete(int id);
+    PrecioPorTipoUnidad delete(int id);
 }

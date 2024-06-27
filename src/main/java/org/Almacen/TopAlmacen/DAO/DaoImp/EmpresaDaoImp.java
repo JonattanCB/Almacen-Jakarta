@@ -24,7 +24,8 @@ public class EmpresaDaoImp implements IEmpresaDao {
 
     @Override
     public Empresa create(Empresa c) {
-        return _entityManager.merge(c);
+        _entityManager.persist(c);
+        return c;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class EmpresaDaoImp implements IEmpresaDao {
         if (empresa != null) {
             _entityManager.remove(empresa);
             return empresa;
-        }else {
+        } else {
             return null;
         }
     }
