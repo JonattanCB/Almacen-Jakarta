@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateMarcaDto {
     private String nombre;
-
+    private String estado;
 }

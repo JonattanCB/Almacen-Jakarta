@@ -16,6 +16,8 @@ public interface ICategoriaDao {
 
     Categoria create(Categoria c);
 
+    void cambioEstado(int id, String estado);
+
     Categoria update(UpdateCategoriaDto c, int id);
 
     Categoria delete(int id);

@@ -36,9 +36,5 @@ public class CategoriaMapper {
         return categoria;
     }
 
-    public static Categoria changeEstadoActive(Categoria c, String estado) {
-        c.setEstado(estado);
-        return c;
-    }
 
 }

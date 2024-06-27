@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
+    <ui:define name="contenido">
+        <h:form id="form-datos">
+            <h:panelGrid styleClass="contenido-panel">
+                <p:growl id="messages"/>
+                    <h:panelGrid styleClass="contendedor-card-paneles">
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton value="Nueva Marca" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{MarcaBeans.nuevaMarca()}"
+                                                update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right" >
+                                <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
+                                    <p:dataExporter type="pdf" target="tabla" fileName="Marca" exportHeader="false"/>
+                                </p:commandButton>
+                                <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
+                                    <p:dataExporter type="csv" target="tabla" fileName="Marca" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="tabla" var="obj" value="#{MarcaBeans.marcaDtoList}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{MarcaBeans.marcaDtoListSeleccionado}"
+                                     globalFilterFunction="#{MarcaBeans.globalFilterFunction}"
+                                     rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                    <div class="header-tabla">
+                                        <span class="titulo-hearder-tabla">Catálogo de Marcas</span>
+                                        <span class="ui-input-icon-left busqueda-hearder-tabla">
+                                            <i class="pi pi-search"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
+                                                         style="font-size: 13px;width: 300px"
+                                                         placeholder="Buscar entre los datos de categorias"/>
+                                        </span>
+                                    </div>
+                            </f:facet>
+                            <p:column headerText="#"  sortBy="#{obj.id}" width="50"  >
+                                <h:outputText value="#{obj.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="120" >
+                                <h:outputText value="#{obj.nombre}" />
+                            </p:column>
+                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="100" >
+                                <h:outputText value="#{obj.fechaRegistro}" />
+                            </p:column>
+                            <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
+                                <h:outputText value="#{obj.estado}"
+                                              styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                                 action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 styleClass="edit-button rounded-button ui-button-warning"  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
+                                </p:commandButton>
+                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                                 icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
+                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca?" icon="pi pi-info-circle"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>
+            </h:panelGrid>
+        </h:form>
+        <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+            <h:form>
+                <div id="dialog-content" class="dialogs-barra-pequenia" >
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
+                            <h:panelGrid>
+                                <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{MarcaBeans.marcaDto.nombre}"  required="true"/>
+                            </h:panelGrid>
+                    </h:panelGrid>
+                </div>
+                <h:panelGrid columns="2" style="float: right;" >
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{MarcaBeans.determinarAccion()}" />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
+                </h:panelGrid>
+               </h:form>
+           </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

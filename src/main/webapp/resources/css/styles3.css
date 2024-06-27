@@ -111,6 +111,28 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-me
     border: 3px solid rgb(52,58,64);
 }
 
+
+.dialogs-barra-pequenia{
+    width: 35rem;
+    height: 18rem;
+    border: none;
+    overflow-y: auto;
+}
+
+.dialogs-barra-pequenia::-webkit-scrollbar{
+    width: 9px;
+}
+
+.dialogs-barra-pequenia::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.dialogs-barra-pequenia::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 3px solid #ffffff;
+}
+
 .dialogs-barra{
     width: 35rem;
     height: 25rem;
@@ -190,7 +212,7 @@ body .ui-panel .ui-panel-content .menu-dinamico {
     right: 25px;
     height: 93px;
     background-color: #ffffff;
-    box-shadow: 0px 0px 3px #bcbec1;
+    box-shadow: 0 0 3px #bcbec1;
     transition: transform 0.4s ease, opacity 0.5s ease;
     transform: translateY(20px);
     opacity: 0;

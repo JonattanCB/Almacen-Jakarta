@@ -17,7 +17,6 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -91,6 +90,7 @@ public class CategoriaBeans implements Serializable {
         validacionRenderVista(1);
         categoriaDto = new CategoriaDto();
         var categoria = categoriaService.getCategoriaById(categoriaId);
+        System.out.println(categoria.getNombre());
         if (categoria != null) {
             categoriaDto.setId(categoria.getId());
             categoriaDto.setNombre(categoria.getNombre());
@@ -150,5 +150,29 @@ public class CategoriaBeans implements Serializable {
         }
     }
 
+    public void cambiarEstado(){
+        categoriaDto = new CategoriaDto();
+        var categoria = categoriaService.getCategoriaById(categoriaId);
+        categoriaDto.setEstado(categoria.getEstado());
+        System.out.println(categoria.getEstado());
+
+
+        String estado = "";
+        System.out.println(categoriaDto.getEstado());
+
+        switch (categoria.getEstado()){
+            case "Activo":
+                estado = "Inactivo";
+                break;
+            case "Inactivo":
+                estado = "Activo";
+                break;
+        }
+        categoriaService.cambioEstado(categoriaId,estado);
+        loadCategorias();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de categoria ha cambiado a "+categoriaDto.getEstado()+" a "+estado+" !"));
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
 
 }

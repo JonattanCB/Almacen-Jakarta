@@ -32,6 +32,7 @@ public class CategoriaDaoImp implements ICategoriaDao {
                 "SELECT c FROM Categoria c LEFT JOIN FETCH c.productos WHERE c.id = :id", Categoria.class
         );
         query.setParameter("id", id);
+        System.out.println(query.getSingleResult().getNombre());
         return query.getSingleResult();
     }
 
@@ -40,6 +41,17 @@ public class CategoriaDaoImp implements ICategoriaDao {
         _entityManager.persist(c);
         return c;
     }
+
+    @Override
+    public void cambioEstado(int id, String estado) {
+        var query = _entityManager.createQuery(
+                "UPDATE Categoria c SET c.estado = :estado WHERE c.id = :id"
+        );
+        query.setParameter("estado", estado);
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
 
     @Override
     public Categoria update(UpdateCategoriaDto updateCategoriaDto, int id) {

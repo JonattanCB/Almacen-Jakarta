@@ -11,4 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateMarcaDto {
     private String nombre;
+    private String estado;
 }

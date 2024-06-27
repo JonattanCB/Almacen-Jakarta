@@ -26,6 +26,8 @@ public class Marca {
     private String descripcion;
     @Column(name = "FechaRegistro")
     private LocalDate fechaRegistro=LocalDate.now();
+    @Column(name = "estado", nullable = false)
+    private String estado;
     @OneToMany(mappedBy = "marca")
     private List<Producto> productos;
 }

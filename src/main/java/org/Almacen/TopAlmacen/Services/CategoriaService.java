@@ -39,9 +39,6 @@ public class CategoriaService implements Serializable {
     @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
-        if (categoria == null || !categoria.getEstado().equals("Activo")) {
-            return null;
-        }
         List<ProductoDto> productosDto = categoria.getProductos().stream()
                 .map(p -> new ProductoDto(p.getId(),
                         p.getNombre(),
@@ -52,7 +49,6 @@ public class CategoriaService implements Serializable {
                         p.getFechaRegistro()
                 ))
                 .collect(Collectors.toList());
-
         return new CategoriaConProductosDto(
                 categoria.getId(),
                 categoria.getNombre(),
@@ -72,6 +68,11 @@ public class CategoriaService implements Serializable {
     @Transactional
     public Categoria updateCategoria(int id, UpdateCategoriaDto updateCategoriaDto) {
         return iCategoriaDao.update(updateCategoriaDto, id);
+    }
+
+    @Transactional
+    public void cambioEstado(int id, String estado){
+        iCategoriaDao.cambioEstado(id,estado);
     }
 
     @Transactional

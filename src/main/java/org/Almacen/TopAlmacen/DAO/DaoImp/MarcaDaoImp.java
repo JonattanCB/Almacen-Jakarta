@@ -14,7 +14,7 @@ public class MarcaDaoImp implements IMarcaDao {
     private EntityManager _entityManager;
     @Override
     public List<Marca> getAll() {
-        return _entityManager.createQuery("SELECT m FROM Marca m", Marca.class).getResultList();
+        return _entityManager.createQuery("SELECT m FROM Marca m order by  m.id asc ", Marca.class).getResultList();
     }
 
     @Override

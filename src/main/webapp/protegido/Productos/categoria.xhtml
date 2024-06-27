@@ -9,7 +9,7 @@
 <ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
     <ui:define name="contenido">
         <h:form id="form-datos">
-        <h:panelGrid styleClass="contenido-panel">
+            <h:panelGrid styleClass="contenido-panel">
                 <p:growl id="messages"/>
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
@@ -69,32 +69,35 @@
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
                                 </p:commandButton>
                                 <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
-                                                 icon="pi pi-arrow-right-arrow-left"  >
+                                                 icon="pi pi-arrow-right-arrow-left" action="#{CategoriaBeans.cambiarEstado()}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
+                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la Categoria?" icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
-
-
-                </h:panelGrid>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>
+             </h:panelGrid>
         </h:form>
-           <p:dialog id="dialogs" header="Detalles de Categoria" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
-               <h:form>
-                    <div id="dialog-content" class="dialogs-barra" >
-                        <h:panelGrid>
-                            <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
+        <p:dialog id="dialogs" header="Detalles de Categoria" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+            <h:form>
+                <div id="dialog-content" class="dialogs-barra" >
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
                                 <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{CategoriaBeans.categoriaDto.nombre}" disabled="#{CategoriaBeans.renderedCategoria}" required="true"/>
                             </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem">
+                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputTextarea style="width: 34rem"   rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
                         </h:panelGrid>
-                        <h:panelGrid  style="margin-top: 1rem">
-                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
-                            <h:panelGrid>
-                                <p:inputTextarea style="width: 34rem"   rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
-                            </h:panelGrid>
-                        </h:panelGrid>
-                        <h:panelGrid rendered="#{CategoriaBeans.renderedProducto}" style="margin-top: 1rem">
+                    </h:panelGrid>
+                    <h:panelGrid rendered="#{CategoriaBeans.renderedProducto}" style="margin-top: 1rem">
                             <h:panelGrid><h:outputText styleClass="texto_dialog" value="Productos de la Categoria"/></h:panelGrid>
                             <p:dataTable id="tablaproducto" var="prod" value="#{CategoriaBeans.productoDtoList}" widgetVar="produc"
                                          emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccionado}"
@@ -110,12 +113,12 @@
                                     <h:outputText value="#{prod.marcaDto}" />
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
-                    </div>
-                    <h:panelGrid columns="2" style="float: right;" >
-                        <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{CategoriaBeans.determinarAccion()}" rendered="#{CategoriaBeans.renderedBtnGuardar}" />
-                        <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                     </h:panelGrid>
+                </div>
+                <h:panelGrid columns="2" style="float: right;" >
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{CategoriaBeans.determinarAccion()}" rendered="#{CategoriaBeans.renderedBtnGuardar}" />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
+                </h:panelGrid>
                </h:form>
            </p:dialog>
     </ui:define>
