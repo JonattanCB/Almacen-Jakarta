@@ -35,6 +35,7 @@ public class CategoriaService implements Serializable {
                 .collect(Collectors.toList());
     }
 
+
     @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);

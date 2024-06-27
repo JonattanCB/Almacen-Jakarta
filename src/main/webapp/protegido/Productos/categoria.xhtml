@@ -10,7 +10,7 @@
     <ui:define name="contenido">
         <h:form id="form-datos">
         <h:panelGrid styleClass="contenido-panel">
-                <p:growl id="messages" showDetail="true" />
+                <p:growl id="messages"/>
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
                             <p:toolbarGroup>
@@ -27,7 +27,7 @@
                             </p:toolbarGroup>
                         </p:toolbar>
                         <p:dataTable id="tabla" var="obj" value="#{CategoriaBeans.categorias}" widgetVar="obj" style="margin-top: 1rem"
-                                     emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.categorias}"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.categoriasSelecionadas}"
                                      globalFilterFunction="#{CategoriaBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
@@ -41,7 +41,7 @@
                                         </span>
                                     </div>
                             </f:facet>
-                            <p:column headerText="#" value="#{obj.id}" sortBy="#{obj.id}" width="50"  >
+                            <p:column headerText="#"  sortBy="#{obj.id}" width="50"  >
                                 <h:outputText value="#{obj.id}" />
                             </p:column>
                             <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="120" >
@@ -58,6 +58,11 @@
                                               styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
+                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                                 action="#{CategoriaBeans.cargarCategoriaConProductos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 styleClass="edit-button rounded-button "  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
+                                </p:commandButton>
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{CategoriaBeans.cargarCategoriaParaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
@@ -78,23 +83,37 @@
                <h:form>
                     <div id="dialog-content" class="dialogs-barra" >
                         <h:panelGrid>
-                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
+                            <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputText styleClass="input-custom" style="width: 29rem" value="#{CategoriaBeans.categoriaDto.nombre}"/>
+                                <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{CategoriaBeans.categoriaDto.nombre}" disabled="#{CategoriaBeans.renderedCategoria}" required="true"/>
                             </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid  style="margin-top: 1rem">
                             <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputTextarea style="width: 29rem"   rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"/>
+                                <p:inputTextarea style="width: 34rem"   rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
                             </h:panelGrid>
                         </h:panelGrid>
-                        <h:panelGrid rendered="false">
-
+                        <h:panelGrid rendered="#{CategoriaBeans.renderedProducto}" style="margin-top: 1rem">
+                            <h:panelGrid><h:outputText styleClass="texto_dialog" value="Productos de la Categoria"/></h:panelGrid>
+                            <p:dataTable id="tablaproducto" var="prod" value="#{CategoriaBeans.productoDtoList}" widgetVar="produc"
+                                         emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccionado}"
+                                         globalFilterFunction="#{CategoriaBeans.globalFilterFunction}"
+                                         rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                                <p:column headerText="#"  sortBy="#{prod.id}" width="50"  >
+                                    <h:outputText value="#{prod.id}" />
+                                </p:column>
+                                <p:column headerText="Nombre"  sortBy="#{prod.nombre}" width="50"  >
+                                    <h:outputText value="#{prod.nombre}" />
+                                </p:column>
+                                <p:column headerText="Marca"  sortBy="#{prod.marcaDto.nombre}" width="50"  >
+                                    <h:outputText value="#{prod.marcaDto}" />
+                                </p:column>
+                            </p:dataTable>
                         </h:panelGrid>
                     </div>
                     <h:panelGrid columns="2" style="float: right;" >
-                        <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{CategoriaBeans.determinarAccion()}" />
+                        <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{CategoriaBeans.determinarAccion()}" rendered="#{CategoriaBeans.renderedBtnGuardar}" />
                         <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                     </h:panelGrid>
                </h:form>

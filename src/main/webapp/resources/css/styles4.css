@@ -123,3 +123,12 @@ body .ui-fluid .ui-inputtextarea {
     font-size: 0.9rem;
     color: #495057;
 }
+
+.ui-growl {
+    font-size: 10px;
+    width: 150px;
+}
+
+.ui-growl-title {
+    font-size: 13px;
+}

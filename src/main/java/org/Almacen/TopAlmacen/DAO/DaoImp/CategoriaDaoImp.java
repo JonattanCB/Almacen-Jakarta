@@ -18,8 +18,7 @@ public class CategoriaDaoImp implements ICategoriaDao {
 
     @Override
     public List<Categoria> getAll() {
-        System.out.println("Ingresando a la capa DAO getAll");
-        return _entityManager.createQuery("SELECT c FROM Categoria c", Categoria.class).getResultList();
+        return _entityManager.createQuery("SELECT c FROM Categoria c order by c.id asc ", Categoria.class).getResultList();
     }
 
     @Override
@@ -29,14 +28,15 @@ public class CategoriaDaoImp implements ICategoriaDao {
 
     @Override
     public Categoria getById(int id) {
-        var categoria = _entityManager.find(Categoria.class, id);
-        _entityManager.detach(categoria);
-        return categoria;
+        var query = _entityManager.createQuery(
+                "SELECT c FROM Categoria c LEFT JOIN FETCH c.productos WHERE c.id = :id", Categoria.class
+        );
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override
     public Categoria create(Categoria c) {
-        System.out.println("Ingresando a la capa Dao create");
         _entityManager.persist(c);
         return c;
     }

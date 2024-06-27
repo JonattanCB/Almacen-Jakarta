@@ -2,6 +2,8 @@ package org.Almacen.TopAlmacen.Controladores;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
@@ -9,11 +11,13 @@ import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaConProductosDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
+import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,27 +28,31 @@ public class CategoriaBeans implements Serializable {
 
     @Inject
     private CategoriaService categoriaService;
-    UpdateCategoriaDto CategoriaUpdate = new UpdateCategoriaDto();
     private CategoriaDto categoriaDto;
     private List<CategoriaDto> categorias;
+    private List<CategoriaDto> categoriasSelecionadas;
+    private List<ProductoDto> productoDtoList;
+    private List<ProductoDto> productoDtoListSeleccionado;
+    private boolean renderedCategoria;
+    private boolean renderedProducto;
+    private boolean renderedBtnGuardar;
     private int categoriaId;
 
     @PostConstruct
     public void init() {
-
         loadCategorias();
     }
 
     public void nuevaCategoria() {
-
         categoriaDto = new CategoriaDto();
+        validacionRenderVista(1);
     }
 
     public void determinarAccion() {
         if (categoriaDto.getId() == 0) {
             createCategoria();
-            loadCategorias();
         } else {
+            updateCategoria();
         }
         loadCategorias();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
@@ -53,35 +61,38 @@ public class CategoriaBeans implements Serializable {
 
 
     private void loadCategorias() {
-        System.out.println("Iniciando LoadCategorias");
         try {
             categorias = categoriaService.getAllCategorias();
-            for (CategoriaDto d : categorias) {
-                System.out.println(d.getNombre());
-            }
-            System.out.println("-".repeat(199));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void createCategoria() {
-        System.out.println("Iniciando CrearCategoria");
         CreateCategoriaDto categoriaCreate = new CreateCategoriaDto();
         categoriaCreate.setNombre(categoriaDto.getNombre());
         categoriaCreate.setDescripcion(categoriaDto.getDescripcion());
         categoriaCreate.setEstado("Activo");
         categoriaService.createCategoria(categoriaCreate);
-        System.out.println("AgregadoCorrectamente");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+categoriaCreate.getNombre()+" ha sido registrado exitosamente en el sistema!"));
     }
     public void cargarCategoriaConProductos(){
-        CategoriaConProductosDto categoriaConProductosDto = new CategoriaConProductosDto();
-        categoriaService.getCategoriaById(categoriaId);
+        validacionRenderVista(2);
+        categoriaDto = new CategoriaDto();
+        CategoriaConProductosDto categoriaConProductosDto =  categoriaService.getCategoriaById(categoriaId);
+        categoriaDto.setId(categoriaConProductosDto.getId());
+        categoriaDto.setNombre(categoriaConProductosDto.getNombre());
+        categoriaDto.setDescripcion(categoriaConProductosDto.getDescripcion());
+        categoriaDto.setEstado(categoriaConProductosDto.getEstado());
+        productoDtoList = categoriaConProductosDto.getProductos();
     }
 
     public void cargarCategoriaParaEdicion() {
+        validacionRenderVista(1);
+        categoriaDto = new CategoriaDto();
         var categoria = categoriaService.getCategoriaById(categoriaId);
         if (categoria != null) {
+            categoriaDto.setId(categoria.getId());
             categoriaDto.setNombre(categoria.getNombre());
             categoriaDto.setDescripcion(categoria.getDescripcion());
             categoriaDto.setEstado(categoria.getEstado());
@@ -89,13 +100,14 @@ public class CategoriaBeans implements Serializable {
     }
 
     private void updateCategoria() {
+        UpdateCategoriaDto CategoriaUpdate = new UpdateCategoriaDto();
         CategoriaUpdate.setNombre(categoriaDto.getNombre());
         CategoriaUpdate.setDescripcion(categoriaDto.getDescripcion());
         CategoriaUpdate.setEstado(categoriaDto.getEstado());
-        if (categoriaId != 0) {
-            categoriaService.updateCategoria(categoriaId, CategoriaUpdate);
-            loadCategorias();
-        }
+        categoriaService.updateCategoria(categoriaId, CategoriaUpdate);
+        loadCategorias();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+CategoriaUpdate.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
+
     }
 
     public void eliminarCategoria() {
@@ -120,6 +132,21 @@ public class CategoriaBeans implements Serializable {
             return Integer.parseInt(string);
         } catch (NumberFormatException ex) {
             return 0;
+        }
+    }
+
+    private void validacionRenderVista(int opcion){
+        switch (opcion){
+            case 1:
+                renderedCategoria = false;
+                renderedProducto =false;
+                renderedBtnGuardar=true;
+                break;
+            case 2:
+                renderedCategoria = true;
+                renderedProducto = true;
+                renderedBtnGuardar=false;
+                break;
         }
     }
 
