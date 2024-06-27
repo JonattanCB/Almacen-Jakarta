@@ -4,6 +4,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IUsuarioDao;
+import org.Almacen.TopAlmacen.DTO.Usuario.UpdateUsuarioDto;
 import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.util.List;
@@ -27,19 +28,18 @@ public class UsuarioDaoImp implements IUsuarioDao {
     }
 
     @Override
-    public void create(Usuario c) {
-        _entityManager.persist(c);
+    public Usuario create(Usuario c) {
+        return null;
     }
 
     @Override
-    public void update(Usuario c) {
-        _entityManager.merge(c);
-
+    public Usuario update(UpdateUsuarioDto u) {
+        return null;
     }
 
     @Override
-    public void delete(Usuario c) {
-        _entityManager.remove(_entityManager.find(Usuario.class, c.getId()));
-
+    public Usuario delete(int id) {
+        return null;
     }
+
 }

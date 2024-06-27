@@ -24,7 +24,10 @@ public class Usuario {
     private String correo;
     @Column(name = "Contra", nullable = false)
     private String contra;
-
+    @Column(name = "Nombres", nullable = false)
+    private String nombres;
+    @Column(name = "Apellidos", nullable = false)
+    private String apellidos;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Rol", nullable = false)
     private Rol rol;

@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.DAO;
 
+import org.Almacen.TopAlmacen.DTO.Usuario.UpdateUsuarioDto;
 import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.util.List;
@@ -9,9 +10,9 @@ public interface IUsuarioDao {
 
     Usuario getById(int id);
 
-    void create(Usuario c);
+    Usuario create(Usuario c);
 
-    void update(Usuario c);
+    Usuario update(UpdateUsuarioDto u);
 
-    void delete(Usuario c);
+    Usuario delete(int id);
 }
