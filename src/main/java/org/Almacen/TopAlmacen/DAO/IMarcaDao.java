@@ -15,4 +15,6 @@ public interface IMarcaDao {
     Marca update(UpdateMarcaDto c, int id);
 
     Marca delete(int id);
+
+    void cambiarMarca(int id, String estado);
 }

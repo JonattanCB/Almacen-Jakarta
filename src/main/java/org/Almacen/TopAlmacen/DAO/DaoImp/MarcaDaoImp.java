@@ -44,4 +44,14 @@ public class MarcaDaoImp implements IMarcaDao {
     public Marca delete(int id) {
         return null;
     }
+
+    @Override
+    public void cambiarMarca(int id, String estado) {
+        var query = _entityManager.createQuery(
+                "UPDATE Marca m SET m.estado = :estado WHERE m.id = :id"
+        );
+        query.setParameter("estado", estado);
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
 }

@@ -9,8 +9,10 @@ import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
+import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
+import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
 import org.Almacen.TopAlmacen.Services.MarcaService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
@@ -47,7 +49,7 @@ public class MarcaBeans implements Serializable {
         if (marcaDto.getId() == 0){
             createMarca();
         }else{
-
+            updateMarca();
         }
         loadMarca();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
@@ -63,11 +65,31 @@ public class MarcaBeans implements Serializable {
     }
 
     public void CargarMarcaraparaEdicion(){
-
+        marcaDto = new MarcaDto();
+        var marca  = marcaService.getMarcaById(idMarca);
+        marcaDto.setId(marca.getId());
+        marcaDto.setNombre(marca.getNombre());
+        marca.setFechaRegistro(marca.getFechaRegistro());
+        marca.setEstado(marca.getEstado());
     }
 
     public  void CambiarEstado(){
-
+        marcaDto = new MarcaDto();
+        var marca = marcaService.getMarcaById(idMarca);
+        String estado = "";
+        switch (marca.getEstado()){
+            case "Activo":
+                estado = "Inactivo";
+                break;
+            case "Inactivo":
+                estado = "Activo";
+                break;
+        }
+        marcaService.cambiarEstado(idMarca,estado);
+        loadMarca();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de la marca " + marca.getNombre() + " ha cambiado a " + estado + "!"));
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     private void  createMarca(){
@@ -78,6 +100,13 @@ public class MarcaBeans implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La marca "+createMarcaDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
     }
 
+    private void updateMarca(){
+        UpdateMarcaDto updateMarcaDto   = new UpdateMarcaDto();
+        updateMarcaDto.setNombre(marcaDto.getNombre());
+        updateMarcaDto.setEstado(marcaDto.getEstado());
+        marcaService.updateMarca(updateMarcaDto, idMarca);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La marca "+updateMarcaDto.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
+    }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();

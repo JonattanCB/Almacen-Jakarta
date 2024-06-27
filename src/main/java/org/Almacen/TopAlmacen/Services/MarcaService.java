@@ -9,6 +9,7 @@ import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
+import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
 import org.Almacen.TopAlmacen.Mappers.CategoriaMapper;
 import org.Almacen.TopAlmacen.Mappers.MarcaMapper;
 import org.Almacen.TopAlmacen.Model.Categoria;
@@ -39,6 +40,22 @@ public class MarcaService implements Serializable {
         return iMarcaDao.create(Marca);
     }
 
+    @Transactional
+    public MarcaDto getMarcaById(int id){
+        var marca = iMarcaDao.getById(id);
+        return MarcaMapper.toDto(marca);
+    }
+
+
+    @Transactional
+    public Marca updateMarca(UpdateMarcaDto updateMarcaDto, int id){
+        return iMarcaDao.update(updateMarcaDto,id);
+    }
+
+    @Transactional
+    public void cambiarEstado(int id, String estado){
+        iMarcaDao.cambiarMarca(id,estado);
+    }
 
 
 

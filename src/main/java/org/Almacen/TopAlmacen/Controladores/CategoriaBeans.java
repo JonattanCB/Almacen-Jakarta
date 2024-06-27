@@ -153,13 +153,7 @@ public class CategoriaBeans implements Serializable {
     public void cambiarEstado(){
         categoriaDto = new CategoriaDto();
         var categoria = categoriaService.getCategoriaById(categoriaId);
-        categoriaDto.setEstado(categoria.getEstado());
-        System.out.println(categoria.getEstado());
-
-
         String estado = "";
-        System.out.println(categoriaDto.getEstado());
-
         switch (categoria.getEstado()){
             case "Activo":
                 estado = "Inactivo";
@@ -170,7 +164,7 @@ public class CategoriaBeans implements Serializable {
         }
         categoriaService.cambioEstado(categoriaId,estado);
         loadCategorias();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de categoria ha cambiado a "+categoriaDto.getEstado()+" a "+estado+" !"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de la marca " + categoria.getNombre() + " ha cambiado a " + estado + "!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
