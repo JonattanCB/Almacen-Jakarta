@@ -44,8 +44,8 @@ public class CategoriaBeans implements Serializable {
     public void determinarAccion() {
         if (categoriaDatosDto.getId() == 0) {
             createCategoria();
+            loadCategorias();
         } else {
-
         }
         loadCategorias();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
