@@ -18,7 +18,7 @@ public class PlantillaBeans  implements Serializable {
             UsuarioDto us = (UsuarioDto) context.getExternalContext().getSessionMap().get("usuario");
             if (us == null) {
                 String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-                context.getExternalContext().redirect(contextPath+"/permisos.xhtml");
+                context.getExternalContext().redirect(contextPath+"/errors/permisos.xhtml");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

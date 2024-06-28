@@ -24,7 +24,8 @@ public class LoginBeans implements Serializable {
     public String iniciarSesion(){
         String redireccionar = null;
         try{
-            UsuarioDto u = new UsuarioDto();
+            usuarioDto.setNombres("Jonattan Sebastian");
+            usuarioDto.setApellidos("Contreras Baltazar");
             if (usuarioDto.getCorreo().equals("1") && usuarioDto.getContra().equals("1")){
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioDto);
                 redireccionar="protegido/principal?faces-redirect=true";
@@ -38,7 +39,6 @@ public class LoginBeans implements Serializable {
     }
 
     public void cerrarSession(){
-        System.out.println("aca");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 
