@@ -1,7 +1,5 @@
 package org.Almacen.TopAlmacen.Mappers;
 
-import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
-import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
@@ -13,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ProductoMapper {
     public static ProductoDto toDto(Producto producto) {
-        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), new CategoriaMapper().toDto(producto.getCategoria()), new MarcaMapper().toDto(producto.getMarca()),producto.getFechaRegistro());
+        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), CategoriaMapper.toDto(producto.getCategoria()), MarcaMapper.toDto(producto.getMarca()),producto.getFechaRegistro());
     }
 
     public static List<ProductoDto> toDTOList(List<Producto> productos) {

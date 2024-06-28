@@ -42,8 +42,8 @@ public class CategoriaService implements Serializable {
                         p.getNombre(),
                         p.getColor(),
                         p.getPeso(),
-                        CategoriaMapper.toDto(p.getCategoria()),
-                        MarcaMapper.toDto(p.getMarca()),
+                        p.getCategoria(),
+                        p.getMarca(),
                         p.getFechaRegistro()
                 ))
                 .collect(Collectors.toList());

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
+import org.Almacen.TopAlmacen.Model.Categoria;
+import org.Almacen.TopAlmacen.Model.Marca;
 
 import java.time.LocalDate;
 
@@ -17,6 +19,6 @@ public class CreateProductoDto {
     private String nombre;
     private String color;
     private String peso;
-    private CategoriaDto categoriaDto;
-    private MarcaDto marcaDto;
+    private Categoria categoria;
+    private Marca marca;
 }

@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
+import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 
@@ -33,8 +34,19 @@ public class PrecioPorTipoUnidadService {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad Create(CreatePrecioPorTipoUnidadDto dto) {
+    public PrecioPorTipoUnidad create(CreatePrecioPorTipoUnidadDto dto) {
         var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
         return iprecioPorTipoUnidadDao.create(pptu);
+    }
+
+    @Transactional
+    public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) {
+        var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromUpdate(dto);
+        return iprecioPorTipoUnidadDao.update(dto, id);
+    }
+
+    @Transactional
+    public PrecioPorTipoUnidad delete(int id) {
+        return iprecioPorTipoUnidadDao.delete(id);
     }
 }
