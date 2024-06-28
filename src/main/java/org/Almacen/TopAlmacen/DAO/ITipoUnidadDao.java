@@ -9,9 +9,9 @@ public interface ITipoUnidadDao {
 
     TipoUnidad getById(int id);
 
-    void create(TipoUnidad c);
+    TipoUnidad create(TipoUnidad c);
 
-    void update(TipoUnidad c);
+    TipoUnidad update(TipoUnidad c,int id);
 
-    void delete(TipoUnidad c);
+    TipoUnidad delete(int id);
 }

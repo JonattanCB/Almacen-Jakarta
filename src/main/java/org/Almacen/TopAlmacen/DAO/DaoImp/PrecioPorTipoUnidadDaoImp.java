@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadD
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 
 import java.util.List;
+
 @Named
 public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     @PersistenceContext(name = "YourPU")

@@ -1,33 +1,54 @@
 package org.Almacen.TopAlmacen.DAO.DaoImp;
 
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.ITipoUnidadDao;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 import java.util.List;
 
+@Named
 public class TipoUnidadDaoImp implements ITipoUnidadDao {
+    @PersistenceContext(name = "YourPU")
+    private EntityManager _entityManager;
+
     @Override
     public List<TipoUnidad> getAll() {
-        return List.of();
+        return _entityManager.createQuery("SELECT t from TipoUnidad t", TipoUnidad.class).getResultList();
     }
 
     @Override
     public TipoUnidad getById(int id) {
-        return null;
+        return _entityManager.find(TipoUnidad.class, id);
     }
 
     @Override
-    public void create(TipoUnidad c) {
+    public TipoUnidad create(TipoUnidad c) {
+        _entityManager.persist(c);
+        return c;
 
     }
 
     @Override
-    public void update(TipoUnidad c) {
-
+    public TipoUnidad update(TipoUnidad c, int id) {
+        var findObj = getById(id);
+        if (findObj != null) {
+            _entityManager.merge(c);
+            return findObj;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public void delete(TipoUnidad c) {
-
+    public TipoUnidad delete(int id) {
+        var findObj = getById(id);
+        if (findObj != null) {
+            _entityManager.remove(findObj);
+            return findObj;
+        } else {
+            return null;
+        }
     }
 }
