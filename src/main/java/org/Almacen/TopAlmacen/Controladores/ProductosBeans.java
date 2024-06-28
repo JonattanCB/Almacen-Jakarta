@@ -32,18 +32,18 @@ public class ProductosBeans implements Serializable {
     private List<ProductoDto> productoDtoListSeleccionable;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         loadProductos();
     }
 
-    public void nuevoProducto(){
+    public void nuevoProducto() {
         productoDto = new ProductoDto();
     }
 
-    public void DeterminarAccion(){
-        if(productoDto.getId() == 0){
+    public void DeterminarAccion() {
+        if (productoDto.getId() == 0) {
             createProducto();
-        }else {
+        } else {
             UpdateProducto();
         }
         loadProductos();
@@ -51,15 +51,15 @@ public class ProductosBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void loadProductos(){
+    private void loadProductos() {
 
     }
 
-    private void createProducto(){
+    private void createProducto() {
 
     }
 
-    private void UpdateProducto(){
+    private void UpdateProducto() {
 
     }
 
@@ -72,8 +72,8 @@ public class ProductosBeans implements Serializable {
         ProductoDto p = (ProductoDto) value;
         return (p.getId() >= filterInt && p.getId() <= filterInt)
                 || p.getNombre().toLowerCase().contains(filterText)
-                || (p.getCategoriaDto().getNombre()).toLowerCase().contains(filterText)
-                || (p.getMarcaDto().getNombre()).toLowerCase().contains(filterText)
+                || (p.getCategoria().getNombre()).toLowerCase().contains(filterText)
+                || (p.getMarca().getNombre()).toLowerCase().contains(filterText)
                 || p.getFechaRegistro().equals(filterText.toLowerCase());
     }
 
@@ -84,7 +84,6 @@ public class ProductosBeans implements Serializable {
             return 0;
         }
     }
-
 
 
 }
