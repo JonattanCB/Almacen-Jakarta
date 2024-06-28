@@ -63,7 +63,7 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     @Override
     public PrecioPorTipoUnidad findIfExist(Producto p, String abrev) {
         try {
-            return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p WHERE p.producto = :producto AND p.tipoUnidad.abrev = :abrev", PrecioPorTipoUnidad.class)
+            return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p WHERE p.producto = :producto AND p.tipoUnidad.Abrev = :abrev", PrecioPorTipoUnidad.class)
                     .setParameter("producto", p)
                     .setParameter("abrev", abrev)
                     .getSingleResult();
