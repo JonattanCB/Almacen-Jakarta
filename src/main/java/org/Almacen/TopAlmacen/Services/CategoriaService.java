@@ -1,6 +1,5 @@
 package org.Almacen.TopAlmacen.Services;
 
-import jakarta.ejb.Asynchronous;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -17,9 +16,8 @@ import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.stream.Collectors;
+
 @Stateless
 @LocalBean
 public class CategoriaService implements Serializable {
@@ -71,8 +69,8 @@ public class CategoriaService implements Serializable {
     }
 
     @Transactional
-    public void cambioEstado(int id, String estado){
-        iCategoriaDao.cambioEstado(id,estado);
+    public void cambioEstado(int id, String estado) {
+        iCategoriaDao.cambioEstado(id, estado);
     }
 
     @Transactional

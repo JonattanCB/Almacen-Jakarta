@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
-import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
+import org.Almacen.TopAlmacen.Model.Producto;
+import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 @Getter
 @Setter
@@ -13,9 +13,9 @@ import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 @NoArgsConstructor
 public class PrecioPorTipoUnidadDto {
     private int id;
-    private TipoUnidadDto tipoUnidadDto;
-    private ProductoDto productoDto;
-    private double precio;
+    private TipoUnidad tipoUnidad;
+    private Producto producto;
+    private double precioUnitario;
     private double unidadesPorTipoUnidadPorProducto;
 
 }

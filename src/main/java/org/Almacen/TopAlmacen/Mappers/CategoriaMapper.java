@@ -14,12 +14,6 @@ public class CategoriaMapper {
         return new CategoriaDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getEstado(), categoria.getFechaRegistro());
     }
 
-    public static List<CategoriaDto> toDTOList(List<Categoria> categorias) {
-        return categorias.stream()
-                .map(CategoriaMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
     public static Categoria toCategoriaFromCreate(CreateCategoriaDto dto) {
         Categoria categoria = new Categoria();
         categoria.setNombre(dto.getNombre());
