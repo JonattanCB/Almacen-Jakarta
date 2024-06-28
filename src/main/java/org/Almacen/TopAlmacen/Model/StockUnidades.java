@@ -25,7 +25,6 @@ public class StockUnidades {
 
     @Column(name = "CantidadStockUnidad")
     private double CantidadStockUnidad;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TipoUnidad", nullable = false)
-    private TipoUnidad tipoUnidad;
+    @Column(name = "TipoUnidad", nullable = false)
+    private String tipoUnidad;
 }

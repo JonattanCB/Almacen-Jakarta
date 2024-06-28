@@ -10,6 +10,7 @@ import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,9 +35,18 @@ public class PrecioPorTipoUnidadService {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad create(CreatePrecioPorTipoUnidadDto dto) {
+    public PrecioPorTipoUnidad create(CreatePrecioPorTipoUnidadDto dto, String tipoUnidadUnitario) {
         var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
+
+        StockUnidades stockUnidades = new StockUnidades();
+        stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
+        stockUnidades.setTipoUnidad(tipoUnidadUnitario);
+
+        pptu.setStockUnidades(stockUnidades);
+        stockUnidades.setPrecioPorTipoUnidad(pptu);
+
         return iprecioPorTipoUnidadDao.create(pptu);
+
     }
 
     @Transactional

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
-import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 @Getter
 @Setter
@@ -15,5 +14,5 @@ import org.Almacen.TopAlmacen.Model.TipoUnidad;
 public class UpdateStockUnidadesDto {
     private PrecioPorTipoUnidad precioPorTipoUnidad;
     private double CantidadStockUnidadesDto;
-    private TipoUnidad tipoUnidad;
+    private String tipoUnidad;
 }

@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
-import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
+
+import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class CreateStockUnidadesDto {
-    private PrecioPorTipoUnidadDto precioPorTipoUnidadDto;
+    private PrecioPorTipoUnidad precioPorTipoUnidad;
     private double CantidadStockUnidadesDto;
-    private TipoUnidadDto tipoUnidadDto;
+    private String tipoUnidad;
 }
