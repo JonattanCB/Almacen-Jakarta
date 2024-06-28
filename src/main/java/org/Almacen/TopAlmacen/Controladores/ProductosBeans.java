@@ -86,7 +86,7 @@ public class ProductosBeans implements Serializable {
     private void createProducto() {
         CreateProductoDto createProductoDto = new CreateProductoDto();
         createProductoDto.setNombre(productoDto.getNombre());
-        createProductoDto.setMarca(productoDto.);
+        createProductoDto.setMarca(productoDto.getMarca());
 
 
 
