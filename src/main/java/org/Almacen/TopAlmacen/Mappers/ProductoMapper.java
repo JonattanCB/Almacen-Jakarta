@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ProductoMapper {
     public static ProductoDto toDto(Producto producto) {
-        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(), producto.getFechaRegistro());
+        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(),producto.getFechaRegistro());
     }
 
     public static List<ProductoDto> toDTOList(List<Producto> productos) {
@@ -25,6 +25,7 @@ public class ProductoMapper {
         p.setNombre(dto.getNombre());
         p.setColor(dto.getColor());
         p.setPeso(dto.getPeso());
+        p.setCategoria(dto.getCategoria());
 
         return p;
     }

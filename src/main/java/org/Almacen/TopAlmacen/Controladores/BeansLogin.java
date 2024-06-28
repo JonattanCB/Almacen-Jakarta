@@ -42,10 +42,15 @@ public class BeansLogin implements Serializable {
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("productos").expanded(true).build();
         DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("marca").icon("pi pi-home").url(contextPath+"/protegido/Productos/marca.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
-        itemMenu = DefaultMenuItem.builder().value("categori").icon("pi pi-home").url(contextPath+"/protegido/Productos/categoria.xhtml").update("contenido_escritorio-update").build();
+        itemMenu = DefaultMenuItem.builder().value("categoria").icon("pi pi-home").url(contextPath+"/protegido/Productos/categoria.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
+        itemMenu = DefaultMenuItem.builder().value("Producto").icon("pi pi-home").url(contextPath+"/protegido/Productos/producto.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
         model.getElements().add(firstSubmenu);
     }
+
 
 
 

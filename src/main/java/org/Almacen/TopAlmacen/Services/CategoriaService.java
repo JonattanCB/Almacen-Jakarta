@@ -74,6 +74,14 @@ public class CategoriaService implements Serializable {
     }
 
     @Transactional
+    public List<CategoriaDto> getAllCategoriasActivas(){
+        List<Categoria> categorias = iCategoriaDao.getAllByEstadoActivo();
+        return categorias.stream()
+                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), String.valueOf(c.getEstado()), c.getFechaRegistro()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public Categoria deleteCategoria(int id) {
         return iCategoriaDao.delete(id);
     }

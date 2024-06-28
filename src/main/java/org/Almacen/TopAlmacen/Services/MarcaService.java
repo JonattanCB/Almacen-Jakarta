@@ -5,14 +5,10 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IMarcaDao;
-import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
-import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
-import org.Almacen.TopAlmacen.Mappers.CategoriaMapper;
 import org.Almacen.TopAlmacen.Mappers.MarcaMapper;
-import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.Marca;
 
 import java.io.Serializable;
@@ -35,6 +31,14 @@ public class MarcaService implements Serializable {
     }
 
     @Transactional
+    public List<MarcaDto> getAllMarcaActiva(){
+        List<Marca> marcas = iMarcaDao.getAllEstadoActivo();
+        return marcas.stream()
+                .map(c -> new MarcaDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public Marca createMarca(CreateMarcaDto createMarcaDto) {
         var Marca = MarcaMapper.toMarcaFromCreate(createMarcaDto);
         return iMarcaDao.create(Marca);
@@ -46,7 +50,6 @@ public class MarcaService implements Serializable {
         return MarcaMapper.toDto(marca);
     }
 
-
     @Transactional
     public Marca updateMarca(UpdateMarcaDto updateMarcaDto, int id){
         return iMarcaDao.update(updateMarcaDto,id);
@@ -56,9 +59,5 @@ public class MarcaService implements Serializable {
     public void cambiarEstado(int id, String estado){
         iMarcaDao.cambiarMarca(id,estado);
     }
-
-
-
-
 
 }

@@ -20,6 +20,11 @@ public class MarcaDaoImp implements IMarcaDao {
     }
 
     @Override
+    public List<Marca> getAllEstadoActivo() {
+        return _entityManager.createQuery("SELECT m FROM Marca m where m.estado='Activo'", Marca.class).getResultList();
+    }
+
+    @Override
     public Marca getById(int id) {
         return _entityManager.find(Marca.class, id);
     }

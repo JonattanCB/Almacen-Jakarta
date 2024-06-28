@@ -32,7 +32,7 @@
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
-                                        <span class="titulo-hearder-tabla">Catálogo de categorias</span>
+                                        <span class="titulo-hearder-tabla">Catálogo de Productos</span>
                                         <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
@@ -47,13 +47,13 @@
                             <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="120" >
                                 <h:outputText value="#{obj.nombre}" />
                             </p:column>
-                            <p:column headerText="Marca" sortBy="#{obj.marcaDto.nombre}" width="100" >
-                                <h:outputText value="#{obj.marcaDto.nombre}" styleClass="columnas-texto-table"/>
+                            <p:column headerText="Marca" sortBy="#{obj.marca.nombre}" width="100" >
+                                <h:outputText value="#{obj.marca.nombre}" styleClass="columnas-texto-table"/>
                             </p:column>
-                            <p:column headerText="Categoria" sortBy="#{obj.categoriaDto.nombre}" width="300" >
-                                <h:outputText value="#{obj.categoriaDto.nombre}" styleClass="columnas-texto-table"/>
+                            <p:column headerText="Categoria" sortBy="#{obj.categoria.nombre}" width="300" >
+                                <h:outputText value="#{obj.categoria.nombre}" styleClass="columnas-texto-table"/>
                             </p:column>
-                            <p:column headerText="Estado" sortBy="#{obj.fechaRegistro}" width="40">
+                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="40">
                                 <h:outputText value="#{obj.fechaRegistro}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
@@ -85,37 +85,44 @@
             <h:form>
                 <div id="dialog-content" class="dialogs-barra" >
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{CategoriaBeans.categoriaDto.nombre}" disabled="#{CategoriaBeans.renderedCategoria}" required="true"/>
+                                <p:inputText id="nombre"  styleClass="input-custom" style="width: 34.5rem" value="#{ProductosBeans.productoDto.nombre}"  required="true"/>
                             </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  style="margin-top: 1rem">
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem" columns="2">
                         <h:panelGrid>
-                            <p:inputTextarea style="width: 34rem"   rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
+                            <h:panelGrid><h:outputLabel for="color" styleClass="texto_dialog" value="Color: "/> </h:panelGrid>
+                            <h:panelGrid><p:inputText id="color"  styleClass="input-custom" value="#{ProductosBeans.productoDto.color}" style="width: 17rem"  /></h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="peso" styleClass="texto_dialog" value="Peso: "/> </h:panelGrid>
+                            <h:panelGrid><p:inputText id="peso"  styleClass="input-custom" value="#{ProductosBeans.productoDto.peso}" style="width: 17rem"  /></h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid rendered="#{CategoriaBeans.renderedProducto}" style="margin-top: 1rem">
-                            <h:panelGrid><h:outputText styleClass="texto_dialog" value="Productos de la Categoria"/></h:panelGrid>
-                            <p:dataTable id="tablaproducto" var="prod" value="#{CategoriaBeans.productoDtoList}" widgetVar="produc"
-                                         emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccionado}"
-                                         globalFilterFunction="#{CategoriaBeans.globalFilterFunction}"
-                                         rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
-                                <p:column headerText="#"  sortBy="#{prod.id}" width="50"  >
-                                    <h:outputText value="#{prod.id}" />
-                                </p:column>
-                                <p:column headerText="Nombre"  sortBy="#{prod.nombre}" width="50"  >
-                                    <h:outputText value="#{prod.nombre}" />
-                                </p:column>
-                                <p:column headerText="Marca"  sortBy="#{prod.marcaDto.nombre}" width="50"  >
-                                    <h:outputText value="#{prod.marcaDto}" />
-                                </p:column>
-                            </p:dataTable>
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="Categoria" styleClass="texto_dialog" value="Categoria: "/></h:panelGrid>
+                        <h:panelGrid>
+                           <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Categoria" styleClass="ui-selectonemenu"
+                                            value="#{ProductosBeans.categoriaid}"  required="true" autoWidth="false"    >
+                               <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opciones"  />
+                               <f:selectItems value="#{ProductosBeans.categoriaDtoListActiva}" var="cat" itemLabel="#{cat.nombre}" itemValue="#{cat.id}" itemDescription="#{cat.descripcion}"  />
+                           </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="Marca" styleClass="texto_dialog" value="Marca: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Marca" styleClass="ui-selectonemenu"
+                                             value="#{ProductosBeans.categoriaid}"  required="true" autoWidth="false"    >
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opciones"  />
+                                <f:selectItems value="#{ProductosBeans.marcaDtoListActiva}" var="marc" itemLabel="#{marc.nombre}" itemValue="#{marc.id}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{CategoriaBeans.determinarAccion()}" rendered="#{CategoriaBeans.renderedBtnGuardar}" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{ProductosBeans.DeterminarAccion()}"/>
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>

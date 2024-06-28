@@ -132,3 +132,16 @@ body .ui-fluid .ui-inputtextarea {
 .ui-growl-title {
     font-size: 13px;
 }
+.ui-selectonemenu-items-wrapper::-webkit-scrollbar {
+    width: 9px;
+}
+
+.ui-selectonemenu-items-wrapper::-webkit-scrollbar-track {
+    background: rgb(255,255,255);
+}
+
+.ui-selectonemenu-items-wrapper::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 20px;
+    border: 3px solid rgb(255,255,255);
+}

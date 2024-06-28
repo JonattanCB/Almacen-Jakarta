@@ -8,6 +8,8 @@ import java.util.List;
 public interface IMarcaDao {
     List<Marca> getAll();
 
+    List<Marca> getAllEstadoActivo();
+
     Marca getById(int id);
 
     Marca create(Marca c);
