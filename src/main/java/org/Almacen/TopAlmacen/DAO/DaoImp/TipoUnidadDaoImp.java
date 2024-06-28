@@ -51,4 +51,10 @@ public class TipoUnidadDaoImp implements ITipoUnidadDao {
             return null;
         }
     }
+
+    public TipoUnidad findOrCreateTipoUnidad(String abrev) {
+        return _entityManager.createQuery("SELECT t FROM TipoUnidad t WHERE t.Abrev = :abrev", TipoUnidad.class)
+                .setParameter("abrev", abrev)
+                .getSingleResult();
+    }
 }

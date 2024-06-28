@@ -28,6 +28,4 @@ public class TipoUnidad {
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate FechaRegistro=LocalDate.now();
-
-
 }

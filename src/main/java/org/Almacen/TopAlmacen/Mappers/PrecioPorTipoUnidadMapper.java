@@ -4,6 +4,9 @@ import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadD
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+import org.Almacen.TopAlmacen.Model.Producto;
+import org.Almacen.TopAlmacen.Model.TipoUnidad;
+import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 
 public class PrecioPorTipoUnidadMapper {
     public static PrecioPorTipoUnidadDto toDto(PrecioPorTipoUnidad p) {
@@ -19,6 +22,7 @@ public class PrecioPorTipoUnidadMapper {
         return p;
 
     }
+
     public static PrecioPorTipoUnidad toPrecioPorTipoUnidadFromUpdate(UpdatePrecioPorTipoUnidadDto dto) {
         PrecioPorTipoUnidad p = new PrecioPorTipoUnidad();
         p.setTipoUnidad(dto.getTipoUnidad());
@@ -28,4 +32,5 @@ public class PrecioPorTipoUnidadMapper {
         return p;
 
     }
+
 }

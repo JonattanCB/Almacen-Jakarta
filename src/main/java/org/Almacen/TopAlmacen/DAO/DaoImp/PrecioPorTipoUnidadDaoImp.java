@@ -2,10 +2,14 @@ package org.Almacen.TopAlmacen.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
+import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+import org.Almacen.TopAlmacen.Model.Producto;
+import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 import java.util.List;
 
@@ -52,6 +56,18 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
             _entityManager.remove(findObj);
             return findObj;
         } else {
+            return null;
+        }
+    }
+
+    @Override
+    public PrecioPorTipoUnidad findIfExist(Producto p, String abrev) {
+        try {
+            return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p WHERE p.producto = :producto AND p.tipoUnidad.abrev = :abrev", PrecioPorTipoUnidad.class)
+                    .setParameter("producto", p)
+                    .setParameter("abrev", abrev)
+                    .getSingleResult();
+        } catch (NoResultException e) {
             return null;
         }
     }

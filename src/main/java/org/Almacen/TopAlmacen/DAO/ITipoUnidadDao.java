@@ -11,7 +11,9 @@ public interface ITipoUnidadDao {
 
     TipoUnidad create(TipoUnidad c);
 
-    TipoUnidad update(TipoUnidad c,int id);
+    TipoUnidad update(TipoUnidad c, int id);
 
     TipoUnidad delete(int id);
+
+    TipoUnidad findOrCreateTipoUnidad(String abrev);
 }

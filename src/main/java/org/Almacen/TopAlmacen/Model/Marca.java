@@ -22,10 +22,8 @@ public class Marca {
     private int id;
     @Column(name = "Nombre", nullable = false)
     private String nombre;
-    @Column(name = "Descripcion")
-    private String descripcion;
     @Column(name = "FechaRegistro")
-    private LocalDate fechaRegistro=LocalDate.now();
+    private LocalDate fechaRegistro = LocalDate.now();
     @Column(name = "estado", nullable = false)
     private String estado;
     @OneToMany(mappedBy = "marca")
