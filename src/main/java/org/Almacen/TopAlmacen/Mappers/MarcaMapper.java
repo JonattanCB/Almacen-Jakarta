@@ -17,6 +17,15 @@ public class MarcaMapper {
         return new MarcaDto(marca.getId(),marca.getNombre(), marca.getEstado() ,marca.getFechaRegistro());
     }
 
+    public static Marca toMarca(MarcaDto marcaDto) {
+        Marca m = new Marca();
+        m.setId(marcaDto.getId());
+        m.setNombre(marcaDto.getNombre());
+        m.setEstado(marcaDto.getEstado());
+        m.setFechaRegistro(marcaDto.getFechaRegistro());
+        return m;
+    }
+
     public static List<MarcaDto> toDTOList(List<Marca> marcas) {
         return marcas.stream()
                 .map(MarcaMapper::toDto)

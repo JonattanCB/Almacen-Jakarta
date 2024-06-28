@@ -48,6 +48,15 @@ public class ProductoService implements Serializable {
         return  iProductoDao.update(updateProductoDto,id);
     }
 
+    @Transactional
+    public ProductoDto getProductoById(int id){
+        var producto = iProductoDao.getById(id);
+        return ProductoMapper.toDto(producto);
+    }
 
+    @Transactional
+    public Producto deleteProducto(int id) {
+        return iProductoDao.delete(id);
+    }
 
 }

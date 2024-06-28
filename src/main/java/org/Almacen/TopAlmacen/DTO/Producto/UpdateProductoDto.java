@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UpdateProductoDto {
     private String nombre;
     private String color;

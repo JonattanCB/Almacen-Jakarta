@@ -16,5 +16,4 @@ public class EmpresaDto {
     private String nombre;
     private TipoEmpresa tipoEmpresa;
     private String direccion;
-    private LocalDate fechaRegistro;
 }
