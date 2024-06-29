@@ -14,12 +14,12 @@ public class EmpresaDaoImp implements IEmpresaDao {
 
     @Override
     public List<Empresa> getAll() {
-        return _entityManager.createQuery("SELECT e FROM Empresa e", Empresa.class).getResultList();
+        return _entityManager.createQuery("SELECT e FROM Empresa e order by  e.NroRUC asc ", Empresa.class).getResultList();
     }
 
     @Override
-    public Empresa getById(int id) {
-        return _entityManager.find(Empresa.class, id);
+    public Empresa getById(String NroRuc) {
+        return _entityManager.find(Empresa.class, NroRuc);
     }
 
     @Override
@@ -29,8 +29,8 @@ public class EmpresaDaoImp implements IEmpresaDao {
     }
 
     @Override
-    public Empresa update(UpdateEmpresaDto c, int id) {
-        var empresa = _entityManager.find(Empresa.class, id);
+    public Empresa update(UpdateEmpresaDto c, String NroRuc) {
+        var empresa = _entityManager.find(Empresa.class, NroRuc);
         if (empresa != null) {
             empresa.setNombre(c.getNombre());
             empresa.setTipoEmpresa(c.getTipoEmpresa());
@@ -42,8 +42,8 @@ public class EmpresaDaoImp implements IEmpresaDao {
     }
 
     @Override
-    public Empresa delete(int id) {
-        var empresa = _entityManager.find(Empresa.class, id);
+    public Empresa delete(String NroRuc) {
+        var empresa = _entityManager.find(Empresa.class, NroRuc);
         if (empresa != null) {
             _entityManager.remove(empresa);
             return empresa;

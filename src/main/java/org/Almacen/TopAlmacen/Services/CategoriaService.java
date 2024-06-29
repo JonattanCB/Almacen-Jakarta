@@ -35,6 +35,12 @@ public class CategoriaService implements Serializable {
 
 
     @Transactional
+    public CategoriaDto getCategoria(int id) {
+        var categoria = iCategoriaDao.getById(id);
+        return  new CategoriaDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(),categoria.getEstado(), categoria.getFechaRegistro());
+    }
+
+    @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
         List<ProductoDto> productosDto = categoria.getProductos().stream()

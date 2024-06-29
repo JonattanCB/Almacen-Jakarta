@@ -11,10 +11,9 @@ import org.Almacen.TopAlmacen.Model.TipoEmpresa;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateEmpresaDto {
-
-        private String NroRUC;
-        private String nombre;
-        private TipoEmpresa tipoEmpresa;
-        private String direccion;
-    }
+    private String NroRUC;
+    private String nombre;
+    private TipoEmpresa tipoEmpresa;
+    private String direccion;
+}
 

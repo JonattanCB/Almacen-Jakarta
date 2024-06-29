@@ -107,7 +107,6 @@ public class CategoriaBeans implements Serializable {
         categoriaService.updateCategoria(categoriaId, CategoriaUpdate);
         loadCategorias();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+CategoriaUpdate.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
-
     }
 
     public void eliminarCategoria() {

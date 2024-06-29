@@ -8,11 +8,11 @@ import java.util.List;
 public interface IEmpresaDao {
     List<Empresa> getAll();
 
-    Empresa getById(int id);
+    Empresa getById(String NroRUC);
 
     Empresa create(Empresa c);
 
-    Empresa update(UpdateEmpresaDto c, int id);
+    Empresa update(UpdateEmpresaDto c, String NroRuc);
 
-    Empresa delete(int id);
+    Empresa delete(String NroRuc);
 }

@@ -14,6 +14,10 @@ public class CategoriaMapper {
         return new CategoriaDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getEstado(), categoria.getFechaRegistro());
     }
 
+    public static Categoria toCategoria(CategoriaDto dto) {
+        return new Categoria(dto.getId(),dto.getNombre(),dto.getDescripcion(),dto.getEstado(), dto.getFechaRegistro(), null);
+    }
+
     public static Categoria toCategoriaFromCreate(CreateCategoriaDto dto) {
         Categoria categoria = new Categoria();
         categoria.setNombre(dto.getNombre());

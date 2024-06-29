@@ -3,6 +3,7 @@ package org.Almacen.TopAlmacen.Mappers;
 import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
+import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
 import org.Almacen.TopAlmacen.Model.Marca;
 import org.Almacen.TopAlmacen.Model.Producto;
 
@@ -26,14 +27,17 @@ public class ProductoMapper {
         p.setColor(dto.getColor());
         p.setPeso(dto.getPeso());
         p.setCategoria(dto.getCategoria());
-
+        p.setMarca(dto.getMarca());
         return p;
     }
 
-    public static Marca toMarcaFromUpdate(UpdateMarcaDto dto) {
-        Marca marca = new Marca();
-        marca.setNombre(dto.getNombre());
-        marca.setEstado(dto.getEstado());
-        return marca;
+    public static Producto toProductoFromUpdate(UpdateProductoDto dto) {
+        Producto p = new Producto();
+        p.setNombre(dto.getNombre());
+        p.setColor(dto.getColor());
+        p.setPeso(dto.getPeso());
+        p.setCategoria(dto.getCategoria());
+        p.setMarca(dto.getMarca());
+        return p;
     }
 }

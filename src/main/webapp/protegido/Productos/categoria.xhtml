@@ -58,17 +58,17 @@
                                               styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
-                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{CategoriaBeans.cargarCategoriaConProductos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button "  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
                                 </p:commandButton>
-                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{CategoriaBeans.cargarCategoriaParaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  icon="pi pi-arrow-right-arrow-left" action="#{CategoriaBeans.cambiarEstado()}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
                                     <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la Categoria?" icon="pi pi-info-circle"/>
@@ -109,8 +109,8 @@
                                 <p:column headerText="Nombre"  sortBy="#{prod.nombre}" width="50"  >
                                     <h:outputText value="#{prod.nombre}" />
                                 </p:column>
-                                <p:column headerText="Marca"  sortBy="#{prod.marcaDto.nombre}" width="50"  >
-                                    <h:outputText value="#{prod.marcaDto}" />
+                                <p:column headerText="Marca"  sortBy="#{prod.marca.nombre}" width="50"  >
+                                    <h:outputText value="#{prod.marca.nombre}" />
                                 </p:column>
                             </p:dataTable>
                     </h:panelGrid>

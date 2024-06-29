@@ -14,7 +14,7 @@
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
                             <p:toolbarGroup>
-                                <p:commandButton value="Nueva Marca" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{MarcaBeans.nuevaMarca()}"
+                                <p:commandButton value="Nueva Empresa" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{EmpresaBeans.nuevoEmpresa()}"
                                                 update="dialogs"  oncomplete="PF('dialogsa').show()"  />
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
@@ -26,9 +26,9 @@
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="tabla" var="obj" value="#{MarcaBeans.marcaDtoList}" widgetVar="obj" style="margin-top: 1rem"
-                                     emptyMessage="No hay elementos disponibles" filteredValue="#{MarcaBeans.marcaDtoListSeleccionado}"
-                                     globalFilterFunction="#{MarcaBeans.globalFilterFunction}"
+                        <p:dataTable id="tabla" var="obj" value="#{EmpresaBeans.empresaDtoList}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{EmpresaBeans.empresaDtoListSeleccionar}"
+                                     globalFilterFunction="#{EmpresaBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
@@ -41,19 +41,21 @@
                                         </span>
                                     </div>
                             </f:facet>
-                            <p:column headerText="#"  sortBy="#{obj.id}" width="50"  >
-                                <h:outputText value="#{obj.id}" />
+                            <p:column headerText="#"  sortBy="#{obj.nroRUC}" width="50"  >
+                                <h:outputText value="#{obj.nroRUC}" />
                             </p:column>
                             <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="260" >
                                 <h:outputText value="#{obj.nombre}" />
                             </p:column>
-                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="150" >
-                                <h:outputText value="#{obj.fechaRegistro}" />
+                            <p:column headerText="Fecha" sortBy="#{obj.tipoEmpresa.abrev}" width="150" >
+                                <h:outputText value="#{obj.tipoEmpresa.abrev}" />
                             </p:column>
-                            <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
+
+                           <!-- <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
                                 <h:outputText value="#{obj.estado}"
                                               styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
-                            </p:column>
+                            </p:column>-->
+
                             <p:column exportable="false" width="100">
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
@@ -74,15 +76,36 @@
                     </p:confirmDialog>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles de Empresa" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form>
-                <div id="dialog-content" class="dialogs-barra-pequenia" >
+                <div id="dialog-content" class="dialogs-barra">
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
-                            <h:panelGrid>
-                                <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{MarcaBeans.marcaDto.nombre}"  required="true"/>
-                            </h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="nro" styleClass="texto_dialog" value="Numero RUC: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="nro"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.nroRUC}"  required="true"/>
+                        </h:panelGrid>
                     </h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem" columns="2">
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/> </h:panelGrid>
+                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 17rem" value="#{EmpresaBeans.empresaDto.nombre}"  required="true"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="tempresa" styleClass="texto_dialog" value="Tipo de Empresa: "/> </h:panelGrid>
+                            <p:selectOneMenu id="tempresa" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                            value="#{EmpresaBeans.idTipoEmpresa}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{EmpresaBeans.tipoEmpresaList}" var="te" itemLabel="#{te.abrev}" itemValue="#{te.id}" itemDescription="#{te.nombre}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem">
+                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Direccion: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputTextarea style="width: 34rem"   rows="6" cols="33"  value="#{EmpresaBeans.empresaDto.direccion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
                     <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{MarcaBeans.determinarAccion()}" />

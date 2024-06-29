@@ -41,69 +41,69 @@
                                         </span>
                                     </div>
                             </f:facet>
-                            <p:column headerText="#"  sortBy="#{obj.id}" width="50"  >
+                            <p:column headerText="#"  sortBy="#{obj.id}" width="100"  >
                                 <h:outputText value="#{obj.id}" />
                             </p:column>
-                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="120" >
+                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="160" >
                                 <h:outputText value="#{obj.nombre}" />
                             </p:column>
                             <p:column headerText="Marca" sortBy="#{obj.marca.nombre}" width="100" >
                                 <h:outputText value="#{obj.marca.nombre}" styleClass="columnas-texto-table"/>
                             </p:column>
-                            <p:column headerText="Categoria" sortBy="#{obj.categoria.nombre}" width="300" >
+                            <p:column headerText="Categoria" sortBy="#{obj.categoria.nombre}" width="100" >
                                 <h:outputText value="#{obj.categoria.nombre}" styleClass="columnas-texto-table"/>
                             </p:column>
-                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="40">
+                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="100">
                                 <h:outputText value="#{obj.fechaRegistro}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
-                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{CategoriaBeans.cargarCategoriaConProductos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                                 action="#{ProductosBeans.verProducto()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button "  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{ProductosBeans.productoid}" />
                                 </p:commandButton>
-                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{CategoriaBeans.cargarCategoriaParaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                                 action="#{ProductosBeans.cargarProductoEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{ProductosBeans.productoid}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
-                                                 icon="pi pi-arrow-right-arrow-left" action="#{CategoriaBeans.cambiarEstado()}"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
-                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la Categoria?" icon="pi pi-info-circle"/>
+                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff ; height: 2.3rem; font-size: 0.2rem"
+                                                 icon="pi pi-trash" action="#{ProductosBeans.eliminarProducto()}"  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{ProductosBeans.productoid}" />
+                                    <p:confirm header="Confirmación de Eliminación" message="¿Está seguro de que desea eliminar el producto? Esta acción no se puede deshacer." icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="400">
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                         <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
                     </p:confirmDialog>
              </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles de Categoria" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles de Producto" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form>
                 <div id="dialog-content" class="dialogs-barra" >
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputText id="nombre"  styleClass="input-custom" style="width: 34.5rem" value="#{ProductosBeans.productoDto.nombre}"  required="true"/>
+                                <p:inputText id="nombre"  styleClass="input-custom" style="width: 34.5rem" value="#{ProductosBeans.productoDto.nombre}" disabled="#{ProductosBeans.escribirDatos}" required="true"/>
                             </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem" columns="2">
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="color" styleClass="texto_dialog" value="Color: "/> </h:panelGrid>
-                            <h:panelGrid><p:inputText id="color"  styleClass="input-custom" value="#{ProductosBeans.productoDto.color}" style="width: 17rem"  /></h:panelGrid>
+                            <h:panelGrid><p:inputText id="color"  styleClass="input-custom" value="#{ProductosBeans.productoDto.color}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 17rem"  /></h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="peso" styleClass="texto_dialog" value="Peso: "/> </h:panelGrid>
-                            <h:panelGrid><p:inputText id="peso"  styleClass="input-custom" value="#{ProductosBeans.productoDto.peso}" style="width: 17rem"  /></h:panelGrid>
+                            <h:panelGrid><p:inputText id="peso"  styleClass="input-custom" value="#{ProductosBeans.productoDto.peso}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 17rem"  /></h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="Categoria" styleClass="texto_dialog" value="Categoria: "/></h:panelGrid>
                         <h:panelGrid>
-                           <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Categoria" styleClass="ui-selectonemenu"
+                           <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Categoria" styleClass="ui-selectonemenu"   disabled="#{ProductosBeans.escribirDatos}"
                                             value="#{ProductosBeans.categoriaid}"  required="true" autoWidth="false"    >
                                <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opciones"  />
                                <f:selectItems value="#{ProductosBeans.categoriaDtoListActiva}" var="cat" itemLabel="#{cat.nombre}" itemValue="#{cat.id}" itemDescription="#{cat.descripcion}"  />
@@ -113,8 +113,8 @@
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="Marca" styleClass="texto_dialog" value="Marca: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Marca" styleClass="ui-selectonemenu"
-                                             value="#{ProductosBeans.categoriaid}"  required="true" autoWidth="false"    >
+                            <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Marca" styleClass="ui-selectonemenu"  disabled="#{ProductosBeans.escribirDatos}"
+                                             value="#{ProductosBeans.marcaid}"  required="true" autoWidth="false"    >
                                 <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opciones"  />
                                 <f:selectItems value="#{ProductosBeans.marcaDtoListActiva}" var="marc" itemLabel="#{marc.nombre}" itemValue="#{marc.id}" />
                             </p:selectOneMenu>
@@ -122,7 +122,7 @@
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{ProductosBeans.DeterminarAccion()}"/>
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{ProductosBeans.DeterminarAccion()}" rendered="#{ProductosBeans.btnguardar}"/>
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>
