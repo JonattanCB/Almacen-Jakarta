@@ -19,5 +19,5 @@ public interface IPrecioPorTipoUnidadDao {
 
     PrecioPorTipoUnidad delete(int id);
 
-    PrecioPorTipoUnidad findIfExist(Producto p, String t);
+    PrecioPorTipoUnidad findIfExist(Producto p, TipoUnidad t);
 }

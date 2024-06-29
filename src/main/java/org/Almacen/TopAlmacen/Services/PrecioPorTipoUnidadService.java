@@ -38,45 +38,52 @@ public class PrecioPorTipoUnidadService {
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(id);
         return PrecioPorTipoUnidadMapper.toDto(precioPorTipoUnidad);
     }
+    @Transactional
+    public boolean verificarUnidad(Producto p, TipoUnidad tipoUnidad) {
+        var existente = iprecioPorTipoUnidadDao.findIfExist(p, tipoUnidad);
+        if (existente != null) {
+            return true;
+        }
+        return false;
+    }
 
     @Transactional
-    public PrecioPorTipoUnidad verificarOCrearUnidadBasica(Producto producto) {
-        String abrevUnidadBasica = "UND"; // Abreviatura para unidad
-        PrecioPorTipoUnidad existente = iprecioPorTipoUnidadDao.findIfExist(producto, abrevUnidadBasica);
-
-        if (existente == null) {
-            TipoUnidad tipoUnidadBasica = itipoUnidadDao.findOrCreateTipoUnidad(abrevUnidadBasica);
-            PrecioPorTipoUnidad nuevaUnidad = new PrecioPorTipoUnidad();
-            nuevaUnidad.setProducto(producto);
-            nuevaUnidad.setTipoUnidad(tipoUnidadBasica);
-            nuevaUnidad.setPrecioUnitario(0); // O establece el precio adecuado
+    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {
+        String abrevUnidadBasica = "UND";
+        if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
+            var tipoUnidad = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
+            var nuevaUnidad = new PrecioPorTipoUnidad();
+            nuevaUnidad.setProducto(dto.getProducto());
+            nuevaUnidad.setTipoUnidad(tipoUnidad);
+            nuevaUnidad.setPrecioUnitario(0);
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
 
-            StockUnidades stockUnidades = new StockUnidades();
-            stockUnidades.setCantidadStockUnidad(0); // Inicialmente sin stock
+            var stockUnidades = new StockUnidades();
+            stockUnidades.setCantidadStockUnidad(0);
             stockUnidades.setTipoUnidad(abrevUnidadBasica);
             stockUnidades.setPrecioPorTipoUnidad(nuevaUnidad);
 
             nuevaUnidad.setStockUnidades(stockUnidades);
             return iprecioPorTipoUnidadDao.create(nuevaUnidad);
         }
-        return existente;
+
+        return null;
     }
 
     @Transactional
     public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {
-        Producto producto = dto.getProducto();
-        verificarOCrearUnidadBasica(producto);
+        if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
+            var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
+            var stockUnidades = new StockUnidades();
+            stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
+            stockUnidades.setTipoUnidad(pptu.getTipoUnidad().getAbrev());
+            stockUnidades.setPrecioPorTipoUnidad(pptu);
 
-        PrecioPorTipoUnidad pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
-        StockUnidades stockUnidades = new StockUnidades();
-        stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
-        stockUnidades.setTipoUnidad(pptu.getTipoUnidad().getAbrev());
-        stockUnidades.setPrecioPorTipoUnidad(pptu);
+            pptu.setStockUnidades(stockUnidades);
 
-        pptu.setStockUnidades(stockUnidades);
-
-        return iprecioPorTipoUnidadDao.create(pptu);
+            return iprecioPorTipoUnidadDao.create(pptu);
+        }
+        return null;
     }
 
     @Transactional
@@ -91,7 +98,7 @@ public class PrecioPorTipoUnidadService {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad findIfExists(Producto p, String t) {
+    public PrecioPorTipoUnidad findIfExists(Producto p, TipoUnidad t) {
         return iprecioPorTipoUnidadDao.findIfExist(p, t);
     }
 }

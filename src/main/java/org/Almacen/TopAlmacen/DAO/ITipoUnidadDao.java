@@ -15,5 +15,5 @@ public interface ITipoUnidadDao {
 
     TipoUnidad delete(int id);
 
-    TipoUnidad findOrCreateTipoUnidad(String abrev);
+    TipoUnidad findByAbrev(String abrev);
 }
