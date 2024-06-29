@@ -4,15 +4,15 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
+import org.Almacen.TopAlmacen.DTO.HistorialPrecios.CreateHistorialPreciosDto;
+import org.Almacen.TopAlmacen.DTO.HistorialPrecios.HistorialPreciosDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
-import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
-import org.Almacen.TopAlmacen.Model.Producto;
-import org.Almacen.TopAlmacen.Model.StockUnidades;
-import org.Almacen.TopAlmacen.Model.TipoUnidad;
+import org.Almacen.TopAlmacen.Model.*;
 import org.Almacen.TopAlmacen.DAO.ITipoUnidadDao;
 
 import java.util.List;
@@ -26,6 +26,8 @@ public class PrecioPorTipoUnidadService {
     private IPrecioPorTipoUnidadDao iprecioPorTipoUnidadDao;
     @Inject
     private ITipoUnidadDao itipoUnidadDao;
+    @Inject
+    private IHistorialPreciosDao ihistorialPreciosDao;
 
     @Transactional
     public List<PrecioPorTipoUnidadDto> getAllPrecioPorTipoUnidad() {
@@ -38,6 +40,7 @@ public class PrecioPorTipoUnidadService {
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(id);
         return PrecioPorTipoUnidadMapper.toDto(precioPorTipoUnidad);
     }
+
     @Transactional
     public boolean verificarUnidad(Producto p, TipoUnidad tipoUnidad) {
         var existente = iprecioPorTipoUnidadDao.findIfExist(p, tipoUnidad);
@@ -88,17 +91,24 @@ public class PrecioPorTipoUnidadService {
 
     @Transactional
     public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) {
-        var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromUpdate(dto);
-        return iprecioPorTipoUnidadDao.update(dto, id);
+        var getItem = iprecioPorTipoUnidadDao.getById(id);
+        if (getItem != null) {
+            var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromUpdate(dto);
+            var pA = pptu.getPrecioUnitario();
+            var pN = getItem.getPrecioUnitario();
+            if (pA != pN) {
+                var hp = new HistorialPrecios();
+                hp.setPrecioPorTipoUnidad(pptu);
+                hp.setPrecioRegistro(pN);
+                ihistorialPreciosDao.create(hp);
+            }
+            return iprecioPorTipoUnidadDao.update(dto, id);
+        }
+        return null;
     }
 
     @Transactional
     public PrecioPorTipoUnidad delete(int id) {
         return iprecioPorTipoUnidadDao.delete(id);
-    }
-
-    @Transactional
-    public PrecioPorTipoUnidad findIfExists(Producto p, TipoUnidad t) {
-        return iprecioPorTipoUnidadDao.findIfExist(p, t);
     }
 }

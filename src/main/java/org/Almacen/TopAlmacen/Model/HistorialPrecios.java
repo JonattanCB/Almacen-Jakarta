@@ -23,7 +23,7 @@ public class HistorialPrecios {
     @JoinColumn(name = "PrecioPorTipoUnidad", nullable = false)
     private PrecioPorTipoUnidad precioPorTipoUnidad;
     @Column(name = "precioRegistro", nullable = false)
-    private String precioRegistro;
+    private Double precioRegistro;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalTime fechaRegistro;
 }
