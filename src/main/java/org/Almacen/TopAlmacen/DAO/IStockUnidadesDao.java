@@ -1,6 +1,7 @@
 package org.Almacen.TopAlmacen.DAO;
 
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
@@ -12,7 +13,10 @@ public interface IStockUnidadesDao {
 
     StockUnidades create(StockUnidades c);
 
-    StockUnidades update(UpdateStockUnidadesDto c, int id);
+    StockUnidades update(StockUnidades c);
 
     StockUnidades delete(int id);
+
+    StockUnidades findByProductoAndTipoUnidad(Producto producto, String tipoUnidad);
+
 }

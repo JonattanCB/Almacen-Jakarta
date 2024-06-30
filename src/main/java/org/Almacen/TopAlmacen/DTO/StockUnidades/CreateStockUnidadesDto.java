@@ -7,13 +7,14 @@ import lombok.Setter;
 
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class CreateStockUnidadesDto {
-    private PrecioPorTipoUnidad precioPorTipoUnidad;
     private double CantidadStockUnidadesDto;
     private String tipoUnidad;
 }

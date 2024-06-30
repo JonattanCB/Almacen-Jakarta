@@ -2,9 +2,12 @@ package org.Almacen.TopAlmacen.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
+import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
@@ -31,17 +34,10 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
     }
 
     @Override
-    public StockUnidades update(UpdateStockUnidadesDto c, int id) {
-        var findObj = getById(id);
-        if (findObj != null) {
-            findObj.setPrecioPorTipoUnidad(c.getPrecioPorTipoUnidad());
-            findObj.setCantidadStockUnidad(c.getCantidadStockUnidadesDto());
-            findObj.setTipoUnidad(c.getTipoUnidad());
-            _entityManager.merge(findObj);
-            return findObj;
-        } else {
-            return null;
-        }
+    public StockUnidades update(StockUnidades c) {
+        _entityManager.merge(c);
+        return c;
+
     }
 
     @Override
@@ -51,6 +47,17 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
             _entityManager.remove(findObj);
             return findObj;
         } else {
+            return null;
+        }
+    }
+
+    @Override
+    public StockUnidades findByProductoAndTipoUnidad(Producto producto, String tipoUnidad) {
+        try {
+            return _entityManager.createQuery("SELECT s FROM StockUnidades s WHERE s.tipoUnidad = :tipoUnidad", StockUnidades.class)
+                    .setParameter("tipoUnidad", tipoUnidad)
+                    .getSingleResult();
+        } catch (NoResultException e) {
             return null;
         }
     }

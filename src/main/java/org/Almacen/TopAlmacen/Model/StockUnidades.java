@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,12 +22,16 @@ public class StockUnidades {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PrecioPorTipoUnidad", nullable = false)
-    private PrecioPorTipoUnidad precioPorTipoUnidad;
-
     @Column(name = "CantidadStockUnidad")
     private double CantidadStockUnidad;
+
     @Column(name = "TipoUnidad", nullable = false)
     private String tipoUnidad;
+
+    @OneToMany(mappedBy = "stockUnidades", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PrecioPorTipoUnidad> preciosPorTipoUnidad;
+
+
 }
+
+

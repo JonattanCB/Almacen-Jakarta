@@ -6,8 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
-import org.Almacen.TopAlmacen.DTO.HistorialPrecios.CreateHistorialPreciosDto;
-import org.Almacen.TopAlmacen.DTO.HistorialPrecios.HistorialPreciosDto;
+import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
@@ -28,6 +27,8 @@ public class PrecioPorTipoUnidadService {
     private ITipoUnidadDao itipoUnidadDao;
     @Inject
     private IHistorialPreciosDao ihistorialPreciosDao;
+    @Inject
+    private IStockUnidadesDao istockUnidadesDao;
 
     @Transactional
     public List<PrecioPorTipoUnidadDto> getAllPrecioPorTipoUnidad() {
@@ -50,6 +51,12 @@ public class PrecioPorTipoUnidadService {
         return false;
     }
 
+    public boolean existeUnidadBasica(Producto producto) {
+        String abrevUnidadBasica = "UND";
+        var tipoUnidad = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
+        return iprecioPorTipoUnidadDao.findIfExist(producto, tipoUnidad) != null;
+    }
+
     @Transactional
     public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {
         String abrevUnidadBasica = "UND";
@@ -58,15 +65,13 @@ public class PrecioPorTipoUnidadService {
             var nuevaUnidad = new PrecioPorTipoUnidad();
             nuevaUnidad.setProducto(dto.getProducto());
             nuevaUnidad.setTipoUnidad(tipoUnidad);
-            nuevaUnidad.setPrecioUnitario(0);
+            nuevaUnidad.setPrecioUnitario(dto.getPrecio());
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
 
             var stockUnidades = new StockUnidades();
             stockUnidades.setCantidadStockUnidad(0);
             stockUnidades.setTipoUnidad(abrevUnidadBasica);
-            stockUnidades.setPrecioPorTipoUnidad(nuevaUnidad);
 
-            nuevaUnidad.setStockUnidades(stockUnidades);
             return iprecioPorTipoUnidadDao.create(nuevaUnidad);
         }
 
@@ -75,18 +80,20 @@ public class PrecioPorTipoUnidadService {
 
     @Transactional
     public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {
-        if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
+        if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
+
             var stockUnidades = new StockUnidades();
             stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
             stockUnidades.setTipoUnidad(pptu.getTipoUnidad().getAbrev());
-            stockUnidades.setPrecioPorTipoUnidad(pptu);
+            stockUnidades.getPreciosPorTipoUnidad().add(pptu);
 
-            pptu.setStockUnidades(stockUnidades);
-
+            istockUnidadesDao.create(stockUnidades);
             return iprecioPorTipoUnidadDao.create(pptu);
+        } else {
+            System.out.println("No existe una unidad básica del tipo 'UND' para este producto.");
+            return null;
         }
-        return null;
     }
 
     @Transactional

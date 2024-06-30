@@ -14,9 +14,11 @@ import lombok.Setter;
 @Entity
 @Table(name = "PrecioPorTipoUnidad")
 public class PrecioPorTipoUnidad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TipoUnidad_ID", nullable = false)
     private TipoUnidad tipoUnidad;
@@ -27,10 +29,9 @@ public class PrecioPorTipoUnidad {
 
     @Column(name = "PrecioUnitario", nullable = false)
     private double precioUnitario;
+
     @Column(name = "unidadesPorTipoUnidadDeProducto")
     private double unidadesPorTipoUnidadDeProducto;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "precioPorTipoUnidad", fetch = FetchType.LAZY)
-    private StockUnidades stockUnidades;
-
 }
+
