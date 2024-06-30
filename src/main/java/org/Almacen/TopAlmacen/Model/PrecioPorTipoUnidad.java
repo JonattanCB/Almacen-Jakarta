@@ -33,9 +33,5 @@ public class PrecioPorTipoUnidad {
     @Column(name = "unidadesPorTipoUnidadDeProducto")
     private double unidadesPorTipoUnidadDeProducto;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "StockUnidades_ID", nullable = false)
-    private StockUnidades stockUnidades;
 }
 

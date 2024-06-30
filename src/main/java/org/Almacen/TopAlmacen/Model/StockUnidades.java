@@ -28,7 +28,7 @@ public class StockUnidades {
     @Column(name = "TipoUnidad", nullable = false)
     private String tipoUnidad;
 
-    @OneToMany(mappedBy = "stockUnidades", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PrecioPorTipoUnidad> preciosPorTipoUnidad;
 
 
