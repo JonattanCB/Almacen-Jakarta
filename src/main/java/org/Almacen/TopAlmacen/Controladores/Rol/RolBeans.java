@@ -24,6 +24,8 @@ public class RolBeans implements Serializable {
 
     private RolDto rolDto;
 
+    private int idRol;
+
     private List<RolDto> rolDtoList;
 
     private List<RolDto> rolDtoListSelect;
@@ -44,6 +46,14 @@ public class RolBeans implements Serializable {
 
     public void NuevoRoles(){
         rolDto = new RolDto();
+    }
+
+    public void cargarRolEdiccion(){
+
+    }
+
+    public  void cambiarEstado(){
+
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {

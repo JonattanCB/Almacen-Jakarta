@@ -28,11 +28,11 @@
                         </p:toolbar>
                         <p:dataTable id="tabla" var="obj" value="#{RolBeans.rolDtoList}" widgetVar="obj" style="margin-top: 1rem"
                                      emptyMessage="No hay elementos disponibles" filteredValue="#{RolBeans.rolDtoListSelect}"
-                                     globalFilterFunction="#{MarcaBeans.globalFilterFunction}"
+                                     globalFilterFunction="#{RolBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
-                                        <span class="titulo-hearder-tabla">Catálogo de Marcas</span>
+                                        <span class="titulo-hearder-tabla">Catálogo de Roles</span>
                                         <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
@@ -56,14 +56,14 @@
                             </p:column>
                             <p:column exportable="false" width="100">
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 action="#{RolBeans.cargarRolEdiccion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{RolBeans.idRol}" />
                                 </p:commandButton>
                                 <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
-                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca?" icon="pi pi-info-circle"/>
+                                                 icon="pi pi-arrow-right-arrow-left" action="#{RolBeans.cambiarEstado()}"  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{RolBeans.idRol}" />
+                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado del rol?" icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
