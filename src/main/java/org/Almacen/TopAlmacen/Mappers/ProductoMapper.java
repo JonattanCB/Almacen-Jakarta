@@ -15,6 +15,10 @@ public class ProductoMapper {
         return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(),producto.getFechaRegistro());
     }
 
+    public static Producto toProducto(ProductoDto dto){
+        return new Producto(dto.getId(), dto.getNombre(), dto.getColor(), dto.getPeso(), dto.getMarca(), dto.getCategoria() ,dto.getFechaRegistro());
+    }
+
     public static List<ProductoDto> toDTOList(List<Producto> productos) {
         return productos.stream()
                 .map(ProductoMapper::toDto)

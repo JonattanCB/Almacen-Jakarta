@@ -15,7 +15,7 @@
                         <p:toolbar>
                             <p:toolbarGroup>
                                 <p:commandButton value="Nueva Producto" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{ProductosBeans.nuevoProducto()}"
-                                                update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                                                update="dialogs" disabled="#{ProductosBeans.btnNuevoProducto}"  oncomplete="PF('dialogsa').show()"  />
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
@@ -48,10 +48,10 @@
                                 <h:outputText value="#{obj.nombre}" />
                             </p:column>
                             <p:column headerText="Marca" sortBy="#{obj.marca.nombre}" width="100" >
-                                <h:outputText value="#{obj.marca.nombre}" styleClass="columnas-texto-table"/>
+                                <h:outputText value="#{obj.marca.nombre}"/>
                             </p:column>
                             <p:column headerText="Categoria" sortBy="#{obj.categoria.nombre}" width="100" >
-                                <h:outputText value="#{obj.categoria.nombre}" styleClass="columnas-texto-table"/>
+                                <h:outputText value="#{obj.categoria.nombre}" />
                             </p:column>
                             <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="100">
                                 <h:outputText value="#{obj.fechaRegistro}"/>

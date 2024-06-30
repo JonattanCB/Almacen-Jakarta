@@ -1,15 +1,13 @@
-package org.Almacen.TopAlmacen.Controladores;
+package org.Almacen.TopAlmacen.Controladores.Marca;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
-import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
-import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
@@ -23,7 +21,7 @@ import java.util.Locale;
 
 @Data
 @Named("MarcaBeans")
-@SessionScoped
+@ViewScoped
 public class MarcaBeans implements Serializable {
 
     @Inject

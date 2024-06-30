@@ -10,7 +10,7 @@
     <ui:define name="contenido">
         <h:form id="form-datos">
             <h:panelGrid styleClass="contenido-panel">
-                <p:growl id="messages"/>
+                <p:growl id="messages" />
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
                             <p:toolbarGroup>
@@ -19,10 +19,10 @@
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
-                                    <p:dataExporter type="pdf" target="tabla" fileName="Marca" exportHeader="false"/>
+                                    <p:dataExporter type="pdf" target="tabla" fileName="Empresa" exportHeader="false"/>
                                 </p:commandButton>
                                 <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
-                                    <p:dataExporter type="csv" target="tabla" fileName="Marca" />
+                                    <p:dataExporter type="csv" target="tabla" fileName="Empresa" />
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
@@ -32,7 +32,7 @@
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
-                                        <span class="titulo-hearder-tabla">Catálogo de Marcas</span>
+                                        <span class="titulo-hearder-tabla">Catálogo de Empresas</span>
                                         <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
@@ -44,33 +44,32 @@
                             <p:column headerText="#"  sortBy="#{obj.nroRUC}" width="50"  >
                                 <h:outputText value="#{obj.nroRUC}" />
                             </p:column>
-                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="260" >
+                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="100" >
                                 <h:outputText value="#{obj.nombre}" />
                             </p:column>
-                            <p:column headerText="Fecha" sortBy="#{obj.tipoEmpresa.abrev}" width="150" >
+                            <p:column headerText="Tipo de Empresa" sortBy="#{obj.tipoEmpresa.abrev}" width="150" >
                                 <h:outputText value="#{obj.tipoEmpresa.abrev}" />
                             </p:column>
-
-                           <!-- <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
-                                <h:outputText value="#{obj.estado}"
-                                              styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
-                            </p:column>-->
-
+                            <p:column headerText="Direccion" sortBy="#{obj.direccion}" width="140" >
+                                <h:outputText value="#{obj.direccion}" />
+                            </p:column>
                             <p:column exportable="false" width="100">
                                 <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{ProductosBeans.verProducto()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 action="#{EmpresaBeans.cargarEmpresaVista()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button "  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                 </p:commandButton>
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 action="#{EmpresaBeans.cargarEmpresaEdiccion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
+                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                                 icon="pi pi-trash"  action="#{EmpresaBeans.deleteEmpresa()}"  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
-                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca?" icon="pi pi-info-circle"/>
+                                    <p:confirm header="Confirmación"
+                                               message="¿Está seguro de que desea eliminar esta empresa? Esta acción no se puede deshacer."
+                                               icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -87,32 +86,33 @@
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="nro" styleClass="texto_dialog" value="Numero RUC: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputText id="nro"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.nroRUC}"  required="true"/>
+                            <p:inputText id="nro"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.nroRUC}" disabled="#{EmpresaBeans.datoRuc}"  required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem" columns="2">
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/> </h:panelGrid>
-                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 17rem" value="#{EmpresaBeans.empresaDto.nombre}"  required="true"/>
+                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 17rem" value="#{EmpresaBeans.empresaDto.nombre}" disabled="#{EmpresaBeans.escribirDatos}"  required="true"/>
                         </h:panelGrid>
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="tempresa" styleClass="texto_dialog" value="Tipo de Empresa: "/> </h:panelGrid>
-                            <p:selectOneMenu id="tempresa" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                            value="#{EmpresaBeans.idTipoEmpresa}" required="true" autoWidth="false"  >
+                            <p:selectOneMenu id="tempresa" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu" disabled="#{EmpresaBeans.escribirDatos}"
+                                             value="#{EmpresaBeans.idTipoEmpresa}" required="true" autoWidth="false"  >
                                 <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                <f:selectItems  value="#{EmpresaBeans.tipoEmpresaList}" var="te" itemLabel="#{te.abrev}" itemValue="#{te.id}" itemDescription="#{te.nombre}" />
+                                <f:selectItems  value="#{EmpresaBeans.tipoEmpresaList}" var="te" itemLabel="#{te.nombre}" itemValue="#{te.id}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem" >
                         <h:panelGrid><h:outputLabel for="direccion" styleClass="texto_dialog" value="Direccion: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputText id="direccion"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.direccion}"  required="true"/>
+                            <p:inputText id="direccion"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.direccion}" disabled="#{EmpresaBeans.escribirDatos}"   required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.DeterminarAccion()}" />
+                <h:panelGrid columns="3" style="float: right;" >
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.createEmpresa()}" rendered="#{EmpresaBeans.btnRegistar}"  />
+                    <p:commandButton value="Guardar editar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.updateEmpresa()}" rendered="#{EmpresaBeans.btnEditar}"  />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>

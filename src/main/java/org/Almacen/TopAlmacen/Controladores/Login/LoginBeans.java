@@ -1,4 +1,4 @@
-package org.Almacen.TopAlmacen.Controladores;
+package org.Almacen.TopAlmacen.Controladores.Login;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;

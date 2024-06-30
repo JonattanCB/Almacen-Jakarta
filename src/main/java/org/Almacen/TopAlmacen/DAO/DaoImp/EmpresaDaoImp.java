@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IEmpresaDao;
 import org.Almacen.TopAlmacen.DTO.Empresa.UpdateEmpresaDto;
+import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.Empresa;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class EmpresaDaoImp implements IEmpresaDao {
 
     @Override
     public List<Empresa> getAll() {
-        return _entityManager.createQuery("SELECT e FROM Empresa e order by  e.NroRUC asc ", Empresa.class).getResultList();
+        return _entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.tipoEmpresa ORDER BY e.NroRUC ASC", Empresa.class).getResultList();
     }
 
     @Override
@@ -50,5 +51,15 @@ public class EmpresaDaoImp implements IEmpresaDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean exist(String NroRuc) {
+        var query = _entityManager.createQuery(
+                "SELECT count(c) FROM Empresa c WHERE c.NroRUC = :NroRuc", Long.class
+        );
+        query.setParameter("NroRuc", NroRuc);
+        Long count = query.getSingleResult();
+        return count > 0;
     }
 }

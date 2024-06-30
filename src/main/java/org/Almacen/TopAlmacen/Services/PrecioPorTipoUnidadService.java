@@ -14,12 +14,13 @@ import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.TopAlmacen.Model.*;
 import org.Almacen.TopAlmacen.DAO.ITipoUnidadDao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class PrecioPorTipoUnidadService {
+public class PrecioPorTipoUnidadService implements Serializable {
 
     @Inject
     private IPrecioPorTipoUnidadDao iprecioPorTipoUnidadDao;

@@ -1,9 +1,10 @@
-package org.Almacen.TopAlmacen.Controladores;
+package org.Almacen.TopAlmacen.Controladores.Categoria;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
@@ -22,7 +23,7 @@ import java.util.Locale;
 
 @Data
 @Named("CategoriaBeans")
-@SessionScoped
+@ViewScoped
 public class CategoriaBeans implements Serializable {
 
     @Inject

@@ -51,4 +51,8 @@ public class EmpresaService implements Serializable {
         return iEmpresaDao.delete(NroRuc);
     }
 
+    @Transactional
+    public boolean EmpresaExists(String NroRuc){
+        return iEmpresaDao.exist(NroRuc);
+    }
 }

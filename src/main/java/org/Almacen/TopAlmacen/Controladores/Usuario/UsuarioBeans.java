@@ -1,10 +1,9 @@
-package org.Almacen.TopAlmacen.Controladores;
+package org.Almacen.TopAlmacen.Controladores.Usuario;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.primefaces.util.LangUtils;
 
@@ -14,7 +13,7 @@ import java.util.Locale;
 
 @Data
 @Named("UsuarioBeans")
-@SessionScoped
+@ViewScoped
 public class UsuarioBeans implements Serializable {
 
     private List<UsuarioDto> usuarios;

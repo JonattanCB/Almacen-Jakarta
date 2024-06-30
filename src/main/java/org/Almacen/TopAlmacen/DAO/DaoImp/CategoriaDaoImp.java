@@ -26,8 +26,6 @@ public class CategoriaDaoImp implements ICategoriaDao {
         return _entityManager.createQuery("SELECT c FROM Categoria c WHERE c.estado='Activo'", Categoria.class).getResultList();
     }
 
-
-
     @Override
     public Categoria getById(int id) {
         var query = _entityManager.createQuery(

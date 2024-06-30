@@ -15,4 +15,6 @@ public interface IEmpresaDao {
     Empresa update(UpdateEmpresaDto c, String NroRuc);
 
     Empresa delete(String NroRuc);
+
+    boolean exist(String NroRuc);
 }

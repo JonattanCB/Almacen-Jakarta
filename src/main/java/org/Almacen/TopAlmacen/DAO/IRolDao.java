@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.DAO;
 
+import org.Almacen.TopAlmacen.DTO.Rol.UpdateRolDto;
 import org.Almacen.TopAlmacen.Model.Rol;
 
 import java.util.List;
@@ -9,9 +10,13 @@ public interface IRolDao {
 
     Rol getById(int id);
 
-    void create(Rol c);
+    Rol create(Rol c);
 
-    void update(Rol c);
+    Rol update(UpdateRolDto c, int id);
 
-    void delete(Rol c);
+    Rol delete(int id);
+
+    void cambioEstado(int id, String estado);
+
+    List<Rol> getAllByEstadoActivoRols();
 }

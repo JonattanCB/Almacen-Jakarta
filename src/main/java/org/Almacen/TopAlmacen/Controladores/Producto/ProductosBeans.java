@@ -1,9 +1,9 @@
-package org.Almacen.TopAlmacen.Controladores;
+package org.Almacen.TopAlmacen.Controladores.Producto;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
@@ -27,7 +27,7 @@ import java.util.Locale;
 
 @Data
 @Named("ProductosBeans")
-@SessionScoped
+@ViewScoped
 public class ProductosBeans implements Serializable {
 
 
@@ -52,6 +52,8 @@ public class ProductosBeans implements Serializable {
 
     private boolean EscribirDatos;
 
+    private boolean btnNuevoProducto;
+
     private List<ProductoDto> productosProductoDtoList;
 
     private List<ProductoDto> productoDtoListSeleccionable;
@@ -63,6 +65,7 @@ public class ProductosBeans implements Serializable {
     @PostConstruct
     private void init() {
         loadProductos();
+        verificarNuevoBoton();
     }
 
     public void nuevoProducto() {
@@ -177,5 +180,15 @@ public class ProductosBeans implements Serializable {
         }
     }
 
+    private void verificarNuevoBoton(){
+        List<CategoriaDto> categoriaDtoList = categoriaService.getAllCategoriasActivas();
+        List<MarcaDto> marcaDtoList = marcaService.getAllMarcaActiva();
+
+        if (categoriaDtoList.isEmpty() || marcaDtoList.isEmpty()){
+            btnNuevoProducto = true;
+        }else {
+            btnNuevoProducto = false;
+        }
+    }
 
 }

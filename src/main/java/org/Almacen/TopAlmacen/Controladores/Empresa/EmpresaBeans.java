@@ -1,4 +1,4 @@
-package org.Almacen.TopAlmacen.Controladores;
+package org.Almacen.TopAlmacen.Controladores.Empresa;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
@@ -7,11 +7,11 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.CreateEmpresaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.UpdateEmpresaDto;
 import org.Almacen.TopAlmacen.DTO.TipoEmpresa.TipoEmpresaDto;
+import org.Almacen.TopAlmacen.Mappers.EmpresaMapper;
 import org.Almacen.TopAlmacen.Mappers.TipoEmpresaMapper;
 import org.Almacen.TopAlmacen.Services.EmpresaService;
 import org.Almacen.TopAlmacen.Services.TipoEmpresaService;
@@ -39,6 +39,14 @@ public class EmpresaBeans implements Serializable {
 
     private  int idTipoEmpresa;
 
+    private boolean EscribirDatos;
+
+    private boolean btnRegistar;
+
+    private boolean btnEditar;
+
+    private boolean DatoRuc;
+
     private List<EmpresaDto> empresaDtoList;
 
     private List<EmpresaDto> empresaDtoListSeleccionar;
@@ -61,30 +69,47 @@ public class EmpresaBeans implements Serializable {
     public void nuevoEmpresa(){
         empresaDto = new EmpresaDto();
         tipoEmpresaList = tipoEmpresaService.getAllTipoEmpresa();
+        idTipoEmpresa = 0;
+        verificiadorAccion(1);
     }
 
-    public void DeterminarAccion(){
-        if (empresaDto.getNroRUC().equals("") || empresaDto.getNroRUC().isEmpty()){
-            createEmpresa();
-        }else {
-            updateEmpresa();
-        }
-        loadEmpresa();
-        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
-        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+
+    private void cargarEmpresa(){
+        empresaDto = empresaService.getEmpresa(getNroRUC());
+        idTipoEmpresa = empresaDto.getTipoEmpresa().getId();
+        tipoEmpresaList = tipoEmpresaService.getAllTipoEmpresa();
     }
 
-    private void createEmpresa(){
+    public void cargarEmpresaEdiccion(){
+        cargarEmpresa();
+        verificiadorAccion(2);
+    }
+
+    public void cargarEmpresaVista(){
+        cargarEmpresa();
+        verificiadorAccion(3);
+    }
+
+    public void createEmpresa(){
+        boolean empresaExists = empresaService.EmpresaExists(empresaDto.getNroRUC());
         CreateEmpresaDto createEmpresaDto = new CreateEmpresaDto();
         createEmpresaDto.setNroRUC(empresaDto.getNroRUC());
         createEmpresaDto.setNombre(empresaDto.getNombre());
         createEmpresaDto.setDireccion(empresaDto.getDireccion());
         createEmpresaDto.setTipoEmpresa(TipoEmpresaMapper.toTipoEmpresa(tipoEmpresaService.getTipoEmpesa(idTipoEmpresa)));
-        empresaService.createEmpresa(createEmpresaDto);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Empresa "+createEmpresaDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
+        if (empresaExists){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "Advertencia!! La empresa con este RUC ya existe "));
+            PrimeFaces.current().ajax().update(":form-datos:messages");
+        }else{
+            empresaService.createEmpresa(createEmpresaDto);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Empresa "+createEmpresaDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
+            loadEmpresa();
+            PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+            PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+        }
     }
 
-    private void updateEmpresa(){
+    public void updateEmpresa(){
         UpdateEmpresaDto updateEmpresaDto = new UpdateEmpresaDto();
         updateEmpresaDto.setNroRUC(empresaDto.getNroRUC());
         updateEmpresaDto.setNombre(empresaDto.getNombre());
@@ -92,6 +117,17 @@ public class EmpresaBeans implements Serializable {
         updateEmpresaDto.setTipoEmpresa(TipoEmpresaMapper.toTipoEmpresa(tipoEmpresaService.getTipoEmpesa(idTipoEmpresa)));
         empresaService.updateEmpresa(NroRUC,updateEmpresaDto);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Empresa "+updateEmpresaDto.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
+        loadEmpresa();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    public void deleteEmpresa(){
+        EmpresaDto dto = EmpresaMapper.toDto(empresaService.deleteEmpresa(NroRUC));
+        loadEmpresa();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getNombre() + " ha sido eliminado exitosamente del sistema!"));
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
@@ -114,4 +150,26 @@ public class EmpresaBeans implements Serializable {
         }
     }
 
+    private  void verificiadorAccion(int opcion){
+        switch (opcion){
+            case 1:
+                EscribirDatos = false;
+                btnRegistar = true;
+                btnEditar = false;
+                DatoRuc = false;
+                break;
+            case 2:
+                EscribirDatos = false;
+                btnRegistar = false;
+                btnEditar = true;
+                DatoRuc = true;
+                break;
+            case 3:
+                EscribirDatos = true;
+                btnRegistar = false;
+                btnEditar = false;
+                DatoRuc = true;
+                break;
+        }
+    }
 }
