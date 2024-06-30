@@ -64,7 +64,7 @@ public class EmpresaBeans implements Serializable {
     }
 
     public void DeterminarAccion(){
-        if ("".equals(empresaDto.getNroRUC())||empresaDto.getNroRUC().isEmpty()){
+        if (empresaDto.getNroRUC().equals("") || empresaDto.getNroRUC().isEmpty()){
             createEmpresa();
         }else {
             updateEmpresa();

@@ -57,14 +57,19 @@
                             </p:column>-->
 
                             <p:column exportable="false" width="100">
+                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                                 action="#{ProductosBeans.verProducto()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 styleClass="edit-button rounded-button "  >
+                                    <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
+                                </p:commandButton>
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
+                                    <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                 </p:commandButton>
                                 <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
+                                    <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                     <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca?" icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
@@ -99,16 +104,15 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  style="margin-top: 1rem">
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Direccion: "/></h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem" >
+                        <h:panelGrid><h:outputLabel for="direccion" styleClass="texto_dialog" value="Direccion: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputTextarea style="width: 34rem"   rows="6" cols="33"  value="#{EmpresaBeans.empresaDto.direccion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
+                            <p:inputText id="direccion"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.direccion}"  required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
-
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{MarcaBeans.determinarAccion()}" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.DeterminarAccion()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>
