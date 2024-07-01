@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IUsuarioDao;
 import org.Almacen.TopAlmacen.DTO.Usuario.UpdateUsuarioDto;
+import org.Almacen.TopAlmacen.Mappers.UsuarioMapper;
+import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class UsuarioDaoImp implements IUsuarioDao {
 
     @Override
     public List<Usuario> getAll() {
-        return _entityManager.createQuery("SELECT u FROM Usuario u ", Usuario.class).getResultList();
+        return _entityManager.createQuery("SELECT u FROM Usuario u order by u.id asc ", Usuario.class).getResultList();
     }
 
     @Override
@@ -29,17 +31,41 @@ public class UsuarioDaoImp implements IUsuarioDao {
 
     @Override
     public Usuario create(Usuario c) {
-        return null;
+        _entityManager.persist(c);
+        return  c;
     }
 
     @Override
-    public Usuario update(UpdateUsuarioDto u) {
-        return null;
+    public Usuario update(UpdateUsuarioDto u, int id) {
+        var existingUsuario = _entityManager.find(Usuario.class, id);
+        if (existingUsuario != null) {
+            existingUsuario.setCorreo(u.getCorreo());
+            existingUsuario.setContra(u.getContra());
+            existingUsuario.setNombres(u.getNombres());
+            existingUsuario.setApellidos(u.getApellidos());
+            existingUsuario.setEstado(u.getEstado());
+            existingUsuario.setRol(u.getRol());
+            existingUsuario.setUnidadDependencia(u.getUnidadDependencia());
+            _entityManager.merge(existingUsuario);
+            return existingUsuario;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public Usuario delete(int id) {
         return null;
+    }
+
+    @Override
+    public void cambiarMarca(int id, String estado) {
+        var query = _entityManager.createQuery(
+                "UPDATE Usuario u SET u.estado = :estado WHERE u.id = :id"
+        );
+        query.setParameter("estado", estado);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
 }

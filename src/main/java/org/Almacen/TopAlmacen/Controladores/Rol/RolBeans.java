@@ -1,13 +1,17 @@
 package org.Almacen.TopAlmacen.Controladores.Rol;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
+import org.Almacen.TopAlmacen.DTO.Rol.CreateRolDto;
 import org.Almacen.TopAlmacen.DTO.Rol.RolDto;
+import org.Almacen.TopAlmacen.DTO.Rol.UpdateRolDto;
 import org.Almacen.TopAlmacen.Services.RolService;
+import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
@@ -48,11 +52,53 @@ public class RolBeans implements Serializable {
         rolDto = new RolDto();
     }
 
-    public void cargarRolEdiccion(){
+    public void DeterminarAccion(){
+        if (rolDto.getId() == 0){
+            createrol();
+        }else {
+            updaterol();
+        }
+        loadRoles();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
 
+    private void createrol(){
+        CreateRolDto createRolDto = new CreateRolDto();
+        createRolDto.setNombre(rolDto.getNombre());
+        createRolDto.setEstado("Activo");
+        rolService.createRol(createRolDto);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+createRolDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
+    }
+
+    private  void updaterol(){
+        UpdateRolDto updateRolDto = new UpdateRolDto();
+        updateRolDto.setNombre(rolDto.getNombre());
+        updateRolDto.setEstado(rolDto.getEstado());
+        rolService.updateRol(updateRolDto, idRol);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+updateRolDto.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
+    }
+
+    public void cargarRolEdiccion(){
+        rolDto = rolService.getRolById(idRol);
     }
 
     public  void cambiarEstado(){
+        rolDto = rolService.getRolById(idRol);
+        String estado = "";
+        switch (rolDto.getEstado()){
+            case "Activo":
+                estado = "Inactivo";
+                break;
+            case "Inactivo":
+                estado = "Activo";
+                break;
+        }
+        rolService.cambiarEstado(idRol,estado);
+        loadRoles();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado del rol " + rolDto.getNombre() + " ha cambiado a " + estado + "!"));
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
 
     }
 

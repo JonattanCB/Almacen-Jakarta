@@ -12,7 +12,9 @@ public interface IUsuarioDao {
 
     Usuario create(Usuario c);
 
-    Usuario update(UpdateUsuarioDto u);
+    Usuario update(UpdateUsuarioDto u, int id);
 
     Usuario delete(int id);
+
+    void cambiarMarca(int id, String estado);
 }

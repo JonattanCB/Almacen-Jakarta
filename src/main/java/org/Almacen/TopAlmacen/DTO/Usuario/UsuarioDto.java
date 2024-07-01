@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.Rol.RolDto;
+import org.Almacen.TopAlmacen.Model.Rol;
 
 import java.time.LocalDate;
 @Getter
@@ -18,6 +19,6 @@ public class UsuarioDto {
     private String nombres;
     private String apellidos;
     private String estado;
-    private RolDto rolDto;
+    private Rol rol;
     private LocalDate fechaRegistro;
 }

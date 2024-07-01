@@ -28,7 +28,7 @@
                         </p:toolbar>
                         <p:dataTable id="tabla" var="obj" value="#{UsuarioBeans.usuarios}" widgetVar="obj" style="margin-top: 1rem"
                                      emptyMessage="No hay elementos disponibles" filteredValue="#{UsuarioBeans.usuariosSeleccioando}"
-                                     globalFilterFunction="#{MarcaBeans.globalFilterFunction}"
+                                     globalFilterFunction="#{UsuarioBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
@@ -41,29 +41,36 @@
                                         </span>
                                     </div>
                             </f:facet>
-                            <p:column headerText="#"  sortBy="#{obj.id}" width="50"  >
+                            <p:column headerText="#"  sortBy="#{obj.id}" width="80"  >
                                 <h:outputText value="#{obj.id}" />
                             </p:column>
-                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="260" >
-                                <h:outputText value="#{obj.nombre}" />
+                            <p:column headerText="Nombre Completo" sortBy="#{obj.nombres} #{obj.apellidos}" width="150" >
+                                <h:outputText value="#{obj.nombres} #{obj.apellidos}" />
                             </p:column>
-                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="150" >
-                                <h:outputText value="#{obj.fechaRegistro}" />
+                            <p:column headerText="Rol" sortBy="#{obj.rol.nombre}" width="150" >
+                                <h:outputText value="#{obj.rol.nombre}" />
                             </p:column>
                             <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
                                 <h:outputText value="#{obj.estado}"
                                               styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
+                                <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                                 action="#{CategoriaBeans.cargarCategoriaConProductos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                                 styleClass="edit-button rounded-button "  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
+                                </p:commandButton>
+
+
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
                                 </p:commandButton>
                                 <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
                                                  icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
-                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca?" icon="pi pi-info-circle"/>
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
+                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado del Usuario?" icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -76,13 +83,25 @@
         </h:form>
         <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form>
-                <div id="dialog-content" class="dialogs-barra-pequenia" >
+                <div id="dialog-content" class="dialogs-barra" >
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
-                            <h:panelGrid>
-                                <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{MarcaBeans.marcaDto.nombre}"  required="true"/>
-                            </h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombres: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 34rem" value="#{UsuarioBeans.usuarioDto.nombres}" required="true"/>
+                        </h:panelGrid>
                     </h:panelGrid>
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="apellido" styleClass="texto_dialog" value="Apellidos: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="apellido"  styleClass="input-custom" style="width: 34rem" value="#{UsuarioBeans.usuarioDto.apellidos}" required="true"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+
+
+
+
+
+
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
                     <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{MarcaBeans.determinarAccion()}" />

@@ -6,16 +6,11 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IProductoDao;
-import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
-import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
-import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
+import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
-import org.Almacen.TopAlmacen.Mappers.MarcaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
-import org.Almacen.TopAlmacen.Model.Categoria;
-import org.Almacen.TopAlmacen.Model.Marca;
 import org.Almacen.TopAlmacen.Model.Producto;
 
 import java.io.Serializable;
@@ -59,4 +54,9 @@ public class ProductoService implements Serializable {
         return iProductoDao.delete(id);
     }
 
+    @Transactional
+    public List<ProductoDescripcionDto> productoDescripcionDtos(){
+        List<Producto> productos = iProductoDao.getAll();
+        return  productos.stream().map(c -> new ProductoDescripcionDto(c.getId(),ProductoMapper.toConcatProduct(c))).collect(Collectors.toList());
+    }
 }
