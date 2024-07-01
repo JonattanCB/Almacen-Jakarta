@@ -34,7 +34,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     @Transactional
     public List<PrecioPorTipoUnidadDto> getAllPrecioPorTipoUnidad() {
         var preciosPorTipodeUnidades = iprecioPorTipoUnidadDao.getAll();
-        return preciosPorTipodeUnidades.stream().map(p -> new PrecioPorTipoUnidadDto(p.getId(), p.getTipoUnidad(), p.getProducto(), p.getPrecioUnitario(), p.getUnidadesPorTipoUnidadDeProducto())).collect(Collectors.toList());
+        return preciosPorTipodeUnidades.stream().map(PrecioPorTipoUnidadMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -48,6 +48,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
         var existente = iprecioPorTipoUnidadDao.findIfExist(producto, tipoUnidad);
         return existente != null;
     }
+
     @Transactional
     private boolean existeUnidadBasica(Producto producto) {
         String abrevUnidadBasica = "UND";

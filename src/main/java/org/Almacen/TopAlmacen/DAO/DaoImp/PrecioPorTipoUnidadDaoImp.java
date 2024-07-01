@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
-import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
@@ -25,7 +24,10 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
 
     @Override
     public PrecioPorTipoUnidad getById(int id) {
-        return _entityManager.find(PrecioPorTipoUnidad.class, id);
+        var query = _entityManager.createQuery(
+                "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad WHERE p.id = :id", PrecioPorTipoUnidad.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override

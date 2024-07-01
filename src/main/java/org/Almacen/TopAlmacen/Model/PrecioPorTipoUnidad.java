@@ -19,11 +19,11 @@ public class PrecioPorTipoUnidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TipoUnidad_ID", nullable = false)
     private TipoUnidad tipoUnidad;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Producto_ID", nullable = false)
     private Producto producto;
 
@@ -33,7 +33,7 @@ public class PrecioPorTipoUnidad {
     @Column(name = "unidadesPorTipoUnidadDeProducto")
     private double unidadesPorTipoUnidadDeProducto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "StockUnidades_ID")
     private StockUnidades stockUnidades;
 }
