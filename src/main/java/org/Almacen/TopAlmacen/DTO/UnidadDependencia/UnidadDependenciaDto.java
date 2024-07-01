@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.Model.Dependencia;
 import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +18,6 @@ public class UnidadDependenciaDto {
     private int id;
     private Dependencia dependencia;
     private String nombre;
-    private Usuario usuario;
     private LocalDate fechaRegistro;
 
 }
