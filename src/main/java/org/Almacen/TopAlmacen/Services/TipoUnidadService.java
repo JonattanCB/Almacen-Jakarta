@@ -21,16 +21,15 @@ public class TipoUnidadService implements Serializable {
 
     @Transactional
     public List<TipoUnidadDto> getAllTipoUnidad() {
-        List<TipoUnidad> tipoUnidadList =iTipoUnidadDao.getAll();
+        List<TipoUnidad> tipoUnidadList = iTipoUnidadDao.getAll();
         return tipoUnidadList.stream()
                 .map(c -> new TipoUnidadDto(c.getId(), c.getNombre(), c.getAbrev()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public  TipoUnidadDto getTipoUnidad(int id){
+    public TipoUnidadDto getTipoUnidad(int id) {
         var tipoUnidad = iTipoUnidadDao.getById(id);
         return new TipoUnidadDto(tipoUnidad.getId(), tipoUnidad.getNombre(), tipoUnidad.getAbrev());
     }
-
 }

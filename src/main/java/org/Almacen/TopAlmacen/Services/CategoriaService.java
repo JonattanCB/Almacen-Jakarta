@@ -9,8 +9,8 @@ import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaConProductosDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
-import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.Mappers.CategoriaMapper;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Model.Categoria;
 
 import java.io.Serializable;
@@ -27,39 +27,21 @@ public class CategoriaService implements Serializable {
     @Transactional
     public List<CategoriaDto> getAllCategorias() {
         List<Categoria> categorias = iCategoriaDao.getAll();
-        return categorias.stream()
-                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), String.valueOf(c.getEstado()), c.getFechaRegistro()))
-                .collect(Collectors.toList());
+        return categorias.stream().map(CategoriaMapper::toDto).collect(Collectors.toList());
     }
 
 
     @Transactional
     public CategoriaDto getCategoria(int id) {
         var categoria = iCategoriaDao.getById(id);
-        return  new CategoriaDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(),categoria.getEstado(), categoria.getFechaRegistro());
+        return CategoriaMapper.toDto(categoria);
     }
 
     @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
-        List<ProductoDto> productosDto = categoria.getProductos().stream()
-                .map(p -> new ProductoDto(p.getId(),
-                        p.getNombre(),
-                        p.getColor(),
-                        p.getPeso(),
-                        p.getCategoria(),
-                        p.getMarca(),
-                        p.getFechaRegistro()
-                ))
-                .collect(Collectors.toList());
-        return new CategoriaConProductosDto(
-                categoria.getId(),
-                categoria.getNombre(),
-                categoria.getDescripcion(),
-                categoria.getEstado(),
-                categoria.getFechaRegistro(),
-                productosDto
-        );
+        var productosDto = categoria.getProductos().stream().map(ProductoMapper::toDto).collect(Collectors.toList());
+        return new CategoriaConProductosDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getEstado(), categoria.getFechaRegistro(), productosDto);
     }
 
     @Transactional
@@ -79,11 +61,9 @@ public class CategoriaService implements Serializable {
     }
 
     @Transactional
-    public List<CategoriaDto> getAllCategoriasActivas(){
+    public List<CategoriaDto> getAllCategoriasActivas() {
         List<Categoria> categorias = iCategoriaDao.getAllByEstadoActivo();
-        return categorias.stream()
-                .map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), String.valueOf(c.getEstado()), c.getFechaRegistro()))
-                .collect(Collectors.toList());
+        return categorias.stream().map(c -> new CategoriaDto(c.getId(), c.getNombre(), c.getDescripcion(), String.valueOf(c.getEstado()), c.getFechaRegistro())).collect(Collectors.toList());
     }
 
     @Transactional

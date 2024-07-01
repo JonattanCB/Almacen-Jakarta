@@ -23,11 +23,13 @@ public class UnidadDependencia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dependencia", nullable = false)
     private Dependencia dependencia;
+    @Column(name = "Nombre", nullable = false)
+    private String nombre;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "responsable")
     private Usuario responsable;
-    @Column(name = "fechaRegistro",nullable = false)
-    private LocalDate fechaRegistro=LocalDate.now();
+    @Column(name = "fechaRegistro", nullable = false)
+    private LocalDate fechaRegistro = LocalDate.now();
     @OneToMany(mappedBy = "unidadDependencia")
     private List<Usuario> usuarios;
 }

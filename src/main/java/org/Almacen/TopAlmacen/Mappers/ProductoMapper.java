@@ -1,10 +1,8 @@
 package org.Almacen.TopAlmacen.Mappers;
 
-import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
-import org.Almacen.TopAlmacen.Model.Marca;
 import org.Almacen.TopAlmacen.Model.Producto;
 
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 public class ProductoMapper {
     public static ProductoDto toDto(Producto producto) {

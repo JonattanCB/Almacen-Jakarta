@@ -44,18 +44,15 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public boolean verificarUnidad(Producto p, TipoUnidad tipoUnidad) {
-        var existente = iprecioPorTipoUnidadDao.findIfExist(p, tipoUnidad);
-        if (existente != null) {
-            return true;
-        }
-        return false;
+    private boolean verificarUnidad(Producto producto, TipoUnidad tipoUnidad) {
+        var existente = iprecioPorTipoUnidadDao.findIfExist(producto, tipoUnidad);
+        return existente != null;
     }
-
-    public boolean existeUnidadBasica(Producto producto) {
+    @Transactional
+    private boolean existeUnidadBasica(Producto producto) {
         String abrevUnidadBasica = "UND";
-        var tipoUnidad = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
-        return iprecioPorTipoUnidadDao.findIfExist(producto, tipoUnidad) != null;
+        var tipoUnidadBasica = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
+        return verificarUnidad(producto, tipoUnidadBasica);
     }
 
     @Transactional
@@ -73,6 +70,9 @@ public class PrecioPorTipoUnidadService implements Serializable {
             stockUnidades.setCantidadStockUnidad(0);
             stockUnidades.setTipoUnidad(abrevUnidadBasica);
 
+            istockUnidadesDao.create(stockUnidades);
+            nuevaUnidad.setStockUnidades(stockUnidades);
+
             return iprecioPorTipoUnidadDao.create(nuevaUnidad);
         }
 
@@ -87,9 +87,10 @@ public class PrecioPorTipoUnidadService implements Serializable {
             var stockUnidades = new StockUnidades();
             stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
             stockUnidades.setTipoUnidad(pptu.getTipoUnidad().getAbrev());
-            stockUnidades.getPreciosPorTipoUnidad().add(pptu);
 
             istockUnidadesDao.create(stockUnidades);
+            pptu.setStockUnidades(stockUnidades);
+
             return iprecioPorTipoUnidadDao.create(pptu);
         } else {
             System.out.println("No existe una unidad básica del tipo 'UND' para este producto.");

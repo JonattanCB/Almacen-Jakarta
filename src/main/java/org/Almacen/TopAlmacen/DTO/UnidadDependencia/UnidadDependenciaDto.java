@@ -1,15 +1,23 @@
 package org.Almacen.TopAlmacen.DTO.UnidadDependencia;
 
-import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
-import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.Almacen.TopAlmacen.Model.Dependencia;
+import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UnidadDependenciaDto {
     private int id;
-    private DependenciaDto dependenciaDto;
+    private Dependencia dependencia;
     private String nombre;
-    private UsuarioDto usuarioDto;
+    private Usuario usuario;
     private LocalDate fechaRegistro;
 
 }

@@ -56,11 +56,11 @@ public class PrecioTUBeans implements Serializable {
     private List<ProductoDescripcionDto> productoDescripcionDtos;
 
     @PostConstruct
-    private void  init(){
+    private void init() {
         loadPrecioPorTipoUnidad();
     }
 
-    public  void newPrecioPorTipoUnidad(){
+    public void newPrecioPorTipoUnidad() {
         precioPorTipoUnidadDto = new PrecioPorTipoUnidadDto();
         tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
         productoDescripcionDtos = productoService.productoDescripcionDtos();
@@ -68,10 +68,10 @@ public class PrecioTUBeans implements Serializable {
         productoId = 0;
     }
 
-    public void determinarPrecioPorTipoUnidad(){
-        if (precioPorTipoUnidadDto.getId() == 0){
+    public void determinarPrecioPorTipoUnidad() {
+        if (precioPorTipoUnidadDto.getId() == 0) {
             createPrecioPorTipoUnidad();
-        }else {
+        } else {
             updatePrecioPorTipoUnidad();
         }
         loadPrecioPorTipoUnidad();
@@ -79,7 +79,7 @@ public class PrecioTUBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void CargarPrecioPorTipoUnidad(){
+    private void CargarPrecioPorTipoUnidad() {
         precioPorTipoUnidadDto = precioPorTipoUnidadService.getPrecioPorTipoUnidadById(precioPorTipoUnidadID);
         tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
         productoDescripcionDtos = productoService.productoDescripcionDtos();
@@ -87,24 +87,23 @@ public class PrecioTUBeans implements Serializable {
         productoId = precioPorTipoUnidadDto.getProducto().getId();
     }
 
-    public void CargarPrecioPorTipoUnidadVer(){
+    public void CargarPrecioPorTipoUnidadVer() {
         CargarPrecioPorTipoUnidad();
     }
 
-    public void CargarPrecioPorTipoUnidadUpdate(){
+    public void CargarPrecioPorTipoUnidadUpdate() {
         CargarPrecioPorTipoUnidad();
     }
 
-    public void deletePrecioPorTipoUnidad(){
+    public void deletePrecioPorTipoUnidad() {
         PrecioPorTipoUnidadDto dto = PrecioPorTipoUnidadMapper.toDto(precioPorTipoUnidadService.delete(precioPorTipoUnidadID));
         loadPrecioPorTipoUnidad();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getProducto().getNombre() + " ha sido eliminado exitosamente del sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
-
     }
 
-    private void createPrecioPorTipoUnidad(){
+    private void createPrecioPorTipoUnidad() {
         CreatePrecioPorTipoUnidadDto createPrecioPorTipoUnidadDto = new CreatePrecioPorTipoUnidadDto();
         createPrecioPorTipoUnidadDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(tipoUnidadID)));
         createPrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
@@ -113,19 +112,19 @@ public class PrecioTUBeans implements Serializable {
         precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
     }
 
-    private void updatePrecioPorTipoUnidad(){
+    private void updatePrecioPorTipoUnidad() {
         UpdatePrecioPorTipoUnidadDto updatePrecioPorTipoUnidadDto = new UpdatePrecioPorTipoUnidadDto();
         updatePrecioPorTipoUnidadDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(tipoUnidadID)));
         updatePrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
         updatePrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         updatePrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
-        precioPorTipoUnidadService.update(updatePrecioPorTipoUnidadDto,precioPorTipoUnidadID);
+        precioPorTipoUnidadService.update(updatePrecioPorTipoUnidadDto, precioPorTipoUnidadID);
     }
 
-    private  void loadPrecioPorTipoUnidad(){
-        try{
+    private void loadPrecioPorTipoUnidad() {
+        try {
             precioPorTipoUnidadlst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -138,8 +137,8 @@ public class PrecioTUBeans implements Serializable {
         int filterInt = getInteger(filterText);
         PrecioPorTipoUnidadDto c = (PrecioPorTipoUnidadDto) value;
         return (c.getId() >= filterInt && c.getId() <= filterInt)
-                ||(c.getTipoUnidad().getNombre()).toLowerCase().contains(filterText)
-                || (c.getProducto().getNombre()).toLowerCase().contains(filterText);
+                || c.getTipoUnidad().getNombre().toLowerCase().contains(filterText)
+                || c.getProducto().getNombre().toLowerCase().contains(filterText);
     }
 
     private int getInteger(String string) {
