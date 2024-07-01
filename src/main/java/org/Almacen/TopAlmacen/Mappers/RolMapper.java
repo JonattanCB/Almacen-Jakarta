@@ -33,6 +33,4 @@ public class RolMapper {
         r.setEstado(dto.getEstado());
         return r;
     }
-
-
 }
