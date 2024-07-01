@@ -32,7 +32,7 @@ public class RolService implements Serializable {
     }
 
     @Transactional
-    public List<RolDto> getAllRolActiva(){
+    public List<RolDto> getAllRolActiva() {
         List<Rol> rols = iRolDao.getAllByEstadoActivoRols();
         return rols.stream()
                 .map(c -> new RolDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro()))
@@ -46,21 +46,20 @@ public class RolService implements Serializable {
     }
 
     @Transactional
-    public RolDto getRolById(int id){
+    public RolDto getRolById(int id) {
         var rol = iRolDao.getById(id);
-        return RolMapper.toDto(rol);
+        return RolMapper.toRolDto(rol);
     }
 
     @Transactional
-    public Rol updateRol(UpdateRolDto updateRolDto, int id){
-        return iRolDao.update(updateRolDto,id);
+    public Rol updateRol(UpdateRolDto updateRolDto, int id) {
+        return iRolDao.update(updateRolDto, id);
     }
 
     @Transactional
-    public void cambiarEstado(int id, String estado){
-        iRolDao.cambioEstado(id,estado);
+    public void cambiarEstado(int id, String estado) {
+        iRolDao.cambioEstado(id, estado);
     }
-
 
 
 }

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class UsuarioService  implements Serializable {
+public class UsuarioService implements Serializable {
 
     @Inject
     private IUsuarioDao iUsuarioDao;
@@ -26,9 +26,7 @@ public class UsuarioService  implements Serializable {
     @Transactional
     public List<UsuarioDto> getAllUsuario() {
         List<Usuario> usuarios = iUsuarioDao.getAll();
-        return usuarios.stream()
-                .map(c -> new UsuarioDto(c.getId(),c.getCorreo(),c.getContra(),c.getNombres(),c.getApellidos(),c.getEstado(),c.getRol(),c.getFechaRegistro()))
-                .collect(Collectors.toList());
+        return usuarios.stream().map(UsuarioMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -38,21 +36,20 @@ public class UsuarioService  implements Serializable {
     }
 
     @Transactional
-    public UsuarioDto getUsuarioById(int id){
+    public UsuarioDto getUsuarioById(int id) {
         var usuario = iUsuarioDao.getById(id);
         return UsuarioMapper.toDto(usuario);
     }
 
     @Transactional
-    public Usuario updateUsuario(UpdateUsuarioDto updateUsuarioDto, int id){
-        return iUsuarioDao.update(updateUsuarioDto,id);
+    public Usuario updateUsuario(UpdateUsuarioDto updateUsuarioDto, int id) {
+        return iUsuarioDao.update(updateUsuarioDto, id);
     }
 
     @Transactional
-    public void cambiarEstado(int id, String estado){
-        iUsuarioDao.cambiarMarca(id,estado);
+    public void cambiarEstado(int id, String estado) {
+        iUsuarioDao.cambiarMarca(id, estado);
     }
-
 
 
 }

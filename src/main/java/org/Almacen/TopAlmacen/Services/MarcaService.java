@@ -25,17 +25,13 @@ public class MarcaService implements Serializable {
     @Transactional
     public List<MarcaDto> getAllMarca() {
         List<Marca> marcas = iMarcaDao.getAll();
-        return marcas.stream()
-                .map(c -> new MarcaDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro()))
-                .collect(Collectors.toList());
+        return marcas.stream().map(MarcaMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
-    public List<MarcaDto> getAllMarcaActiva(){
+    public List<MarcaDto> getAllMarcaActiva() {
         List<Marca> marcas = iMarcaDao.getAllEstadoActivo();
-        return marcas.stream()
-                .map(c -> new MarcaDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro()))
-                .collect(Collectors.toList());
+        return marcas.stream().map(MarcaMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -45,19 +41,19 @@ public class MarcaService implements Serializable {
     }
 
     @Transactional
-    public MarcaDto getMarcaById(int id){
+    public MarcaDto getMarcaById(int id) {
         var marca = iMarcaDao.getById(id);
         return MarcaMapper.toDto(marca);
     }
 
     @Transactional
-    public Marca updateMarca(UpdateMarcaDto updateMarcaDto, int id){
-        return iMarcaDao.update(updateMarcaDto,id);
+    public Marca updateMarca(UpdateMarcaDto updateMarcaDto, int id) {
+        return iMarcaDao.update(updateMarcaDto, id);
     }
 
     @Transactional
-    public void cambiarEstado(int id, String estado){
-        iMarcaDao.cambiarMarca(id,estado);
+    public void cambiarEstado(int id, String estado) {
+        iMarcaDao.cambiarMarca(id, estado);
     }
 
 }

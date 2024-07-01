@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class MarcaMapper {
     public static MarcaDto toDto(Marca marca) {
-        return new MarcaDto(marca.getId(),marca.getNombre(), marca.getEstado() ,marca.getFechaRegistro());
+        return new MarcaDto(marca.getId(), marca.getNombre(), marca.getEstado(), marca.getFechaRegistro());
     }
 
     public static Marca toMarca(MarcaDto marcaDto) {
@@ -27,9 +27,7 @@ public class MarcaMapper {
     }
 
     public static List<MarcaDto> toDTOList(List<Marca> marcas) {
-        return marcas.stream()
-                .map(MarcaMapper::toDto)
-                .collect(Collectors.toList());
+        return marcas.stream().map(MarcaMapper::toDto).collect(Collectors.toList());
     }
 
     public static Marca toMarcaFromCreate(CreateMarcaDto dto) {

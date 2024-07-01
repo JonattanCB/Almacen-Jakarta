@@ -9,7 +9,6 @@ public class UnidadDependenciaMapper {
         unidadDependenciaDto.setId(unidadDependencia.getId());
         unidadDependenciaDto.setDependencia(unidadDependencia.getDependencia());
         unidadDependenciaDto.setNombre(unidadDependencia.getNombre());
-        unidadDependenciaDto.setUsuario(unidadDependencia.getResponsable());
         unidadDependenciaDto.setFechaRegistro(unidadDependencia.getFechaRegistro());
         return unidadDependenciaDto;
     }

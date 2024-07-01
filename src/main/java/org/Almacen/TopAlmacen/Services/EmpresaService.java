@@ -24,15 +24,13 @@ public class EmpresaService implements Serializable {
     @Transactional
     public List<EmpresaDto> getAllEmpresa() {
         List<Empresa> empresas = iEmpresaDao.getAll();
-        return empresas.stream()
-                .map(c -> new EmpresaDto(c.getNroRUC(), c.getNombre(), c.getTipoEmpresa(), c.getDireccion()))
-                .collect(Collectors.toList());
+        return empresas.stream().map(EmpresaMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
     public EmpresaDto getEmpresa(String NroRuc) {
         var empresa = iEmpresaDao.getById(NroRuc);
-        return  new EmpresaDto(empresa.getNroRUC(), empresa.getNombre(),  empresa.getTipoEmpresa(), empresa.getDireccion());
+        return EmpresaMapper.toDto(empresa);
     }
 
     @Transactional
@@ -52,7 +50,7 @@ public class EmpresaService implements Serializable {
     }
 
     @Transactional
-    public boolean EmpresaExists(String NroRuc){
+    public boolean EmpresaExists(String NroRuc) {
         return iEmpresaDao.exist(NroRuc);
     }
 }
