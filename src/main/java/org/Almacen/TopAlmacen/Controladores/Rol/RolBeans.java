@@ -82,7 +82,7 @@ public class RolBeans implements Serializable {
     public void cargarRolEdiccion(){
         rolDto = rolService.getRolById(idRol);
     }
-
+    
     public  void cambiarEstado(){
         rolDto = rolService.getRolById(idRol);
         String estado = "";

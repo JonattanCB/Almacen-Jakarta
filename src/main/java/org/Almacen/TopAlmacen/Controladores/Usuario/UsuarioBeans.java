@@ -5,8 +5,14 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
+import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaConUnidadesDto;
+import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
+import org.Almacen.TopAlmacen.DTO.Rol.RolDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
+import org.Almacen.TopAlmacen.Services.DependenciaService;
+import org.Almacen.TopAlmacen.Services.RolService;
 import org.Almacen.TopAlmacen.Services.UsuarioService;
+import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
@@ -21,14 +27,31 @@ public class UsuarioBeans implements Serializable {
     @Inject
     private UsuarioService usuarioService;
 
+    @Inject
+    private RolService rolService;
+
+    @Inject
+    private DependenciaService dependenciaService;
+
     private UsuarioDto usuarioDto;
 
+    private DependenciaConUnidadesDto dependenciaConUnidadesDto;
+
+    private int iddepende;
+
     private int idUsuario;
+
+    private int idUnidad;
+
+    private int idRol;
 
     private List<UsuarioDto> usuarios;
 
     private List<UsuarioDto> usuariosSeleccioando;
 
+    private List<RolDto> rolesActivos;
+
+    private List<DependenciaDto> dependenciaDtos;
 
     @PostConstruct
     private void  init(){
@@ -45,6 +68,39 @@ public class UsuarioBeans implements Serializable {
 
     public void NuevoUsuario(){
         usuarioDto = new UsuarioDto();
+        rolesActivos = rolService.getAllRolActiva();
+        dependenciaDtos = dependenciaService.getAll();
+        iddepende = 0;
+        idRol = 0;
+    }
+
+    public void DeterminarAccion(){
+        if (usuarioDto.getId() == 0){
+            CreateUsuario();
+        }else{
+            UpdateUsuario();
+        }
+        loadUsuario();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+
+    private  void CreateUsuario(){
+
+    }
+
+    private void UpdateUsuario(){
+
+    }
+
+    public void cargarUnidades(){
+        dependenciaConUnidadesDto = dependenciaService.getById(iddepende);
+
+    }
+
+    public void CambiarEstado(){
+
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {

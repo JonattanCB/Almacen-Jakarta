@@ -90,21 +90,57 @@
                             <p:inputText id="nombre"  styleClass="input-custom" style="width: 34rem" value="#{UsuarioBeans.usuarioDto.nombres}" required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
                         <h:panelGrid><h:outputLabel for="apellido" styleClass="texto_dialog" value="Apellidos: "/></h:panelGrid>
                         <h:panelGrid>
                             <p:inputText id="apellido"  styleClass="input-custom" style="width: 34rem" value="#{UsuarioBeans.usuarioDto.apellidos}" required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
-
-
-
-
-
+                    <h:panelGrid  style="margin-top: 1rem" columns="2">
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="correo" styleClass="texto_dialog" value="Correo: "/> </h:panelGrid>
+                            <p:inputText id="correo"  styleClass="input-custom" style="width: 17rem" value="#{UsuarioBeans.usuarioDto.correo}" required="true"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="contra" styleClass="texto_dialog" value="Contraseña: "/> </h:panelGrid>
+                            <p:inputText id="contra"  styleClass="input-custom" style="width: 17rem" value="#{UsuarioBeans.usuarioDto.contra}" required="true"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="rol" styleClass="texto_dialog" value="Rol: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu id="rol" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                             value="#{UsuarioBeans.idRol}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{UsuarioBeans.rolesActivos}" var="rl" itemLabel="#{rl.nombre}" itemValue="#{rl.id}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="dependecia" styleClass="texto_dialog" value="Dependencia: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu id="dependecia" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                             value="#{UsuarioBeans.iddepende}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{UsuarioBeans.dependenciaDtos}" var="dep" itemLabel="#{dep.nombre}" itemValue="#{dep.id}" />
+                                <p:ajax event="valueChange" listener="#{UsuarioBeans.cargarUnidades()}"  update="Unidad"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="Unidad" styleClass="texto_dialog" value="Unidad: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu id="Unidad" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                             value="#{UsuarioBeans.idUnidad}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{UsuarioBeans.dependenciaConUnidadesDto.unidades}" var="uni" itemLabel="#{uni.nombre}" itemValue="#{uni.id}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
 
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{MarcaBeans.determinarAccion()}" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{UsuarioBeans.DeterminarAccion()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>
