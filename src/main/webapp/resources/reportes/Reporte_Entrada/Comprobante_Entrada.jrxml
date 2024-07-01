@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77b575a5-afb4-4011-b8ea-78c34d67aeb0">
-	<property name="ireport.zoom" value="1.210000000000004"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante_Entrada" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77b575a5-afb4-4011-b8ea-78c34d67aeb0">
+	<property name="ireport.zoom" value="1.1000000000000039"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
@@ -10,7 +10,7 @@
 	<parameter name="n_guia" class="java.lang.String"/>
 	<parameter name="n_orden_compra" class="java.lang.String"/>
 	<parameter name="observacion" class="java.lang.String"/>
-	<field name="nom_pr" class="java.lang.String"/>
+	<field name="id_pr" class="java.lang.String"/>
 	<field name="desc_pr" class="java.lang.String"/>
 	<field name="nom_unmd" class="java.lang.String"/>
 	<field name="marca" class="java.lang.String"/>
@@ -21,20 +21,20 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<rectangle>
-				<reportElement x="34" y="11" width="425" height="57" forecolor="#000000" uuid="9976504d-fdf3-46a7-a634-12b75e6b664b"/>
+				<reportElement x="18" y="9" width="360" height="57" forecolor="#000000" uuid="9976504d-fdf3-46a7-a634-12b75e6b664b"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="40" y="21" width="515" height="36" forecolor="#000000" uuid="46e096bc-44ac-4ffd-a04c-acde29780b13"/>
+				<reportElement x="24" y="19" width="515" height="36" forecolor="#000000" uuid="46e096bc-44ac-4ffd-a04c-acde29780b13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cooper Black" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Formato de Entrada de Almacen]]></text>
 			</staticText>
 			<image>
-				<reportElement x="476" y="0" width="113" height="79" uuid="7ab62145-5432-4b43-8070-5fb3ebe2cde2"/>
+				<reportElement x="438" y="0" width="117" height="79" uuid="7ab62145-5432-4b43-8070-5fb3ebe2cde2"/>
 				<imageExpression><![CDATA[$P{Ruta_Imagen}]]></imageExpression>
 			</image>
 		</band>
@@ -77,23 +77,28 @@
 				<text><![CDATA[N° Guia:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="97" y="9" width="100" height="20" uuid="ec3a86b1-c2e3-4721-90ca-5684d311456a"/>
+				<reportElement x="68" y="9" width="471" height="20" uuid="ec3a86b1-c2e3-4721-90ca-5684d311456a"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{id_EnAl}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="164" y="39" width="100" height="20" uuid="f9e7cb4f-f70f-4afc-b51b-e7087225f72c"/>
+				<reportElement x="134" y="39" width="405" height="20" uuid="f9e7cb4f-f70f-4afc-b51b-e7087225f72c"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{fecha_EnAl}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="73" width="100" height="20" uuid="dc40b53f-476a-4d37-8384-c73d74084f6b"/>
+				<reportElement x="126" y="73" width="413" height="20" uuid="dc40b53f-476a-4d37-8384-c73d74084f6b"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{procedencia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="108" y="107" width="100" height="20" uuid="daecf626-c96b-428b-a96a-477f5ca70eb3"/>
+				<reportElement x="95" y="107" width="444" height="20" uuid="daecf626-c96b-428b-a96a-477f5ca70eb3"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{n_guia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="208" y="138" width="100" height="20" uuid="a73b7da6-c1ef-4aa7-bc47-66516a850127"/>
+				<reportElement x="178" y="138" width="361" height="20" uuid="a73b7da6-c1ef-4aa7-bc47-66516a850127"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{n_orden_compra}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -162,17 +167,6 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="92" height="20" uuid="a6bf5dfa-93bc-47c0-b080-97b6174d2106"/>
-				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
-					<pen lineWidth="0.75"/>
-					<topPen lineWidth="0.75"/>
-					<leftPen lineWidth="0.75"/>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
-				</box>
-				<textFieldExpression><![CDATA[$F{nom_pr}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="92" y="0" width="186" height="20" uuid="95bcc9ba-c3e9-4641-81c3-e59d38eada64"/>
 				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<pen lineWidth="0.75"/>
@@ -215,6 +209,16 @@
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="92" height="20" uuid="24c54d98-e4d8-41d4-82f3-823b28b7c8a0"/>
+				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{id_pr}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
