@@ -10,9 +10,9 @@ public interface IUnidadDependenciaDao {
 
     UnidadDependencia getById(int id);
 
-    void create(UnidadDependencia c);
+    UnidadDependencia create(UnidadDependencia c);
 
-    void update(UpdateCategoriaDto c, int id);
+    UnidadDependencia update(UnidadDependencia c, int id);
 
-    void delete(int id);
+    UnidadDependencia delete(int id);
 }
