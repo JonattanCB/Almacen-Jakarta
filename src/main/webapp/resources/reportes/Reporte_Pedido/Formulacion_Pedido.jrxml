@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="478457f3-3ffd-40af-9b21-b355e5c8d44c">
-	<property name="ireport.zoom" value="2.357947691000002"/>
-	<property name="ireport.x" value="16"/>
-	<property name="ireport.y" value="4"/>
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="fecha" class="java.util.Date"/>
 	<parameter name="id" class="java.lang.Integer"/>
@@ -19,7 +19,7 @@
 	<title>
 		<band height="137" splitType="Stretch">
 			<rectangle>
-				<reportElement x="109" y="10" width="333" height="57" forecolor="#000000" uuid="0e1310a1-183f-4e3c-ae79-fed7fb47b53e"/>
+				<reportElement x="115" y="10" width="333" height="57" forecolor="#000000" uuid="0e1310a1-183f-4e3c-ae79-fed7fb47b53e"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -36,7 +36,7 @@
 				<imageExpression><![CDATA[$P{Ruta_Imagen}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="132" y="21" width="364" height="36" forecolor="#000000" uuid="95df2fcb-1878-44bb-a38d-02e0263db7b7"/>
+				<reportElement x="138" y="21" width="364" height="36" forecolor="#000000" uuid="95df2fcb-1878-44bb-a38d-02e0263db7b7"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cooper Black" size="24" isBold="true"/>
 				</textElement>

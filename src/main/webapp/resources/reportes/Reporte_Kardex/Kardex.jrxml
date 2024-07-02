@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f867132c-1f22-4f8a-8589-ee677e422712">
-	<property name="ireport.zoom" value="1.210000000000003"/>
-	<property name="ireport.x" value="208"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Kardex" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f867132c-1f22-4f8a-8589-ee677e422712">
+	<property name="ireport.zoom" value="0.9090909090909118"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="n_kardex" class="java.lang.String"/>
+	<parameter name="n_kardex" class="java.lang.Integer"/>
 	<parameter name="articulo" class="java.lang.String"/>
 	<parameter name="marca" class="java.lang.String"/>
 	<parameter name="orden_compra" class="java.lang.String"/>
@@ -14,9 +14,7 @@
 	<field name="nombre_k" class="java.lang.String"/>
 	<field name="n_pecosa_k" class="java.lang.Integer"/>
 	<field name="inv_inicial_k" class="java.lang.Integer"/>
-	<field name="costo_unitario" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="costo_unitario" class="java.lang.Integer"/>
 	<field name="entrada_k" class="java.lang.Integer"/>
 	<field name="salida_k" class="java.lang.Integer"/>
 	<field name="inv_final_k" class="java.lang.Integer"/>
@@ -42,7 +40,7 @@
 				<reportElement x="679" y="10" width="108" height="34" forecolor="#FFFF00" backcolor="#FFFF00" uuid="8f02ebb1-0e6a-470d-bf8d-d6cfc729a13d"/>
 			</rectangle>
 			<textField>
-				<reportElement x="698" y="18" width="73" height="20" uuid="88a5503b-4a67-4a22-9f50-e07c1d90b312"/>
+				<reportElement x="701" y="17" width="65" height="20" uuid="a4cf82fc-e7a2-4192-a914-e60b8d748556"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{n_kardex}]]></textFieldExpression>
 			</textField>
@@ -310,7 +308,7 @@ Unitario]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="85" height="20" uuid="26eb39ca-8a95-43df-802c-fb707c4ef4fb"/>
 				<box>
@@ -400,13 +398,13 @@ Unitario]]></text>
 				<textFieldExpression><![CDATA[$F{inv_final_k}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="507" y="0" width="74" height="20" uuid="ab377c09-3aef-4b9f-a52e-d4ec66c67430"/>
+				<reportElement x="507" y="0" width="74" height="20" uuid="6038baf6-38b2-49c0-9cf9-51bcdf47647a"/>
 				<box>
-					<pen lineColor="#FF3333"/>
-					<topPen lineWidth="1.0" lineColor="#FF3333"/>
-					<leftPen lineWidth="1.0" lineColor="#FF3333"/>
-					<bottomPen lineWidth="1.0" lineColor="#FF3333"/>
-					<rightPen lineWidth="1.0" lineColor="#FF3333"/>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineColor="#FF0000"/>
+					<leftPen lineWidth="1.0" lineColor="#FF0000"/>
+					<bottomPen lineWidth="1.0" lineColor="#FF0000"/>
+					<rightPen lineWidth="1.0" lineColor="#FF0000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{costo_unitario}]]></textFieldExpression>
