@@ -9,7 +9,6 @@ public class StockUnidadesMapper {
     public static StockUnidades toStockUnidadesFromUpdate(UpdateStockUnidadesDto dto) {
         StockUnidades s = new StockUnidades();
         s.setCantidadStockUnidad(dto.getCantidadStockUnidadesDto());
-        s.setTipoUnidad(dto.getTipoUnidad());
         return s;
     }
 }
