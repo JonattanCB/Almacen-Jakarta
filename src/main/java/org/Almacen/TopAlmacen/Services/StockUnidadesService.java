@@ -8,7 +8,6 @@ import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
-import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
@@ -37,7 +36,9 @@ public class StockUnidadesService {
     @Transactional
     public StockUnidades addStockUnidades(int precioPorTipoUnidadId, double cantidadAgregar) {
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(precioPorTipoUnidadId);
-
+        if (cantidadAgregar <= 0) {
+            throw new IllegalArgumentException("La cantidad a agregar debe ser mayor que cero.");
+        }
         if (precioPorTipoUnidad != null) {
             var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev());
             stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + cantidadAgregar);
@@ -65,6 +66,12 @@ public class StockUnidadesService {
             if (stockUnidades != null && verificarStockUnidades(stockUnidades, cantidadARestar)) {
                 double cantidadActual = stockUnidades.getCantidadStockUnidad() - cantidadARestar;
                 stockUnidades.setCantidadStockUnidad(cantidadActual);
+                var ms = new MovimientoStock();
+                ms.setTipoMovimiento("SALIDA");
+                ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
+                ms.setCantidad(cantidadARestar);
+                ms.setTipoUnidad(stockUnidades.getTipoUnidad());
+                imovimientoStockDao.create(ms);
                 return istockUnidadesDao.update(stockUnidades);
             } else {
                 throw new IllegalStateException("No hay suficiente stock o el stock no existe.");

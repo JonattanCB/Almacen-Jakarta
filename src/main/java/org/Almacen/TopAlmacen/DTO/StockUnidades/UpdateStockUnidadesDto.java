@@ -13,5 +13,4 @@ import lombok.Setter;
 
 public class UpdateStockUnidadesDto {
     private double CantidadStockUnidadesDto;
-    private String tipoUnidad;
 }

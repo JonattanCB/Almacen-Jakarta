@@ -10,9 +10,9 @@ public interface IProductoProveedorEntradaDao {
 
     ProductoProveedorEntrada getById(int id);
 
-    void create(ProductoProveedorEntrada c);
+    ProductoProveedorEntrada create(ProductoProveedorEntrada c);
 
-    void update(UpdateProductoProveedorEntradaDto c, int id);
+    ProductoProveedorEntrada update(UpdateProductoProveedorEntradaDto c, int id);
 
-    void delete(int id);
+    ProductoProveedorEntrada delete(int id);
 }

@@ -5,8 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
-import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
@@ -34,9 +34,14 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
     }
 
     @Override
-    public StockUnidades update(StockUnidades c) {
-        _entityManager.merge(c);
-        return c;
+    public StockUnidades update(UpdateStockUnidadesDto c, int id) {
+        var obj = _entityManager.find(StockUnidades.class, id);
+        if (obj != null) {
+            obj.setCantidadStockUnidad(c.getCantidadStockUnidadesDto());
+            _entityManager.merge(obj);
+            return obj;
+        }
+        return null;
 
     }
 

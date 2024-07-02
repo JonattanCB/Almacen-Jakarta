@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -19,15 +21,17 @@ public class ProductoProveedorEntrada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int OC;
+    @Column(name = "FechaRegistro", nullable = false)
+    private LocalDateTime FechaRegistro = LocalDateTime.now();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EmpresaId", nullable = false)
     private Empresa empresa;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario",nullable = false)
-    private  Usuario usuario;
-    @Column(name = "PrecioFinal",nullable = false)
+    @JoinColumn(name = "usuario", nullable = false)
+    private Usuario usuario;
+    @Column(name = "PrecioFinal", nullable = false)
     private double precioFinal;
-    @OneToMany(mappedBy = "OC_id")
+    @OneToMany(mappedBy = "OC_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DetalleProductoProveedorEntrada> DetalleProductoProveedorEntrada;
 
 }
