@@ -16,6 +16,7 @@ public class UnidadDaoImp implements IUnidadDependenciaDao {
 
     @Override
     public List<UnidadDependencia> getAll() {
+
         return _entityManager.createQuery("SELECT u from UnidadDependencia u", UnidadDependencia.class).getResultList();
     }
 

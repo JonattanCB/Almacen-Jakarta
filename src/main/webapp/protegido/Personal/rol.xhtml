@@ -76,12 +76,20 @@
         </h:form>
         <p:dialog id="dialogs" header="Detalles de Rol" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form>
-                <div id="dialog-content" class="dialogs-barra-pequenia" >
+                <div id="dialog-content" class="dialogs-barra" >
                     <h:panelGrid>
                         <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
                                 <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{RolBeans.rolDto.nombre}"  required="true"/>
                             </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="Unidad" styleClass="texto_dialog" value="Unidad: "/> </h:panelGrid>
+                        <p:selectOneMenu id="Unidad" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                         value="#{RolBeans.idUnidad}" required="true" autoWidth="false"  >
+                            <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                            <f:selectItems  value="#{RolBeans.unidadDependenciaDtos}" var="tu" itemLabel="#{tu.nombre}" itemValue="#{tu.id}" />
+                        </p:selectOneMenu>
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >

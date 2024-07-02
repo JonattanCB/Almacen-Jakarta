@@ -27,7 +27,7 @@ public class RolService implements Serializable {
     public List<RolDto> getAllRol() {
         List<Rol> rols = iRolDao.getAll();
         return rols.stream()
-                .map(c -> new RolDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro()))
+                .map(c -> new RolDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro(), c.getUnidadDependencia()))
                 .collect(Collectors.toList());
     }
 
@@ -35,7 +35,7 @@ public class RolService implements Serializable {
     public List<RolDto> getAllRolActiva() {
         List<Rol> rols = iRolDao.getAllByEstadoActivoRols();
         return rols.stream()
-                .map(c -> new RolDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro()))
+                .map(c -> new RolDto(c.getId(), c.getNombre(), c.getEstado(), c.getFechaRegistro(), c.getUnidadDependencia()))
                 .collect(Collectors.toList());
     }
 

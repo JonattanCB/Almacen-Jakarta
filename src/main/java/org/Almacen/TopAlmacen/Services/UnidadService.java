@@ -9,12 +9,13 @@ import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
 import org.Almacen.TopAlmacen.Mappers.UnidadDependenciaMapper;
 import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class UnidadService {
+public class UnidadService implements Serializable {
 
     @Inject
     private IUnidadDependenciaDao iUnidadDependenciaDao;

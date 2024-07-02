@@ -10,7 +10,10 @@ import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Rol.CreateRolDto;
 import org.Almacen.TopAlmacen.DTO.Rol.RolDto;
 import org.Almacen.TopAlmacen.DTO.Rol.UpdateRolDto;
+import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
+import org.Almacen.TopAlmacen.Mappers.UnidadDependenciaMapper;
 import org.Almacen.TopAlmacen.Services.RolService;
+import org.Almacen.TopAlmacen.Services.UnidadService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
@@ -26,19 +29,25 @@ public class RolBeans implements Serializable {
     @Inject
     private RolService rolService;
 
+    @Inject
+    private UnidadService unidadService;
+
     private RolDto rolDto;
 
     private int idRol;
+
+    private int idUnidad;
 
     private List<RolDto> rolDtoList;
 
     private List<RolDto> rolDtoListSelect;
 
+    private List<UnidadDependenciaDto> unidadDependenciaDtos;
+
     @PostConstruct
     private void init(){
         loadRoles();
     }
-
 
     private  void loadRoles(){
         try {
@@ -50,6 +59,8 @@ public class RolBeans implements Serializable {
 
     public void NuevoRoles(){
         rolDto = new RolDto();
+        unidadDependenciaDtos = unidadService.getAll();
+        idUnidad = 0;
     }
 
     public void DeterminarAccion(){
@@ -67,6 +78,7 @@ public class RolBeans implements Serializable {
         CreateRolDto createRolDto = new CreateRolDto();
         createRolDto.setNombre(rolDto.getNombre());
         createRolDto.setEstado("Activo");
+        createRolDto.setUnidadDependencia(UnidadDependenciaMapper.toEntity(unidadService.getById(idUnidad)));
         rolService.createRol(createRolDto);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+createRolDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
     }
@@ -75,12 +87,15 @@ public class RolBeans implements Serializable {
         UpdateRolDto updateRolDto = new UpdateRolDto();
         updateRolDto.setNombre(rolDto.getNombre());
         updateRolDto.setEstado(rolDto.getEstado());
+        updateRolDto.setUnidadDependencia(UnidadDependenciaMapper.toEntity(unidadService.getById(idUnidad)));
         rolService.updateRol(updateRolDto, idRol);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+updateRolDto.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
     }
 
     public void cargarRolEdiccion(){
         rolDto = rolService.getRolById(idRol);
+        unidadDependenciaDtos = unidadService.getAll();
+        idUnidad = rolDto.getUnidadDependencia().getId();
     }
     
     public  void cambiarEstado(){
