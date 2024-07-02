@@ -9,7 +9,7 @@ public interface IMovimientoStockDao {
 
     MovimientoStock getById(int id);
 
-    void create(MovimientoStock c);
+    MovimientoStock create(MovimientoStock c);
 
-    void delete(int id);
+    MovimientoStock delete(int id);
 }

@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.DAO.DaoImp;
 
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IEmpresaDao;
@@ -9,6 +10,7 @@ import org.Almacen.TopAlmacen.Model.Empresa;
 
 import java.util.List;
 
+@Named
 public class EmpresaDaoImp implements IEmpresaDao {
     @PersistenceContext(name = "YourPU")
     private EntityManager _entityManager;
