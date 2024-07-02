@@ -13,6 +13,7 @@ import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
@@ -31,7 +32,7 @@ public class CategoriaBeans implements Serializable {
     private CategoriaDto categoriaDto;
     private List<CategoriaDto> categorias;
     private List<CategoriaDto> categoriasSelecionadas;
-    private List<ProductoDto> productoDtoList;
+    private List<Producto> productoList;
     private List<ProductoDto> productoDtoListSeleccionado;
     private boolean renderedCategoria;
     private boolean renderedProducto;
@@ -74,17 +75,18 @@ public class CategoriaBeans implements Serializable {
         categoriaCreate.setDescripcion(categoriaDto.getDescripcion());
         categoriaCreate.setEstado("Activo");
         categoriaService.createCategoria(categoriaCreate);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+categoriaCreate.getNombre()+" ha sido registrado exitosamente en el sistema!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria " + categoriaCreate.getNombre() + " ha sido registrado exitosamente en el sistema!"));
     }
-    public void cargarCategoriaConProductos(){
+
+    public void cargarCategoriaConProductos() {
         validacionRenderVista(2);
         categoriaDto = new CategoriaDto();
-        CategoriaConProductosDto categoriaConProductosDto =  categoriaService.getCategoriaById(categoriaId);
+        CategoriaConProductosDto categoriaConProductosDto = categoriaService.getCategoriaById(categoriaId);
         categoriaDto.setId(categoriaConProductosDto.getId());
         categoriaDto.setNombre(categoriaConProductosDto.getNombre());
         categoriaDto.setDescripcion(categoriaConProductosDto.getDescripcion());
         categoriaDto.setEstado(categoriaConProductosDto.getEstado());
-        productoDtoList = categoriaConProductosDto.getProductos();
+        productoList = categoriaConProductosDto.getProductos();
     }
 
     public void cargarCategoriaParaEdicion() {
@@ -107,7 +109,7 @@ public class CategoriaBeans implements Serializable {
         CategoriaUpdate.setEstado(categoriaDto.getEstado());
         categoriaService.updateCategoria(categoriaId, CategoriaUpdate);
         loadCategorias();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria "+CategoriaUpdate.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria " + CategoriaUpdate.getNombre() + " ha sido actualizado exitosamente en el sistema!"));
     }
 
     public void eliminarCategoria() {
@@ -135,26 +137,26 @@ public class CategoriaBeans implements Serializable {
         }
     }
 
-    private void validacionRenderVista(int opcion){
-        switch (opcion){
+    private void validacionRenderVista(int opcion) {
+        switch (opcion) {
             case 1:
                 renderedCategoria = false;
-                renderedProducto =false;
-                renderedBtnGuardar=true;
+                renderedProducto = false;
+                renderedBtnGuardar = true;
                 break;
             case 2:
                 renderedCategoria = true;
                 renderedProducto = true;
-                renderedBtnGuardar=false;
+                renderedBtnGuardar = false;
                 break;
         }
     }
 
-    public void cambiarEstado(){
+    public void cambiarEstado() {
         categoriaDto = new CategoriaDto();
         var categoria = categoriaService.getCategoriaById(categoriaId);
         String estado = "";
-        switch (categoria.getEstado()){
+        switch (categoria.getEstado()) {
             case "Activo":
                 estado = "Inactivo";
                 break;
@@ -162,7 +164,7 @@ public class CategoriaBeans implements Serializable {
                 estado = "Activo";
                 break;
         }
-        categoriaService.cambioEstado(categoriaId,estado);
+        categoriaService.cambioEstado(categoriaId, estado);
         loadCategorias();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de la marca " + categoria.getNombre() + " ha cambiado a " + estado + "!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");

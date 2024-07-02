@@ -31,8 +31,7 @@ public class DependenciaService {
     @Transactional
     public DependenciaConUnidadesDto getById(int id) {
         var dependencias = iDependenciaDao.getById(id);
-        var unidadesDependencia = dependencias.getUnidades().stream().map(UnidadDependenciaMapper::toDto).collect(Collectors.toList());
-        return new DependenciaConUnidadesDto(dependencias.getId(), dependencias.getNombre(), dependencias.getEstado(), dependencias.getFechaRegistro(), unidadesDependencia);
+        return new DependenciaConUnidadesDto(dependencias.getId(), dependencias.getNombre(), dependencias.getEstado(), dependencias.getFechaRegistro(), dependencias.getUnidades());
 
     }
 }

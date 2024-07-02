@@ -40,8 +40,7 @@ public class CategoriaService implements Serializable {
     @Transactional
     public CategoriaConProductosDto getCategoriaById(int id) {
         var categoria = iCategoriaDao.getById(id);
-        var productosDto = categoria.getProductos().stream().map(ProductoMapper::toDto).collect(Collectors.toList());
-        return new CategoriaConProductosDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getEstado(), categoria.getFechaRegistro(), productosDto);
+        return new CategoriaConProductosDto(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getEstado(), categoria.getFechaRegistro(), categoria.getProductos());
     }
 
     @Transactional

@@ -1,10 +1,17 @@
 package org.Almacen.TopAlmacen.DTO.Requerimiento;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
-import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RequerimientoDto {
     private int id;
     private LocalDateTime fechaRegistrada;
