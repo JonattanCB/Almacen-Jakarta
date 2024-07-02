@@ -22,21 +22,21 @@ public class MovimientoStock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "Fecha_Registro",nullable = false)
-    private LocalDateTime fechaRegistro=LocalDateTime.now();
+    @Column(name = "Fecha_Registro", nullable = false)
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PrecioPorTipoUnidad_id",nullable = false)
+    @JoinColumn(name = "PrecioPorTipoUnidad_id", nullable = false)
     private PrecioPorTipoUnidad precioPorTipoUnidad;
 
-    @Column(name = "Tipo_Movimiento",nullable = false)
+    @Column(name = "Tipo_Movimiento", nullable = false)
     private String tipoMovimiento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "precioPorUnidad_ID",nullable = false)
+    @JoinColumn(name = "precioPorUnidad_ID", nullable = false)
     private PrecioPorTipoUnidad precioPorUnidad;
 
-    @Column(name = "Cantidad",nullable = false)
+    @Column(name = "Cantidad", nullable = false)
     private double cantidad;
     @Column(name = "TipoUnidad")
     private String tipoUnidad;

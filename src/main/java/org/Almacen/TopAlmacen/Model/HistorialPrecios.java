@@ -25,5 +25,5 @@ public class HistorialPrecios {
     @Column(name = "precioRegistro", nullable = false)
     private Double precioRegistro;
     @Column(name = "FechaRegistro", nullable = false)
-    private LocalTime fechaRegistro;
+    private LocalTime fechaRegistro = LocalTime.now();
 }

@@ -4,8 +4,10 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
+import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
@@ -19,6 +21,8 @@ public class StockUnidadesService {
     private IStockUnidadesDao istockUnidadesDao;
     @Inject
     private IPrecioPorTipoUnidadDao iprecioPorTipoUnidadDao;
+    @Inject
+    private IMovimientoStockDao imovimientoStockDao;
 
     @Transactional
     public List<StockUnidades> getAllStockUnidades() {
@@ -35,26 +39,44 @@ public class StockUnidadesService {
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(precioPorTipoUnidadId);
 
         if (precioPorTipoUnidad != null) {
-            // Buscar el stock existente por el tipo de unidad y producto
-            var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(
-                    precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev()
-            );
+            var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev());
+            stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + cantidadAgregar);
+            var ms = new MovimientoStock();
+            ms.setTipoMovimiento("ENTRADA");
+            ms.setPrecioPorUnidad(precioPorTipoUnidad);
+            ms.setCantidad(cantidadAgregar);
+            ms.setTipoUnidad(stockUnidades.getTipoUnidad());
+            imovimientoStockDao.create(ms);
+            return istockUnidadesDao.update(stockUnidades);
 
-            if (stockUnidades != null) {
-                stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + cantidadAgregar);
+        } else {
+            throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidadId + " no existe.");
+        }
+    }
+
+    @Transactional
+    public StockUnidades subtractStockUnidades(int precioPorTipoUnidadId, double cantidadARestar) {
+        if (cantidadARestar <= 0) {
+            throw new IllegalArgumentException("La cantidad a restar debe ser mayor que cero.");
+        }
+        var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(precioPorTipoUnidadId);
+        if (precioPorTipoUnidad != null) {
+            var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev());
+            if (stockUnidades != null && verificarStockUnidades(stockUnidades, cantidadARestar)) {
+                double cantidadActual = stockUnidades.getCantidadStockUnidad() - cantidadARestar;
+                stockUnidades.setCantidadStockUnidad(cantidadActual);
                 return istockUnidadesDao.update(stockUnidades);
             } else {
-                // Si no existe un stock asociado, crear uno nuevo
-                var nuevoStock = new StockUnidades();
-                nuevoStock.setCantidadStockUnidad(cantidadAgregar);
-                nuevoStock.setTipoUnidad(precioPorTipoUnidad.getTipoUnidad().getAbrev());
-
-                istockUnidadesDao.create(nuevoStock);
-                return nuevoStock;
+                throw new IllegalStateException("No hay suficiente stock o el stock no existe.");
             }
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidadId + " no existe.");
         }
+    }
+
+    @Transactional
+    private boolean verificarStockUnidades(StockUnidades stockUnidades, double cantidadARestar) {
+        return stockUnidades.getCantidadStockUnidad() >= cantidadARestar;
     }
 
 

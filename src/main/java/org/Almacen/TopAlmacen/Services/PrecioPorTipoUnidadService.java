@@ -108,10 +108,14 @@ public class PrecioPorTipoUnidadService implements Serializable {
             var pN = getItem.getPrecioUnitario();
             if (pA != pN) {
                 var hp = new HistorialPrecios();
-                hp.setPrecioPorTipoUnidad(pptu);
+                hp.setPrecioPorTipoUnidad(getItem);
                 hp.setPrecioRegistro(pN);
                 ihistorialPreciosDao.create(hp);
             }
+            getItem.setPrecioUnitario(dto.getPrecio());
+            getItem.setUnidadesPorTipoUnidadDeProducto(dto.getUnidadesPorTipoUnidadPorProducto());
+            getItem.setTipoUnidad(dto.getTipoUnidad());
+            getItem.setProducto(dto.getProducto());
             return iprecioPorTipoUnidadDao.update(dto, id);
         }
         return null;
@@ -119,6 +123,16 @@ public class PrecioPorTipoUnidadService implements Serializable {
 
     @Transactional
     public PrecioPorTipoUnidad delete(int id) {
-        return iprecioPorTipoUnidadDao.delete(id);
+        var pptu = iprecioPorTipoUnidadDao.getById(id);
+        if (pptu != null) {
+            if (pptu.getTipoUnidad().getAbrev().equals("UND")) {
+                var stockUnidades = pptu.getStockUnidades();
+                if (stockUnidades != null) {
+                    istockUnidadesDao.delete(stockUnidades.getId());
+                }
+            }
+            return iprecioPorTipoUnidadDao.delete(id);
+        }
+        return null;
     }
 }
