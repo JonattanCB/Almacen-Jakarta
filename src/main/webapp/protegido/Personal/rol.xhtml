@@ -85,7 +85,7 @@
                     </h:panelGrid>
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="Unidad" styleClass="texto_dialog" value="Unidad: "/> </h:panelGrid>
-                        <p:selectOneMenu id="Unidad" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                        <p:selectOneMenu id="Unidad" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
                                          value="#{RolBeans.idUnidad}" required="true" autoWidth="false"  >
                             <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
                             <f:selectItems  value="#{RolBeans.unidadDependenciaDtos}" var="tu" itemLabel="#{tu.nombre}" itemValue="#{tu.id}" />

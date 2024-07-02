@@ -13,6 +13,7 @@ import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
 import org.primefaces.PrimeFaces;
@@ -32,8 +33,8 @@ public class CategoriaBeans implements Serializable {
     private CategoriaDto categoriaDto;
     private List<CategoriaDto> categorias;
     private List<CategoriaDto> categoriasSelecionadas;
-    private List<Producto> productoList;
-    private List<ProductoDto> productoDtoListSeleccionado;
+    private List<ProductoDto> productoDtoList;
+    private List<ProductoDto> productoDtoListSeleccion;
     private boolean renderedCategoria;
     private boolean renderedProducto;
     private boolean renderedBtnGuardar;
@@ -86,7 +87,7 @@ public class CategoriaBeans implements Serializable {
         categoriaDto.setNombre(categoriaConProductosDto.getNombre());
         categoriaDto.setDescripcion(categoriaConProductosDto.getDescripcion());
         categoriaDto.setEstado(categoriaConProductosDto.getEstado());
-        productoList = categoriaConProductosDto.getProductos();
+        productoDtoList = ProductoMapper.toDTOList(categoriaConProductosDto.getProductos());
     }
 
     public void cargarCategoriaParaEdicion() {
@@ -108,7 +109,6 @@ public class CategoriaBeans implements Serializable {
         CategoriaUpdate.setDescripcion(categoriaDto.getDescripcion());
         CategoriaUpdate.setEstado(categoriaDto.getEstado());
         categoriaService.updateCategoria(categoriaId, CategoriaUpdate);
-        loadCategorias();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La categoria " + CategoriaUpdate.getNombre() + " ha sido actualizado exitosamente en el sistema!"));
     }
 
@@ -170,5 +170,7 @@ public class CategoriaBeans implements Serializable {
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
+
+
 
 }

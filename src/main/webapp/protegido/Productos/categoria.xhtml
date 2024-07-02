@@ -100,7 +100,7 @@
                     <h:panelGrid rendered="#{CategoriaBeans.renderedProducto}" style="margin-top: 1rem">
                             <h:panelGrid><h:outputText styleClass="texto_dialog" value="Productos de la Categoria"/></h:panelGrid>
                             <p:dataTable id="tablaproducto" var="prod" value="#{CategoriaBeans.productoDtoList}" widgetVar="produc"
-                                         emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccionado}"
+                                         emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccion}"
                                          globalFilterFunction="#{CategoriaBeans.globalFilterFunction}"
                                          rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                                 <p:column headerText="#"  sortBy="#{prod.id}" width="50"  >

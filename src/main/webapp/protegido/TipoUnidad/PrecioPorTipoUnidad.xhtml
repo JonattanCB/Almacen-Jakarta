@@ -47,7 +47,7 @@
                         <p:column headerText="Tipo de Unidad" sortBy="#{obj.tipoUnidad.nombre}" width="150" >
                             <h:outputText value="#{obj.tipoUnidad.nombre}" />
                         </p:column>
-                        <p:column headerText="Producto" sortBy="#{obj.producto.nombre}" width="250" >
+                        <p:column headerText="Producto" sortBy="#{obj.producto.nombre}" width="200" >
                             <h:outputText value="#{obj.producto.nombre}" styleClass="columnas-texto-table"/>
                         </p:column>
                         <p:column headerText="Unidades" sortBy="#{obj.unidadesPorTipoUnidadPorProducto}" width="100" >
@@ -56,7 +56,7 @@
                         <p:column headerText="Precio Unitario" sortBy="#{obj.precioUnitario}" width="130" >
                             <h:outputText value="S/. #{obj.precioUnitario}" styleClass="columnas-texto-table"/>
                         </p:column>
-                        <p:column exportable="false" width="100">
+                        <p:column exportable="false" width="150">
                             <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                              action="#{PrecioTUBeans.CargarPrecioPorTipoUnidadVer()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                              styleClass="edit-button rounded-button "  >
@@ -89,7 +89,7 @@
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="Producto" styleClass="texto_dialog" value="Producto: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Producto" styleClass="ui-selectonemenu"
+                            <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Producto" styleClass="ui-selectonemenu" disabled="#{PrecioTUBeans.escribirdatos}"
                                              value="#{PrecioTUBeans.productoId}"  required="true" autoWidth="false"    >
                                 <f:selectItem noSelectionOption="true" itemLabel="Seleccionar Opciones"  />
                                 <f:selectItems value="#{PrecioTUBeans.productoDescripcionDtos}" var="pro" itemLabel="#{pro.descripcion}" itemValue="#{pro.id}" />
@@ -99,26 +99,27 @@
                     <h:panelGrid  style="margin-top: 1rem" columns="2">
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="cantidad" styleClass="texto_dialog" value="Cantidad de Unidades por Tipo Unidad: "/> </h:panelGrid>
-                            <p:inputText id="cantidad"  styleClass="input-custom" style="width: 17rem" value="#{PrecioTUBeans.precioPorTipoUnidadDto.unidadesPorTipoUnidadPorProducto}"  required="true"/>
+                            <p:inputText id="cantidad" disabled="#{PrecioTUBeans.unidad}" styleClass="input-custom" style="width: 17rem"   value="#{PrecioTUBeans.precioPorTipoUnidadDto.unidadesPorTipoUnidadPorProducto}"  required="true"/>
                         </h:panelGrid>
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="tu" styleClass="texto_dialog" value="Tipo de Unidad: "/> </h:panelGrid>
                             <p:selectOneMenu id="tu" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                             value="#{PrecioTUBeans.tipoUnidadID}" required="true" autoWidth="false"  >
+                                             value="#{PrecioTUBeans.tipoUnidadID}" required="true" autoWidth="false" disabled="#{PrecioTUBeans.escribirdatos}"  >
                                 <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
                                 <f:selectItems  value="#{PrecioTUBeans.tipoUnidadDtoList}" var="tu" itemLabel="#{tu.nombre}" itemValue="#{tu.id}" />
+                                <p:ajax event="valueChange" listener="#{PrecioTUBeans.verificarUnidad()}" update="cantidad"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem">
-                        <h:panelGrid><h:outputLabel for="Catu" styleClass="texto_dialog" value="Precio: "/></h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="Catu"  styleClass="texto_dialog" value="Precio: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputText id="Catu"  styleClass="input-custom" style="width: 34.5rem" value="#{PrecioTUBeans.precioPorTipoUnidadDto.precioUnitario}"   required="true"/>
+                            <p:inputText id="Catu" disabled="#{PrecioTUBeans.preciodatos}"  styleClass="input-custom" style="width: 34.5rem" value="#{PrecioTUBeans.precioPorTipoUnidadDto.precioUnitario}"   required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{PrecioTUBeans.determinarPrecioPorTipoUnidad()}"  />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{PrecioTUBeans.determinarPrecioPorTipoUnidad()}" rendered="#{PrecioTUBeans.btnGuardar}"  />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>

@@ -32,13 +32,13 @@ public class PrecioPorTipoUnidadService implements Serializable {
     private IStockUnidadesDao istockUnidadesDao;
 
     @Transactional
-    public List<PrecioPorTipoUnidadDto> getAllPrecioPorTipoUnidad() {
+    public List<PrecioPorTipoUnidadDto> getAllPrecioPorTipoUnidad() { //LISTAR
         var preciosPorTipodeUnidades = iprecioPorTipoUnidadDao.getAll();
         return preciosPorTipodeUnidades.stream().map(PrecioPorTipoUnidadMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
-    public PrecioPorTipoUnidadDto getPrecioPorTipoUnidadById(int id) {
+    public PrecioPorTipoUnidadDto getPrecioPorTipoUnidadById(int id) { //BUSCAR
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(id);
         return PrecioPorTipoUnidadMapper.toDto(precioPorTipoUnidad);
     }
@@ -57,7 +57,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {
+    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
         String abrevUnidadBasica = "UND";
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
             var tipoUnidad = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
@@ -81,7 +81,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {
+    public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {//CUANDO ES PAQUETE
         if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
 
@@ -100,7 +100,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) {
+    public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) { //Actualizar
         var getItem = iprecioPorTipoUnidadDao.getById(id);
         if (getItem != null) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromUpdate(dto);

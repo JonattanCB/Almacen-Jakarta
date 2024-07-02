@@ -47,6 +47,14 @@ public class PrecioTUBeans implements Serializable {
 
     private int productoId;
 
+    private boolean unidad;
+
+    private boolean btnGuardar;
+
+    private boolean escribirdatos;
+
+    private boolean preciodatos;
+
     private List<PrecioPorTipoUnidadDto> precioPorTipoUnidadlst;
 
     private List<PrecioPorTipoUnidadDto> precioPorTipoUnidadlstSeleccionado;
@@ -66,6 +74,7 @@ public class PrecioTUBeans implements Serializable {
         productoDescripcionDtos = productoService.productoDescripcionDtos();
         tipoUnidadID = 0;
         productoId = 0;
+        disabledPrecio(1);
     }
 
     public void determinarPrecioPorTipoUnidad() {
@@ -89,16 +98,18 @@ public class PrecioTUBeans implements Serializable {
 
     public void CargarPrecioPorTipoUnidadVer() {
         CargarPrecioPorTipoUnidad();
+        disabledPrecio(3);
     }
 
     public void CargarPrecioPorTipoUnidadUpdate() {
         CargarPrecioPorTipoUnidad();
+        disabledPrecio(2);
     }
 
     public void deletePrecioPorTipoUnidad() {
         PrecioPorTipoUnidadDto dto = PrecioPorTipoUnidadMapper.toDto(precioPorTipoUnidadService.delete(precioPorTipoUnidadID));
         loadPrecioPorTipoUnidad();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getProducto().getNombre() + " ha sido eliminado exitosamente del sistema!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + dto.getProducto().getNombre() + " ha sido eliminado exitosamente del sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
@@ -109,7 +120,12 @@ public class PrecioTUBeans implements Serializable {
         createPrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
         createPrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         createPrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
-        precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
+        if (createPrecioPorTipoUnidadDto.getTipoUnidad().getAbrev().equals("UND")){
+            precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
+        }else{
+           precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
     }
 
     private void updatePrecioPorTipoUnidad() {
@@ -119,6 +135,7 @@ public class PrecioTUBeans implements Serializable {
         updatePrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         updatePrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
         precioPorTipoUnidadService.update(updatePrecioPorTipoUnidadDto, precioPorTipoUnidadID);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + updatePrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido actualizado exitosamente en el sistema!"));
     }
 
     private void loadPrecioPorTipoUnidad() {
@@ -146,6 +163,39 @@ public class PrecioTUBeans implements Serializable {
             return Integer.parseInt(string);
         } catch (NumberFormatException ex) {
             return 0;
+        }
+    }
+
+    public void verificarUnidad(){
+        TipoUnidadDto tu = tipoUnidadService.getTipoUnidad(tipoUnidadID);
+        if (tu.getAbrev().equals("UND")){
+            precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1);
+            unidad = true;
+        }else{
+            unidad = false;
+        }
+    }
+
+    private void disabledPrecio(int opcion){
+        switch (opcion){
+            case 1:
+                unidad = false;
+                escribirdatos = false;
+                preciodatos =false;
+                btnGuardar = true;
+                break;
+            case 2:
+                unidad= true;
+                escribirdatos = true;
+                preciodatos = false;
+                btnGuardar =true;
+                break;
+            case 3:
+                unidad = true;
+                escribirdatos = true;
+                preciodatos =true;
+                btnGuardar =false;
+                break;
         }
     }
 
