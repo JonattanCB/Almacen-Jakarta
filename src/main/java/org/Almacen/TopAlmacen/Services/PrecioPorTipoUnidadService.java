@@ -11,6 +11,7 @@ import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadD
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Model.*;
 import org.Almacen.TopAlmacen.DAO.ITipoUnidadDao;
 
@@ -68,6 +69,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
 
             var stockUnidades = new StockUnidades();
+            stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(nuevaUnidad.getProducto()));
             stockUnidades.setCantidadStockUnidad(0);
             stockUnidades.setTipoUnidad(abrevUnidadBasica);
 
@@ -86,6 +88,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
 
             var stockUnidades = new StockUnidades();
+            stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(dto.getProducto()));
             stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
             stockUnidades.setTipoUnidad(pptu.getTipoUnidad().getAbrev());
 

@@ -19,5 +19,4 @@ public class CreateDetalleProductoProveedorEntradaDto {
     private String descripcion;
     private double descuento;
     private double precioUnitario;
-    private double precioTotal;
 }

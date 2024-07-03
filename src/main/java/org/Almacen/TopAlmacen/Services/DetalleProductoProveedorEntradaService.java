@@ -33,8 +33,12 @@ public class DetalleProductoProveedorEntradaService {
     }
 
     @Transactional
-    public DetalleProductoProveedorEntrada add(CreateDetalleProductoProveedorEntradaDto dto) {
+    public DetalleProductoProveedorEntrada create(CreateDetalleProductoProveedorEntradaDto dto) {
         var detalleAdd = DetalleProductoProveedorEntradaMapper.fromCreate(dto);
         return iDetalleProductoProveedorEntradaDao.create(detalleAdd);
+    }
+    @Transactional
+    public DetalleProductoProveedorEntrada update(DetalleProductoProveedorEntradaDto dto) {
+        return null;
     }
 }
