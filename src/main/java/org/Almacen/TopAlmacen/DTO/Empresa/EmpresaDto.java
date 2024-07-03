@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.TipoEmpresa;
 
-import java.time.LocalDate;
 
 @Getter
 @Setter

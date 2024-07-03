@@ -13,6 +13,5 @@ import org.Almacen.TopAlmacen.Model.Usuario;
 @NoArgsConstructor
 public class UpdateProductoProveedorEntradaDto {
     private Empresa empresa;
-    private Usuario usuario;
     private double precioFinal;
 }

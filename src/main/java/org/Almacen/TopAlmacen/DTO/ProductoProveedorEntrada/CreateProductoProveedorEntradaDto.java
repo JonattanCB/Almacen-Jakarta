@@ -4,17 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
-import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
-
-import java.time.LocalDate;
+import org.Almacen.TopAlmacen.Model.Empresa;
+import org.Almacen.TopAlmacen.Model.Usuario;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateProductoProveedorEntradaDto {
-    private EmpresaDto empresaDto;
-    private UsuarioDto usuarioDto;
+    private Empresa empresa;
+    private Usuario usuario;
     private double precioFinal;
 }

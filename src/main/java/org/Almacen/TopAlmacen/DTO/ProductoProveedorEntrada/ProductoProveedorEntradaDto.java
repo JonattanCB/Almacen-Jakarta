@@ -1,15 +1,22 @@
 package org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada;
 
-import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
-import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.Empresa;
+import org.Almacen.TopAlmacen.Model.Usuario;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductoProveedorEntradaDto {
     private int OC;
-    private EmpresaDto empresaDto;
-    private LocalDate fechaRegistro;
-    private UsuarioDto usuarioDto;
+    private Empresa empresa;
+    private LocalDateTime fechaRegistro;
+    private Usuario usuario;
     private double precioFinal;
 }

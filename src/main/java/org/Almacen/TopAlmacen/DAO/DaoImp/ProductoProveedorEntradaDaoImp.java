@@ -34,7 +34,6 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
         var findobj = _entityManager.find(ProductoProveedorEntrada.class, id);
         if (findobj != null) {
             findobj.setEmpresa(c.getEmpresa());
-            findobj.setUsuario(c.getUsuario());
             findobj.setPrecioFinal(c.getPrecioFinal());
             _entityManager.merge(findobj);
             return findobj;
