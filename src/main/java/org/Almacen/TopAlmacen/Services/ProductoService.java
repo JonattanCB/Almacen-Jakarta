@@ -51,6 +51,7 @@ public class ProductoService implements Serializable {
 
     @Transactional
     public Producto deleteProducto(int id) {
+
         return iProductoDao.delete(id);
     }
 
