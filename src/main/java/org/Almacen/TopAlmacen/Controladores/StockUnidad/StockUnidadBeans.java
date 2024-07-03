@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.Controladores.StockUnidad;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.util.Locale;
 
 @Data
 @Named("StockUnidadBeans")
-@SessionScoped
+@ViewScoped
 public class StockUnidadBeans implements Serializable {
 
     @Inject

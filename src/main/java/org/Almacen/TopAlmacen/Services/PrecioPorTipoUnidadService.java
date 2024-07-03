@@ -123,6 +123,9 @@ public class PrecioPorTipoUnidadService implements Serializable {
     public PrecioPorTipoUnidad delete(int id) {
         var pptu = iprecioPorTipoUnidadDao.getById(id);
         if (pptu != null) {
+            if (ihistorialPreciosDao.isBeingUsed(id)) {
+                return null;
+            }
             if (pptu.getTipoUnidad().getAbrev().equals("UND")) {
                 var stockUnidades = pptu.getStockUnidades();
                 if (stockUnidades != null) {

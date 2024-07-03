@@ -4,6 +4,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
+import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 
 import java.util.List;
@@ -39,5 +40,14 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
             return null;
         }
 
+    }
+
+    @Override
+    public boolean isBeingUsed(int id) {
+        var query = _entityManager.createQuery(
+                "SELECT COUNT(o) > 0 FROM HistorialPrecios  o WHERE o.precioPorTipoUnidad.id = :id", boolean.class
+        );
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 }

@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.Controladores.Historia;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.util.Locale;
 
 @Data
 @Named("HistoriaMovimientoBeans")
-@SessionScoped
+@ViewScoped
 public class HistoriaMovimientoBeans implements Serializable {
 
     @Inject

@@ -12,4 +12,6 @@ public interface IHistorialPreciosDao {
     HistorialPrecios create(HistorialPrecios c);
 
     HistorialPrecios delete(int id);
+
+    boolean isBeingUsed(int id);
 }

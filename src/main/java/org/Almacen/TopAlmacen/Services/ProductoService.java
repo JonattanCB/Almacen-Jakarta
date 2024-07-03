@@ -54,11 +54,11 @@ public class ProductoService implements Serializable {
     public Producto deleteProducto(int id) {
         Producto producto = iProductoDao.getById(id);
         if (producto == null) {
-            throw new IllegalArgumentException("El producto con ID " + id + " no existe.");
+            return null;
         }
 
         if (iProductoDao.existsByProducto(producto)) {
-            throw new IllegalStateException("El producto está asociado a una o más entradas de PrecioPorTipoUnidad y no se puede eliminar.");
+            return null;
         }
 
         return iProductoDao.delete(id);

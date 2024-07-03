@@ -15,7 +15,7 @@
                     <p:toolbar>
                         <p:toolbarGroup>
                             <p:commandButton value="Nuevo Precio" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{PrecioTUBeans.newPrecioPorTipoUnidad()}"
-                                             update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                                             update="dialogs" disabled="#{PrecioTUBeans.btnNuevoPrecio}"  oncomplete="PF('dialogsa').show()"  />
                         </p:toolbarGroup>
                         <p:toolbarGroup align="right" >
                             <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">

@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
@@ -11,6 +12,7 @@ import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadD
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
+import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
@@ -27,7 +29,7 @@ import java.util.Locale;
 
 @Data
 @Named("PrecioTUBeans")
-@SessionScoped
+@ViewScoped
 public class PrecioTUBeans implements Serializable {
 
     @Inject
@@ -46,6 +48,8 @@ public class PrecioTUBeans implements Serializable {
     private int tipoUnidadID;
 
     private int productoId;
+    
+    private boolean btnNuevoPrecio;
 
     private boolean unidad;
 
@@ -68,6 +72,7 @@ public class PrecioTUBeans implements Serializable {
     @PostConstruct
     private void init() {
         loadPrecioPorTipoUnidad();
+        verificarExistenciProducto();
     }
 
     public void newPrecioPorTipoUnidad() {
@@ -86,9 +91,6 @@ public class PrecioTUBeans implements Serializable {
         } else {
             updatePrecioPorTipoUnidad();
         }
-        loadPrecioPorTipoUnidad();
-        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
-        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     private void CargarPrecioPorTipoUnidad() {
@@ -116,9 +118,13 @@ public class PrecioTUBeans implements Serializable {
     }
 
     public void deletePrecioPorTipoUnidad() {
-        PrecioPorTipoUnidadDto dto = PrecioPorTipoUnidadMapper.toDto(precioPorTipoUnidadService.delete(precioPorTipoUnidadID));
+        PrecioPorTipoUnidadDto dto = precioPorTipoUnidadService.getPrecioPorTipoUnidadById(precioPorTipoUnidadID);
+        if(precioPorTipoUnidadService.delete(precioPorTipoUnidadID) == null){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede eliminar el precio del producto " + dto.getProducto().getNombre() + " porque se está utilizando en el sistema."));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + dto.getProducto().getNombre() + " ha sido eliminado exitosamente del sistema!"));
+        }
         loadPrecioPorTipoUnidad();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + dto.getProducto().getNombre() + " ha sido eliminado exitosamente del sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
@@ -131,10 +137,23 @@ public class PrecioTUBeans implements Serializable {
         createPrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
         if (createPrecioPorTipoUnidadDto.getTipoUnidad().getAbrev().equals("UND")){
             precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
+            loadPrecioPorTipoUnidad();
+            PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+            PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         }else{
-           precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto);
+            if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto) == null){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
+                PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+            }else{
+                loadPrecioPorTipoUnidad();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
+                PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+                PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+            }
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
+
+
     }
 
     private void updatePrecioPorTipoUnidad() {
@@ -145,6 +164,9 @@ public class PrecioTUBeans implements Serializable {
         updatePrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
         precioPorTipoUnidadService.update(updatePrecioPorTipoUnidadDto, precioPorTipoUnidadID);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + updatePrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido actualizado exitosamente en el sistema!"));
+        loadPrecioPorTipoUnidad();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     private void loadPrecioPorTipoUnidad() {
@@ -177,11 +199,29 @@ public class PrecioTUBeans implements Serializable {
 
     public void verificarUnidad(){
         TipoUnidadDto tu = tipoUnidadService.getTipoUnidad(tipoUnidadID);
-        if (tu.getAbrev().equals("UND")){
-            precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1);
-            unidad = true;
-        }else{
-            unidad = false;
+        switch (tu.getAbrev()){
+            case "UND":
+                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1);
+                unidad = true;
+                break;
+            case "DOC":
+                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(12);
+                unidad = true;
+                break;
+            case "DEC":
+                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(10);
+                unidad = true;
+                break;
+            case "CEN":
+                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(100);
+                unidad = true;
+                break;
+            case "Mil":
+                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1000);
+                unidad = true;
+                break;
+            default:
+                unidad = false;
         }
     }
 
@@ -218,5 +258,15 @@ public class PrecioTUBeans implements Serializable {
                 break;
         }
     }
-
+    
+    private void verificarExistenciProducto(){
+        List<ProductoDto> dtoList = productoService.getAllProducto();
+        if (dtoList.isEmpty()){
+            btnNuevoPrecio = true;
+        }else{
+            btnNuevoPrecio = false;
+        }
+   
+    }
+    
 }
