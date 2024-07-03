@@ -13,7 +13,10 @@ public interface IProductoDao {
 
     Producto create(Producto c);
 
-    Producto update(UpdateProductoDto u,int id);
+    Producto update(UpdateProductoDto u, int id);
 
     Producto delete(int id);
+
+    boolean existsByProducto(Producto producto);
+
 }

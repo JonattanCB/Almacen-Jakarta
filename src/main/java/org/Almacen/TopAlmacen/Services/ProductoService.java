@@ -5,6 +5,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IProductoDao;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
@@ -40,24 +41,32 @@ public class ProductoService implements Serializable {
 
     @Transactional
     public Producto updateProducto(int id, UpdateProductoDto updateProductoDto) {
-        return  iProductoDao.update(updateProductoDto,id);
+        return iProductoDao.update(updateProductoDto, id);
     }
 
     @Transactional
-    public ProductoDto getProductoById(int id){
+    public ProductoDto getProductoById(int id) {
         var producto = iProductoDao.getById(id);
         return ProductoMapper.toDto(producto);
     }
 
     @Transactional
     public Producto deleteProducto(int id) {
+        Producto producto = iProductoDao.getById(id);
+        if (producto == null) {
+            throw new IllegalArgumentException("El producto con ID " + id + " no existe.");
+        }
+
+        if (iProductoDao.existsByProducto(producto)) {
+            throw new IllegalStateException("El producto está asociado a una o más entradas de PrecioPorTipoUnidad y no se puede eliminar.");
+        }
 
         return iProductoDao.delete(id);
     }
 
     @Transactional
-    public List<ProductoDescripcionDto> productoDescripcionDtos(){
+    public List<ProductoDescripcionDto> productoDescripcionDtos() {
         List<Producto> productos = iProductoDao.getAll();
-        return  productos.stream().map(c -> new ProductoDescripcionDto(c.getId(),ProductoMapper.toConcatProduct(c))).collect(Collectors.toList());
+        return productos.stream().map(c -> new ProductoDescripcionDto(c.getId(), ProductoMapper.toConcatProduct(c))).collect(Collectors.toList());
     }
 }

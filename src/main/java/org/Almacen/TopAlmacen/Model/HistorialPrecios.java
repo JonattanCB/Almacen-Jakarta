@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -25,5 +26,5 @@ public class HistorialPrecios {
     @Column(name = "precioRegistro", nullable = false)
     private Double precioRegistro;
     @Column(name = "FechaRegistro", nullable = false)
-    private LocalTime fechaRegistro = LocalTime.now();
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 }

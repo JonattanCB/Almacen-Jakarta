@@ -4,19 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
+import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovimientoStockDto {
     private int id;
-    private LocalDate fechaRegistro;
+    private LocalDateTime fechaRegistro;
     private String tipoMovimiento;
-    private PrecioPorTipoUnidadDto precioPorTipoUnidadDto;
+    private String precioPorTipoUnidad;
     private double cantidad;
-    private TipoUnidad tipoUnidad;
+    private String tipoUnidad;
 }

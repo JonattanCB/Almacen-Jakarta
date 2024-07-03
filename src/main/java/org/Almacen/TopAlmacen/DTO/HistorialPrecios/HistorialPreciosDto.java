@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class HistorialPreciosDto {
     private int id;
-    private PrecioPorTipoUnidad precioPorTipoUnidad;
+    private String precioPorTipoUnidad;
     private double precioRegistro;
     private LocalDateTime fechaRegistro;
 }

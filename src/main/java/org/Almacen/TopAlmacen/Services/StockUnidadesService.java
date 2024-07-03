@@ -7,11 +7,14 @@ import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
+import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
@@ -25,13 +28,15 @@ public class StockUnidadesService {
     private IMovimientoStockDao imovimientoStockDao;
 
     @Transactional
-    public List<StockUnidades> getAllStockUnidades() {
-        return istockUnidadesDao.getAll();
+    public List<StockUnidadesDto> getAllStockUnidades() {
+        var stockUnidades = istockUnidadesDao.getAll();
+        return stockUnidades.stream().map(StockUnidadesMapper::toStockUnidadesDto).collect(Collectors.toList());
     }
 
     @Transactional
-    public StockUnidades getStockUnidadesById(int idStockUnidades) {
-        return istockUnidadesDao.getById(idStockUnidades);
+    public StockUnidadesDto getStockUnidadesById(int idStockUnidades) {
+        var StockUnidad = istockUnidadesDao.getById(idStockUnidades);
+        return StockUnidadesMapper.toStockUnidadesDto(StockUnidad);
     }
 
     @Transactional

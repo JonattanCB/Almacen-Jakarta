@@ -21,8 +21,10 @@ public class StockUnidades {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    @Column(name = "CantidadStockUnidad")
+    @Column(name = "CantidadStockUnidad", nullable = false)
     private double CantidadStockUnidad;
 
     @Column(name = "TipoUnidad", nullable = false)

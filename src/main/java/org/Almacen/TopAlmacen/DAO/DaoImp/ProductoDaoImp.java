@@ -56,4 +56,14 @@ public class ProductoDaoImp implements IProductoDao {
             return null;
         }
     }
+
+    @Override
+    public boolean existsByProducto(Producto producto) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(p) FROM PrecioPorTipoUnidad p WHERE p.producto = :producto", Long.class)
+                .setParameter("producto", producto)
+                .getSingleResult();
+        return count > 0;
+    }
+
 }
