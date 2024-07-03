@@ -42,6 +42,18 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
     }
 
     @Override
+    public ProductoProveedorEntrada updatePrice(double price, int id) {
+        var findObj = _entityManager.find(ProductoProveedorEntrada.class, id);
+        if (findObj != null) {
+            findObj.setPrecioFinal(price);
+            _entityManager.merge(findObj);
+            return findObj;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public ProductoProveedorEntrada delete(int id) {
         var findobj = _entityManager.find(ProductoProveedorEntrada.class, id);
         if (findobj != null) {

@@ -1,9 +1,7 @@
 package org.Almacen.TopAlmacen.Mappers;
 
-import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
-import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 public class StockUnidadesMapper {

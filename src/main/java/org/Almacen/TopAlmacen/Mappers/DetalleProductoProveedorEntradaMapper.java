@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.Mappers;
 
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.UpdateDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 
 public class DetalleProductoProveedorEntradaMapper {
@@ -20,4 +21,6 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;
     }
+
+
 }

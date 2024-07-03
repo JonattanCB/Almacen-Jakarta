@@ -30,7 +30,7 @@ public class ProductoProveedorEntrada {
     @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
     @Column(name = "PrecioFinal", nullable = false)
-    private double precioFinal;
+    private double precioFinal = 0.00;
     @OneToMany(mappedBy = "OC_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DetalleProductoProveedorEntrada> DetalleProductoProveedorEntrada;
 
