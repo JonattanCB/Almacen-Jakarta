@@ -23,6 +23,14 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     }
 
     @Override
+    public List<Integer> getAllbyProducto(int id) {
+        var query = _entityManager.createQuery(
+                "SELECT p.tipoUnidad.id FROM PrecioPorTipoUnidad p WHERE p.producto.id = :id", Integer.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
+    @Override
     public PrecioPorTipoUnidad getById(int id) {
         var query = _entityManager.createQuery(
                 "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad WHERE p.id = :id", PrecioPorTipoUnidad.class);

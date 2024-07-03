@@ -1,6 +1,5 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
@@ -10,6 +9,8 @@ import java.util.List;
 
 public interface IPrecioPorTipoUnidadDao {
     List<PrecioPorTipoUnidad> getAll();
+
+    List<Integer> getAllbyProducto(int id);
 
     PrecioPorTipoUnidad getById(int id);
 

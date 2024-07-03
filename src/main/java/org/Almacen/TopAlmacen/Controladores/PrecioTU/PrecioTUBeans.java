@@ -51,6 +51,8 @@ public class PrecioTUBeans implements Serializable {
 
     private boolean btnGuardar;
 
+    private boolean productoDesactivado;
+
     private boolean escribirdatos;
 
     private boolean preciodatos;
@@ -70,14 +72,15 @@ public class PrecioTUBeans implements Serializable {
 
     public void newPrecioPorTipoUnidad() {
         precioPorTipoUnidadDto = new PrecioPorTipoUnidadDto();
-        tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
         productoDescripcionDtos = productoService.productoDescripcionDtos();
+        tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
         tipoUnidadID = 0;
         productoId = 0;
         disabledPrecio(1);
     }
 
     public void determinarPrecioPorTipoUnidad() {
+        System.out.println("entro aca");
         if (precioPorTipoUnidadDto.getId() == 0) {
             createPrecioPorTipoUnidad();
         } else {
@@ -94,6 +97,12 @@ public class PrecioTUBeans implements Serializable {
         productoDescripcionDtos = productoService.productoDescripcionDtos();
         tipoUnidadID = precioPorTipoUnidadDto.getTipoUnidad().getId();
         productoId = precioPorTipoUnidadDto.getProducto().getId();
+    }
+
+
+    public  void seleccionaProducto(){
+        tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadList(productoId);
+        disabledPrecio(4);
     }
 
     public void CargarPrecioPorTipoUnidadVer() {
@@ -179,9 +188,10 @@ public class PrecioTUBeans implements Serializable {
     private void disabledPrecio(int opcion){
         switch (opcion){
             case 1:
-                unidad = false;
-                escribirdatos = false;
-                preciodatos =false;
+                unidad = true;
+                productoDesactivado = false;
+                escribirdatos = true;
+                preciodatos =true;
                 btnGuardar = true;
                 break;
             case 2:
@@ -189,12 +199,22 @@ public class PrecioTUBeans implements Serializable {
                 escribirdatos = true;
                 preciodatos = false;
                 btnGuardar =true;
+                productoDesactivado=true;
                 break;
             case 3:
                 unidad = true;
                 escribirdatos = true;
                 preciodatos =true;
                 btnGuardar =false;
+                productoDesactivado=true;
+                break;
+
+            case 4:
+                unidad = false;
+                productoDesactivado = true;
+                escribirdatos = false;
+                preciodatos =false;
+                btnGuardar = true;
                 break;
         }
     }

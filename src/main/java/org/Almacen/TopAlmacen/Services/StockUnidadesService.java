@@ -13,12 +13,13 @@ import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class StockUnidadesService {
+public class StockUnidadesService implements Serializable {
 
     @Inject
     private IStockUnidadesDao istockUnidadesDao;
