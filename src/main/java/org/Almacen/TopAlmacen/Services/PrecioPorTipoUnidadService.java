@@ -75,6 +75,11 @@ public class PrecioPorTipoUnidadService implements Serializable {
             istockUnidadesDao.create(stockUnidades);
             nuevaUnidad.setStockUnidades(stockUnidades);
 
+            var hp = new HistorialPrecios();
+            hp.setPrecioPorTipoUnidad(nuevaUnidad);
+            hp.setPrecioRegistro(dto.getPrecio());
+            ihistorialPreciosDao.create(hp);
+
             return iprecioPorTipoUnidadDao.create(nuevaUnidad);
         }
 
