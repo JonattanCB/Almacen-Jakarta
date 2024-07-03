@@ -9,12 +9,13 @@ import org.Almacen.TopAlmacen.DTO.MovimientoStock.MovimientoStockDto;
 import org.Almacen.TopAlmacen.Mappers.MovimientoStockMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class MovimientoStockService {
+public class MovimientoStockService implements Serializable {
 
     @Inject
     private IMovimientoStockDao iMovimientoStockDao;

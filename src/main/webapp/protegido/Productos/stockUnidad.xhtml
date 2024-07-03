@@ -15,20 +15,20 @@
                         <p:toolbar>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
-                                    <p:dataExporter type="pdf" target="tabla" fileName="HistorialPrecio" exportHeader="false"/>
+                                    <p:dataExporter type="pdf" target="tabla" fileName="StockUnidad" exportHeader="false"/>
                                 </p:commandButton>
                                 <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
-                                    <p:dataExporter type="csv" target="tabla" fileName="HistorialPrecio" />
+                                    <p:dataExporter type="csv" target="tabla" fileName="StockUnidad" />
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="tabla" var="obj" value="#{HistoriaPrecioBeans.listaHistorialPrecios}" widgetVar="obj" style="margin-top: 1rem"
-                                     emptyMessage="No hay elementos disponibles" filteredValue="#{HistoriaPrecioBeans.listaHistorialPreciosSeleccion}"
-                                     globalFilterFunction="#{HistoriaPrecioBeans.globalFilterFunction}"
+                        <p:dataTable id="tabla" var="obj" value="#{StockUnidadBeans.stockUnidadesDtos}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{StockUnidadBeans.stockUnidadesDtosSelecciones}"
+                                     globalFilterFunction="#{StockUnidadBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
-                                        <span class="titulo-hearder-tabla">Historial Precios</span>
+                                        <span class="titulo-hearder-tabla">Stock Unidades</span>
                                         <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
@@ -40,14 +40,14 @@
                             <p:column headerText="#"  sortBy="#{obj.id}" width="80"  >
                                 <h:outputText value="#{obj.id}" />
                             </p:column>
-                            <p:column headerText="Descripcion" sortBy="#{obj.precioPorTipoUnidad}" width="260" >
-                                <h:outputText value="#{obj.precioPorTipoUnidad}" />
+                            <p:column headerText="Descripcion" sortBy="#{obj.descripcion}" width="260" >
+                                <h:outputText value="#{obj.descripcion}" />
                             </p:column>
-                            <p:column headerText="Precio" sortBy="#{obj.precioRegistro}" width="150" >
-                                <h:outputText value="#{obj.precioRegistro}" />
+                            <p:column headerText="Cantidad" sortBy="#{obj.cantidadStockUnidad}" width="150" >
+                                <h:outputText value="#{obj.cantidadStockUnidad}" />
                             </p:column>
-                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="150" >
-                                <h:outputText value="#{obj.fechaRegistro}" />
+                            <p:column headerText="Fecha" sortBy="#{obj.tipoUnidad}" width="150" >
+                                <h:outputText value="#{obj.tipoUnidad}" />
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>

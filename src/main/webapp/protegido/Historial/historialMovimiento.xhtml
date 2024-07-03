@@ -22,13 +22,13 @@
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="tabla" var="obj" value="#{HistoriaPrecioBeans.listaHistorialPrecios}" widgetVar="obj" style="margin-top: 1rem"
-                                     emptyMessage="No hay elementos disponibles" filteredValue="#{HistoriaPrecioBeans.listaHistorialPreciosSeleccion}"
-                                     globalFilterFunction="#{HistoriaPrecioBeans.globalFilterFunction}"
+                        <p:dataTable id="tabla" var="obj" value="#{HistoriaMovimientoBeans.movimientoStockDtos}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{HistoriaMovimientoBeans.movimientoStockDtosSeleccion}"
+                                     globalFilterFunction="#{HistoriaMovimientoBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                     <div class="header-tabla">
-                                        <span class="titulo-hearder-tabla">Historial Precios</span>
+                                        <span class="titulo-hearder-tabla">Historial Movimiento</span>
                                         <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
@@ -43,11 +43,17 @@
                             <p:column headerText="Descripcion" sortBy="#{obj.precioPorTipoUnidad}" width="260" >
                                 <h:outputText value="#{obj.precioPorTipoUnidad}" />
                             </p:column>
-                            <p:column headerText="Precio" sortBy="#{obj.precioRegistro}" width="150" >
-                                <h:outputText value="#{obj.precioRegistro}" />
+                            <p:column headerText="Precio" sortBy="#{obj.tipoUnidad}" width="150" >
+                                <h:outputText value="#{obj.precioPorTipoUnidad}" />
+                            </p:column>
+                            <p:column headerText="Cantidad" sortBy="#{obj.cantidad}" width="150" >
+                                <h:outputText value="#{obj.cantidad}" />
                             </p:column>
                             <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="150" >
                                 <h:outputText value="#{obj.fechaRegistro}" />
+                            </p:column>
+                            <p:column headerText="Movimiento" sortBy="#{obj.tipoMovimiento}" width="150" >
+                                <h:outputText value="#{obj.tipoMovimiento}" styleClass="botones-tabla customer-badge status-#{obj.tipoMovimiento}" />
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>

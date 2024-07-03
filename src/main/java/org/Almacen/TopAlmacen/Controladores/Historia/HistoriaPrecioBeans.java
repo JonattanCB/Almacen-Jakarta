@@ -28,7 +28,6 @@ public class HistoriaPrecioBeans implements Serializable {
 
     private List<HistorialPreciosDto> listaHistorialPreciosSeleccion;
 
-    private  int idHistorialPrecio;
 
     @PostConstruct
     private void init(){
@@ -37,7 +36,7 @@ public class HistoriaPrecioBeans implements Serializable {
 
     private void loadHistorialPrecios(){
         try{
-
+            listaHistorialPrecios = historialPreciosService.getAllHistorialPrecios();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -48,8 +47,8 @@ public class HistoriaPrecioBeans implements Serializable {
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
-        HistorialPrecios c = (HistorialPrecios) value;
-        return (ProductoMapper.toConcatProduct(c.getPrecioPorTipoUnidad().getProducto())).toLowerCase().contains(filterText);
+        HistorialPreciosDto c = (HistorialPreciosDto) value;
+        return c.getPrecioPorTipoUnidad().toLowerCase().contains(filterText);
     }
 
 

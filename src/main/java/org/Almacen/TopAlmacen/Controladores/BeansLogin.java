@@ -58,6 +58,17 @@ public class BeansLogin implements Serializable {
         firstSubmenu.getElements().add(itemMenu);
 
 
+        itemMenu = DefaultMenuItem.builder().value("Historial Precio").icon("pi pi-home").url(contextPath+"/protegido/Historial/historialPrecio.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Stock Unidad").icon("pi pi-home").url(contextPath+"/protegido/Productos/stockUnidad.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+        itemMenu = DefaultMenuItem.builder().value("MOVIMIENTOS ").icon("pi pi-home").url(contextPath+"/protegido/Historial/historialMovimiento.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
       //Por ver
         itemMenu = DefaultMenuItem.builder().value("Precio").icon("pi pi-home").url(contextPath+"/protegido/TipoUnidad/PrecioPorTipoUnidad.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
