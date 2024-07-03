@@ -20,14 +20,14 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name ="Nombre",nullable = false)
+    @Column(name = "Nombre", nullable = false)
     private String nombre;
-    @Column(name = "descripcion",nullable = false)
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
-    @Column(name ="estado",nullable = false)
+    @Column(name = "estado", nullable = false)
     private String estado;
-    @Column(name="FechaRegistro",nullable = false)
+    @Column(name = "FechaRegistro", nullable = false)
     private LocalDate FechaRegistro = LocalDate.now();
-    @OneToMany(mappedBy = "categoria",fetch = FetchType.LAZY)
-    private List<Producto>productos;
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Producto> productos;
 }

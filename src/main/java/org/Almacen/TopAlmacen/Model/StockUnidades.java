@@ -28,7 +28,7 @@ public class StockUnidades {
     private double CantidadStockUnidad;
 
     @Column(name = "TipoUnidad", nullable = false)
-    private String tipoUnidad;
+    private String tipoUnidad = "UND";
 
 }
 

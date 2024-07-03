@@ -71,7 +71,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
             var stockUnidades = new StockUnidades();
             stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(nuevaUnidad.getProducto()));
             stockUnidades.setCantidadStockUnidad(0);
-            stockUnidades.setTipoUnidad(abrevUnidadBasica);
 
             istockUnidadesDao.create(stockUnidades);
             nuevaUnidad.setStockUnidades(stockUnidades);
@@ -86,15 +85,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
     public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {//CUANDO ES PAQUETE
         if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
-
-            var stockUnidades = new StockUnidades();
-            stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(dto.getProducto()));
-            stockUnidades.setCantidadStockUnidad(dto.getUnidadesPorTipoUnidadPorProducto());
-            stockUnidades.setTipoUnidad(pptu.getTipoUnidad().getAbrev());
-
-            istockUnidadesDao.create(stockUnidades);
-            pptu.setStockUnidades(stockUnidades);
-
             return iprecioPorTipoUnidadDao.create(pptu);
         } else {
             System.out.println("No existe una unidad básica del tipo 'UND' para este producto.");
