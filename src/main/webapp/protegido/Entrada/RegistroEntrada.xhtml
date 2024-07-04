@@ -72,7 +72,7 @@
         <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="form-dialogProducto">
                 <div id="dialog-content" class="dialogs-barra-grande" >
-                    <h:panelGrid columns="2" width="1370" border="1">
+                    <h:panelGrid columns="2" width="1180" >
                         <h:panelGrid>
                             <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Empresa" /></h:panelGrid>
                             <h:panelGrid >
@@ -94,7 +94,7 @@
                             <h:outputText  styleClass="texto_dialog"  value="Fecha : #{RegistroEntradaBeans.productoProveedorEntradaDto.fechaRegistro}"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1370" border="1">
+                    <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1100" >
                         <h:panelGrid >
                             <h:outputText styleClass="texto_dialog"  value="RUC: #{RegistroEntradaBeans.empresaDto.nroRUC}"  style="margin-top: 1rem" />
                             <h:outputText styleClass="texto_dialog"  value="Tipo de Empresa: #{RegistroEntradaBeans.empresaDto.tipoEmpresa.nombre} - #{RegistroEntradaBeans.empresaDto.tipoEmpresa.abrev}" style="margin-top: 1rem"  />
@@ -104,27 +104,51 @@
                             <h:outputText styleClass="texto_dialog"  value="Direccion: #{RegistroEntradaBeans.empresaDto.direccion}" style="margin-top: 1rem"  />
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <h:panelGrid>
-                            <p:dataTable id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld">
+                    <h:panelGrid style="margin-top: 1rem" columns="2" width="1180">
+                        <h:panelGrid width="60">
+                            <p:dataTable style="width: 68rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true">
                                 <p:column headerText="#" width="80">
                                     <h:outputText  value="#{ld.id}"  />
                                 </p:column>
                                 <p:column headerText="Descripcion" width="180">
                                     <h:outputText  value="#{ld.descripcion}" />
                                 </p:column>
+                                <p:column headerText="Tipo Unidad" width="80">
+                                    <h:outputText  value="#{ld.tipoUnidad.abrev}" />
+                                </p:column>
                                 <p:column headerText="Precio" width="100">
-                                    <h:outputText  value="S/. #{ld.precioUnitario}" />
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText  value="S/. #{ld.precioUnitario}" />
+                                        </f:facet>
+                                       <f:facet name="input">
+                                           <p:inputText value="#{ld.precioUnitario}" />
+                                       </f:facet>
+                                    </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Cantidad" width="100">
-                                    <h:outputText  value="#{ld.cantidad}" />
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText  value="#{ld.cantidad}" />
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{ld.cantidad}" />
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Precio Final" width="80">
+                                    <h:outputText  value="S/. #{ld.cantidad * ld.precioUnitario}" />
+                                </p:column>
+                                <p:column width="100">
+                                    <p:rowEditor styleClass="rounded-button ui-button-warning ui-button-flat" editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                                    <p:commandButton icon="pi pi-trash" styleClass="rounded-button ui-button-danger ui-button-flat" update="tabla-detalle" actionListener="#{RegistroEntradaBeans.eliminarTablaDetalle()}" >
+                                        <f:setPropertyActionListener value="#{ld.id}" target="#{RegistroEntradaBeans.idTempora}" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGrid>
-                        <h:panelGrid>
-
-                            <p:commandButton value="agregar" icon="pi pi-plus" action="#{RegistroEntradaBeans.nuevaitemtabla()}"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
-
+                        <h:panelGrid width="30" style="float: right;top: 0">
+                            <p:commandButton value="agregar" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>

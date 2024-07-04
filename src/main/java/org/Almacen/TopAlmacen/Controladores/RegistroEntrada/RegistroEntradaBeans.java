@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 @Data
 @Named("RegistroEntradaBeans")
@@ -61,6 +62,8 @@ public class RegistroEntradaBeans implements Serializable {
     private int idProducto;
 
     private int idTipoUnidad;
+
+    private int idTempora;
 
     private boolean bloquearEmpesa;
 
@@ -106,6 +109,7 @@ public class RegistroEntradaBeans implements Serializable {
         empresaDto = new EmpresaDto();
         empresaDtoList = empresaService.getAllEmpresa();
         productoDescripcionDtoList = productoService.productoDescripcionDtos();
+        productoProveedorEntradaDto.setOC(generateRandomString(6));
         idEmpresa = "";
         idProducto = 0;
         idTipoUnidad = 0;
@@ -135,7 +139,7 @@ public class RegistroEntradaBeans implements Serializable {
         }
         int filterInt = getInteger(filterText);
         ProductoProveedorEntradaDto c = (ProductoProveedorEntradaDto) value;
-        return (c.getOC() >= filterInt && c.getOC() <= filterInt)
+        return c.getOC().toLowerCase().contains(filterText)
                 || c.getEmpresa().getNombre().toLowerCase().contains(filterText)
                 || c.getFechaRegistro().equals(filterText);
     }
@@ -218,9 +222,23 @@ public class RegistroEntradaBeans implements Serializable {
         }
     }
 
+
+
     public  void nuevoDetalle(){
         ListadoDeDetalle = new ArrayList<>();
 
+    }
+
+    public void eliminarTablaDetalle(){
+        for (int i = 0; i < ListadoDeDetalle.size(); i++) {
+            if (ListadoDeDetalle.get(i).getId() == idTempora) {
+                ListadoDeDetalle.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < ListadoDeDetalle.size(); i++) {
+            ListadoDeDetalle.get(i).setId(i + 1);
+        }
     }
 
     private int getNextId() {
@@ -242,6 +260,18 @@ public class RegistroEntradaBeans implements Serializable {
         }
     }
 
+    public static String generateRandomString(int length) {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        return sb.toString();
+    }
 
 }
 
