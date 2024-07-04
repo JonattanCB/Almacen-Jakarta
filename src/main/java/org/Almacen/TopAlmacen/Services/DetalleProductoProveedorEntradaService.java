@@ -11,6 +11,7 @@ import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProduct
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.UpdateDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
+import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,6 +63,7 @@ public class DetalleProductoProveedorEntradaService {
 
     @Transactional
     public void delete(int id) {
+
         iDetalleProductoProveedorEntradaDao.delete(id);
     }
 
