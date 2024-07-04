@@ -21,7 +21,7 @@ public class AuthorizationService {
     @Inject
     private IPermisoDao ipermisoDao;
 
-    public boolean tienePermiso(int rolId, String url, String permisoNombre) {
+    public boolean tienePermiso(int rolId, String url, String permisoNombre) {//Este metodo es para que verifiques si tiene acceso
         List<Acceso> accesos = iaccesoDao.findByRolId(rolId);
         for (Acceso acceso : accesos) {
             if (acceso.getURL().equals(url)) {

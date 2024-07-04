@@ -18,7 +18,6 @@ public class DetalleProductoProveedorEntradaDto {
     private double cantidad;
     private TipoUnidad tipoUnidad;
     private String descripcion;
-    private double descuento;
     private double precioUnitario;
     private double precioTotal;
 }
