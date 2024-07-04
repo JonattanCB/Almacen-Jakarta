@@ -42,6 +42,7 @@ public class RegistroEntradaBeans implements Serializable {
     @Inject
     private DetalleProductoProveedorEntradaService detalleProductoProveedorEntradaService;
 
+
     @Inject
     private EmpresaService empresaService;
 
