@@ -4,11 +4,16 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
+import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;
@@ -20,6 +25,8 @@ import java.util.stream.Collectors;
 public class ProductoProveedorEntradaService implements Serializable {
     @Inject
     private IProductoProveedorEntradaDao iProductoProveedorEntradaDao;
+    @Inject
+    private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -34,9 +41,14 @@ public class ProductoProveedorEntradaService implements Serializable {
     }
 
     @Transactional
-    public ProductoProveedorEntrada create(CreateProductoProveedorEntradaDto c) {
+    public ProductoProveedorEntrada create(CreateProductoProveedorEntradaDto c, List<CreateDetalleProductoProveedorEntradaDto> entradas) {
         var prodcu = ProductoProveedorEntradaMapper.fromCreate(c);
-        return iProductoProveedorEntradaDao.create(prodcu);
+        iProductoProveedorEntradaDao.create(prodcu);
+        for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
+            var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
+            iDetalleProductoProveedorEntradaDao.create(detalle);
+        }
+        return prodcu;
     }
 
     @Transactional

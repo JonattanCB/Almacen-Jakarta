@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductoProveedorEntradaDto {
-    private int OC;
+    private String OC;
     private Empresa empresa;
     private LocalDateTime fechaRegistro;
     private Usuario usuario;

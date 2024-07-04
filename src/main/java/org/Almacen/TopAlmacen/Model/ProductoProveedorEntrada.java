@@ -19,8 +19,7 @@ import java.util.List;
 @Table(name = "ProductoProveedorEntrada")
 public class ProductoProveedorEntrada {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int OC;
+    private String OC;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDateTime FechaRegistro = LocalDateTime.now();
     @ManyToOne(fetch = FetchType.LAZY)

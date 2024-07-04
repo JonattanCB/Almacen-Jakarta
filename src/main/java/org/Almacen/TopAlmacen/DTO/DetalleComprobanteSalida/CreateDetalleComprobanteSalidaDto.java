@@ -1,8 +1,16 @@
 package org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateDetalleComprobanteSalidaDto {
     private ComprobanteSalida comprobanteSalida;
     private double cantidad;

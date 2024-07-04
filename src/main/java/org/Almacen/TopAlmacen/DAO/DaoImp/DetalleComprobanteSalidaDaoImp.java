@@ -20,10 +20,6 @@ public class DetalleComprobanteSalidaDaoImp implements IDetalleComprobanteSalida
         return _entityManager.createQuery("SELECT d FROM DetalleComprobanteSalida d", DetalleComprobanteSalida.class).getResultList();
     }
 
-    public List<DetalleComprobanteSalida> getAllByComprobanteSalida(int id) {
-        return _entityManager.createQuery("SELECT d FROM DetalleComprobanteSalida d WHERE d.comprobanteSalida='id' ", DetalleComprobanteSalida.class).getResultList();
-    }
-
     @Override
     public DetalleComprobanteSalida getById(int id) {
         var item = _entityManager.find(DetalleComprobanteSalida.class, id);
@@ -37,16 +33,8 @@ public class DetalleComprobanteSalidaDaoImp implements IDetalleComprobanteSalida
 
     @Override
     public DetalleComprobanteSalida create(DetalleComprobanteSalida c) {
-        return null;
+        _entityManager.persist(c);
+        return c;
     }
 
-    @Override
-    public DetalleComprobanteSalida update(DetalleComprobanteSalida c, int id) {
-        return null;
-    }
-
-    @Override
-    public DetalleComprobanteSalida delete(int id) {
-        return null;
-    }
 }

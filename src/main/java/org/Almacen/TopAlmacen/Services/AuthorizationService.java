@@ -3,6 +3,7 @@ package org.Almacen.TopAlmacen.Services;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IAccesoDao;
 import org.Almacen.TopAlmacen.DAO.IPermisoDao;
 import org.Almacen.TopAlmacen.DAO.IRolDao;
@@ -21,6 +22,7 @@ public class AuthorizationService {
     @Inject
     private IPermisoDao ipermisoDao;
 
+    @Transactional
     public boolean tienePermiso(int rolId, String url, String permisoNombre) {//Este metodo es para que verifiques si tiene acceso
         List<Acceso> accesos = iaccesoDao.findByRolId(rolId);
         for (Acceso acceso : accesos) {
