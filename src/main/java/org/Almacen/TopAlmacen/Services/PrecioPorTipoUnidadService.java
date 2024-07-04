@@ -75,12 +75,13 @@ public class PrecioPorTipoUnidadService implements Serializable {
             istockUnidadesDao.create(stockUnidades);
             nuevaUnidad.setStockUnidades(stockUnidades);
 
+            var created = iprecioPorTipoUnidadDao.create(nuevaUnidad);
             var hp = new HistorialPrecios();
-            hp.setPrecioPorTipoUnidad(nuevaUnidad);
+            hp.setPrecioPorTipoUnidad(created);
             hp.setPrecioRegistro(dto.getPrecio());
             ihistorialPreciosDao.create(hp);
 
-            return iprecioPorTipoUnidadDao.create(nuevaUnidad);
+            return created;
         }
 
         return null;
@@ -90,7 +91,14 @@ public class PrecioPorTipoUnidadService implements Serializable {
     public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {//CUANDO ES PAQUETE
         if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
-            return iprecioPorTipoUnidadDao.create(pptu);
+
+            var createdUnidad = iprecioPorTipoUnidadDao.create(pptu);
+            var historialPrecios = new HistorialPrecios();
+            historialPrecios.setPrecioPorTipoUnidad(createdUnidad);
+            historialPrecios.setPrecioRegistro(dto.getPrecio());
+            ihistorialPreciosDao.create(historialPrecios);
+
+            return createdUnidad;
         } else {
             System.out.println("No existe una unidad básica del tipo 'UND' para este producto.");
             return null;
@@ -102,9 +110,9 @@ public class PrecioPorTipoUnidadService implements Serializable {
         var getItem = iprecioPorTipoUnidadDao.getById(id);
         if (getItem != null) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromUpdate(dto);
-            var pA = pptu.getPrecioUnitario();
-            var pN = getItem.getPrecioUnitario();
-            if (pA != pN) {
+            var pN = pptu.getPrecioUnitario();
+            var pA = getItem.getPrecioUnitario();
+            if (pN != pA) {
                 var hp = new HistorialPrecios();
                 hp.setPrecioPorTipoUnidad(getItem);
                 hp.setPrecioRegistro(pN);
