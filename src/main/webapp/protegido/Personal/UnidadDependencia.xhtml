@@ -14,20 +14,20 @@
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
                             <p:toolbarGroup>
-                                <p:commandButton value="Nuevo Rol" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{RolBeans.NuevoRoles()}"
-                                                update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                                <p:commandButton value="Nueva Unidad Dependencia" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{UnidadDependeciaBeans.nuevaUnidadDependecia()}"
+                                                update="dialogs" disabled="#{UnidadDependeciaBeans.btnNuevaUD}"  oncomplete="PF('dialogsa').show()"  />
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
-                                    <p:dataExporter type="pdf" target="tabla" fileName="Rol" exportHeader="false"/>
+                                    <p:dataExporter type="pdf" target="tabla" fileName="Unidad Dependencia" exportHeader="false"/>
                                 </p:commandButton>
                                 <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
-                                    <p:dataExporter type="csv" target="tabla" fileName="Rol" />
+                                    <p:dataExporter type="csv" target="tabla" fileName="Unidad Dependencia" />
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="tabla" var="obj" value="#{RolBeans.rolDtoList}" widgetVar="obj" style="margin-top: 1rem"
-                                     emptyMessage="No hay elementos disponibles" filteredValue="#{RolBeans.rolDtoListSelect}"
+                        <p:dataTable id="tabla" var="obj" value="#{UnidadDependeciaBeans.unidadDependenciaDtos}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{UnidadDependeciaBeans.unidadDependenciaDtosSeleccion}"
                                      globalFilterFunction="#{RolBeans.globalFilterFunction}"
                                      rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
@@ -83,6 +83,17 @@
                                 <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{RolBeans.rolDto.nombre}"  required="true"/>
                             </h:panelGrid>
                     </h:panelGrid>
+
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="Unidad" styleClass="texto_dialog" value="Unidad: "/> </h:panelGrid>
+                        <p:selectOneMenu id="Unidad" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                         value="#{RolBeans.idUnidad}" required="true" autoWidth="false"  >
+                            <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                            <f:selectItems  value="#{RolBeans.unidadDependenciaDtos}" var="tu" itemLabel="#{tu.nombre}" itemValue="#{tu.id}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="Unidad" styleClass="texto_dialog" value="Unidad: "/> </h:panelGrid>
                         <p:selectOneMenu id="Unidad" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"

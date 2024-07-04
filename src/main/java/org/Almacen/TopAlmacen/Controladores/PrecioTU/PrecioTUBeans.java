@@ -216,7 +216,7 @@ public class PrecioTUBeans implements Serializable {
                 precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(100);
                 unidad = true;
                 break;
-            case "Mil":
+            case "MIL":
                 precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1000);
                 unidad = true;
                 break;

@@ -11,12 +11,13 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveed
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class ProductoProveedorEntradaService {
+public class ProductoProveedorEntradaService implements Serializable {
     @Inject
     private IProductoProveedorEntradaDao iProductoProveedorEntradaDao;
 

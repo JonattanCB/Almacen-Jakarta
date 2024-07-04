@@ -20,7 +20,10 @@ public class DependenciaDaoImp implements IDependenciaDao {
 
     @Override
     public Dependencia getById(int id) {
-        return _entityManager.find(Dependencia.class, id);
+        return _entityManager.createQuery(
+                        "SELECT d FROM Dependencia d  LEFT JOIN FETCH d.unidades WHERE d.id = :id", Dependencia.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override

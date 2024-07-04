@@ -8,9 +8,13 @@ import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaConUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
 import org.Almacen.TopAlmacen.DTO.Rol.RolDto;
+import org.Almacen.TopAlmacen.DTO.Usuario.CreateUsuarioDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
+import org.Almacen.TopAlmacen.Mappers.UnidadDependenciaMapper;
+import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 import org.Almacen.TopAlmacen.Services.DependenciaService;
 import org.Almacen.TopAlmacen.Services.RolService;
+import org.Almacen.TopAlmacen.Services.UnidadService;
 import org.Almacen.TopAlmacen.Services.UsuarioService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
@@ -33,6 +37,9 @@ public class UsuarioBeans implements Serializable {
     @Inject
     private DependenciaService dependenciaService;
 
+    @Inject
+    private UnidadService unidadService;
+
     private UsuarioDto usuarioDto;
 
     private DependenciaConUnidadesDto dependenciaConUnidadesDto;
@@ -44,6 +51,8 @@ public class UsuarioBeans implements Serializable {
     private int idUnidad;
 
     private int idRol;
+
+    private  boolean unidad;
 
     private List<UsuarioDto> usuarios;
 
@@ -72,6 +81,7 @@ public class UsuarioBeans implements Serializable {
         dependenciaDtos = dependenciaService.getAll();
         iddepende = 0;
         idRol = 0;
+        validaciones(1);
     }
 
     public void DeterminarAccion() {
@@ -87,7 +97,14 @@ public class UsuarioBeans implements Serializable {
 
 
     private void CreateUsuario() {
-
+        CreateUsuarioDto createUsuarioDto = new CreateUsuarioDto();
+        createUsuarioDto.setNombres(usuarioDto.getNombres());
+        createUsuarioDto.setApellidos(usuarioDto.getApellidos());
+        createUsuarioDto.setCorreo(usuarioDto.getCorreo());
+        createUsuarioDto.setContra(usuarioDto.getContra());
+        createUsuarioDto.setEstado("Activo");
+        createUsuarioDto.setUnidadDependencia(UnidadDependenciaMapper.toEntity(unidadService.getById(idUnidad)));
+        usuarioService.createUsuario(createUsuarioDto);
     }
 
     private void UpdateUsuario() {
@@ -123,4 +140,15 @@ public class UsuarioBeans implements Serializable {
         }
     }
 
+    private void validaciones(int opcion){
+        switch (opcion){
+            case 1:  //guardar
+                unidad = false;
+                break;
+            case 2: //editar
+                break;
+            case  3: //ver
+                break;
+        }
+    }
 }

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
+    <ui:define name="contenido">
+        <h:form id="form-datos">
+            <h:panelGrid styleClass="contenido-panel">
+                <p:growl id="messages"/>
+                <h:panelGrid styleClass="contendedor-card-paneles">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="Registrar Entrada " icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{RegistroEntradaBeans.NuevoRegistro()}"
+                                             update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="tabla" var="obj" value="#{RegistroEntradaBeans.productoProveedorEntradaDtos}" widgetVar="obj" style="margin-top: 1rem"
+                                 emptyMessage="No hay elementos disponibles" filteredValue="#{RegistroEntradaBeans.productoProveedorEntradaDtosSeleccion}"
+                                 globalFilterFunction="#{}"
+                                 rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                        <f:facet name="header">
+                            <div class="header-tabla">
+                                <span class="titulo-hearder-tabla">Catálogo de Usuario</span>
+                                <span class="ui-input-icon-left busqueda-hearder-tabla">
+                                            <i class="pi pi-search"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
+                                                         style="font-size: 13px;width: 300px"
+                                                         placeholder="Buscar entre los datos de categorias"/>
+                                        </span>
+                            </div>
+                        </f:facet>
+                        <p:column headerText="#"  sortBy="#{obj.id}" width="80"  >
+                            <h:outputText value="#{obj.id}" />
+                        </p:column>
+                        <p:column headerText="Nombre Completo" sortBy="#{obj.nombres} #{obj.apellidos}" width="150" >
+                            <h:outputText value="#{obj.nombres} #{obj.apellidos}" />
+                        </p:column>
+                        <p:column headerText="Rol" sortBy="#{obj.rol.nombre}" width="150" >
+                            <h:outputText value="#{obj.rol.nombre}" />
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
+                            <h:outputText value="#{obj.estado}"
+                                          styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                        </p:column>
+                        <p:column exportable="false" width="100">
+                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                             action="#{CategoriaBeans.cargarCategoriaConProductos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                             styleClass="edit-button rounded-button "  >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
+                            </p:commandButton>
+
+
+                            <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                             action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                             styleClass="edit-button rounded-button ui-button-warning"  >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
+                            </p:commandButton>
+                            <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
+                                             icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
+                                <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado del Usuario?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
+            </h:panelGrid>
+        </h:form>
+        <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+            <h:form>
+                <div id="dialog-content" class="dialogs-barra" >
+                    <h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombres: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 34rem" value="#{UsuarioBeans.usuarioDto.nombres}" required="true"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="apellido" styleClass="texto_dialog" value="Apellidos: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="apellido"  styleClass="input-custom" style="width: 34rem" value="#{UsuarioBeans.usuarioDto.apellidos}" required="true"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem" columns="2">
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="correo" styleClass="texto_dialog" value="Correo: "/> </h:panelGrid>
+                            <p:inputText id="correo"  styleClass="input-custom" style="width: 17rem" value="#{UsuarioBeans.usuarioDto.correo}" required="true"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="contra" styleClass="texto_dialog" value="Contraseña: "/> </h:panelGrid>
+                            <p:inputText id="contra"  styleClass="input-custom" style="width: 17rem" value="#{UsuarioBeans.usuarioDto.contra}" required="true"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="rol" styleClass="texto_dialog" value="Rol: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu id="rol" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                             value="#{UsuarioBeans.idRol}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{UsuarioBeans.rolesActivos}" var="rl" itemLabel="#{rl.nombre}" itemValue="#{rl.id}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="dependecia" styleClass="texto_dialog" value="Dependencia: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu id="dependecia" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                             value="#{UsuarioBeans.iddepende}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{UsuarioBeans.dependenciaDtos}" var="dep" itemLabel="#{dep.nombre}" itemValue="#{dep.id}" />
+                                <p:ajax event="valueChange" listener="#{UsuarioBeans.cargarUnidades()}"  update="Unidad"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
+                        <h:panelGrid><h:outputLabel for="Unidad" styleClass="texto_dialog" value="Unidad: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:selectOneMenu id="Unidad" style="width: 34rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                             value="#{UsuarioBeans.idUnidad}" required="true" autoWidth="false"  >
+                                <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
+                                <f:selectItems  value="#{UsuarioBeans.dependenciaConUnidadesDto.unidades}" var="uni" itemLabel="#{uni.nombre}" itemValue="#{uni.id}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+
+                </div>
+                <h:panelGrid columns="2" style="float: right;" >
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{UsuarioBeans.DeterminarAccion()}" />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>
