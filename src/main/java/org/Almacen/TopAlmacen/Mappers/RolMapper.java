@@ -13,12 +13,8 @@ import org.Almacen.TopAlmacen.Model.Rol;
 public class RolMapper {
 
     public static RolDto toRolDto(Rol rol) {
-        return new RolDto(rol.getId() , rol.getNombre(), rol.getEstado(), rol.getFechaRegistro(), rol.getUnidadDependencia());
+        return new RolDto(rol.getId(), rol.getNombre(), rol.getEstado(), rol.getFechaRegistro(), rol.getUnidadDependencia());
     }
-    public static RolConUsuariosDto toRolConUsuariosDto(Rol rol) {
-        return new RolConUsuariosDto(rol.getId(),rol.getNombre(),rol.getEstado(),rol.getFechaRegistro(),rol.getUsuarios(),rol.getUnidadDependencia());
-    }
-
 
     public static Rol toRolFromCreate(CreateRolDto dto) {
         Rol r = new Rol();

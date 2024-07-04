@@ -44,7 +44,6 @@ public class UsuarioDaoImp implements IUsuarioDao {
             existingUsuario.setNombres(u.getNombres());
             existingUsuario.setApellidos(u.getApellidos());
             existingUsuario.setEstado(u.getEstado());
-            existingUsuario.setRol(u.getRol());
             existingUsuario.setUnidadDependencia(u.getUnidadDependencia());
             _entityManager.merge(existingUsuario);
             return existingUsuario;

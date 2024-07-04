@@ -19,6 +19,8 @@ public class Permiso {
     private int id;
     @Column(name = "Nombre", nullable = false)
     private String nombre;
-    @Column(name = "Estado",nullable = false)
-    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "Acceso_id")
+    private Acceso acceso;
 }

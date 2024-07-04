@@ -28,10 +28,6 @@ public class Usuario {
     private String nombres;
     @Column(name = "Apellidos", nullable = false)
     private String apellidos;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Rol", nullable = false)
-    private Rol rol;
-
     @Column(name = "estado")
     private String estado;
     @Column(name = "FechaRegistro")

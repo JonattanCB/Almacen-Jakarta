@@ -1,6 +1,5 @@
 package org.Almacen.TopAlmacen.DAO;
 
-import jakarta.inject.Named;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 

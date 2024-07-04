@@ -11,9 +11,5 @@ public interface IPermisoDao {
 
     Permiso getById(int id);
 
-    void create(Permiso c);
-
-    void update(UpdatePermisoDto c, int id);
-
-    void delete(int id);
+    List<Permiso> findByAccesoId(int accesoId);
 }

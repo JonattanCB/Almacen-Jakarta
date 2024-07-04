@@ -9,11 +9,11 @@ import org.Almacen.TopAlmacen.Model.Usuario;
 public class UsuarioMapper {
 
     public static UsuarioDto toDto(Usuario usuario) {
-        return new UsuarioDto(usuario.getId(), usuario.getCorreo(), usuario.getContra(), usuario.getNombres(), usuario.getApellidos(), usuario.getEstado(), usuario.getRol(), usuario.getFechaRegistro() );
+        return new UsuarioDto(usuario.getId(), usuario.getCorreo(), usuario.getContra(), usuario.getNombres(), usuario.getApellidos(), usuario.getEstado(), usuario.getFechaRegistro(), usuario.getUnidadDependencia());
     }
 
     public static Usuario toUsuario(UsuarioDto dto) {
-        return new Usuario(dto.getId(), dto.getCorreo(), dto.getContra(), dto.getNombres(), dto.getApellidos(), dto.getRol(), dto.getEstado(), dto.getFechaRegistro(), null );
+        return new Usuario(dto.getId(), dto.getCorreo(), dto.getContra(), dto.getNombres(), dto.getApellidos(), dto.getEstado(), dto.getFechaRegistro(), dto.getUnidad());
     }
 
     public static Usuario toUsuarioFromCreate(CreateUsuarioDto dto) {
@@ -22,7 +22,6 @@ public class UsuarioMapper {
         usuario.setContra(dto.getContra());
         usuario.setNombres(dto.getNombres());
         usuario.setApellidos(dto.getApellidos());
-        usuario.setRol(dto.getRol());
         usuario.setEstado(dto.getEstado());
         usuario.setUnidadDependencia(dto.getUnidadDependencia());
         return usuario;
@@ -34,7 +33,6 @@ public class UsuarioMapper {
         usuario.setContra(dto.getContra());
         usuario.setNombres(dto.getNombres());
         usuario.setApellidos(dto.getApellidos());
-        usuario.setRol(dto.getRol());
         usuario.setEstado(dto.getEstado());
         usuario.setUnidadDependencia(dto.getUnidadDependencia());
         return usuario;

@@ -54,19 +54,19 @@ public class UsuarioBeans implements Serializable {
     private List<DependenciaDto> dependenciaDtos;
 
     @PostConstruct
-    private void  init(){
+    private void init() {
         loadUsuario();
     }
 
-    private void  loadUsuario(){
-        try{
+    private void loadUsuario() {
+        try {
             usuarios = usuarioService.getAllUsuario();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void NuevoUsuario(){
+    public void NuevoUsuario() {
         usuarioDto = new UsuarioDto();
         rolesActivos = rolService.getAllRolActiva();
         dependenciaDtos = dependenciaService.getAll();
@@ -74,10 +74,10 @@ public class UsuarioBeans implements Serializable {
         idRol = 0;
     }
 
-    public void DeterminarAccion(){
-        if (usuarioDto.getId() == 0){
+    public void DeterminarAccion() {
+        if (usuarioDto.getId() == 0) {
             CreateUsuario();
-        }else{
+        } else {
             UpdateUsuario();
         }
         loadUsuario();
@@ -86,20 +86,20 @@ public class UsuarioBeans implements Serializable {
     }
 
 
-    private  void CreateUsuario(){
+    private void CreateUsuario() {
 
     }
 
-    private void UpdateUsuario(){
+    private void UpdateUsuario() {
 
     }
 
-    public void cargarUnidades(){
+    public void cargarUnidades() {
         dependenciaConUnidadesDto = dependenciaService.getById(iddepende);
 
     }
 
-    public void CambiarEstado(){
+    public void CambiarEstado() {
 
     }
 
@@ -111,8 +111,7 @@ public class UsuarioBeans implements Serializable {
         int filterInt = getInteger(filterText);
         UsuarioDto u = (UsuarioDto) value;
         return (u.getId() >= filterInt && u.getId() <= filterInt)
-                ||(u.getNombres() +" "+u.getApellidos()).toLowerCase().contains(filterText)
-                ||u.getRol().getNombre().toLowerCase().contains(filterText)
+                || (u.getNombres() + " " + u.getApellidos()).toLowerCase().contains(filterText)
                 || u.getEstado().toLowerCase().contains(filterText);
     }
 

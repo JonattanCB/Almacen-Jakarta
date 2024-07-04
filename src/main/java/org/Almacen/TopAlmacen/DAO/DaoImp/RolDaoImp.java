@@ -24,11 +24,7 @@ public class RolDaoImp implements IRolDao {
 
     @Override
     public Rol getById(int id) {
-        var query = _entityManager.createQuery(
-                "SELECT c FROM Rol c where  c.id = :id ", Rol.class
-        );
-        query.setParameter("id", id);
-        return query.getSingleResult();
+        return _entityManager.find(Rol.class, id);
     }
 
     @Override
