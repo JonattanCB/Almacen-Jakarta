@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProductoProveedorEntradaDao {
     List<ProductoProveedorEntrada> getAll();
 
-    ProductoProveedorEntrada getById(int id);
+    ProductoProveedorEntrada getById(String id);
 
     ProductoProveedorEntrada create(ProductoProveedorEntrada c);
 

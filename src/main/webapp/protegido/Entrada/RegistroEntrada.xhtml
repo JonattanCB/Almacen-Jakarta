@@ -83,7 +83,7 @@
                                                          disabled="#{RegistroEntradaBeans.bloquearEmpesa}" value="#{RegistroEntradaBeans.idEmpresa}" required="true" autoWidth="false"  >
                                             <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
                                             <f:selectItems  value="#{RegistroEntradaBeans.empresaDtoList}" var="empre" itemLabel="#{empre.nombre}" itemValue="#{empre.nroRUC}" />
-                                            <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.CargarEmpresa()}" update="empresa Datos-empresa"  />
+                                            <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.CargarEmpresa()}" update="empresa btnagregar Datos-empresa"  />
                                         </p:selectOneMenu>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -106,7 +106,8 @@
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" columns="2" width="1180">
                         <h:panelGrid width="60">
-                            <p:dataTable style="width: 68rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true">
+                            <p:dataTable style="width: 60rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
+                                         rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom" >
                                 <p:column headerText="#" width="80">
                                     <h:outputText  value="#{ld.id}"  />
                                 </p:column>
@@ -148,12 +149,12 @@
                             </p:dataTable>
                         </h:panelGrid>
                         <h:panelGrid width="30" style="float: right;top: 0">
-                            <p:commandButton value="agregar" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
+                            <p:commandButton id="btnagregar" value="Agregar" disabled="#{RegistroEntradaBeans.btnBotonAgregrar}" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{UsuarioBeans.DeterminarAccion()}" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>

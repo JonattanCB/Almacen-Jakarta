@@ -1,24 +1,31 @@
 package org.Almacen.TopAlmacen.Controladores.RegistroEntrada;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
+import org.Almacen.TopAlmacen.Controladores.Empresa.EmpresaBeans;
 import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
+import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
-import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
-import org.Almacen.TopAlmacen.Mappers.TipoUnidadMapper;
+import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
+import org.Almacen.TopAlmacen.Mappers.*;
+import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Services.*;
+import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,7 +54,7 @@ public class RegistroEntradaBeans implements Serializable {
     @Inject
     private PrecioPorTipoUnidadService precioPorTipoUnidadService;
 
-    private ProductoProveedorEntradaDto productoProveedorEntradaDto;
+    private CreateProductoProveedorEntradaDto productoProveedorEntradaDto;
 
     private EmpresaDto empresaDto;
 
@@ -55,7 +62,7 @@ public class RegistroEntradaBeans implements Serializable {
 
     private PrecioPorTipoUnidadDto precioPorTipoUnidadDto;
 
-    private DetalleProductoProveedorEntradaDto detalleProductoProveedorEntradaDto;
+    private CreateDetalleProductoProveedorEntradaDto detalleProductoProveedorEntradaDto;
 
     private String idEmpresa;
 
@@ -75,6 +82,8 @@ public class RegistroEntradaBeans implements Serializable {
 
     private boolean bloquearDatosAgregar;
 
+    private boolean btnBotonAgregrar;
+
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtos;
 
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtosSeleccion;
@@ -85,7 +94,7 @@ public class RegistroEntradaBeans implements Serializable {
 
     private List<TipoUnidadDto> tipoUnidadDtoList;
 
-    private List<DetalleProductoProveedorEntradaDto> ListadoDeDetalle;
+    private List<CreateDetalleProductoProveedorEntradaDto> ListadoDeDetalle;
 
 
 
@@ -104,17 +113,21 @@ public class RegistroEntradaBeans implements Serializable {
     }
 
     public void NuevoRegistro(){
-        productoProveedorEntradaDto = new ProductoProveedorEntradaDto();
-        detalleProductoProveedorEntradaDto = new DetalleProductoProveedorEntradaDto();
+        productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
+        detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
         empresaDto = new EmpresaDto();
         empresaDtoList = empresaService.getAllEmpresa();
         productoDescripcionDtoList = productoService.productoDescripcionDtos();
         productoProveedorEntradaDto.setOC(generateRandomString(6));
+        productoProveedorEntradaDto.setFechaRegistro(LocalDateTime.now());
+        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
         idEmpresa = "";
         idProducto = 0;
         idTipoUnidad = 0;
         validacionNuevoProducto(1);
         verficiacionEmpresa(1);
+        validarbtnlista(1);
         nuevoDetalle();
         irAgregardetalle();
     }
@@ -123,13 +136,22 @@ public class RegistroEntradaBeans implements Serializable {
 
     }
 
+    public void guardar(){
+        productoProveedorEntradaService.create(productoProveedorEntradaDto, ListadoDeDetalle);
+        loadRegitroEntrada();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
     public void eliminarRegistroEntrada(){
 
     }
 
     public void CargarEmpresa(){
         empresaDto = empresaService.getEmpresa(idEmpresa);
+        productoProveedorEntradaDto.setEmpresa(EmpresaMapper.toEntity(empresaDto));
         verficiacionEmpresa(2);
+        validarbtnlista(2);
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
@@ -183,7 +205,7 @@ public class RegistroEntradaBeans implements Serializable {
     }
 
      private void irAgregardetalle(){
-        detalleProductoProveedorEntradaDto = new DetalleProductoProveedorEntradaDto();
+        detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
         productoDto = new ProductoDto();
         validacionNuevoProducto(1);
         productoDescripcionDtoList = productoService.productoDescripcionDtos();
@@ -204,7 +226,7 @@ public class RegistroEntradaBeans implements Serializable {
 
     public void registrarProducto(){
         boolean productoExistente = false;
-        for (DetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
+        for (CreateDetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
             if (detalle.getDescripcion().equals(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto)))) && detalle.getTipoUnidad().getId()== idTipoUnidad) {
                 detalle.setPrecioUnitario(detalleProductoProveedorEntradaDto.getPrecioUnitario());
                 detalle.setCantidad(detalle.getCantidad() + detalleProductoProveedorEntradaDto.getCantidad());
@@ -215,6 +237,7 @@ public class RegistroEntradaBeans implements Serializable {
         }
         if (!productoExistente) {
             detalleProductoProveedorEntradaDto.setId(getNextId());
+            detalleProductoProveedorEntradaDto.setOC_id(ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaDto));
             detalleProductoProveedorEntradaDto.setDescripcion(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
             detalleProductoProveedorEntradaDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
             ListadoDeDetalle.add(detalleProductoProveedorEntradaDto);
@@ -243,7 +266,7 @@ public class RegistroEntradaBeans implements Serializable {
 
     private int getNextId() {
         int maxId = 0;
-        for (DetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
+        for (CreateDetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
             if (detalle.getId() > maxId) {
                 maxId = detalle.getId();
             }
@@ -257,6 +280,17 @@ public class RegistroEntradaBeans implements Serializable {
             btnNuevoEntrada = true;
         }else{
             btnNuevoEntrada=false;
+        }
+    }
+
+    private void validarbtnlista(int opcion){
+        switch (opcion){
+            case 1:
+                btnBotonAgregrar = true;
+                break;
+            case 2:
+                btnBotonAgregrar = false;
+                break;
         }
     }
 

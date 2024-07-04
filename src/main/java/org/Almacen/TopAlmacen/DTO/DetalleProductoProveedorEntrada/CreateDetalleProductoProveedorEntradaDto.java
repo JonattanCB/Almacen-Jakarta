@@ -13,10 +13,11 @@ import org.Almacen.TopAlmacen.Model.TipoUnidad;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateDetalleProductoProveedorEntradaDto {
+    private int id;
     private ProductoProveedorEntrada OC_id;
     private double cantidad;
     private TipoUnidad tipoUnidad;
     private String descripcion;
-    private double descuento;
     private double precioUnitario;
+    private double precioTotal;
 }

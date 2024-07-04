@@ -35,7 +35,7 @@ public class ProductoProveedorEntradaService implements Serializable {
     }
 
     @Transactional
-    public ProductoProveedorEntradaDto findById(int id) {
+    public ProductoProveedorEntradaDto findById(String id) {
         var entrada = iProductoProveedorEntradaDao.getById(id);
         return ProductoProveedorEntradaMapper.toDto(entrada);
     }

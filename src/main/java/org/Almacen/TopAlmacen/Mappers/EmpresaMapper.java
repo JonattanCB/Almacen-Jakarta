@@ -13,6 +13,10 @@ public class EmpresaMapper {
         return new EmpresaDto(empresa.getNroRUC(), empresa.getNombre(),empresa.getTipoEmpresa(), empresa.getDireccion());
     }
 
+    public static Empresa toEntity(EmpresaDto dto){
+        return new Empresa(dto.getNroRUC(), dto.getNombre(), dto.getTipoEmpresa(),dto.getDireccion());
+    }
+
     public static List<EmpresaDto> toDTOList(List<Empresa> empresas) {
         return empresas.stream()
                 .map(EmpresaMapper::toDto)
