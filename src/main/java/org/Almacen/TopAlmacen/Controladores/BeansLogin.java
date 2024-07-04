@@ -68,6 +68,10 @@ public class BeansLogin implements Serializable {
         itemMenu = DefaultMenuItem.builder().value("MOVIMIENTOS ").icon("pi pi-home").url(contextPath+"/protegido/Historial/historialMovimiento.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
 
       //Por ver
         itemMenu = DefaultMenuItem.builder().value("Precio").icon("pi pi-home").url(contextPath+"/protegido/TipoUnidad/PrecioPorTipoUnidad.xhtml").update("contenido_escritorio-update").build();

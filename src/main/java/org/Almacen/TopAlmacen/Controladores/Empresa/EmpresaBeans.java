@@ -10,6 +10,7 @@ import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Empresa.CreateEmpresaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.UpdateEmpresaDto;
+import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.TipoEmpresa.TipoEmpresaDto;
 import org.Almacen.TopAlmacen.Mappers.EmpresaMapper;
 import org.Almacen.TopAlmacen.Mappers.TipoEmpresaMapper;
@@ -52,6 +53,7 @@ public class EmpresaBeans implements Serializable {
     private List<EmpresaDto> empresaDtoListSeleccionar;
 
     private List<TipoEmpresaDto>  tipoEmpresaList;
+
 
     @PostConstruct
     private void init(){
@@ -149,6 +151,7 @@ public class EmpresaBeans implements Serializable {
             return 0;
         }
     }
+
 
     private  void verificiadorAccion(int opcion){
         switch (opcion){

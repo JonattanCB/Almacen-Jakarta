@@ -144,4 +144,10 @@ public class PrecioPorTipoUnidadService implements Serializable {
         }
         return null;
     }
+
+    @Transactional
+    public PrecioPorTipoUnidadDto getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad){
+        return PrecioPorTipoUnidadMapper.toDto(iprecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(idProducto,idTipoUnidad));
+    }
+
 }

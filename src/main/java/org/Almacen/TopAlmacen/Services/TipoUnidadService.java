@@ -31,12 +31,24 @@ public class TipoUnidadService implements Serializable {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public List<TipoUnidadDto> filterTipoUnidadList(int productoId) {
         List<Integer> registeredIds = iPrecioPorTipoUnidadDao.getAllbyProducto(productoId);
         List<TipoUnidad> tipoUnidadList = iTipoUnidadDao.getAll();
 
         return tipoUnidadList.stream()
                 .filter(tipoUnidad -> !registeredIds.contains(tipoUnidad.getId()))
+                .map(TipoUnidadMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<TipoUnidadDto> filterTipoUnidadListProducto(int productoId) {
+        List<Integer> registeredIds = iPrecioPorTipoUnidadDao.getAllbyProducto(productoId);
+        List<TipoUnidad> tipoUnidadList = iTipoUnidadDao.getAll();
+
+        return tipoUnidadList.stream()
+                .filter(tipoUnidad -> registeredIds.contains(tipoUnidad.getId()))
                 .map(TipoUnidadMapper::toDto)
                 .collect(Collectors.toList());
     }

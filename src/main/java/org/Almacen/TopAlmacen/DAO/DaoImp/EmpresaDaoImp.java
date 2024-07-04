@@ -22,7 +22,10 @@ public class EmpresaDaoImp implements IEmpresaDao {
 
     @Override
     public Empresa getById(String NroRuc) {
-        return _entityManager.find(Empresa.class, NroRuc);
+        return _entityManager.createQuery(
+                        "SELECT d FROM Empresa d LEFT JOIN FETCH d.tipoEmpresa WHERE d.NroRUC = :NroRuc",Empresa.class)
+                .setParameter("NroRuc", NroRuc)
+                .getSingleResult();
     }
 
     @Override

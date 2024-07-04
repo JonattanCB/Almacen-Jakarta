@@ -83,4 +83,18 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
             return null;
         }
     }
+
+    @Override
+    public PrecioPorTipoUnidad getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad) {
+        try {
+            return _entityManager.createQuery(
+                            "SELECT p FROM PrecioPorTipoUnidad p WHERE p.producto.id = :producto AND p.tipoUnidad.id = :tipoUnidad",
+                            PrecioPorTipoUnidad.class)
+                    .setParameter("producto", idProducto)
+                    .setParameter("tipoUnidad", idTipoUnidad)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
