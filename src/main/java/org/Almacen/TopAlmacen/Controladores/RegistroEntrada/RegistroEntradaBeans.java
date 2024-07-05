@@ -120,7 +120,6 @@ public class RegistroEntradaBeans implements Serializable {
         empresaDtoList = empresaService.getAllEmpresa();
         productoDescripcionDtoList = productoService.productoDescripcionDtos();
         productoProveedorEntradaDto.setOC(generateRandomString(6));
-        productoProveedorEntradaDto.setFechaRegistro(LocalDateTime.now());
         UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
         idEmpresa = "";
