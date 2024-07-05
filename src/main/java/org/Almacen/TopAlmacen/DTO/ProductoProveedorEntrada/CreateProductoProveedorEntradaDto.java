@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class CreateProductoProveedorEntradaDto {
     private String OC;
     private Empresa empresa;
-    private LocalDateTime fechaRegistro;
     private Usuario usuario;
     private double precioFinal;
 }

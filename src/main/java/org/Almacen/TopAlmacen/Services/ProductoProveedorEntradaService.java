@@ -7,13 +7,11 @@ import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
-import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;

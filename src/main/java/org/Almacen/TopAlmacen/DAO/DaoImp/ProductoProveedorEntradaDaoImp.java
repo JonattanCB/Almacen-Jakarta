@@ -1,5 +1,6 @@
 package org.Almacen.TopAlmacen.DAO.DaoImp;
 
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
@@ -8,6 +9,7 @@ import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.util.List;
 
+@Named
 public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntradaDao {
     @PersistenceContext(name = "YourPU")
     private EntityManager _entityManager;
