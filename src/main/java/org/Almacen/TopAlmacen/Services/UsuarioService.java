@@ -10,6 +10,7 @@ import org.Almacen.TopAlmacen.DTO.Usuario.UpdateUsuarioDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.UsuarioMapper;
 import org.Almacen.TopAlmacen.Model.Usuario;
+import org.Almacen.TopAlmacen.Util.PasswordUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -32,7 +33,7 @@ public class UsuarioService implements Serializable {
     @Transactional
     public Usuario createUsuario(CreateUsuarioDto createUsuarioDto) {
         var usuario = UsuarioMapper.toUsuarioFromCreate(createUsuarioDto);
-        createUsuarioDto.getContra();
+        usuario.setContra(PasswordUtil.hashPassword(usuario.getContra()));
         return iUsuarioDao.create(usuario);
     }
 
@@ -52,5 +53,10 @@ public class UsuarioService implements Serializable {
         iUsuarioDao.cambiarMarca(id, estado);
     }
 
+    @Transactional
+    public UsuarioDto checkUsuario(String email, String password) {
+        return UsuarioMapper.toDto(iUsuarioDao.checkLogin(email, password));
+
+    }
 
 }

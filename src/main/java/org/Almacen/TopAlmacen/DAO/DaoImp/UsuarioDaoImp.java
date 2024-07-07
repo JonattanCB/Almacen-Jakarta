@@ -2,12 +2,14 @@ package org.Almacen.TopAlmacen.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IUsuarioDao;
 import org.Almacen.TopAlmacen.DTO.Usuario.UpdateUsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.UsuarioMapper;
 import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.Usuario;
+import org.Almacen.TopAlmacen.Util.PasswordUtil;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class UsuarioDaoImp implements IUsuarioDao {
     @Override
     public Usuario create(Usuario c) {
         _entityManager.persist(c);
-        return  c;
+        return c;
     }
 
     @Override
@@ -65,6 +67,20 @@ public class UsuarioDaoImp implements IUsuarioDao {
         query.setParameter("estado", estado);
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public Usuario checkLogin(String login, String password) {
+        String hashedPassword = PasswordUtil.hashPassword(password);
+        var query = _entityManager.createQuery("SELECT u FROM Usuario u WHERE u.correo = :login AND u.contra = :password", Usuario.class);
+        query.setParameter("login", login);
+        query.setParameter("password", hashedPassword);
+        query.setMaxResults(1);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

@@ -17,4 +17,6 @@ public interface IUsuarioDao {
     Usuario delete(int id);
 
     void cambiarMarca(int id, String estado);
+
+    Usuario checkLogin(String login, String password);
 }
