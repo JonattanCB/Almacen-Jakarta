@@ -49,31 +49,16 @@
                             <h:outputText value="#{obj.fechaRegistro}"/>
                         </p:column>
                         <p:column exportable="false" width="100">
-                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             action="#{CategoriaBeans.cargarCategoriaConProductos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
-                                             styleClass="edit-button rounded-button "  >
-                                <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
-                            </p:commandButton>
-
-                            <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #4c535a; height: 2.3rem; font-size: 0.2rem"
-                                             icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
-                                <f:setPropertyActionListener value="#{obj.id}" target="#{UsuarioBeans.idUsuario}" />
-                                <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado del Usuario?" icon="pi pi-info-circle"/>
-                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
-                </p:confirmDialog>
             </h:panelGrid>
         </h:form>
         <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="form-dialogProducto">
                 <div id="dialog-content" class="dialogs-barra-grande" >
-                    <h:panelGrid columns="2" width="1180">
-                        <h:panelGrid border="1">
+                    <h:panelGrid columns="2" width="1200">
+                        <h:panelGrid>
                             <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Empresa" /></h:panelGrid>
                             <h:panelGrid >
                                 <p:selectOneMenu id="empresa" style="width: 50rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
@@ -86,7 +71,6 @@
                         </h:panelGrid>
                         <h:panelGrid  style="float: right" >
                             <h:outputText  styleClass="texto_dialog" style="margin-top: 3rem" value="N° Registro: #{RegistroEntradaBeans.productoProveedorEntradaDto.OC}"/>
-                            <h:outputText  styleClass="texto_dialog"  value="Fecha : #{RegistroEntradaBeans.productoProveedorEntradaDto.fechaRegistro}"/>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1200" >
@@ -107,7 +91,7 @@
                                     <div class="header-tabla">
                                         <span class="titulo-hearder-tabla">Listado de Productos</span>
                                         <p:commandButton id="btnagregar" value="Agregar" disabled="#{RegistroEntradaBeans.btnBotonAgregrar}" action="#{RegistroEntradaBeans.AgregarNuevoDetalle()}"
-                                                         icon="pi pi-plus" style="width: 15rem" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
+                                                         icon="pi pi-plus" style="width: 8rem" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
                                     </div>
                                 </f:facet>
                                 <p:ajax event="rowEdit" listener="#{RegistroEntradaBeans.editarTablaDetalle}" update="form-dialogProducto:precioTotal"  />
@@ -140,7 +124,7 @@
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="Precio Final" width="80">
+                                <p:column headerText="Precio Total" width="80">
                                     <h:outputText  value="S/. #{ld.precioTotal}" />
                                 </p:column>
                                 <p:column width="100">
@@ -151,14 +135,14 @@
                                 </p:column>
                             </p:dataTable>
                             <h:panelGrid styleClass="precio-Final-Entrada" columns="2">
-                                <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Total :" />
+                                <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Fianl :" />
                                 <h:outputText id="precioTotal"  value="S/. #{RegistroEntradaBeans.precioTotal}" />
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
+                    <p:commandButton value="Guardar"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>
@@ -168,7 +152,7 @@
             <h:form id="form-dialogo-producto">
                 <div style="width: 27rem;height: 23rem">
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Productos: " /></h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="prducto"  styleClass="texto_dialog" value="Productos: " /></h:panelGrid>
                         <h:panelGrid >
                             <h:panelGroup styleClass="ui-inputgroup">
                                 <h:panelGroup  styleClass="ui-inputgroup-addon">
@@ -223,7 +207,7 @@
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.registrarProducto()}"  oncomplete="PF('dialogProducto').hide()" update="form-dialogProducto" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.registrarProducto()}" process="form-dialogo-producto @this" update="form-dialogProducto" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>

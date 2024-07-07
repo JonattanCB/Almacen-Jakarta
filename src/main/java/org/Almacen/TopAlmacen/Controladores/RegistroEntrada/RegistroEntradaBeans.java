@@ -83,6 +83,8 @@ public class RegistroEntradaBeans implements Serializable {
 
     private boolean btnBotonAgregrar;
 
+    private boolean guardarLista;
+
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtos;
 
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtosSeleccion;
@@ -110,9 +112,7 @@ public class RegistroEntradaBeans implements Serializable {
         this.empresaDtoList = empresaService.getAllEmpresa();
         this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
         this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
-      //  UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        UsuarioDto usuarioDto = new UsuarioDto();
-        usuarioDto.setId(1);
+        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
         limpiarNuevoRegistro();
         validacionNuevoProducto(1);
@@ -120,6 +120,7 @@ public class RegistroEntradaBeans implements Serializable {
         validarbtnlista(1);
         nuevoDetalle();
         limpiarDetalles();
+        validarGuardado();
     }
 
     public void editarTablaDetalle(RowEditEvent<CreateDetalleProductoProveedorEntradaDto> event){
@@ -143,6 +144,8 @@ public class RegistroEntradaBeans implements Serializable {
         ListadoDeDetalle.add(detalleProductoProveedorEntradaDto);
         limpiarDetalles();
         SumanTotal();
+        validarGuardado();
+        PrimeFaces.current().executeScript("PF('dialogProducto').hide()");
     }
 
     public void eliminarTablaDetalle(){
@@ -306,5 +309,12 @@ public class RegistroEntradaBeans implements Serializable {
         this.btnNuevoEntrada = lst.isEmpty();
     }
 
+    private void validarGuardado(){
+        if(this.ListadoDeDetalle.isEmpty()){
+            this.guardarLista = true;
+        }else{
+            this.guardarLista = false;
+        }
+    }
 }
 
