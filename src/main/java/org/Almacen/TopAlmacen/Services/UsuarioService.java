@@ -55,8 +55,13 @@ public class UsuarioService implements Serializable {
 
     @Transactional
     public UsuarioDto checkUsuario(String email, String password) {
-        return UsuarioMapper.toDto(iUsuarioDao.checkLogin(email, password));
-
+        var usuario = iUsuarioDao.checkLogin(email, password);
+        if (usuario != null) {
+            return UsuarioMapper.toDto(usuario);
+        } else {
+            return null;
+        }
     }
+
 
 }
