@@ -28,8 +28,10 @@ public class Requerimiento {
     private UnidadDependencia unidadDependencia;
     @Column(name = "Estado", nullable = false)
     private String Estado;
-    @Column(name = "Razon", nullable = false)
-    private String Razon;
+    @Column(name = "RazonEntrada", nullable = false)
+    private String RazonEntrada;
+    @Column(name = "RazonSalida", nullable = false)
+    private String RazonSalida;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "requerimiento")
     private List<ItemsRequerimiento>Requerimientos;
 

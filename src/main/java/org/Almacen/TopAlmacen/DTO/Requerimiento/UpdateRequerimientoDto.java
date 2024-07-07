@@ -6,16 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequerimientoDto {
-    private int id;
-    private LocalDateTime fechaRegistrada;
-    private UnidadDependencia unidadDependencia;
+public class UpdateRequerimientoDto {
     private String estado;
     private String RazonEntrada;
     private String RazonSalida;

@@ -1,11 +1,20 @@
 package org.Almacen.TopAlmacen.DTO.Requerimiento;
 
-import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateRequerimientoDto {
-    private UnidadDependenciaDto unidadDependenciaDto;
+    private UnidadDependencia unidadDependencia;
     private String estado;
-    private String Razon;
+    private String RazonEntrada;
+    private String RazonSalida;
 }

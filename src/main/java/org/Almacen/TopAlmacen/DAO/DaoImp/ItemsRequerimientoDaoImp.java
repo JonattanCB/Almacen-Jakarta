@@ -4,7 +4,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IItemsRequerimientoDao;
-import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.UpdateRequerimientoDto;
+import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.UpdateItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
     }
 
     @Override
-    public ItemsRequerimiento update(UpdateRequerimientoDto c, int id) {
+    public ItemsRequerimiento update(UpdateItemsRequerimientoDto c, int id) {
         var itemFound = _entityManager.find(ItemsRequerimiento.class, id);
         if (itemFound != null) {
             itemFound.setCantidad(c.getCantidad());
