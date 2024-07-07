@@ -44,6 +44,7 @@ public class ProductoProveedorEntradaService implements Serializable {
         iProductoProveedorEntradaDao.create(prodcu);
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
+            detalle.setOC_id(prodcu);
             iDetalleProductoProveedorEntradaDao.create(detalle);
         }
         return prodcu;

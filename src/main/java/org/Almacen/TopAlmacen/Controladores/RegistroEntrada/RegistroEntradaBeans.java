@@ -23,7 +23,6 @@ import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -111,8 +110,9 @@ public class RegistroEntradaBeans implements Serializable {
         this.empresaDtoList = empresaService.getAllEmpresa();
         this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
         this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
-        this.productoProveedorEntradaDto.setFechaRegistro(LocalDateTime.now());
-        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+      //  UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        UsuarioDto usuarioDto = new UsuarioDto();
+        usuarioDto.setId(1);
         this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
         limpiarNuevoRegistro();
         validacionNuevoProducto(1);
