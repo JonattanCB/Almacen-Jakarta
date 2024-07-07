@@ -26,7 +26,7 @@ public class Rol {
     private String estado;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate fechaRegistro = LocalDate.now();
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UnidadDependencia unidadDependencia;
     @OneToMany(mappedBy = "rol", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Acceso> accesos;

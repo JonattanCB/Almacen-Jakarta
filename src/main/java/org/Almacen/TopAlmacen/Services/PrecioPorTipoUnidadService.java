@@ -58,17 +58,17 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
-        String abrevUnidadBasica = "UND";
+        public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
-            var tipoUnidad = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
             var nuevaUnidad = new PrecioPorTipoUnidad();
+            var stockUnidades = new StockUnidades();
+
             nuevaUnidad.setProducto(dto.getProducto());
-            nuevaUnidad.setTipoUnidad(tipoUnidad);
+            nuevaUnidad.setTipoUnidad(dto.getTipoUnidad());
             nuevaUnidad.setPrecioUnitario(dto.getPrecio());
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
 
-            var stockUnidades = new StockUnidades();
+
             stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(nuevaUnidad.getProducto()));
             stockUnidades.setCantidadStockUnidad(0);
 

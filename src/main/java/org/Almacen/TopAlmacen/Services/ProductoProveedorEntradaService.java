@@ -7,11 +7,14 @@ import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.MovimientoStock.CreateMovimientoStockDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
+import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;
@@ -25,6 +28,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IProductoProveedorEntradaDao iProductoProveedorEntradaDao;
     @Inject
     private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
+    @Inject
+    private MovimientoStockService movimientoStockService;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -46,6 +51,14 @@ public class ProductoProveedorEntradaService implements Serializable {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
             detalle.setOC_id(prodcu);
             iDetalleProductoProveedorEntradaDao.create(detalle);
+            var dto = new CreateMovimientoStockDto();
+            dto.setTipoMovimiento("ENTRADA");
+            dto.setCantidad(d.getCantidad());
+            dto.setTipoUnidad(d.getTipoUnidad());
+            dto.setDescripcion(d.getDescripcion());
+            movimientoStockService.create(dto);
+
+
         }
         return prodcu;
     }

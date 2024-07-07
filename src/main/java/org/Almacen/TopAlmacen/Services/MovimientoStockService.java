@@ -5,6 +5,7 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
+import org.Almacen.TopAlmacen.DTO.MovimientoStock.CreateMovimientoStockDto;
 import org.Almacen.TopAlmacen.DTO.MovimientoStock.MovimientoStockDto;
 import org.Almacen.TopAlmacen.Mappers.MovimientoStockMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
@@ -30,5 +31,12 @@ public class MovimientoStockService implements Serializable {
     public MovimientoStockDto getMovimientoStockById(int id) {
         var movimiento = iMovimientoStockDao.getById(id);
         return MovimientoStockMapper.toDto(movimiento);
+    }
+
+    @Transactional
+    public MovimientoStock create(CreateMovimientoStockDto dto) {
+        var mov = MovimientoStockMapper.fromCrate(dto);
+        iMovimientoStockDao.create(mov);
+        return mov;
     }
 }
