@@ -42,7 +42,6 @@ public class UsuarioBeans implements Serializable {
 
     private UsuarioDto usuarioDto;
 
-    private DependenciaConUnidadesDto dependenciaConUnidadesDto;
 
     private int iddepende;
 
@@ -112,7 +111,6 @@ public class UsuarioBeans implements Serializable {
     }
 
     public void cargarUnidades() {
-        dependenciaConUnidadesDto = dependenciaService.getById(iddepende);
 
     }
 
