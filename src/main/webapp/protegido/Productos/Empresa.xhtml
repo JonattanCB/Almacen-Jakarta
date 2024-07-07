@@ -86,17 +86,17 @@
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="nro" styleClass="texto_dialog" value="Numero RUC: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputText id="nro"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.nroRUC}" disabled="#{EmpresaBeans.datoRuc}"  required="true"/>
+                            <p:inputText id="nro"  styleClass="input-custom" style="width: 29.58vw"  value="#{EmpresaBeans.empresaDto.nroRUC}" disabled="#{EmpresaBeans.datoRuc}"  required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem" columns="2">
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/> </h:panelGrid>
-                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 17rem" value="#{EmpresaBeans.empresaDto.nombre}" disabled="#{EmpresaBeans.escribirDatos}"  required="true"/>
+                            <p:inputText id="nombre"  styleClass="input-custom"  style="width: 14.17vw"  value="#{EmpresaBeans.empresaDto.nombre}" disabled="#{EmpresaBeans.escribirDatos}"  required="true"/>
                         </h:panelGrid>
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="tempresa" styleClass="texto_dialog" value="Tipo de Empresa: "/> </h:panelGrid>
-                            <p:selectOneMenu id="tempresa" style="width: 17rem" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu" disabled="#{EmpresaBeans.escribirDatos}"
+                            <p:selectOneMenu id="tempresa"  style="width: 15vw"  filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu" disabled="#{EmpresaBeans.escribirDatos}"
                                              value="#{EmpresaBeans.idTipoEmpresa}" required="true" autoWidth="false"  >
                                 <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
                                 <f:selectItems  value="#{EmpresaBeans.tipoEmpresaList}" var="te" itemLabel="#{te.nombre}" itemValue="#{te.id}" />
@@ -106,7 +106,7 @@
                     <h:panelGrid  style="margin-top: 1rem" >
                         <h:panelGrid><h:outputLabel for="direccion" styleClass="texto_dialog" value="Direccion: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputText id="direccion"  styleClass="input-custom" style="width: 34.5rem" value="#{EmpresaBeans.empresaDto.direccion}" disabled="#{EmpresaBeans.escribirDatos}"   required="true"/>
+                            <p:inputText id="direccion"  styleClass="input-custom" style="width: 29.58vw" value="#{EmpresaBeans.empresaDto.direccion}" disabled="#{EmpresaBeans.escribirDatos}"   required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>

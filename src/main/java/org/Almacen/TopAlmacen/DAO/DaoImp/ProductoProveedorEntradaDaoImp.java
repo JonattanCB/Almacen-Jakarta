@@ -21,7 +21,7 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
 
     @Override
     public ProductoProveedorEntrada getById(String id) {
-        return _entityManager.createQuery("SELECT p FROM ProductoProveedorEntrada p LEFT JOIN FETCH p.DetalleProductoProveedorEntrada WHERE p.OC = :id",
+        return _entityManager.createQuery("SELECT p FROM ProductoProveedorEntrada p LEFT JOIN FETCH p.DetalleProductoProveedorEntrada LEFT JOIN FETCH p.empresa  LEFT JOIN FETCH p.empresa.tipoEmpresa WHERE p.OC = :id",
                 ProductoProveedorEntrada.class).setParameter("id", id).getSingleResult();
     }
 

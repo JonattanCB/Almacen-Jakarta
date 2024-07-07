@@ -49,6 +49,11 @@
                             <h:outputText value="#{obj.fechaRegistro}"/>
                         </p:column>
                         <p:column exportable="false" width="100">
+                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                             action="#{RegistroEntradaBeans.verDatos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                             styleClass="edit-button rounded-button "  >
+                                <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
@@ -91,7 +96,7 @@
                                 <f:facet name="header">
                                     <div class="header-tabla">
                                         <span class="titulo-hearder-tabla">Listado de Productos</span>
-                                        <p:commandButton id="btnagregar" value="Agregar" disabled="#{RegistroEntradaBeans.btnBotonAgregrar}" action="#{RegistroEntradaBeans.AgregarNuevoDetalle()}"
+                                        <p:commandButton id="btnagregar" rendered="#{RegistroEntradaBeans.verDatosValidacion}" value="Agregar" disabled="#{RegistroEntradaBeans.btnBotonAgregrar}" action="#{RegistroEntradaBeans.AgregarNuevoDetalle()}"
                                                          icon="pi pi-plus" style="width: 8rem" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
                                     </div>
                                 </f:facet>
@@ -129,8 +134,8 @@
                                     <h:outputText  value="S/. #{ld.precioTotal}" />
                                 </p:column>
                                 <p:column width="100">
-                                    <p:rowEditor styleClass="rounded-button ui-button-warning ui-button-flat" editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
-                                    <p:commandButton icon="pi pi-trash" styleClass="rounded-button ui-button-danger ui-button-flat" update="form-dialogProducto:tabla-detalle form-dialogProducto:precioTotal" actionListener="#{RegistroEntradaBeans.eliminarTablaDetalle()}" >
+                                    <p:rowEditor  rendered="#{RegistroEntradaBeans.verDatosValidacion}"  styleClass="rounded-button ui-button-warning ui-button-flat" editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                                    <p:commandButton icon="pi pi-trash" rendered="#{RegistroEntradaBeans.verDatosValidacion}"   styleClass="rounded-button ui-button-danger ui-button-flat" update="form-dialogProducto:tabla-detalle form-dialogProducto:precioTotal" actionListener="#{RegistroEntradaBeans.eliminarTablaDetalle()}" >
                                         <f:setPropertyActionListener value="#{ld.id}" target="#{RegistroEntradaBeans.idTempora}" />
                                     </p:commandButton>
                                 </p:column>
@@ -143,7 +148,7 @@
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
+                    <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>
@@ -208,7 +213,7 @@
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.registrarProducto()}" process="form-dialogo-producto @this" update="form-dialogProducto" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;"  action="#{RegistroEntradaBeans.registrarProducto()}" process="form-dialogo-producto @this" update="form-dialogProducto" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>

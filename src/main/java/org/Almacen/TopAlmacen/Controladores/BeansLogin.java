@@ -67,11 +67,87 @@ public class BeansLogin implements Serializable {
         firstSubmenu.getElements().add(itemMenu);
 
 
-
-      //Por ver
         itemMenu = DefaultMenuItem.builder().value("Precio").icon("pi pi-home").url(contextPath+"/protegido/TipoUnidad/PrecioPorTipoUnidad.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
         model.getElements().add(firstSubmenu);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
     }
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 public interface IDetalleProductoProveedorEntradaDao {
     List<DetalleProductoProveedorEntrada> getAll();
 
-    List<DetalleProductoProveedorEntrada> getAllByProveedorEntrada(int id);
+    List<DetalleProductoProveedorEntrada> getAllByProveedorEntrada(String id);
 
     DetalleProductoProveedorEntrada getById(int id);
 

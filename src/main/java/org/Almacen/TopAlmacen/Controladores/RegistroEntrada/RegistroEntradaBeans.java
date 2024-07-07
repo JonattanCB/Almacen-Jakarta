@@ -16,6 +16,7 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
+import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Services.*;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
@@ -66,6 +67,8 @@ public class RegistroEntradaBeans implements Serializable {
 
     private String fechaActual;
 
+    private String idRegistroEntrada;
+
     private int idProducto;
 
     private int idTipoUnidad;
@@ -87,6 +90,8 @@ public class RegistroEntradaBeans implements Serializable {
     private boolean btnBotonAgregrar;
 
     private boolean guardarLista;
+
+    private boolean verDatosValidacion;
 
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtos;
 
@@ -125,6 +130,7 @@ public class RegistroEntradaBeans implements Serializable {
         nuevoDetalle();
         limpiarDetalles();
         validarGuardado();
+        validarVerDatos(1);
     }
 
     public void editarTablaDetalle(RowEditEvent<CreateDetalleProductoProveedorEntradaDto> event){
@@ -204,6 +210,20 @@ public class RegistroEntradaBeans implements Serializable {
         loadRegistrarEntrant();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    public void verDatos(){
+        ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(idRegistroEntrada);
+        this.productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
+        this.empresaDtoList = empresaService.getAllEmpresa();
+        this.productoProveedorEntradaDto.setOC(dto.getOC());
+        this.fechaActual = dto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        this.idEmpresa = dto.getEmpresa().getNroRUC();
+        empresaDto = EmpresaMapper.toDto(dto.getEmpresa());
+        precioTotal = dto.getPrecioFinal();
+        ListadoDeDetalle = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
+        verficiacionEmpresa(2);
+        validarVerDatos(2);
     }
 
     // ================ methods de Private =================
@@ -321,5 +341,17 @@ public class RegistroEntradaBeans implements Serializable {
             this.guardarLista = false;
         }
     }
+
+    private void validarVerDatos(int  opcion){
+        switch (opcion){
+            case 1:
+                verDatosValidacion = true;
+                break;
+            case 2:
+                verDatosValidacion = false;
+                break;
+        }
+    }
+
 }
 

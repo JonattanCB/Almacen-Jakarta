@@ -78,14 +78,15 @@
             <h:form>
                 <div id="dialog-content" class="dialogs-barra-pequenia" >
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
+                        <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputText  styleClass="input-custom" style="width: 34rem" value="#{MarcaBeans.marcaDto.nombre}"  required="true"/>
+                                <p:inputText id="nombre"  styleClass="input-custom" style="width: 28.33vw" value="#{MarcaBeans.marcaDto.nombre}"  required="true" />
+                                <h:message for="nombre" style="color: red;" />
                             </h:panelGrid>
                     </h:panelGrid>
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{MarcaBeans.determinarAccion()}" />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" process="@this, :dialogs, :growl" action="#{MarcaBeans.determinarAccion()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>

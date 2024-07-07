@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.UpdateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 
 import java.util.List;
@@ -20,8 +21,13 @@ public class DetalleProductoProveedorEntradaDaoImp implements IDetalleProductoPr
     }
 
     @Override
-    public List<DetalleProductoProveedorEntrada> getAllByProveedorEntrada(int id) {
-        return _entityManager.createQuery("SELECT d FROM DetalleProductoProveedorEntrada d WHERE d.OC_id = 'id'", DetalleProductoProveedorEntrada.class).getResultList();
+    public List<DetalleProductoProveedorEntrada> getAllByProveedorEntrada(String id) {
+        var query = _entityManager.createQuery(
+                "SELECT d FROM DetalleProductoProveedorEntrada d LEFT JOIN FETCH d.OC_id LEFT JOIN FETCH d.tipoUnidad  WHERE d.OC_id.OC = :id",
+                DetalleProductoProveedorEntrada.class);
+        query.setParameter("id", id);
+
+        return query.getResultList();
     }
 
     @Override

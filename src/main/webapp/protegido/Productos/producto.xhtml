@@ -87,33 +87,33 @@
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputText id="nombre"  styleClass="input-custom" style="width: 34.5rem" value="#{ProductosBeans.productoDto.nombre}" disabled="#{ProductosBeans.escribirDatos}" required="true"/>
+                                <p:inputText id="nombre"  styleClass="input-custom" style="width:29.58vw;" value="#{ProductosBeans.productoDto.nombre}" disabled="#{ProductosBeans.escribirDatos}" required="true"/>
                             </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem" columns="2">
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="color" styleClass="texto_dialog" value="Color: "/> </h:panelGrid>
-                            <h:panelGrid><p:inputText id="color"  styleClass="input-custom" value="#{ProductosBeans.productoDto.color}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 17rem"  /></h:panelGrid>
+                            <h:panelGrid><p:inputText id="color"  styleClass="input-custom" value="#{ProductosBeans.productoDto.color}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 14.17vw"  /></h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="peso" styleClass="texto_dialog" value="Peso: "/> </h:panelGrid>
-                            <h:panelGrid><p:inputText id="peso"  styleClass="input-custom" value="#{ProductosBeans.productoDto.peso}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 17rem"  /></h:panelGrid>
+                            <h:panelGrid><p:inputText id="peso"  styleClass="input-custom" value="#{ProductosBeans.productoDto.peso}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 14.17vw"  /></h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem">
                         <h:panelGrid><h:outputLabel for="Categoria" styleClass="texto_dialog" value="Categoria: "/></h:panelGrid>
                         <h:panelGrid>
-                           <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Categoria" styleClass="ui-selectonemenu"   disabled="#{ProductosBeans.escribirDatos}"
+                           <p:selectOneMenu style="width: 29.58vw" filter="true" filterMatchMode="startsWith" id="Categoria" styleClass="ui-selectonemenu"   disabled="#{ProductosBeans.escribirDatos}"
                                             value="#{ProductosBeans.categoriaid}"  required="true" autoWidth="false"    >
                                <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opciones"  />
                                <f:selectItems value="#{ProductosBeans.categoriaDtoListActiva}" var="cat" itemLabel="#{cat.nombre}" itemValue="#{cat.id}" itemDescription="#{cat.descripcion}"  />
                            </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem;margin-bottom: 1rem">
                         <h:panelGrid><h:outputLabel for="Marca" styleClass="texto_dialog" value="Marca: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:selectOneMenu style="width: 34.5rem" filter="true" filterMatchMode="startsWith" id="Marca" styleClass="ui-selectonemenu"  disabled="#{ProductosBeans.escribirDatos}"
+                            <p:selectOneMenu style="width:29.58vw" filter="true" filterMatchMode="startsWith" id="Marca" styleClass="ui-selectonemenu"  disabled="#{ProductosBeans.escribirDatos}"
                                              value="#{ProductosBeans.marcaid}"  required="true" autoWidth="false"    >
                                 <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opciones"  />
                                 <f:selectItems value="#{ProductosBeans.marcaDtoListActiva}" var="marc" itemLabel="#{marc.nombre}" itemValue="#{marc.id}" />

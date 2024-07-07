@@ -36,5 +36,8 @@ public class DetalleProductoProveedorEntradaMapper {
         return e;
     }
 
+    public static CreateDetalleProductoProveedorEntradaDto toDtoCreate(DetalleProductoProveedorEntrada d) {
+        return new CreateDetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getDescripcion(), d.getPrecioUnitario(), d.getPrecioTotal());
+    }
 
 }

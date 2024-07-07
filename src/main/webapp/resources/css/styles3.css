@@ -6,7 +6,7 @@ body{
 }
 
 .logo-menu {
-    width: 150px;
+    width: 7.81vw;
     text-align: center;
 }
 
@@ -33,7 +33,7 @@ body{
 
 .contenedor-logo-Empresa{
     width: 100%;
-    height: 80px;
+    height: 7.41vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@ body{
 .Contenedor-menu-opciones{
     width: 100%;
     background-color:rgb(52,58,64);
-    height: 630px;
+    height: 91vh;
     border: none;
     overflow-y: auto;
 }
@@ -97,24 +97,24 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-me
     font-weight: 800;
 }
 
-.Contenedor-menu-opciones::-webkit-scrollbar{
+.Contenedor-menu-opciones::-webkit-scrollbar {
     width: 9px;
 }
 
 .Contenedor-menu-opciones::-webkit-scrollbar-track {
-    background: rgb(52,58,64);
+    background: rgb(52, 58, 64);
 }
 
 .Contenedor-menu-opciones::-webkit-scrollbar-thumb {
     background-color: #797979;
     border-radius: 20px;
-    border: 3px solid rgb(52,58,64);
+    border: 3px solid rgb(52, 58, 64);
 }
 
 
 .dialogs-barra-pequenia{
-    width: 35rem;
-    height: 6rem;
+    width: 29.17vw;
+    height: 6vw;
     border: none;
     overflow-y: auto;
 }
@@ -134,8 +134,8 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-me
 }
 
 .dialogs-barra{
-    width: 35rem;
-    height: 25rem;
+    width: 31vw;
+    height: 50vh;
     border: none;
     overflow-y: auto;
 }
@@ -296,7 +296,7 @@ body .ui-panel .ui-panel-content .menu-dinamico {
 .Contenido-escritorio-opciones {
     position: absolute;
     width: 84%;
-    height: 730px;
+    height:  100vh;
     right: 0;
     top: 0;
     border: none;
