@@ -22,7 +22,8 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -62,6 +63,8 @@ public class RegistroEntradaBeans implements Serializable {
     private CreateDetalleProductoProveedorEntradaDto detalleProductoProveedorEntradaDto;
 
     private String idEmpresa;
+
+    private String fechaActual;
 
     private int idProducto;
 
@@ -114,6 +117,7 @@ public class RegistroEntradaBeans implements Serializable {
         this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
         UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
+        fechaActual =  LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         limpiarNuevoRegistro();
         validacionNuevoProducto(1);
         verficiacionEmpresa(1);
@@ -124,9 +128,8 @@ public class RegistroEntradaBeans implements Serializable {
     }
 
     public void editarTablaDetalle(RowEditEvent<CreateDetalleProductoProveedorEntradaDto> event){
-         int idtemp = Integer.parseInt(String.valueOf(event.getObject().getId()));
+        int idtemp = Integer.parseInt(String.valueOf(event.getObject().getId()));
         for (CreateDetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
-            System.out.println("id busqueda: "+ detalle.getId());
             if (detalle.getId() == idtemp) {
                 detalle.setPrecioTotal(detalle.getCantidad()*detalle.getPrecioUnitario());
                 break;
@@ -196,6 +199,7 @@ public class RegistroEntradaBeans implements Serializable {
     }
 
     public void guardar(){
+        this.productoProveedorEntradaDto.setPrecioFinal(precioTotal);
         this.productoProveedorEntradaService.create(productoProveedorEntradaDto, ListadoDeDetalle);
         loadRegistrarEntrant();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
@@ -249,6 +253,7 @@ public class RegistroEntradaBeans implements Serializable {
         validacionNuevoProducto(1);
         this.idProducto = 0 ;
         this.idTipoUnidad = 0;
+        this.precioTotal = 0;
     }
 
     private int getInteger(String string) {

@@ -31,7 +31,7 @@ public class LoginBeans implements Serializable {
         try {
             var findUser = usuarioService.checkUsuario(usuarioDto.getCorreo(), usuarioDto.getContra());
             if (findUser != null ) {
-                usuarioDto = findUser;
+               usuarioDto = findUser;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioDto);
             redireccionar = "protegido/principal?faces-redirect=true";
         }else{
