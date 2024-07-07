@@ -6,10 +6,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.Controladores.Empresa.EmpresaBeans;
-import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
@@ -19,13 +16,14 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
-import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Services.*;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +39,6 @@ public class RegistroEntradaBeans implements Serializable {
 
     @Inject
     private DetalleProductoProveedorEntradaService detalleProductoProveedorEntradaService;
-
 
     @Inject
     private EmpresaService empresaService;
@@ -73,6 +70,8 @@ public class RegistroEntradaBeans implements Serializable {
 
     private int idTempora;
 
+    private double precioTotal;
+
     private boolean bloquearEmpesa;
 
     private boolean btnNuevoEntrada;
@@ -97,59 +96,82 @@ public class RegistroEntradaBeans implements Serializable {
 
     private List<CreateDetalleProductoProveedorEntradaDto> ListadoDeDetalle;
 
-
-
     @PostConstruct
     private void init(){
-        loadRegitroEntrada();
+        loadRegistrarEntrant();
         validarBtnnuevoEntrada();
     }
 
-    private void loadRegitroEntrada(){
-        try {
-            productoProveedorEntradaDtos = productoProveedorEntradaService.findAll();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void NuevoRegistro(){
-        productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
-        detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
-        empresaDto = new EmpresaDto();
-        empresaDtoList = empresaService.getAllEmpresa();
-        productoDescripcionDtoList = productoService.productoDescripcionDtos();
-        productoProveedorEntradaDto.setOC(generateRandomString(6));
+    // ================ methods de Invocation ===============
+    //=======================================================
+    public void NuevoRegister(){
+        this.productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
+        this.empresaDto = new EmpresaDto();
+        this.detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
+        this.empresaDtoList = empresaService.getAllEmpresa();
+        this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
+        this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
+        this.productoProveedorEntradaDto.setFechaRegistro(LocalDateTime.now());
         UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
-        idEmpresa = "";
-        idProducto = 0;
-        idTipoUnidad = 0;
+        this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
+        limpiarNuevoRegistro();
         validacionNuevoProducto(1);
         verficiacionEmpresa(1);
         validarbtnlista(1);
         nuevoDetalle();
-        irAgregardetalle();
+        limpiarDetalles();
     }
 
-    public  void verDatosRegistroEntrada(){
-
+    public void editarTablaDetalle(RowEditEvent<CreateDetalleProductoProveedorEntradaDto> event){
+         int idtemp = Integer.parseInt(String.valueOf(event.getObject().getId()));
+        for (CreateDetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
+            System.out.println("id busqueda: "+ detalle.getId());
+            if (detalle.getId() == idtemp) {
+                detalle.setPrecioTotal(detalle.getCantidad()*detalle.getPrecioUnitario());
+                break;
+            }
+        }
+        SumanTotal();
     }
 
-    public void guardar(){
-        productoProveedorEntradaService.create(productoProveedorEntradaDto, ListadoDeDetalle);
-        loadRegitroEntrada();
-        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
-        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    public void registrarProducto(){
+        this.detalleProductoProveedorEntradaDto.setId(getNextId());
+        this.detalleProductoProveedorEntradaDto.setOC_id(ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaDto));
+        this.detalleProductoProveedorEntradaDto.setDescripcion(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
+        this.detalleProductoProveedorEntradaDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
+        this.detalleProductoProveedorEntradaDto.setPrecioTotal(detalleProductoProveedorEntradaDto.getPrecioUnitario()*detalleProductoProveedorEntradaDto.getCantidad());
+        ListadoDeDetalle.add(detalleProductoProveedorEntradaDto);
+        limpiarDetalles();
+        SumanTotal();
     }
 
-    public void eliminarRegistroEntrada(){
+    public void eliminarTablaDetalle(){
+        for (int i = 0; i < ListadoDeDetalle.size(); i++) {
+            if (ListadoDeDetalle.get(i).getId() == idTempora) {
+                ListadoDeDetalle.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < ListadoDeDetalle.size(); i++) {
+            ListadoDeDetalle.get(i).setId(i + 1);
+        }
+        SumanTotal();
+    }
 
+    public void cargarPrecioPorTipoUnidad(){
+        this.precioPorTipoUnidadDto = precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(idProducto,idTipoUnidad);
+        this.detalleProductoProveedorEntradaDto.setPrecioUnitario(precioPorTipoUnidadDto.getPrecioUnitario());
+        validacionNuevoProducto(3);
+    }
+
+    public void cargarTipoUnidad(){
+        this.tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadListProducto(idProducto);
+        validacionNuevoProducto(2);
     }
 
     public void CargarEmpresa(){
-        empresaDto = empresaService.getEmpresa(idEmpresa);
-        productoProveedorEntradaDto.setEmpresa(EmpresaMapper.toEntity(empresaDto));
+        this.empresaDto = empresaService.getEmpresa(idEmpresa);
+        this.productoProveedorEntradaDto.setEmpresa(EmpresaMapper.toEntity(empresaDto));
         verficiacionEmpresa(2);
         validarbtnlista(2);
     }
@@ -163,105 +185,29 @@ public class RegistroEntradaBeans implements Serializable {
         ProductoProveedorEntradaDto c = (ProductoProveedorEntradaDto) value;
         return c.getOC().toLowerCase().contains(filterText)
                 || c.getEmpresa().getNombre().toLowerCase().contains(filterText)
-                || c.getFechaRegistro().equals(filterText);
+                || (String.valueOf(c.getFechaRegistro())).contains(filterText);
     }
 
-    private int getInteger(String string) {
-        try {
-            return Integer.parseInt(string);
-        } catch (NumberFormatException ex) {
-            return 0;
-        }
+    public void AgregarNuevoDetalle (){
+        limpiarDetalles();
     }
 
-    private void verficiacionEmpresa(int opcion){
-        switch (opcion){
-            case 1:
-                bloquearEmpesa = false;
-                break;
-            case 2:
-                bloquearEmpesa = true;
-                break;
-        }
+    public void guardar(){
+        this.productoProveedorEntradaService.create(productoProveedorEntradaDto, ListadoDeDetalle);
+        loadRegistrarEntrant();
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void validacionNuevoProducto(int opcion){
-        switch (opcion){
-            case 1:
-                bloquearProducto = false;
-                bloquearDatosAgregar = true;
-                bloquearTipoUnidad = true;
-                break;
-            case 2:
-                bloquearProducto = true;
-                bloquearDatosAgregar = true;
-                bloquearTipoUnidad = false;
-                break;
-            case 3:
-                bloquearProducto = true;
-                bloquearDatosAgregar = false;
-                bloquearTipoUnidad = true;
-        }
+    // ================ methods de Private =================
+    //=======================================================
+    private void loadRegistrarEntrant(){
+        this.productoProveedorEntradaDtos = productoProveedorEntradaService.findAll();
     }
 
-     private void irAgregardetalle(){
-        detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
-        productoDto = new ProductoDto();
-        validacionNuevoProducto(1);
-        productoDescripcionDtoList = productoService.productoDescripcionDtos();
-        idProducto = 0 ;
-        idTipoUnidad = 0;
-    }
-
-    public void cargarTipoUnidad(){
-        tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadListProducto(idProducto);
-        validacionNuevoProducto(2);
-    }
-
-    public void cargarPrecioPorTipoUnidad(){
-        precioPorTipoUnidadDto = precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(idProducto,idTipoUnidad);
-        detalleProductoProveedorEntradaDto.setPrecioUnitario(precioPorTipoUnidadDto.getPrecioUnitario());
-        validacionNuevoProducto(3);
-    }
-
-    public void registrarProducto(){
-        boolean productoExistente = false;
-        for (CreateDetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
-            if (detalle.getDescripcion().equals(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto)))) && detalle.getTipoUnidad().getId()== idTipoUnidad) {
-                detalle.setPrecioUnitario(detalleProductoProveedorEntradaDto.getPrecioUnitario());
-                detalle.setCantidad(detalle.getCantidad() + detalleProductoProveedorEntradaDto.getCantidad());
-                productoExistente = true;
-                irAgregardetalle();
-                break;
-            }
-        }
-        if (!productoExistente) {
-            detalleProductoProveedorEntradaDto.setId(getNextId());
-            detalleProductoProveedorEntradaDto.setOC_id(ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaDto));
-            detalleProductoProveedorEntradaDto.setDescripcion(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
-            detalleProductoProveedorEntradaDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
-            ListadoDeDetalle.add(detalleProductoProveedorEntradaDto);
-            irAgregardetalle();
-        }
-    }
-
-
-
-    public  void nuevoDetalle(){
-        ListadoDeDetalle = new ArrayList<>();
-
-    }
-
-    public void eliminarTablaDetalle(){
-        for (int i = 0; i < ListadoDeDetalle.size(); i++) {
-            if (ListadoDeDetalle.get(i).getId() == idTempora) {
-                ListadoDeDetalle.remove(i);
-                break;
-            }
-        }
-        for (int i = 0; i < ListadoDeDetalle.size(); i++) {
-            ListadoDeDetalle.get(i).setId(i + 1);
-        }
+    private String generarNumeroDeSeisCifras() {
+        Random random = new Random();
+        return String.valueOf(100000 + random.nextInt(900000));
     }
 
     private int getNextId() {
@@ -274,37 +220,91 @@ public class RegistroEntradaBeans implements Serializable {
         return maxId + 1;
     }
 
-    private void validarBtnnuevoEntrada(){
-        List<PrecioPorTipoUnidadDto> lst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
-        if (lst.isEmpty()){
-            btnNuevoEntrada = true;
-        }else{
-            btnNuevoEntrada=false;
+    private void SumanTotal(){
+        precioTotal = 0;
+        for (CreateDetalleProductoProveedorEntradaDto c : ListadoDeDetalle){
+            precioTotal = c.getPrecioTotal() +precioTotal;
+        }
+        System.out.println("precio:"+precioTotal);
+    }
+
+    // ================ methods de Limpid =================
+    //=======================================================
+    private void limpiarNuevoRegistro(){
+        this.idEmpresa = "";
+        this.idProducto = 0;
+        this.idTipoUnidad = 0;
+    }
+
+    private  void nuevoDetalle(){
+        ListadoDeDetalle = new ArrayList<>();
+    }
+
+    private void limpiarDetalles(){
+        this.detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
+        this.productoDto = new ProductoDto();
+        this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
+        validacionNuevoProducto(1);
+        this.idProducto = 0 ;
+        this.idTipoUnidad = 0;
+    }
+
+    private int getInteger(String string) {
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+
+    // ================ methods de Validation =================
+    //=======================================================
+    private void verficiacionEmpresa(int opcion){
+        switch (opcion){
+            case 1:
+                this.bloquearEmpesa = false;
+                break;
+            case 2:
+                this.bloquearEmpesa = true;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + opcion);
+        }
+    }
+
+    private void validacionNuevoProducto(int opcion){
+        switch (opcion){
+            case 1:
+                this.bloquearProducto = false;
+                this.bloquearDatosAgregar = true;
+                this.bloquearTipoUnidad = true;
+                break;
+            case 2:
+                this.bloquearProducto = true;
+                this.bloquearDatosAgregar = true;
+                this.bloquearTipoUnidad = false;
+                break;
+            case 3:
+                this.bloquearProducto = true;
+                this.bloquearDatosAgregar = false;
+                this.bloquearTipoUnidad = true;
         }
     }
 
     private void validarbtnlista(int opcion){
         switch (opcion){
             case 1:
-                btnBotonAgregrar = true;
+                this.btnBotonAgregrar = true;
                 break;
             case 2:
-                btnBotonAgregrar = false;
+                this.btnBotonAgregrar = false;
                 break;
         }
     }
 
-    public static String generateRandomString(int length) {
-        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(CHARACTERS.length());
-            sb.append(CHARACTERS.charAt(index));
-        }
-
-        return sb.toString();
+    private void validarBtnnuevoEntrada(){
+        List<PrecioPorTipoUnidadDto> lst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
+        this.btnNuevoEntrada = lst.isEmpty();
     }
 
 }

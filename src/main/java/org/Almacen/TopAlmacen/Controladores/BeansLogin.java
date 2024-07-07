@@ -35,8 +35,6 @@ public class BeansLogin implements Serializable {
     public void init() {
         Nombre = "Jonattan Sebastian Contreras Baltazar";
 
-
-
         String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
         model = new DefaultMenuModel();
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("productos").expanded(true).build();
@@ -49,9 +47,6 @@ public class BeansLogin implements Serializable {
         itemMenu = DefaultMenuItem.builder().value("Empresa").icon("pi pi-home").url(contextPath+"/protegido/Productos/Empresa.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
-
-        itemMenu = DefaultMenuItem.builder().value("rol").icon("pi pi-home").url(contextPath+"/protegido/Personal/UnidadDependencia.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
 
 
         itemMenu = DefaultMenuItem.builder().value("Usuario").icon("pi pi-home").url(contextPath+"/protegido/Personal/usuario.xhtml").update("contenido_escritorio-update").build();

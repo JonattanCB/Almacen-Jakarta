@@ -156,3 +156,37 @@ body .ui-fluid .ui-inputtextarea {
     border-radius: 20px;
     border: 3px solid rgb(255,255,255);
 }
+
+.pi{
+    font-size: 1rem;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.custom-table thead {
+    background-color: #f6f7f9;
+    text-align: left;
+    border-bottom: 2px solid #dde2e6;
+}
+
+.custom-table th, .custom-table td {
+    padding: 10px;
+    border-bottom: 1px solid #dde2e6;
+}
+
+.custom-table th {
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f1f1;
+}

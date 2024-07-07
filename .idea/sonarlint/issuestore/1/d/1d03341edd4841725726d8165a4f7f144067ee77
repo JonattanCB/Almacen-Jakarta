@@ -1,0 +1,28 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(öÕ»Îÿÿÿÿÿ8Ø¶¬‡2J$82d9b581-436b-487b-aad6-f1db4ef88f9f
+
+java:S1192p"ZDefine a constant instead of duplicating this literal "Â¡El precio del producto " 3 times.(£‚Â§8€¶±‡2J$73395e96-8fa0-4fc3-87b3-db4495412254
+Š
+java:S6813!"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8Ü¶¬‡2J$bba8e8f3-b83d-44ec-a1e2-07d302ad1b58
+Š
+java:S6813$"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8Ü¶¬‡2J$37ffa06b-0065-4041-b7ac-a2f8b9451efa
+Š
+java:S6813'"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8Ü¶¬‡2J$92a563a0-5aa7-4f91-8000-b68e3d5bc092
+z
+java:S1948*"8Make "precioPorTipoUnidadDto" transient or serializable.(‘ˆÀ&8İ¶¬‡2J$0324f3c4-15cf-4139-b41f-499763520669
+{
+java:S1948:"8Make "precioPorTipoUnidadlst" transient or serializable.(Ûá8İ¶¬‡2J$af376095-02e4-4a6c-86d6-c2b09080d27b
+Œ
+java:S1948<"DMake "precioPorTipoUnidadlstSeleccionado" transient or serializable.(ºÑŞ¼øÿÿÿÿ8İ¶¬‡2J$0b709102-3b79-4dc5-a15e-b0078642334b
+v
+java:S1948>"3Make "tipoUnidadDtoList" transient or serializable.(öàÙÂ8İ¶¬‡2J$8557ce44-cc2f-4188-a999-51da1dd776bf
+
+java:S1948@"9Make "productoDescripcionDtos" transient or serializable.(ğ¯­•úÿÿÿÿ8İ¶¬‡2J$1f8f2492-b631-4a8a-966d-d5ad48d9eac6
+	java:S100["NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ•ª8á¶¬‡2J$50cf992c-42f9-4e2a-9a08-66e18a1573f5
+•	java:S100c"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºòæéşÿÿÿÿ8â¶¬‡2J$69e95a03-8ecb-4aa2-b042-d4f17e84984c
+	java:S100h"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®„Ûú8ä¶¬‡2J$29426bc1-90ee-44a9-8481-b43fa4ecffc0
+q
+java:S1172•"-Remove this unused method parameter "locale".(»Şà°8é¶¬‡2J$ddd8fabb-8841-4457-b451-0227fd23d78a
+}
+java:S1874—"4Remove this use of "isValueBlank"; it is deprecated.(•ôŒüúÿÿÿÿ8é¶¬‡2J$64868d84-aaf0-4e4d-98e5-0812be0a935f
+e	java:S131´""Add a default case to this switch.(°€àâ8ë¶¬‡2J$e3202a98-f0f5-489a-b7af-2b812f4a8cc0

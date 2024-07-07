@@ -1,0 +1,35 @@
+
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤·€ÕJ$cea16cc8-fbc6-4441-8007-5a68bfe07b87
+Â
+java:S1186Y"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ë½»ÊÿÿÿÿÿJ$7920461f-6b06-4eb4-8182-5eb3e0a7b9de
+Â
+java:S1186]"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÂÜÔùÿÿÿÿJ$3e33e614-466b-4172-9211-733880b919ae
+Â
+java:S1186f"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(èçœÍüÿÿÿÿJ$13da226f-2e1a-4518-bae7-20810251ca0d
+ƒ
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿJ$ef554ceb-86e5-4910-9267-04958688d97b
+ƒ
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿJ$c9c26976-3a07-4b2d-8357-7de785245afd
+ƒ
+java:S6813!"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿJ$0d618876-c13c-45e9-b203-f112cca286fd
+m
+java:S1948$",Make "usuarioDto" transient or serializable.(¯ÕÏñùÿÿÿÿJ$83ad1d7f-6e9a-464a-9530-f93cc3dfc3a4
+w
+java:S1948&";Make "dependenciaConUnidadesDto" transient or serializable.(ß“¯ùJ$24196dd9-0491-45cd-b2f2-d1e6d11ee66a
+k
+java:S19480"*Make "usuarios" transient or serializable.(§¬æ»ıÿÿÿÿJ$26b23faf-4f33-4442-b52d-1c7edfe2b6af
+r
+java:S19482"6Make "usuariosSeleccioando" transient or serializable.(Èƒ±ÖJ$10dff5a5-8c7c-450b-85f7-7c1bf38eff62
+j
+java:S19484".Make "rolesActivos" transient or serializable.(£’ÏJ$121c2c90-ac35-49ee-bb92-29afbe60bdc9
+r
+java:S19486"1Make "dependenciaDtos" transient or serializable.(†òÍ‡úÿÿÿÿJ$0725274b-2045-4b62-974a-90cb9d241bab
+‰	java:S100E"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ĞöJ$e40dad94-2e60-4266-b735-8b0526a3cb55
+	java:S100M"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÃšúÿÿÿÿJ$2d710a30-3fce-4729-940a-0a462ea54646
+	java:S100Y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë½»ÊÿÿÿÿÿJ$78a82a6c-2f77-49ca-9ad7-70346805cbba
+	java:S100]"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÂÜÔùÿÿÿÿJ$6a5ae4be-c22f-423a-a6d7-b6855969b386
+	java:S100f"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èçœÍüÿÿÿÿJ$fa2de21f-716b-4d41-a248-2b527fd95b88
+i
+java:S1172j"-Remove this unused method parameter "locale".(»Şà°J$e12b5b44-399c-4c0a-bc60-aa5c2065079f
+u
+java:S1874l"4Remove this use of "isValueBlank"; it is deprecated.(•ôŒüúÿÿÿÿJ$8b26018f-1f62-4c83-8735-117591e48e92

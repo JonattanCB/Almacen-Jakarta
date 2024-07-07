@@ -1,0 +1,25 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ÿ­®¸ıÿÿÿÿJ$5bdfe75a-a552-4fff-95b8-4fe2827eb27e
+
+java:S1192P"GDefine a constant instead of duplicating this literal "Activo" 3 times.(§×áîûÿÿÿÿ8İÇŠŠ‡2J$db4152bc-3ab8-4687-b49e-21c67b8e65e8
+Š
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8ßÇŠŠ‡2J$a65b66c0-bd78-409a-a030-ebb56aa7dd2d
+Š
+java:S6813 "BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8”ÈŠŠ‡2J$2573b7c8-605e-465e-bfec-37a7ecaf949c
+k
+java:S1948#"(Make "rolDto" transient or serializable.(½¿›à8•ÈŠŠ‡2J$2ac35bbd-a9a6-4108-9b69-9074d182b1fb
+o
+java:S1948)",Make "rolDtoList" transient or serializable.(•¬éÄ8•ÈŠŠ‡2J$91799477-08b0-4899-aa6d-b55efc11a969
+t
+java:S1948+"2Make "rolDtoListSelect" transient or serializable.(Ÿ¦Ï8•ÈŠŠ‡2J$19edb952-7469-476e-a5c1-6eec09959b24
+
+java:S1948-"7Make "unidadDependenciaDtos" transient or serializable.(•ãóµşÿÿÿÿ8•ÈŠŠ‡2J$c9aa81b8-e271-4133-a98e-627f43764474
+•	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëöáóıÿÿÿÿ8–ÈŠŠ‡2J$bbdb8d73-452f-45a8-bfda-f992f6a8aa0b
+•	java:S100B"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÃšúÿÿÿÿ8—ÈŠŠ‡2J$e3098f9e-06b7-4b50-b53b-24ef209c359d
+‡
+java:S1301h"KReplace this "switch" statement by "if" statements to increase readability.(Ì‚ÆßJ$5404d60f-3cd9-4742-b0d1-c3c097637178
+]	java:S131h""Add a default case to this switch.(Ì‚ÆßJ$d3677c90-a977-4f9e-99a0-51cee9759462
+i
+java:S1172x"-Remove this unused method parameter "locale".(»Şà°J$a03965f9-0002-42f1-b76e-d8a9256126bd
+u
+java:S1874z"4Remove this use of "isValueBlank"; it is deprecated.(•ôŒüúÿÿÿÿJ$1e43d759-897d-401a-b744-99060f27b615

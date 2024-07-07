@@ -1,0 +1,34 @@
+
+“	java:S117k"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åĞğÛ8ÇáÛ‹‡2J$0591ca70-2353-4445-a7b0-1ad42cf1c7ba
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ü¶šúÿÿÿÿ8·åÛ‹‡2J$15a18162-823c-4d9f-a1e3-28cc2596f83c
+
+java:S2589b"7Remove this expression which always evaluates to "true"(»êûáıÿÿÿÿ8¼åÛ‹‡2J$bd1458cd-9a36-4d27-bd24-04463f16b456
+
+java:S1192M"GDefine a constant instead of duplicating this literal "Activo" 3 times.(‰…š¼úÿÿÿÿ8¼åÛ‹‡2J$d41e402e-75bb-41eb-bc20-6e4cb5a3c00b
+Š
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8½åÛ‹‡2J$d00424f1-0478-4ee7-bf97-1c88219b5b2e
+q
+java:S1948!".Make "categoriaDto" transient or serializable.(çÖ˜š8½åÛ‹‡2J$eccb0e9d-41f8-4887-a0d5-f3795560750e
+n
+java:S1948"",Make "categorias" transient or serializable.(ÍĞ®8½åÛ‹‡2J$7cad33c3-8568-49cf-9909-b5813019a5ad
+€
+java:S1948#"8Make "categoriasSelecionadas" transient or serializable.(ÚøÿÌşÿÿÿÿ8¾åÛ‹‡2J$4a1b97fe-ed09-4fcd-8ca1-ca59c03a5503
+t
+java:S1948$"1Make "productoDtoList" transient or serializable.(ÈÛÔœ8¾åÛ‹‡2J$6cbb877e-4739-474a-8be8-b0011d6dd54c
+}
+java:S1948%":Make "productoDtoListSeleccion" transient or serializable.(Ğß¬‹8Šáß‹‡2J$7721d942-d998-4f76-8c3e-f6cebc309bf8
+m	java:S106a"+Replace this use of System.out by a logger.(ŞÍ÷Å8õåÛ‹‡2J$8a0ebbb6-d3aa-4ccd-bf2f-ee29d108d12a
+p
+java:S1172x"-Remove this unused method parameter "locale".(»Şà°8ŠæÛ‹‡2J$f30494aa-4ac7-4dad-9672-a83834498999
+|
+java:S1874z"4Remove this use of "isValueBlank"; it is deprecated.(•ôŒüúÿÿÿÿ8ŠæÛ‹‡2J$472724bc-bfc3-438f-a8b4-7a93606f1660
+
+java:S1301"KReplace this "switch" statement by "if" statements to increase readability.(°€àâ8”æÛ‹‡2J$a418faa5-7ecb-4ac4-95e9-c4e93efbf9cb
+e	java:S131""Add a default case to this switch.(°€àâ8œæÛ‹‡2J$7e7d9981-3e32-4e52-846c-d191decc8c00
+
+java:S1301Ÿ"KReplace this "switch" statement by "if" statements to increase readability.(‚¯’İ8£æÛ‹‡2J$c2f7c183-655d-40c2-adc8-0be06c194eef
+e	java:S131Ÿ""Add a default case to this switch.(‚¯’İ8£æÛ‹‡2J$99daca41-77fd-4adc-b1ec-2b0fce2b2173
+
+java:S1128"ERemove this unused import 'jakarta.enterprise.context.SessionScoped'.(“¿êşÿÿÿÿ8“çÛ‹‡2J$f1ae2145-5b76-4836-8681-ea619f7dfd6c
+„
+java:S1128"BRemove this unused import 'org.Almacen.TopAlmacen.Model.Producto'.(ş×íH8–çÛ‹‡2J$3a3aa201-5fbb-47fb-a182-5a190f4b0088

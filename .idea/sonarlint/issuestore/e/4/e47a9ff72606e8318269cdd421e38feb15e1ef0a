@@ -1,0 +1,5 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ôØ ÷ûÿÿÿÿJ$f9277b21-6a0a-4433-95e1-444e5303ebe2
+™	java:S116"YRename this field "_entityManager" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‰ˆúÿÿÿÿJ$bdbf5447-3020-43e4-9ccc-63db3c5d31e0
+•
+java:S1128"TRemove this unused import 'org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto'.(şâÈ¶ùÿÿÿÿJ$f8761e76-1c41-4d50-94a0-6825ec3d1ab0

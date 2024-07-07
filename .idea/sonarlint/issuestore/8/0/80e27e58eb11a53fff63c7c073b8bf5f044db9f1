@@ -1,0 +1,7 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(©¼ÝåúÿÿÿÿJ$5bf892d6-5cb0-44fd-9929-ddcbfb79a3c6
+ƒ
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–ŽüÿÿÿÿJ$249913db-c867-46c9-9f22-72b688d7e592
+Œ
+java:S1128
+"KRemove this unused import 'org.Almacen.TopAlmacen.Model.UnidadDependencia'.(ÄŽýÞüÿÿÿÿJ$c9475f3b-bf03-4acd-86d7-501121e21fbe
