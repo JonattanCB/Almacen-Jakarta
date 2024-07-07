@@ -6,7 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IAccesoDao;
 import org.Almacen.TopAlmacen.DAO.IPermisoDao;
-import org.Almacen.TopAlmacen.DAO.IRolDao;
 import org.Almacen.TopAlmacen.Model.Acceso;
 import org.Almacen.TopAlmacen.Model.Permiso;
 
