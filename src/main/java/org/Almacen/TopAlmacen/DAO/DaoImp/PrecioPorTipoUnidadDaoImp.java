@@ -19,7 +19,7 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
 
     @Override
     public List<PrecioPorTipoUnidad> getAll() {
-        return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p", PrecioPorTipoUnidad.class).getResultList();
+        return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto", PrecioPorTipoUnidad.class).getResultList();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     @Override
     public PrecioPorTipoUnidad getById(int id) {
         var query = _entityManager.createQuery(
-                "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad WHERE p.id = :id", PrecioPorTipoUnidad.class);
+                "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto WHERE p.id = :id", PrecioPorTipoUnidad.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
@@ -88,7 +88,7 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     public PrecioPorTipoUnidad getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad) {
         try {
             return _entityManager.createQuery(
-                            "SELECT p FROM PrecioPorTipoUnidad p WHERE p.producto.id = :producto AND p.tipoUnidad.id = :tipoUnidad",
+                            "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto WHERE p.producto.id = :producto AND p.tipoUnidad.id = :tipoUnidad",
                             PrecioPorTipoUnidad.class)
                     .setParameter("producto", idProducto)
                     .setParameter("tipoUnidad", idTipoUnidad)

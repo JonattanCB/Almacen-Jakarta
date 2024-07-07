@@ -32,6 +32,7 @@ public class UsuarioService implements Serializable {
     @Transactional
     public Usuario createUsuario(CreateUsuarioDto createUsuarioDto) {
         var usuario = UsuarioMapper.toUsuarioFromCreate(createUsuarioDto);
+        createUsuarioDto.getContra();
         return iUsuarioDao.create(usuario);
     }
 
