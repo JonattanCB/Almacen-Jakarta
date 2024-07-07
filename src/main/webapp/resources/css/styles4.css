@@ -161,6 +161,18 @@ body .ui-fluid .ui-inputtextarea {
     font-size: 1rem;
 }
 
+.precio-Final-Entrada{
+    float: right;
+    padding: 0 30px;
+    background: #f8f9fa;
+    height: 3rem;
+    border-color: #f1f3f5;
+}
+
+.precio-Final-Entrada-titulo{
+    font-weight: 600;
+}
+
 .custom-table {
     width: 100%;
     border-collapse: collapse;

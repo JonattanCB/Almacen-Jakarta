@@ -1,6 +1,6 @@
 package org.Almacen.TopAlmacen.Services;
 
-import jakarta.data.repository.Update;
+
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -8,7 +8,6 @@ import org.Almacen.TopAlmacen.DAO.IItemsRequerimientoDao;
 import org.Almacen.TopAlmacen.DAO.IRequerimientoDao;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.CreateItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.CreateRequerimientoDto;
-import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.UpdateRequerimientoDto;
 import org.Almacen.TopAlmacen.Mappers.ItemsRequerimientoMapper;
 import org.Almacen.TopAlmacen.Mappers.RequerimientoMapper;

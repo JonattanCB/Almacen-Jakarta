@@ -225,7 +225,6 @@ public class RegistroEntradaBeans implements Serializable {
         for (CreateDetalleProductoProveedorEntradaDto c : ListadoDeDetalle){
             precioTotal = c.getPrecioTotal() +precioTotal;
         }
-        System.out.println("precio:"+precioTotal);
     }
 
     // ================ methods de Limpid =================
