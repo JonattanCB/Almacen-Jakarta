@@ -19,5 +19,4 @@ public class CreateProductoProveedorEntradaDto {
     private LocalDateTime fechaRegistro;
     private Usuario usuario;
     private double precioFinal;
-
 }

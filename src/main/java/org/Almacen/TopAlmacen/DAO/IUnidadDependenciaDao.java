@@ -8,6 +8,8 @@ import java.util.List;
 public interface IUnidadDependenciaDao {
     List<UnidadDependencia> getAll();
 
+    List<UnidadDependencia> getAllByDependencia(int id);
+
     UnidadDependencia getById(int id);
 
     UnidadDependencia create(UnidadDependencia c);

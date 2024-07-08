@@ -23,7 +23,7 @@ public class UsuarioMapper {
         usuario.setNombres(dto.getNombres());
         usuario.setApellidos(dto.getApellidos());
         usuario.setEstado(dto.getEstado());
-        usuario.setUnidadDependencia(dto.getUnidadDependencia());
+        usuario.setUnidadDependencia(dto.getUnidad());
         return usuario;
     }
 
@@ -34,7 +34,7 @@ public class UsuarioMapper {
         usuario.setNombres(dto.getNombres());
         usuario.setApellidos(dto.getApellidos());
         usuario.setEstado(dto.getEstado());
-        usuario.setUnidadDependencia(dto.getUnidadDependencia());
+        usuario.setUnidadDependencia(dto.getUnidad());
         return usuario;
     }
 

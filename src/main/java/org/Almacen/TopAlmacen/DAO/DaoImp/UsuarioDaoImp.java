@@ -21,14 +21,20 @@ public class UsuarioDaoImp implements IUsuarioDao {
 
     @Override
     public List<Usuario> getAll() {
-        return _entityManager.createQuery("SELECT u FROM Usuario u order by u.id asc ", Usuario.class).getResultList();
+        return _entityManager.createQuery("SELECT u FROM Usuario u LEFT JOIN FETCH u.unidadDependencia " +
+                "LEFT JOIN FETCH u.unidadDependencia.dependencia LEFT JOIN FETCH u.unidadDependencia.rol order by u.id asc ", Usuario.class).getResultList();
     }
 
     @Override
     public Usuario getById(int id) {
-        var usuario = _entityManager.find(Usuario.class, id);
-        _entityManager.detach(usuario);
-        return usuario;
+        var query = _entityManager.createQuery(
+                "SELECT u FROM Usuario u " +
+                        "LEFT JOIN FETCH u.unidadDependencia " +
+                        "LEFT JOIN FETCH u.unidadDependencia.dependencia " +
+                        "LEFT JOIN FETCH u.unidadDependencia.rol " +
+                        "WHERE u.id = :id", Usuario.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override
@@ -46,7 +52,7 @@ public class UsuarioDaoImp implements IUsuarioDao {
             existingUsuario.setNombres(u.getNombres());
             existingUsuario.setApellidos(u.getApellidos());
             existingUsuario.setEstado(u.getEstado());
-            existingUsuario.setUnidadDependencia(u.getUnidadDependencia());
+            existingUsuario.setUnidadDependencia(u.getUnidad());
             _entityManager.merge(existingUsuario);
             return existingUsuario;
         } else {
@@ -60,13 +66,22 @@ public class UsuarioDaoImp implements IUsuarioDao {
     }
 
     @Override
-    public void cambiarMarca(int id, String estado) {
+    public void cambiarEstado(int id, String estado) {
         var query = _entityManager.createQuery(
                 "UPDATE Usuario u SET u.estado = :estado WHERE u.id = :id"
         );
         query.setParameter("estado", estado);
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public boolean existeEmail(String email) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(u) FROM Usuario u WHERE u.correo = :email", Long.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return count > 0;
     }
 
     @Override

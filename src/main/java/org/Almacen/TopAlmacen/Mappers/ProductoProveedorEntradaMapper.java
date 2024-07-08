@@ -9,13 +9,13 @@ public class ProductoProveedorEntradaMapper {
         return new ProductoProveedorEntradaDto(p.getOC(), p.getEmpresa(), p.getFechaRegistro(), p.getUsuario(), p.getPrecioFinal());
     }
 
-    public static ProductoProveedorEntrada toEntity(CreateProductoProveedorEntradaDto dto) {
-        var product = new ProductoProveedorEntrada();
-        product.setOC(dto.getOC());
-        product.setEmpresa(dto.getEmpresa());
-        product.setUsuario(dto.getUsuario());
-        product.setPrecioFinal(dto.getPrecioFinal());
-        return new ProductoProveedorEntrada();
+    public static ProductoProveedorEntrada toEntityCreate(CreateProductoProveedorEntradaDto dto) {
+        ProductoProveedorEntrada p = new ProductoProveedorEntrada();
+        p.setOC(dto.getOC());
+        p.setEmpresa(dto.getEmpresa());
+        p.setUsuario(dto.getUsuario());
+        p.setPrecioFinal(dto.getPrecioFinal());
+        return p;
     }
 
     public static ProductoProveedorEntrada fromCreate(CreateProductoProveedorEntradaDto dto) {

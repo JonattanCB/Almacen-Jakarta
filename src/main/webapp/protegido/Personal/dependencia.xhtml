@@ -13,10 +13,6 @@
                 <p:growl id="messages"/>
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
-                            <p:toolbarGroup>
-                                <p:commandButton value="Nueva Dependecia" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{DependenciaBeans.nuevadependecia()}"
-                                                update="dialogs"   oncomplete="PF('dialogsa').show()"  />
-                            </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
                                     <p:dataExporter type="pdf" target="tabla" fileName="Dependencia" exportHeader="false"/>
@@ -54,42 +50,10 @@
                                 <h:outputText value="#{obj.estado}"
                                               styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
                             </p:column>
-                            <p:column exportable="false" width="100">
-                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{DependenciaBeans.CargaDatos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
-                                                 styleClass="edit-button rounded-button ui-button-warning"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{DependenciaBeans.idDependencia}" />
-                                </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 icon="pi pi-arrow-right-arrow-left" action="#{DependenciaBeans.cambioEstado()}"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{DependenciaBeans.idDependencia}" />
-                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la dependencia?" icon="pi pi-info-circle"/>
-                                </p:commandButton>
-                            </p:column>
                         </p:dataTable>
                     </h:panelGrid>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
-                    </p:confirmDialog>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles de Rol" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
-            <h:form>
-                <div id="dialog-content" class="dialogs-barra-pequenia" >
-                    <h:panelGrid>
-                        <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
-                            <h:panelGrid>
-                                <p:inputText  id="nombre" styleClass="input-custom" style="width: 29.58vw" value="#{DependenciaBeans.dependenciaDto.nombre}"  required="true"/>
-                            </h:panelGrid>
-                    </h:panelGrid>
-                </div>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{DependenciaBeans.DeterminarAccion()}" />
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
-                </h:panelGrid>
-               </h:form>
-           </p:dialog>
     </ui:define>
 </ui:composition>
 </html>

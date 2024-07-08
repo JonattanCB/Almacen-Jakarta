@@ -47,8 +47,8 @@
                            <p:avatar icon="pi pi-user" styleClass="mr-2" style=" background-color:#9c27b0;color:#fff"/>
                        </h:panelGrid>
                        <h:panelGrid styleClass="centrar-nombre" style="height: 50px" >
-                         <h:form>
-                             <h:outputText value="#{MenuBeans.usuarioDto.nombres} #{MenuBeans.usuarioDto.apellidos}"  styleClass="nombre-usuario"/>
+                         <h:form id="nombre-actualizar">
+                             <h:outputText  id="nombre-usuario" value="#{MenuBeans.usuarioDto.nombres} #{MenuBeans.usuarioDto.apellidos}"  styleClass="nombre-usuario"/>
                          </h:form>
                        </h:panelGrid>
                    </h:panelGrid>
