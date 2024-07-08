@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
@@ -17,7 +18,7 @@ public class CreateDetalleProductoProveedorEntradaDto {
     private ProductoProveedorEntrada OC_id;
     private double cantidad;
     private TipoUnidad tipoUnidad;
-    private String descripcion;
+    private PrecioPorTipoUnidad precioPorTipoUnidad;
     private double precioUnitario;
     private double precioTotal;
 }

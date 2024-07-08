@@ -34,7 +34,7 @@ public class PrecioPorTipoUnidad {
     private double unidadesPorTipoUnidadDeProducto;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "StockUnidades_ID")
+    @JoinColumn(name = "StockUnidades_ID", nullable = true)
     private StockUnidades stockUnidades;
 }
 

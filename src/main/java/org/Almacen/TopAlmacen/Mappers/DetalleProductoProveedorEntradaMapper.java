@@ -18,7 +18,7 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setOC_id(d.getOC_id());
         e.setCantidad(d.getCantidad());
         e.setTipoUnidad(d.getTipoUnidad());
-        e.setDescripcion(d.getDescripcion());
+        e.setDescripcion(ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()));
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;
@@ -36,8 +36,5 @@ public class DetalleProductoProveedorEntradaMapper {
         return e;
     }
 
-    public static CreateDetalleProductoProveedorEntradaDto toDtoCreate(DetalleProductoProveedorEntrada d) {
-        return new CreateDetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getDescripcion(), d.getPrecioUnitario(), d.getPrecioTotal());
-    }
 
 }

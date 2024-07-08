@@ -16,7 +16,6 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
-import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Services.*;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
@@ -106,14 +105,14 @@ public class RegistroEntradaBeans implements Serializable {
     private List<CreateDetalleProductoProveedorEntradaDto> ListadoDeDetalle;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         loadRegistrarEntrant();
         validarBtnnuevoEntrada();
     }
 
     // ================ methods de Invocation ===============
     //=======================================================
-    public void NuevoRegister(){
+    public void NuevoRegister() {
         this.productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
         this.empresaDto = new EmpresaDto();
         this.detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
@@ -122,7 +121,7 @@ public class RegistroEntradaBeans implements Serializable {
         this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
         UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
-        fechaActual =  LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         limpiarNuevoRegistro();
         validacionNuevoProducto(1);
         verficiacionEmpresa(1);
@@ -133,23 +132,23 @@ public class RegistroEntradaBeans implements Serializable {
         validarVerDatos(1);
     }
 
-    public void editarTablaDetalle(RowEditEvent<CreateDetalleProductoProveedorEntradaDto> event){
+    public void editarTablaDetalle(RowEditEvent<CreateDetalleProductoProveedorEntradaDto> event) {
         int idtemp = Integer.parseInt(String.valueOf(event.getObject().getId()));
         for (CreateDetalleProductoProveedorEntradaDto detalle : ListadoDeDetalle) {
             if (detalle.getId() == idtemp) {
-                detalle.setPrecioTotal(detalle.getCantidad()*detalle.getPrecioUnitario());
+                detalle.setPrecioTotal(detalle.getCantidad() * detalle.getPrecioUnitario());
                 break;
             }
         }
         SumanTotal();
     }
 
-    public void registrarProducto(){
+    public void registrarProducto() {
         this.detalleProductoProveedorEntradaDto.setId(getNextId());
         this.detalleProductoProveedorEntradaDto.setOC_id(ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaDto));
-        this.detalleProductoProveedorEntradaDto.setDescripcion(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
+        this.detalleProductoProveedorEntradaDto.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadDto));
         this.detalleProductoProveedorEntradaDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
-        this.detalleProductoProveedorEntradaDto.setPrecioTotal(detalleProductoProveedorEntradaDto.getPrecioUnitario()*detalleProductoProveedorEntradaDto.getCantidad());
+        this.detalleProductoProveedorEntradaDto.setPrecioTotal(detalleProductoProveedorEntradaDto.getPrecioUnitario() * detalleProductoProveedorEntradaDto.getCantidad());
         ListadoDeDetalle.add(detalleProductoProveedorEntradaDto);
         limpiarDetalles();
         SumanTotal();
@@ -157,7 +156,7 @@ public class RegistroEntradaBeans implements Serializable {
         PrimeFaces.current().executeScript("PF('dialogProducto').hide()");
     }
 
-    public void eliminarTablaDetalle(){
+    public void eliminarTablaDetalle() {
         for (int i = 0; i < ListadoDeDetalle.size(); i++) {
             if (ListadoDeDetalle.get(i).getId() == idTempora) {
                 ListadoDeDetalle.remove(i);
@@ -170,18 +169,18 @@ public class RegistroEntradaBeans implements Serializable {
         SumanTotal();
     }
 
-    public void cargarPrecioPorTipoUnidad(){
-        this.precioPorTipoUnidadDto = precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(idProducto,idTipoUnidad);
+    public void cargarPrecioPorTipoUnidad() {
+        this.precioPorTipoUnidadDto = precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(idProducto, idTipoUnidad);
         this.detalleProductoProveedorEntradaDto.setPrecioUnitario(precioPorTipoUnidadDto.getPrecioUnitario());
         validacionNuevoProducto(3);
     }
 
-    public void cargarTipoUnidad(){
+    public void cargarTipoUnidad() {
         this.tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadListProducto(idProducto);
         validacionNuevoProducto(2);
     }
 
-    public void CargarEmpresa(){
+    public void CargarEmpresa() {
         this.empresaDto = empresaService.getEmpresa(idEmpresa);
         this.productoProveedorEntradaDto.setEmpresa(EmpresaMapper.toEntity(empresaDto));
         verficiacionEmpresa(2);
@@ -200,11 +199,11 @@ public class RegistroEntradaBeans implements Serializable {
                 || (String.valueOf(c.getFechaRegistro())).contains(filterText);
     }
 
-    public void AgregarNuevoDetalle (){
+    public void AgregarNuevoDetalle() {
         limpiarDetalles();
     }
 
-    public void guardar(){
+    public void guardar() {
         this.productoProveedorEntradaDto.setPrecioFinal(precioTotal);
         this.productoProveedorEntradaService.create(productoProveedorEntradaDto, ListadoDeDetalle);
         loadRegistrarEntrant();
@@ -212,7 +211,7 @@ public class RegistroEntradaBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    public void verDatos(){
+    public void verDatos() {
         ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(idRegistroEntrada);
         this.productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
         this.empresaDtoList = empresaService.getAllEmpresa();
@@ -228,7 +227,7 @@ public class RegistroEntradaBeans implements Serializable {
 
     // ================ methods de Private =================
     //=======================================================
-    private void loadRegistrarEntrant(){
+    private void loadRegistrarEntrant() {
         this.productoProveedorEntradaDtos = productoProveedorEntradaService.findAll();
     }
 
@@ -247,31 +246,31 @@ public class RegistroEntradaBeans implements Serializable {
         return maxId + 1;
     }
 
-    private void SumanTotal(){
+    private void SumanTotal() {
         precioTotal = 0;
-        for (CreateDetalleProductoProveedorEntradaDto c : ListadoDeDetalle){
-            precioTotal = c.getPrecioTotal() +precioTotal;
+        for (CreateDetalleProductoProveedorEntradaDto c : ListadoDeDetalle) {
+            precioTotal = c.getPrecioTotal() + precioTotal;
         }
     }
 
     // ================ methods de Limpid =================
     //=======================================================
-    private void limpiarNuevoRegistro(){
+    private void limpiarNuevoRegistro() {
         this.idEmpresa = "";
         this.idProducto = 0;
         this.idTipoUnidad = 0;
     }
 
-    private  void nuevoDetalle(){
+    private void nuevoDetalle() {
         ListadoDeDetalle = new ArrayList<>();
     }
 
-    private void limpiarDetalles(){
+    private void limpiarDetalles() {
         this.detalleProductoProveedorEntradaDto = new CreateDetalleProductoProveedorEntradaDto();
         this.productoDto = new ProductoDto();
         this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
         validacionNuevoProducto(1);
-        this.idProducto = 0 ;
+        this.idProducto = 0;
         this.idTipoUnidad = 0;
         this.precioTotal = 0;
     }
@@ -286,8 +285,8 @@ public class RegistroEntradaBeans implements Serializable {
 
     // ================ methods de Validation =================
     //=======================================================
-    private void verficiacionEmpresa(int opcion){
-        switch (opcion){
+    private void verficiacionEmpresa(int opcion) {
+        switch (opcion) {
             case 1:
                 this.bloquearEmpesa = false;
                 break;
@@ -299,8 +298,8 @@ public class RegistroEntradaBeans implements Serializable {
         }
     }
 
-    private void validacionNuevoProducto(int opcion){
-        switch (opcion){
+    private void validacionNuevoProducto(int opcion) {
+        switch (opcion) {
             case 1:
                 this.bloquearProducto = false;
                 this.bloquearDatosAgregar = true;
@@ -318,8 +317,8 @@ public class RegistroEntradaBeans implements Serializable {
         }
     }
 
-    private void validarbtnlista(int opcion){
-        switch (opcion){
+    private void validarbtnlista(int opcion) {
+        switch (opcion) {
             case 1:
                 this.btnBotonAgregrar = true;
                 break;
@@ -329,21 +328,21 @@ public class RegistroEntradaBeans implements Serializable {
         }
     }
 
-    private void validarBtnnuevoEntrada(){
+    private void validarBtnnuevoEntrada() {
         List<PrecioPorTipoUnidadDto> lst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
         this.btnNuevoEntrada = lst.isEmpty();
     }
 
-    private void validarGuardado(){
-        if(this.ListadoDeDetalle.isEmpty()){
+    private void validarGuardado() {
+        if (this.ListadoDeDetalle.isEmpty()) {
             this.guardarLista = true;
-        }else{
+        } else {
             this.guardarLista = false;
         }
     }
 
-    private void validarVerDatos(int  opcion){
-        switch (opcion){
+    private void validarVerDatos(int opcion) {
+        switch (opcion) {
             case 1:
                 verDatosValidacion = true;
                 break;

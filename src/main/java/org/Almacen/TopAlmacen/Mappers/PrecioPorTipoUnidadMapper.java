@@ -33,4 +33,14 @@ public class PrecioPorTipoUnidadMapper {
 
     }
 
+    public static PrecioPorTipoUnidad toEntity(PrecioPorTipoUnidadDto p) {
+        var precio = new PrecioPorTipoUnidad();
+        precio.setId(p.getId());
+        precio.setTipoUnidad(p.getTipoUnidad());
+        precio.setProducto(p.getProducto());
+        precio.setPrecioUnitario(p.getPrecioUnitario());
+        precio.setUnidadesPorTipoUnidadDeProducto(p.getUnidadesPorTipoUnidadPorProducto());
+        return precio;
+    }
+
 }

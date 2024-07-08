@@ -58,7 +58,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-        public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
+    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
             var nuevaUnidad = new PrecioPorTipoUnidad();
             var stockUnidades = new StockUnidades();
@@ -68,8 +68,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
             nuevaUnidad.setPrecioUnitario(dto.getPrecio());
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
 
-
-            stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(nuevaUnidad.getProducto()));
             stockUnidades.setCantidadStockUnidad(0);
 
             istockUnidadesDao.create(stockUnidades);
@@ -146,8 +144,8 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidadDto getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad){
-        return PrecioPorTipoUnidadMapper.toDto(iprecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(idProducto,idTipoUnidad));
+    public PrecioPorTipoUnidadDto getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad) {
+        return PrecioPorTipoUnidadMapper.toDto(iprecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(idProducto, idTipoUnidad));
     }
 
 }

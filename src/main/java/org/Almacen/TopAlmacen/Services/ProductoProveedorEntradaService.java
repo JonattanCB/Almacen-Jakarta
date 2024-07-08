@@ -13,6 +13,7 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
@@ -30,6 +31,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
     @Inject
     private MovimientoStockService movimientoStockService;
+    @Inject
+    private StockUnidadesService stockUnidadesService;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -47,15 +50,18 @@ public class ProductoProveedorEntradaService implements Serializable {
     public ProductoProveedorEntrada create(CreateProductoProveedorEntradaDto c, List<CreateDetalleProductoProveedorEntradaDto> entradas) {
         var prodcu = ProductoProveedorEntradaMapper.fromCreate(c);
         iProductoProveedorEntradaDao.create(prodcu);
+
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
-            detalle.setOC_id(prodcu);
             iDetalleProductoProveedorEntradaDao.create(detalle);
+
+            var stock = stockUnidadesService.getStockUnidadesById(d.getPrecioPorTipoUnidad().getStockUnidades().getId());
+
             var dto = new CreateMovimientoStockDto();
             dto.setTipoMovimiento("ENTRADA");
             dto.setCantidad(d.getCantidad());
             dto.setTipoUnidad(d.getTipoUnidad());
-            dto.setDescripcion(d.getDescripcion());
+            dto.setDescripcion(ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()));
             movimientoStockService.create(dto);
 
 
