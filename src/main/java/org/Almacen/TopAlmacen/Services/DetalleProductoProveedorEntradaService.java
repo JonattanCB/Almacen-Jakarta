@@ -32,9 +32,9 @@ public class DetalleProductoProveedorEntradaService {
     }
 
     @Transactional
-    public List<CreateDetalleProductoProveedorEntradaDto> getAllByProveedorEntradaId(String id) {
-        var detalles = iDetalleProductoProveedorEntradaDao.getAllByProveedorEntrada(id);
-        return detalles.stream().map(DetalleProductoProveedorEntradaMapper::toDtoCreate).collect(Collectors.toList());
+    public List<DetalleProductoProveedorEntrada> getAllByProveedorEntradaId(String id) {
+        return iDetalleProductoProveedorEntradaDao.getAllByProveedorEntrada(id);
+
     }
 
     @Transactional

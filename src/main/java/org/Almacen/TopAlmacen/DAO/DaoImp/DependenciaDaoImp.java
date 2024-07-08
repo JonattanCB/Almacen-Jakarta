@@ -15,7 +15,12 @@ public class DependenciaDaoImp implements IDependenciaDao {
 
     @Override
     public List<Dependencia> getAll() {
-        return _entityManager.createQuery("SELECT d FROM Dependencia d", Dependencia.class).getResultList();
+        return _entityManager.createQuery("SELECT d FROM Dependencia d order by d.id asc", Dependencia.class).getResultList();
+    }
+
+    @Override
+    public List<Dependencia> getAllActivos() {
+        return _entityManager.createQuery("SELECT d FROM Dependencia d where  d.estado= 'Activo'", Dependencia.class).getResultList();
     }
 
     @Override
@@ -27,8 +32,15 @@ public class DependenciaDaoImp implements IDependenciaDao {
     }
 
     @Override
-    public Dependencia create(Dependencia c) {
+    public Dependencia getByIdDependencia(int idDependencia) {
+        return _entityManager.createQuery(
+                        "SELECT d FROM Dependencia d  LEFT JOIN FETCH d.unidades WHERE d.id = :id", Dependencia.class)
+                .setParameter("id", idDependencia)
+                .getSingleResult();
+    }
 
+    @Override
+    public Dependencia create(Dependencia c) {
         _entityManager.persist(c);
         return c;
     }
@@ -54,5 +66,15 @@ public class DependenciaDaoImp implements IDependenciaDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void cambioestado(String estado, int id) {
+        var query = _entityManager.createQuery(
+                "UPDATE Dependencia c SET c.estado = :estado WHERE c.id = :id"
+        );
+        query.setParameter("estado", estado);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

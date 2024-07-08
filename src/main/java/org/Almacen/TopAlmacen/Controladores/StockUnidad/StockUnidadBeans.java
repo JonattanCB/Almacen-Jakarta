@@ -8,6 +8,7 @@ import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.HistorialPrecios.HistorialPreciosDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Services.StockUnidadesService;
 import org.primefaces.util.LangUtils;
 
@@ -46,7 +47,7 @@ public class StockUnidadBeans implements Serializable {
             return true;
         }
         StockUnidadesDto c = (StockUnidadesDto) value;
-        return c.getDescripcion().toLowerCase().contains(filterText);
+        return ("1").toLowerCase().contains(filterText);
     }
 
 }

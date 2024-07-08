@@ -23,6 +23,4 @@ public class UsuarioDto {
     private String estado;
     private LocalDate fechaRegistro;
     private UnidadDependencia unidad;
-
-
 }

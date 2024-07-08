@@ -7,11 +7,15 @@ import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.MovimientoStock.CreateMovimientoStockDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
+import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;
@@ -25,6 +29,10 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IProductoProveedorEntradaDao iProductoProveedorEntradaDao;
     @Inject
     private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
+    @Inject
+    private MovimientoStockService movimientoStockService;
+    @Inject
+    private StockUnidadesService stockUnidadesService;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -44,8 +52,18 @@ public class ProductoProveedorEntradaService implements Serializable {
         iProductoProveedorEntradaDao.create(prodcu);
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
-            detalle.setOC_id(prodcu);
             iDetalleProductoProveedorEntradaDao.create(detalle);
+/*
+            var stock = stockUnidadesService.getStockUnidadesById(d.getPrecioPorTipoUnidad().getStockUnidades().getId());
+
+            var dto = new CreateMovimientoStockDto();
+            dto.setTipoMovimiento("ENTRADA");
+            dto.setCantidad(d.getCantidad());
+            dto.setTipoUnidad(d.getTipoUnidad());
+            dto.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
+            movimientoStockService.create(dto);
+*/
+
         }
         return prodcu;
     }

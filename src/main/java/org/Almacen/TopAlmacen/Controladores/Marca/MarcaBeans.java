@@ -44,14 +44,20 @@ public class MarcaBeans implements Serializable {
 
 
     public void determinarAccion(){
-        if (marcaDto.getId() == 0){
-            createMarca();
+        if (marcaDto.getNombre().equals("")){
+            System.out.println("entras aca");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Por favor, complete todos los campos requeridos.",null));
+            PrimeFaces.current().ajax().update(":form-datos:messages");
         }else{
-            updateMarca();
+            if (marcaDto.getId() == 0){
+                createMarca();
+            }else{
+                updateMarca();
+            }
+            loadMarca();
+            PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+            PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         }
-        loadMarca();
-        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
-        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     public void loadMarca(){

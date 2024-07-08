@@ -29,6 +29,6 @@ public class UnidadDependencia {
     private LocalDate fechaRegistro = LocalDate.now();
     @OneToMany(mappedBy = "unidadDependencia")
     private List<Usuario> usuarios;
-    @OneToMany(mappedBy = "unidadDependencia", fetch = FetchType.LAZY)
-    private List<Rol> rols;
+    @OneToOne(mappedBy = "unidadDependencia", fetch = FetchType.LAZY)
+    private Rol rol;
 }

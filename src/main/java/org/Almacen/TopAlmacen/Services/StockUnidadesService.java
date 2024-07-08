@@ -51,7 +51,7 @@ public class StockUnidadesService implements Serializable {
             stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + u.getCantidadStockUnidadesDto());
             var ms = new MovimientoStock();
             ms.setTipoMovimiento("ENTRADA");
-            ms.setPrecioPorUnidad(precioPorTipoUnidad);
+            ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
             ms.setCantidad(u.getCantidadStockUnidadesDto());
             ms.setTipoUnidad(stockUnidades.getTipoUnidad());
             imovimientoStockDao.create(ms);

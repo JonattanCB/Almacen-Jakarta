@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.Rol;
 import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,6 +20,5 @@ public class CreateUsuarioDto {
     private String nombres;
     private String apellidos;
     private String estado;
-    private Rol rol;
-    private UnidadDependencia unidadDependencia;
+    private UnidadDependencia unidad;
 }

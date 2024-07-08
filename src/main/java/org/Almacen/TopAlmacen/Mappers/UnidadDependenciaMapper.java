@@ -1,6 +1,12 @@
 package org.Almacen.TopAlmacen.Mappers;
 
+import org.Almacen.TopAlmacen.DTO.Dependencia.CreateDependenciaDto;
+import org.Almacen.TopAlmacen.DTO.Dependencia.DependenciaDto;
+import org.Almacen.TopAlmacen.DTO.Dependencia.UpdateDependenciaDto;
+import org.Almacen.TopAlmacen.DTO.UnidadDependencia.CreateUnidadDependenciaDto;
 import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
+import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UpdateUnidadDependenciaDto;
+import org.Almacen.TopAlmacen.Model.Dependencia;
 import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
 public class UnidadDependenciaMapper {
@@ -21,4 +27,19 @@ public class UnidadDependenciaMapper {
         unidadDependencia.setFechaRegistro(unidadDependenciaDto.getFechaRegistro());
         return unidadDependencia;
     }
+
+    public static UnidadDependencia toUnidadDependenciaFromCreate(CreateUnidadDependenciaDto dto) {
+        UnidadDependencia unidadDependencia = new UnidadDependencia();
+        unidadDependencia.setNombre(dto.getNombre());
+        unidadDependencia.setDependencia(dto.getDependencia());
+        return unidadDependencia;
+    }
+
+    public static UnidadDependencia toUnidadDependenciaFromUpdate(UpdateUnidadDependenciaDto dto) {
+        UnidadDependencia unidadDependencia = new UnidadDependencia();
+        unidadDependencia.setNombre(dto.getNombre());
+        unidadDependencia.setDependencia(dto.getDependecia());
+        return unidadDependencia;
+    }
+
 }

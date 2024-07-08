@@ -14,8 +14,9 @@
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
                             <p:toolbarGroup>
-                                <p:commandButton value="Nueva Marca" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{MarcaBeans.nuevaMarca()}"
-                                                update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                                <p:commandButton value="Nueva Marca" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" actionListener="#{MarcaBeans.nuevaMarca()}"
+                                                 update="dialogs" oncomplete="PF('dialogsa').show()"  >
+                                </p:commandButton>
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
@@ -75,19 +76,18 @@
             </h:panelGrid>
         </h:form>
         <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
-            <h:form>
-                <div id="dialog-content" class="dialogs-barra-pequenia" >
+            <h:form id="formdialog">
+                <p:outputPanel id="dialog-content" styleClass="dialogs-barra-pequenia">
                     <h:panelGrid>
                         <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
-                            <h:panelGrid>
-                                <p:inputText id="nombre"  styleClass="input-custom" style="width: 28.33vw" value="#{MarcaBeans.marcaDto.nombre}"  required="true" />
-                                <h:message for="nombre" style="color: red;" />
-                            </h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="nombre"  styleClass="input-custom" style="width: 28.33vw" value="#{MarcaBeans.marcaDto.nombre}"  required="true" />
+                        </h:panelGrid>
                     </h:panelGrid>
-                </div>
+                </p:outputPanel>
                 <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" process="@this, :dialogs, :growl" action="#{MarcaBeans.determinarAccion()}" />
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" update="dialog-content" process="@this, dialog-content" action="#{MarcaBeans.determinarAccion()}" />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()" update="dialog-content" process="@this, dialog-content"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>
            </p:dialog>

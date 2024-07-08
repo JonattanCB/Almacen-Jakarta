@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
+    <ui:define name="contenido">
+        <h:form id="form-datos">
+            <h:panelGrid styleClass="contenido-panel">
+                <p:growl id="messages"/>
+                    <h:panelGrid styleClass="contendedor-card-paneles">
+                        <p:toolbar>
+                            <p:toolbarGroup align="right" >
+                                <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
+                                    <p:dataExporter type="pdf" target="tabla" fileName="Dependencia" exportHeader="false"/>
+                                </p:commandButton>
+                                <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
+                                    <p:dataExporter type="csv" target="tabla" fileName="Dependencia" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="tabla" var="obj" value="#{DependenciaBeans.dependenciaDtoList}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{DependenciaBeans.dependenciaDtoListSeleccionado}"
+                                     globalFilterFunction="#{DependenciaBeans.globalFilterFunction}"
+                                     rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                    <div class="header-tabla">
+                                        <span class="titulo-hearder-tabla">Catálogo de Dependencias</span>
+                                        <span class="ui-input-icon-left busqueda-hearder-tabla">
+                                            <i class="pi pi-search"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
+                                                         style="font-size: 13px;width: 300px"
+                                                         placeholder="Buscar entre los datos de Dependencias"/>
+                                        </span>
+                                    </div>
+                            </f:facet>
+                            <p:column headerText="#"  sortBy="#{obj.id}" width="50"  >
+                                <h:outputText value="#{obj.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="260" >
+                                <h:outputText value="#{obj.nombre}" />
+                            </p:column>
+                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="150" >
+                                <h:outputText value="#{obj.fechaRegistro}" />
+                            </p:column>
+                            <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
+                                <h:outputText value="#{obj.estado}"
+                                              styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

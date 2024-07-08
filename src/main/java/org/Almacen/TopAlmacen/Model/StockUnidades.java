@@ -21,14 +21,15 @@ public class StockUnidades {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "descripcion")
-    private String descripcion;
 
     @Column(name = "CantidadStockUnidad", nullable = false)
-    private double CantidadStockUnidad;
+    private double cantidadStockUnidad;
 
     @Column(name = "TipoUnidad", nullable = false)
     private String tipoUnidad = "UND";
+
+    @OneToMany(mappedBy = "stockUnidades", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PrecioPorTipoUnidad> precios;
 
 }
 

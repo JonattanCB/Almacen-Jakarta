@@ -63,6 +63,10 @@ public class BeansLogin implements Serializable {
         itemMenu = DefaultMenuItem.builder().value("MOVIMIENTOS ").icon("pi pi-home").url(contextPath+"/protegido/Historial/historialMovimiento.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
+
+
+
+
         itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
@@ -72,79 +76,11 @@ public class BeansLogin implements Serializable {
         model.getElements().add(firstSubmenu);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+        itemMenu = DefaultMenuItem.builder().value("Dependencia").icon("pi pi-home").url(contextPath+"/protegido/Personal/dependencia.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
 
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
-        firstSubmenu.getElements().add(itemMenu);
-
-
-        itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath+"/protegido/Entrada/RegistroEntrada.xhtml").update("contenido_escritorio-update").build();
+                itemMenu = DefaultMenuItem.builder().value("Unidad").icon("pi pi-home").url(contextPath+"/protegido/Personal/unidadDependencia.xhtml").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
 

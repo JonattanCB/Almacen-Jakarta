@@ -59,17 +59,15 @@ public class PrecioPorTipoUnidadService implements Serializable {
 
     @Transactional
     public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
-        String abrevUnidadBasica = "UND";
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
-            var tipoUnidad = itipoUnidadDao.findByAbrev(abrevUnidadBasica);
             var nuevaUnidad = new PrecioPorTipoUnidad();
+            var stockUnidades = new StockUnidades();
+
             nuevaUnidad.setProducto(dto.getProducto());
-            nuevaUnidad.setTipoUnidad(tipoUnidad);
+            nuevaUnidad.setTipoUnidad(dto.getTipoUnidad());
             nuevaUnidad.setPrecioUnitario(dto.getPrecio());
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
 
-            var stockUnidades = new StockUnidades();
-            stockUnidades.setDescripcion(ProductoMapper.toConcatProduct(nuevaUnidad.getProducto()));
             stockUnidades.setCantidadStockUnidad(0);
 
             istockUnidadesDao.create(stockUnidades);
@@ -146,8 +144,8 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidadDto getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad){
-        return PrecioPorTipoUnidadMapper.toDto(iprecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(idProducto,idTipoUnidad));
+    public PrecioPorTipoUnidadDto getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad) {
+        return PrecioPorTipoUnidadMapper.toDto(iprecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(idProducto, idTipoUnidad));
     }
 
 }

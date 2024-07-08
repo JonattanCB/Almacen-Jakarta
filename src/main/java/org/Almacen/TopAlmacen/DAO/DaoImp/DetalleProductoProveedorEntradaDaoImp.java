@@ -23,7 +23,8 @@ public class DetalleProductoProveedorEntradaDaoImp implements IDetalleProductoPr
     @Override
     public List<DetalleProductoProveedorEntrada> getAllByProveedorEntrada(String id) {
         var query = _entityManager.createQuery(
-                "SELECT d FROM DetalleProductoProveedorEntrada d LEFT JOIN FETCH d.OC_id LEFT JOIN FETCH d.tipoUnidad  WHERE d.OC_id.OC = :id",
+                "SELECT d FROM DetalleProductoProveedorEntrada d LEFT JOIN FETCH d.OC_id LEFT JOIN FETCH d.tipoUnidad  LEFT JOIN FETCH d.precioPorTipoUnidad  LEFT JOIN FETCH d.precioPorTipoUnidad.tipoUnidad " +
+                        "   LEFT JOIN FETCH d.precioPorTipoUnidad.producto  WHERE d.OC_id.OC = :id",
                 DetalleProductoProveedorEntrada.class);
         query.setParameter("id", id);
 
@@ -52,7 +53,7 @@ public class DetalleProductoProveedorEntradaDaoImp implements IDetalleProductoPr
         if (findingObject != null) {
             findingObject.setCantidad(dto.getCantidad());
             findingObject.setTipoUnidad(dto.getTipoUnidad());
-            findingObject.setDescripcion(dto.getDescripcion());
+            findingObject.setPrecioPorTipoUnidad(dto.getPrecioPorTipoUnidad());
             findingObject.setPrecioUnitario(dto.getPrecioUnitario());
             findingObject.setPrecioTotal(dto.getPrecioUnitario() * dto.getCantidad());
             return findingObject;
