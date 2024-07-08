@@ -60,7 +60,7 @@ public class ProductoProveedorEntradaService implements Serializable {
             dto.setTipoMovimiento("ENTRADA");
             dto.setCantidad(d.getCantidad());
             dto.setTipoUnidad(d.getTipoUnidad());
-            dto.setDescripcion(ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()));
+            dto.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
             movimientoStockService.create(dto);
 */
 
