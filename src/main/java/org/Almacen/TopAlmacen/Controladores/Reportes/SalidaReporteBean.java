@@ -40,6 +40,7 @@ public class SalidaReporteBean implements Serializable {
                 registro.setUsuario("Usuario Ejemplo");
                 registro.setDependencia_s("Dependencia Ejemplo");
                 registro.setPara_uso("Uso Ejemplo");
+                registro.setTotalC_v("300");
 
                 // Crear lista de datos falsos para `detalles`
                 List<SalidaDetalle> detalles = new ArrayList<>();
@@ -74,6 +75,7 @@ public class SalidaReporteBean implements Serializable {
                 parameters.put("usuario", registro.getUsuario());
                 parameters.put("dependencia_s", registro.getDependencia_s());
                 parameters.put("para_uso", registro.getPara_uso());
+                parameters.put("totalC_v", registro.getTotalC_v());
                 parameters.put("Ruta_Imagen", logoEmpresa);
 
                 JasperReport report = (JasperReport) JRLoader.loadObject(reporteSalida);
@@ -109,6 +111,7 @@ public class SalidaReporteBean implements Serializable {
         private String usuario;
         private String dependencia_s;
         private String para_uso;
+        private String totalC_v;
 
         // Getters y setters
         public Date getFecha() { return fecha; }
@@ -119,6 +122,8 @@ public class SalidaReporteBean implements Serializable {
         public void setDependencia_s(String dependencia_s) { this.dependencia_s = dependencia_s; }
         public String getPara_uso() { return para_uso; }
         public void setPara_uso(String para_uso) { this.para_uso = para_uso; }
+        public String getTotalC_v() { return totalC_v; }
+        public void setTotalC_v(String totalC_v) { this.totalC_v = totalC_v; }
     }
 
     public static class SalidaDetalle {

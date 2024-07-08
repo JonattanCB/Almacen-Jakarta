@@ -17,9 +17,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="137" splitType="Stretch">
+		<band height="134" splitType="Stretch">
 			<rectangle>
-				<reportElement x="115" y="10" width="333" height="57" forecolor="#000000" uuid="0e1310a1-183f-4e3c-ae79-fed7fb47b53e"/>
+				<reportElement x="14" y="9" width="313" height="57" forecolor="#000000" uuid="0e1310a1-183f-4e3c-ae79-fed7fb47b53e"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -32,13 +32,13 @@
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<image>
-				<reportElement x="0" y="0" width="114" height="97" uuid="024b6c6e-dad9-401c-89e5-06f471848d0d"/>
+				<reportElement x="444" y="17" width="111" height="87" uuid="024b6c6e-dad9-401c-89e5-06f471848d0d"/>
 				<imageExpression><![CDATA[$P{Ruta_Imagen}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="138" y="21" width="364" height="36" forecolor="#000000" uuid="95df2fcb-1878-44bb-a38d-02e0263db7b7"/>
+				<reportElement x="37" y="20" width="354" height="36" forecolor="#000000" uuid="95df2fcb-1878-44bb-a38d-02e0263db7b7"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Cooper Black" size="24" isBold="true"/>
+					<font fontName="Cooper Black" size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Formato de Requerimiento]]></text>
 			</staticText>
@@ -74,16 +74,16 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="116" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<staticText>
-				<reportElement x="13" y="13" width="201" height="20" uuid="ec68f440-487e-4842-bb80-a52c1a87d72e"/>
+				<reportElement x="14" y="0" width="201" height="20" uuid="ec68f440-487e-4842-bb80-a52c1a87d72e"/>
 				<textElement>
 					<font fontName="Berlin Sans FB Demi" size="12"/>
 				</textElement>
 				<text><![CDATA[DEPENDENCIA DEL SOLICITANTE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="72" width="528" height="20" uuid="a71dee1e-039f-4245-8bad-e698199fc1f4"/>
+				<reportElement x="14" y="59" width="528" height="20" uuid="a71dee1e-039f-4245-8bad-e698199fc1f4"/>
 				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="0">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -95,7 +95,7 @@
 				<text><![CDATA[DESTINADO A:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="14" y="37" width="528" height="20" uuid="cdf90e56-6989-46cf-95a5-40af37c236c6"/>
+				<reportElement x="15" y="24" width="528" height="20" uuid="cdf90e56-6989-46cf-95a5-40af37c236c6"/>
 				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -106,7 +106,7 @@
 				<textFieldExpression><![CDATA[$P{D_sol}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="13" y="92" width="528" height="20" uuid="29ca19bb-d1d3-4961-adfc-ef68c309ee1c"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="79" width="528" height="20" uuid="29ca19bb-d1d3-4961-adfc-ef68c309ee1c"/>
 				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -216,16 +216,16 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="42" splitType="Stretch">
+		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="13" y="10" width="101" height="20" uuid="22ce25df-b088-4b26-8daa-d7ed26083b84"/>
+				<reportElement x="16" y="23" width="101" height="20" uuid="22ce25df-b088-4b26-8daa-d7ed26083b84"/>
 				<textElement>
 					<font fontName="Berlin Sans FB Demi" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[OBSERVACION:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="106" y="10" width="432" height="20" uuid="64214328-0292-4d28-9fb6-3435649571b5"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="109" y="23" width="432" height="20" uuid="64214328-0292-4d28-9fb6-3435649571b5"/>
 				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante_Salida" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a9c8a9b-c3c2-4796-a86b-a6c62a9a2cf2">
-	<property name="ireport.zoom" value="1.0000000000000027"/>
+	<property name="ireport.zoom" value="1.210000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
@@ -8,6 +8,7 @@
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="dependencia_s" class="java.lang.String"/>
 	<parameter name="para_uso" class="java.lang.String"/>
+	<parameter name="totalC_v" class="java.lang.String"/>
 	<field name="item_s" class="java.lang.Integer"/>
 	<field name="cantidad_s" class="java.lang.Integer"/>
 	<field name="medida_s" class="java.lang.String"/>
@@ -23,13 +24,13 @@
 	<title>
 		<band height="98" splitType="Stretch">
 			<rectangle>
-				<reportElement x="216" y="14" width="369" height="57" forecolor="#000000" uuid="a05e4d74-0feb-476a-b26d-5a0573c0547c"/>
+				<reportElement x="2" y="14" width="369" height="57" forecolor="#000000" uuid="a05e4d74-0feb-476a-b26d-5a0573c0547c"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="222" y="24" width="515" height="36" forecolor="#000000" uuid="e1443faa-bb71-40de-8796-0656dcc6d2dd"/>
+				<reportElement x="8" y="24" width="515" height="36" forecolor="#000000" uuid="e1443faa-bb71-40de-8796-0656dcc6d2dd"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cooper Black" size="24" isBold="true"/>
 				</textElement>
@@ -166,13 +167,6 @@
 				<text><![CDATA[DESPACHADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="629" y="14" width="173" height="20" uuid="b3d0e87f-80e8-4bd2-b542-18085079009e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[VALORES]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="0" y="34" width="48" height="20" uuid="cf099548-06da-4eec-8245-355a4915bd5b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
@@ -244,10 +238,17 @@
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="629" y="14" width="173" height="20" uuid="b3d0e87f-80e8-4bd2-b542-18085079009e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALORES]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="48" height="20" uuid="cb3c3f63-7f3f-4522-bcb1-ebc415687afb"/>
 				<box topPadding="2" leftPadding="2" rightPadding="2">
@@ -341,6 +342,27 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="719" y="0" width="83" height="20" uuid="1a5cb95a-d0e8-4320-987e-28d541ff74c5"/>
+				<box topPadding="2" leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{totalC_v}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="629" y="1" width="90" height="20" backcolor="#F1F6EE" uuid="8fc2dc45-665e-4129-a8fa-9703ccd9a3ef"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="629" y="1" width="90" height="20" uuid="456a6f6b-4241-4725-a2e0-643dfe3bc0a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>
