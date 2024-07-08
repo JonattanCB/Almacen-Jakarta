@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Data
 @Named("RegistroEntradaBeans")
@@ -220,8 +221,10 @@ public class RegistroEntradaBeans implements Serializable {
         this.idEmpresa = dto.getEmpresa().getNroRUC();
         empresaDto = EmpresaMapper.toDto(dto.getEmpresa());
         precioTotal = dto.getPrecioFinal();
-        ListadoDeDetalle = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
-        verficiacionEmpresa(2);
+        var detalles = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
+        var detalleDto = detalles.stream().map(DetalleProductoProveedorEntradaMapper::toDto).collect(Collectors.toList());
+        ListadoDeDetalle =
+                verficiacionEmpresa(2);
         validarVerDatos(2);
     }
 

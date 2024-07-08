@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class DetalleProductoProveedorEntradaMapper {
     public static DetalleProductoProveedorEntradaDto toDto(DetalleProductoProveedorEntrada d) {
-        return new DetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getDescripcion(), d.getPrecioUnitario(), d.getPrecioTotal());
+        return new DetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getPrecioPorTipoUnidad(), d.getPrecioUnitario(), d.getPrecioTotal());
     }
 
     public static DetalleProductoProveedorEntrada fromCreate(CreateDetalleProductoProveedorEntradaDto d) {
@@ -18,7 +18,7 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setOC_id(d.getOC_id());
         e.setCantidad(d.getCantidad());
         e.setTipoUnidad(d.getTipoUnidad());
-        e.setDescripcion(ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()));
+        e.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;
@@ -30,7 +30,7 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setOC_id(d.getOC_id());
         e.setCantidad(d.getCantidad());
         e.setTipoUnidad(d.getTipoUnidad());
-        e.setDescripcion(d.getDescripcion());
+        e.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;

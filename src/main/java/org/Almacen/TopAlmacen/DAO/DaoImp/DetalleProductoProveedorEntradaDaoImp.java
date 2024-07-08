@@ -52,7 +52,7 @@ public class DetalleProductoProveedorEntradaDaoImp implements IDetalleProductoPr
         if (findingObject != null) {
             findingObject.setCantidad(dto.getCantidad());
             findingObject.setTipoUnidad(dto.getTipoUnidad());
-            findingObject.setDescripcion(dto.getDescripcion());
+            findingObject.setPrecioPorTipoUnidad(dto.getPrecioPorTipoUnidad());
             findingObject.setPrecioUnitario(dto.getPrecioUnitario());
             findingObject.setPrecioTotal(dto.getPrecioUnitario() * dto.getCantidad());
             return findingObject;
