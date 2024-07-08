@@ -13,10 +13,6 @@
                 <p:growl id="messages"/>
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
-                            <p:toolbarGroup>
-                                <p:commandButton value="Nueva Unidad De Dependencia" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{UnidadDependeciaBeans.nuevaUnidadDependencia()}"
-                                                update="dialogs" disabled="#{UnidadDependeciaBeans.btnNuevoUnidadDependencia}"  oncomplete="PF('dialogsa').show()"  />
-                            </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
                                     <p:dataExporter type="pdf" target="tabla" fileName="Unidad de Dependencia" exportHeader="false"/>
@@ -48,57 +44,15 @@
                                 <h:outputText value="#{obj.nombre}" />
                             </p:column>
                             <p:column headerText="Dependencia" sortBy="#{obj.dependencia.nombre}" width="260" >
-                                <h:outputText sortBy="#{obj.dependencia.nombre}" />
+                                <h:outputText value="#{obj.dependencia.nombre}" />
                             </p:column>
                             <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="150" >
                                 <h:outputText value="#{obj.fechaRegistro}" />
                             </p:column>
-                            <p:column exportable="false" width="100">
-                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                                 action="#{UnidadDependeciaBeans.CargarDatos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
-                                                 styleClass="edit-button rounded-button ui-button-warning"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{UnidadDependeciaBeans.idDependencia}" />
-                                </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff ; height: 2.3rem; font-size: 0.2rem"
-                                                 icon="pi pi-trash" action="#{ProductosBeans.eliminarProducto()}"  >
-                                    <f:setPropertyActionListener value="#{obj.id}" target="#{UnidadDependeciaBeans.idDependencia}" />
-                                    <p:confirm header="Confirmación de Eliminación" message="¿Está seguro de que desea eliminar la unidad de Dependencia? Esta acción no se puede deshacer." icon="pi pi-info-circle"/>
-                                </p:commandButton>
-                            </p:column>
                         </p:dataTable>
                     </h:panelGrid>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
-                    </p:confirmDialog>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles de Unidad Dependencia" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
-            <h:form>
-                <div id="dialog-content" class="dialogs-barra" >
-                    <h:panelGrid>
-                        <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
-                        <h:panelGrid>
-                            <p:inputText id="nombre" styleClass="input-custom" style="width: 29.58vw" value="#{UnidadDependeciaBeans.unidadDependenciaDto.nombre}"  required="true"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid  style="margin-top: 1rem">
-                        <h:panelGrid><h:outputLabel for="dependencia"  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
-                        <h:panelGrid>
-                            <p:selectOneMenu style="width:29.58vw" filter="true" filterMatchMode="startsWith" id="dependencia" styleClass="ui-selectonemenu"
-                            value="#{UnidadDependeciaBeans.idDependencia}"  required="true" autoWidth="false"    >
-                                <f:selectItem noSelectionOption="true" itemLabel="Selecicionar Opcion"  />
-                                <f:selectItems value="#{UnidadDependeciaBeans.dependenciaDtos}" var="depen" itemLabel="#{depen.nombre}" itemValue="#{depen.id}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                </div>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{UnidadDependeciaBeans.DeterminarAcccion()}" />
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
-                </h:panelGrid>
-               </h:form>
-           </p:dialog>
     </ui:define>
 </ui:composition>
 </html>

@@ -20,6 +20,15 @@ public class UnidadDaoImp implements IUnidadDependenciaDao {
     }
 
     @Override
+    public List<UnidadDependencia> getAllByDependencia(int id) {
+        var query = _entityManager.createQuery(
+                "SELECT u from UnidadDependencia u LEFT JOIN FETCH u.dependencia where u.dependencia.id = :id"
+        );
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
+    @Override
     public UnidadDependencia getById(int id) {
         return _entityManager.find(UnidadDependencia.class, id);
     }

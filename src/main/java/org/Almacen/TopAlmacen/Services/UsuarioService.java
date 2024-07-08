@@ -32,9 +32,13 @@ public class UsuarioService implements Serializable {
 
     @Transactional
     public Usuario createUsuario(CreateUsuarioDto createUsuarioDto) {
-        var usuario = UsuarioMapper.toUsuarioFromCreate(createUsuarioDto);
-        usuario.setContra(PasswordUtil.hashPassword(usuario.getContra()));
-        return iUsuarioDao.create(usuario);
+        if(iUsuarioDao.existeEmail(createUsuarioDto.getCorreo())){
+            return null;
+        }else{
+            var usuario = UsuarioMapper.toUsuarioFromCreate(createUsuarioDto);
+            usuario.setContra(PasswordUtil.hashPassword(usuario.getContra()));
+            return iUsuarioDao.create(usuario);
+        }
     }
 
     @Transactional
@@ -45,12 +49,16 @@ public class UsuarioService implements Serializable {
 
     @Transactional
     public Usuario updateUsuario(UpdateUsuarioDto updateUsuarioDto, int id) {
-        return iUsuarioDao.update(updateUsuarioDto, id);
+        if(iUsuarioDao.existeEmail(updateUsuarioDto.getCorreo())){
+            return null;
+        }else {
+            return iUsuarioDao.update(updateUsuarioDto, id);
+        }
     }
 
     @Transactional
     public void cambiarEstado(int id, String estado) {
-        iUsuarioDao.cambiarMarca(id, estado);
+        iUsuarioDao.cambiarEstado(id, estado);
     }
 
     @Transactional

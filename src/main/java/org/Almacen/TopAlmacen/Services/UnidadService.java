@@ -33,6 +33,12 @@ public class UnidadService implements Serializable {
     }
 
     @Transactional
+    public List<UnidadDependenciaDto> getAllByDependencia(int dependencia) {
+        var unidadDependencias = iUnidadDependenciaDao.getAllByDependencia(dependencia);
+        return unidadDependencias.stream().map(UnidadDependenciaMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Transactional
     public UnidadDependenciaDto getById(int id) {
         return UnidadDependenciaMapper.toDto(iUnidadDependenciaDao.getById(id));
     }

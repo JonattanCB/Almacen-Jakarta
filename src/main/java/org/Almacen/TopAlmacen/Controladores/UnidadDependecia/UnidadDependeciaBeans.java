@@ -33,33 +33,14 @@ public class UnidadDependeciaBeans implements Serializable {
     @Inject
     private UnidadService unidadService;
 
-    @Inject
-    private DependenciaService dependenciaService;
-
-    private UnidadDependenciaDto unidadDependenciaDto;
-
-    private int idUnidadDependenciaDTO;
-
-    private int idDependencia;
-
-    private boolean btnNuevoUnidadDependencia;
-
     private List<UnidadDependenciaDto> UdependenciaDtoList;
 
     private List<UnidadDependenciaDto> UdependenciaDtoListSeleccion;
 
-    private List<DependenciaDto> dependenciaDtos;
 
     @PostConstruct
     public void init() {
         loadUnidadDependencia();
-        verificarDependencia();
-    }
-
-    public void nuevaUnidadDependencia(){
-        unidadDependenciaDto = new UnidadDependenciaDto();
-        dependenciaDtos = dependenciaService.getAllActivos();
-        idDependencia = 0;
     }
 
 
@@ -72,31 +53,8 @@ public class UnidadDependeciaBeans implements Serializable {
         UnidadDependenciaDto c = (UnidadDependenciaDto) value;
         return (c.getId() >= filterInt && c.getId() <= filterInt)
                 || c.getNombre().toLowerCase().contains(filterText)
-                || c.getDependencia().getNombre().toLowerCase().contains(filterText)
+                || (c.getDependencia().getNombre()).toLowerCase().contains(filterText)
                 || String.valueOf(c.getFechaRegistro()).toLowerCase().contains(filterText);
-    }
-
-
-    public void DeterminarAcccion(){
-        if(unidadDependenciaDto.getId() == 0){
-            createUnidadDependencia();
-        }else{
-            UpdateUnidadDependencia();
-        }
-        loadUnidadDependencia();
-        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
-        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
-    }
-
-    public void eliminarUnidadDependencia(){
-
-    }
-
-    public void CargarDatos(){
-        unidadDependenciaDto = unidadService.getById(idUnidadDependenciaDTO);
-        dependenciaDtos = dependenciaService.getAllActivos();
-        idDependencia = unidadDependenciaDto.getDependencia().getId();
-        System.out.println(unidadDependenciaDto.getId());
     }
 
     private void loadUnidadDependencia(){
@@ -110,31 +68,5 @@ public class UnidadDependeciaBeans implements Serializable {
             return 0;
         }
     }
-
-    private void createUnidadDependencia(){
-        CreateUnidadDependenciaDto createUnidadDependenciaDto = new CreateUnidadDependenciaDto();
-        createUnidadDependenciaDto.setNombre(unidadDependenciaDto.getNombre());
-        createUnidadDependenciaDto.setDependencia(DependenciaMapper.toEntity(dependenciaService.getByIdDependencia(idDependencia)));
-        unidadService.createUnidad(createUnidadDependenciaDto);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Unidad " + createUnidadDependenciaDto.getNombre() + " ha sido registrado exitosamente en el sistema!"));
-    }
-
-    private void UpdateUnidadDependencia(){
-        UpdateUnidadDependenciaDto updateUnidadDependenciaDto = new UpdateUnidadDependenciaDto();
-        updateUnidadDependenciaDto.setNombre(unidadDependenciaDto.getNombre());
-        updateUnidadDependenciaDto.setDependecia(DependenciaMapper.toEntity(dependenciaService.getByIdDependencia(idDependencia)));
-        unidadService.updateCategoria(idUnidadDependenciaDTO, updateUnidadDependenciaDto);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Unidad " + updateUnidadDependenciaDto.getNombre() + " ha sido actualizado exitosamente en el sistema!"));
-    }
-
-    private  void verificarDependencia(){
-        dependenciaDtos = dependenciaService.getAllActivos();
-        btnNuevoUnidadDependencia = dependenciaDtos.isEmpty();
-    }
-
-
-
-
-
 
 }
