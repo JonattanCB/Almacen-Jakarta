@@ -18,6 +18,5 @@ public interface IStockUnidadesDao {
 
     StockUnidades delete(int id);
 
-    StockUnidades findByProductoAndTipoUnidad(Producto producto, String tipoUnidad);
 
 }

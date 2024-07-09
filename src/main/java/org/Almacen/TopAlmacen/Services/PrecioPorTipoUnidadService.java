@@ -89,6 +89,9 @@ public class PrecioPorTipoUnidadService implements Serializable {
     public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {//CUANDO ES PAQUETE
         if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
+            if (dto.getStockUnidades() == null) {
+                System.out.println("No se puede crear unidad superior");
+            }
 
             var createdUnidad = iprecioPorTipoUnidadDao.create(pptu);
             var historialPrecios = new HistorialPrecios();

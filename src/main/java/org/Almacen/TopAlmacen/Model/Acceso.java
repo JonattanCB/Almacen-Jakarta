@@ -25,6 +25,8 @@ public class Acceso {
     private Rol rol;
     @Column(name = "URL")
     private String URL;
+    @Column(name = "Nombre")
+    private String Nombre;
     @Column(name = "Icon")
     private String Icon;
     @Column(name = "Tipo")
