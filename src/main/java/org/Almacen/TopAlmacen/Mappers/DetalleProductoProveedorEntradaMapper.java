@@ -1,14 +1,10 @@
 package org.Almacen.TopAlmacen.Mappers;
 
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.ListaDetalleProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.UpdateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.*;
 import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DetalleProductoProveedorEntradaMapper {
     public static DetalleProductoProveedorEntradaDto toDto(DetalleProductoProveedorEntrada d) {
@@ -17,6 +13,10 @@ public class DetalleProductoProveedorEntradaMapper {
 
     public static ListaDetalleProductoProveedorEntradaDto toDtoLista(DetalleProductoProveedorEntrada d) {
         return new ListaDetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(),d.getCantidad(),d.getTipoUnidad(),d.getPrecioPorTipoUnidad(),ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()),d.getPrecioUnitario(),d.getPrecioTotal() );
+    }
+
+    public static PdfDetalleProductoProveedorEntradaDto toDtoPdf(DetalleProductoProveedorEntrada d) {
+        return new PdfDetalleProductoProveedorEntradaDto(d.getPrecioPorTipoUnidad().getProducto().getId(), ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()),d.getTipoUnidad().getNombre(),d.getPrecioPorTipoUnidad().getProducto().getMarca().getNombre(),d.getCantidad());
     }
 
     public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<ListaDetalleProductoProveedorEntradaDto> d) {

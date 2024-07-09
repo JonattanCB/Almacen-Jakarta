@@ -23,4 +23,5 @@ public interface IPrecioPorTipoUnidadDao {
     PrecioPorTipoUnidad findIfExist(Producto p, TipoUnidad t);
 
     PrecioPorTipoUnidad getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad);
+
 }

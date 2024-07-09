@@ -6,7 +6,9 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
+import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 

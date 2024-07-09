@@ -98,4 +98,14 @@ public class UsuarioDaoImp implements IUsuarioDao {
         }
     }
 
+    @Override
+    public void cambiarPasswor(String password, int id) {
+        var query = _entityManager.createQuery(
+                "UPDATE Usuario u SET u.contra = :contra WHERE u.id = :id"
+        );
+        query.setParameter("contra", password);
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
 }

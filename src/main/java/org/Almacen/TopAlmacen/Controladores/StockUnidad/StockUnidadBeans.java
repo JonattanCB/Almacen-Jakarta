@@ -8,13 +8,19 @@ import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.HistorialPrecios.HistorialPreciosDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
+import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
+import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 import org.Almacen.TopAlmacen.Services.StockUnidadesService;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Data
 @Named("StockUnidadBeans")
@@ -24,9 +30,9 @@ public class StockUnidadBeans implements Serializable {
     @Inject
     private StockUnidadesService stockUnidadesService;
 
-    private List<StockUnidadesDto> stockUnidadesDtos;
+    private List<TablaStockUnidadesDto> stockUnidadesDtos;
 
-    private List<StockUnidadesDto> stockUnidadesDtosSelecciones;
+    private List<TablaStockUnidadesDto> stockUnidadesDtosSelecciones;
 
     @PostConstruct
     private void init(){
@@ -35,7 +41,8 @@ public class StockUnidadBeans implements Serializable {
 
     private  void  loadStockUnidades(){
         try{
-            stockUnidadesDtos = stockUnidadesService.getAllStockUnidades();
+            var stock = stockUnidadesService.getAllStockUnidades();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -46,8 +53,8 @@ public class StockUnidadBeans implements Serializable {
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
-        StockUnidadesDto c = (StockUnidadesDto) value;
-        return ("1").toLowerCase().contains(filterText);
+        TablaStockUnidadesDto c = (TablaStockUnidadesDto) value;
+        return c.getDescripcion().toLowerCase().contains(filterText);
     }
 
 }

@@ -97,5 +97,4 @@ public class StockUnidadesService implements Serializable {
         return stockUnidades.getCantidadStockUnidad() >= cantidadARestar;
     }
 
-
 }

@@ -76,25 +76,28 @@
             <h:panelGrid>
                 <h:panelGrid><h:outputText styleClass="texto_dialog" value="Contraseña Anterior: "/></h:panelGrid>
                 <h:panelGrid>
-                    <p:password toggleMask="true"  redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra}"  required="true"/>
+                    <p:password toggleMask="true"  style="width: 29.58vw;" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra}"  required="true"/>
                 </h:panelGrid>
             </h:panelGrid>
 
             <h:panelGrid>
                 <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nueva Contraseña: "/></h:panelGrid>
                 <h:panelGrid>
-                    <p:password  toggleMask="true" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra1}"  required="true"/>
+                    <p:password  toggleMask="true" style="width: 29.58vw;" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra1}"  required="true"/>
                 </h:panelGrid>
             </h:panelGrid>
 
             <h:panelGrid>
                 <h:panelGrid><h:outputText styleClass="texto_dialog" value="Verifica Contraseña: "/></h:panelGrid>
                 <h:panelGrid>
-                    <p:password toggleMask="true" redisplay="true" styleClass="input-custom" value="#{CambiarContraBeans.contra2}"  required="true"/>
+                    <p:password toggleMask="true" style="width: 29.58vw;" redisplay="true" styleClass="input-custom" value="#{CambiarContraBeans.contra2}"  required="true"/>
                 </h:panelGrid>
             </h:panelGrid>
 
-
+            <h:panelGrid columns="2" style="float: right;" >
+                <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;"  action="#{CambiarContraBeans.Cambiar()}"  />
+                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialog-password').hide()"  styleClass="ui-button-secondary" type="button"/>
+            </h:panelGrid>
         </h:form>
     </p:dialog>
 
