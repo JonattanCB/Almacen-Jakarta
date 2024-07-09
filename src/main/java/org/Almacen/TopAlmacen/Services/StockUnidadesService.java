@@ -32,7 +32,7 @@ public class StockUnidadesService implements Serializable {
     @Transactional
     public List<StockUnidadesDto> getAllStockUnidades() {
         var stockUnidades = istockUnidadesDao.getAll();
-        return stockUnidades.stream().map(StockUnidadesMapper::toTablaStockUnidadesDto).collect(Collectors.toList());
+        return stockUnidades.stream().map(StockUnidadesMapper::toStockUnidadesDto).collect(Collectors.toList());
     }
 
     @Transactional
