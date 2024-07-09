@@ -19,12 +19,11 @@ public class StockUnidadesMapper {
         return s;
     }
 
-    public static String concatFromList(List<StockUnidades> list) {
+    public static String concatFromList(List<PrecioPorTipoUnidad> list) {
         if (list == null || list.isEmpty()) {
             return "";
         }
-        var fistStock = list.get(0);
-        var getProduct = fistStock.getPrecios().get(0).getProducto();
-        return ProductoMapper.toConcatProduct(getProduct);
+        var fistStock = list.get(0).getProducto();
+        return ProductoMapper.toConcatProduct(fistStock);
     }
 }
