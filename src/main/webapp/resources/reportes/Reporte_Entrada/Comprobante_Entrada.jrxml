@@ -4,17 +4,17 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
-	<parameter name="id_EnAl" class="java.lang.Integer"/>
-	<parameter name="fecha_EnAl" class="java.util.Date"/>
+	<parameter name="id_EnAl" class="java.lang.String"/>
+	<parameter name="fecha_EnAl" class="java.lang.String"/>
 	<parameter name="procedencia" class="java.lang.String"/>
 	<parameter name="n_guia" class="java.lang.String"/>
 	<parameter name="n_orden_compra" class="java.lang.String"/>
 	<parameter name="observacion" class="java.lang.String"/>
-	<field name="id_pr" class="java.lang.String"/>
+	<field name="id_pr" class="java.lang.Integer"/>
 	<field name="desc_pr" class="java.lang.String"/>
 	<field name="nom_unmd" class="java.lang.String"/>
 	<field name="marca" class="java.lang.String"/>
-	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
