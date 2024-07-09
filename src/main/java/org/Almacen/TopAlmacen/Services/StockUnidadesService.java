@@ -55,7 +55,6 @@ public class StockUnidadesService implements Serializable {
             ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
             ms.setCantidad(cantidadAgregar);
             ms.setTipoUnidad(stockUnidades.getTipoUnidad());
-            ms.setDescripcion(ProductoMapper.toConcatProduct(precioPorTipoUnidad.getProducto()));
             imovimientoStockDao.create(ms);
             istockUnidadesDao.update(stockUnidades.getId(), cantidadAgregar);
 

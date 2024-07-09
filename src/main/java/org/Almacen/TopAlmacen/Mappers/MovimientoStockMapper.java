@@ -12,10 +12,8 @@ public class MovimientoStockMapper {
     public static MovimientoStock fromCrate(CreateMovimientoStockDto dto) {
         var mov = new MovimientoStock();
         mov.setTipoMovimiento(dto.getTipoMovimiento());
-        mov.setDescripcion(ProductoMapper.toConcatProduct(dto.getPrecioPorTipoUnidad().getProducto()));
         mov.setCantidad(dto.getCantidad());
         mov.setTipoUnidad(dto.getTipoUnidad().getAbrev());
-        System.out.println(mov.getTipoMovimiento() + mov.getDescripcion() + mov.getCantidad() + mov.getTipoUnidad());
         return mov;
     }
 }
