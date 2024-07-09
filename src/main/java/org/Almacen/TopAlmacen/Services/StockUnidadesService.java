@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
@@ -34,6 +35,12 @@ public class StockUnidadesService implements Serializable {
     public List<StockUnidadesDto> getAllStockUnidades() {
         var stockUnidades = istockUnidadesDao.getAll();
         return stockUnidades.stream().map(StockUnidadesMapper::toStockUnidadesDto).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<TablaStockUnidadesDto> getAllTablaStockUnidadesDto() {
+        var stockUnidades = istockUnidadesDao.getAll();
+        return stockUnidades.stream().map(StockUnidadesMapper::toTablaStockUnidadesDto).collect(Collectors.toList());
     }
 
     @Transactional

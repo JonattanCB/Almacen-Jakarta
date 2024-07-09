@@ -41,8 +41,7 @@ public class StockUnidadBeans implements Serializable {
 
     private  void  loadStockUnidades(){
         try{
-            var stock = stockUnidadesService.getAllStockUnidades();
-
+          stockUnidadesDtos = stockUnidadesService.getAllTablaStockUnidadesDto();
         }catch (Exception e){
             e.printStackTrace();
         }

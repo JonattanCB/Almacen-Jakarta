@@ -54,17 +54,10 @@
                                              styleClass="edit-button rounded-button "  >
                                 <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
                             </p:commandButton>
-
-                            <p:commandButton value="Ajax Download" icon="pi pi-arrow-down" styleClass="ui-button-outlined"
-                                             action="#{ReportesEntradaBeans.GenerarPDF}">
+                            <p:commandButton  icon="pi pi-file-pdf" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"  styleClass="ui-button-help rounded-button"
+                                             action="#{ReportesEntradaBeans.GenerarPDF}" ajax="false">
                                 <f:setPropertyActionListener value="#{obj.OC}" target="#{ReportesEntradaBeans.idRegistro}" />
-                                <p:fileDownload value="#{ReportesEntradaBeans.file}"/>
-                            </p:commandButton>
-
-                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             action="#{ReportesEntradaBeans.GenerarPDF()}"
-                                             styleClass="edit-button rounded-button "  >
-
+                                <p:fileDownload value="#{ReportesEntradaBeans.file}" />
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>

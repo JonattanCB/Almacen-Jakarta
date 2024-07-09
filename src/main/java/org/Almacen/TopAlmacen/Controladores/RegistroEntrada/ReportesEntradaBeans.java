@@ -6,8 +6,6 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -49,52 +47,61 @@ public class ReportesEntradaBeans implements Serializable {
 
     @PostConstruct
     private void init() {
-
+        // Initialization logic if needed
     }
 
     public void GenerarPDF() {
 
         try {
-        //Variables
-        ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(idRegistro);
-        var detalle = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
-        List<PdfDetalleProductoProveedorEntradaDto> lst = detalle.stream().map(DetalleProductoProveedorEntradaMapper::toDtoPdf).collect(Collectors.toList());
-        //Acceder
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-        //Imagenes
-        InputStream logoEmpresa = servletContext.getResourceAsStream("/resources/imagenes/logo.png");
-        InputStream reporteEntrada = servletContext.getResourceAsStream("/resources/reportes/Reporte_Entrada/Comprobante_Entrada.jasper");
+            // Fetching data
+            ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(idRegistro);
+            var detalle = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
+            List<PdfDetalleProductoProveedorEntradaDto> lst = detalle.stream()
+                    .map(DetalleProductoProveedorEntradaMapper::toDtoPdf)
+                    .collect(Collectors.toList());
 
-        if (logoEmpresa != null || reporteEntrada != null) {
-            System.out.println("Entra para aca");
-            JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("id_EnAl", dto.getOC());
-            parameters.put("fecha_EnAl", dto.getFechaRegistro()); //tal vez error
-            parameters.put("procedencia", dto.getEmpresa().getNombre()+" - "+dto.getEmpresa().getNroRUC());
-            parameters.put("n_orden_compra", dto.getOC());
-            parameters.put("observacion", "observacion");//Ver datos
-            parameters.put("Ruta_Imagen", logoEmpresa);
+            // Getting resources
+            FacesContext context = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+            InputStream logoEmpresa = servletContext.getResourceAsStream("/resources/imagenes/logo.png");
+            InputStream reporteEntrada = servletContext.getResourceAsStream("/resources/reportes/Reporte_Entrada/Comprobante_Entrada.jasper");
 
-            JasperReport report = (JasperReport) JRLoader.loadObject(reporteEntrada);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
+            if (logoEmpresa != null && reporteEntrada != null) {
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("id_EnAl", dto.getOC());
+                parameters.put("fecha_EnAl", dto.getFechaRegistro());
+                parameters.put("procedencia", dto.getEmpresa().getNombre() + " - " + dto.getEmpresa().getNroRUC());
+                parameters.put("n_orden_compra", dto.getOC());
+                parameters.put("observacion", "observacion");
+                parameters.put("Ruta_Imagen", logoEmpresa);
 
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-            byte[] pdfBytes = outputStream.toByteArray();
+                JasperReport report = (JasperReport) JRLoader.loadObject(reporteEntrada);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
 
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(pdfBytes);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+                byte[] pdfBytes = outputStream.toByteArray();
 
-            file = DefaultStreamedContent.builder().name("Registro_entradas.pdf")
-                    .contentType("application/pdf").stream(()-> inputStream).build();
-            inputStream.close();
-            outputStream.close();
-        }else{
-            System.out.println("error");
-        }
-        }catch (Exception e) {
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(pdfBytes);
+
+                file = DefaultStreamedContent.builder()
+                        .name("Registro_entradas.pdf")
+                        .contentType("application/pdf")
+                        .stream(() -> inputStream)
+                        .build();
+
+                inputStream.close();
+                outputStream.close();
+            } else {
+                if (logoEmpresa == null) {
+                    System.out.println("No se pudo encontrar el logo de la empresa.");
+                }
+                if (reporteEntrada == null) {
+                    System.out.println("No se pudo encontrar el archivo del reporte.");
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
