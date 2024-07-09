@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class StockUnidadBeans implements Serializable {
 
     @Inject
-    private PrecioPorTipoUnidadService  precioPorTipoUnidadService;
+    private StockUnidadesService stockUnidadesService;
 
     private List<TablaStockUnidadesDto> stockUnidadesDtos;
 
@@ -41,6 +41,7 @@ public class StockUnidadBeans implements Serializable {
 
     private  void  loadStockUnidades(){
         try{
+            var stock = stockUnidadesService.getAllStockUnidades();
 
         }catch (Exception e){
             e.printStackTrace();

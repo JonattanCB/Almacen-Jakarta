@@ -13,8 +13,8 @@ public class StockUnidadesMapper {
         return new StockUnidadesDto(stockUnidades.getId(), stockUnidades.getCantidadStockUnidad(), stockUnidades.getTipoUnidad());
     }
 
-    public static TablaStockUnidadesDto toTablaStockUnidadesDto(StockUnidades dto) {
-        return new TablaStockUnidadesDto(dto.getId(),"", dto.getCantidadStockUnidad(), dto.getTipoUnidad());
+    public static TablaStockUnidadesDto toTablaStockUnidadesDto(StockUnidades s) {
+        return new TablaStockUnidadesDto(s.getId(),"", s.getCantidadStockUnidad(), s.getTipoUnidad());
     }
 
     public static StockUnidades toStockUnidadesFromUpdate(UpdateStockUnidadesDto dto) {
