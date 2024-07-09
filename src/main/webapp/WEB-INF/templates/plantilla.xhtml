@@ -16,6 +16,7 @@
     <f:event type="preRenderView" listener="#{PantillaBeans.verificarSesion()}"/>
 </h:head>
 <h:body>
+    <p:growl  id="mensaje-plantilla" />
       <div class="contenido-menu">
          <div class="contenedor-logo-Empresa" >
             <h:graphicImage styleClass="logo-menu" library="imagenes" name="logo.png" />
@@ -57,12 +58,12 @@
          <div id="submenu-perfil" class="submenu-perfil">
              <h:panelGrid style="padding: 0.5rem;">
                  <h:form>
-                     <h:commandLink   styleClass="opciones-perfil" >
-                         <i class="pi pi-user" /><h:outputText  value="Editar Perfil" styleClass="perfil-editar"/>
-                     </h:commandLink>
-                     <h:commandLink  actionListener="#{LoginBeans.cerrarSession()}" action="/index?faces-redirect=true"  styleClass="opciones-perfil">
+                     <p:commandLink action="#{CambiarContraBeans.abrirContrasenia()}"  oncomplete="PF('dialog-password').show()"  styleClass="opciones-perfil" >
+                         <i class="bi bi-person-fill-lock" /><h:outputText  value="Cambiar Contraseña" styleClass="perfil-editar"/>
+                     </p:commandLink>
+                     <p:commandLink  actionListener="#{LoginBeans.cerrarSession()}" action="/index?faces-redirect=true"  styleClass="opciones-perfil">
                          <i class="pi pi-power-off" /><h:outputText  value="Cerrar Sesion" styleClass="perfil-editar"/>
-                     </h:commandLink>
+                     </p:commandLink>
                  </h:form>
              </h:panelGrid>
          </div>
@@ -70,61 +71,33 @@
                 <ui:insert name="contenido">Content</ui:insert>
          </div>
      </div>
-    <h:outputScript>
-        function toggleSubmenu() {
-            var submenu = document.getElementById("submenu-perfil");
-            if (submenu) {
-                if (submenu.classList.contains('visible')) {
-                    submenu.classList.remove('visible');
-                    setTimeout(function() {
-                        submenu.style.display = 'none';
-                    }, 500); // Tiempo de la transición (0.5s)
-                } else {
-                    submenu.style.display = 'block';
-                    setTimeout(function() {
-                        submenu.classList.add('visible');
-                    }, 10); // Pequeño retraso para aplicar la transición
-                }
-            } else {
-                console.error("Elemento 'submenu-perfil' no encontrado.");
-            }
-        }
+    <p:dialog  id="dialog-password" header="Cambiar Contraseñas" width="600" height="300" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialog-password">
+        <h:form>
+            <h:panelGrid>
+                <h:panelGrid><h:outputText styleClass="texto_dialog" value="Contraseña Anterior: "/></h:panelGrid>
+                <h:panelGrid>
+                    <p:password toggleMask="true"  redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra}"  required="true"/>
+                </h:panelGrid>
+            </h:panelGrid>
 
-        function toggleMenu() {
-            var contenidoMenu = document.querySelector('.contenido-menu');
-            var contenidoEscritorio = document.querySelector('.Contenido-escritorio-opciones');
-            var visibleMenuDiv = document.querySelector('.visible-menu');
-            if (contenidoMenu) {
-                if (contenidoMenu.classList.contains('hidden')) {
-                    contenidoMenu.classList.remove('hidden');
-                } else {
-                    contenidoMenu.classList.add('hidden');
-                }
-            } else {
-                console.error("Elemento 'contenido-menu' no encontrado.");
-            }
+            <h:panelGrid>
+                <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nueva Contraseña: "/></h:panelGrid>
+                <h:panelGrid>
+                    <p:password  toggleMask="true" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra1}"  required="true"/>
+                </h:panelGrid>
+            </h:panelGrid>
 
-            if (contenidoEscritorio) {
-                if (contenidoEscritorio.classList.contains('expanded')) {
-                    contenidoEscritorio.classList.remove('expanded');
-                } else {
-                    contenidoEscritorio.classList.add('expanded');
-                }
-            } else {
-                console.error("Elemento 'contenido-escritorio-opciones' no encontrado.");
-            }
+            <h:panelGrid>
+                <h:panelGrid><h:outputText styleClass="texto_dialog" value="Verifica Contraseña: "/></h:panelGrid>
+                <h:panelGrid>
+                    <p:password toggleMask="true" redisplay="true" styleClass="input-custom" value="#{CambiarContraBeans.contra2}"  required="true"/>
+                </h:panelGrid>
+            </h:panelGrid>
 
-            if (visibleMenuDiv) {
-                if (visibleMenuDiv.classList.contains('rotate')) {
-                    visibleMenuDiv.classList.remove('rotate');
-                } else {
-                    visibleMenuDiv.classList.add('rotate');
-                }
-            } else {
-                console.error("Elemento 'visible-menu' no encontrado.");
-            }
 
-        }
-    </h:outputScript>
+        </h:form>
+    </p:dialog>
+
+    <h:outputScript library="js" name="script.js"  />
 </h:body>
 </html>

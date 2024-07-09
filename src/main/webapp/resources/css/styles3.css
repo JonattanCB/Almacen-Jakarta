@@ -327,3 +327,17 @@ body .ui-panel .ui-panel-content .menu-dinamico {
 .contenido-menu.hidden {
     display: none;
 }
+
+body .ui-commandlink, body .ui-link {
+    padding: 0.5rem;
+    width: 19rem;
+    color: #4c535a;
+    text-decoration: none;
+    display: block;
+    font-family: 'Nunito', sans-serif;
+}
+
+body .ui-commandlink, body .ui-link:hover{
+    color: #4c535a;
+    text-decoration: none;
+}
