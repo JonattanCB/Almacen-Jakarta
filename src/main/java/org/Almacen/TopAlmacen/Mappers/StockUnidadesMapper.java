@@ -1,16 +1,20 @@
 package org.Almacen.TopAlmacen.Mappers;
 
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StockUnidadesMapper {
     public static StockUnidadesDto toStockUnidadesDto(StockUnidades stockUnidades) {
         return new StockUnidadesDto(stockUnidades.getId(), stockUnidades.getCantidadStockUnidad(), stockUnidades.getTipoUnidad());
+    }
+
+    public static TablaStockUnidadesDto toTablaStockUnidadesDto(StockUnidades dto) {
+        return new TablaStockUnidadesDto(dto.getId(),"", dto.getCantidadStockUnidad(), dto.getTipoUnidad());
     }
 
     public static StockUnidades toStockUnidadesFromUpdate(UpdateStockUnidadesDto dto) {

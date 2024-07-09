@@ -32,7 +32,7 @@ public class StockUnidadesService implements Serializable {
     @Transactional
     public List<StockUnidadesDto> getAllStockUnidades() {
         var stockUnidades = istockUnidadesDao.getAll();
-        return stockUnidades.stream().map(StockUnidadesMapper::toStockUnidadesDto).collect(Collectors.toList());
+        return stockUnidades.stream().map(StockUnidadesMapper::toTablaStockUnidadesDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -93,6 +93,5 @@ public class StockUnidadesService implements Serializable {
     private boolean verificarStockUnidades(StockUnidades stockUnidades, double cantidadARestar) {
         return stockUnidades.getCantidadStockUnidad() >= cantidadARestar;
     }
-
 
 }
