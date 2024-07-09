@@ -9,6 +9,7 @@ import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.StockUnidadesMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
@@ -41,21 +42,22 @@ public class StockUnidadesService implements Serializable {
     }
 
     @Transactional
-    public StockUnidades addStockUnidades(int precioPorTipoUnidadId, UpdateStockUnidadesDto u) {
+    public void addStockUnidades(int precioPorTipoUnidadId, double cantidadAgregar) {
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(precioPorTipoUnidadId);
-        if (u.getCantidadStockUnidadesDto() <= 0) {
+        if (cantidadAgregar <= 0) {
             throw new IllegalArgumentException("La cantidad a agregar debe ser mayor que cero.");
         }
         if (precioPorTipoUnidad != null) {
             var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev());
-            stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + u.getCantidadStockUnidadesDto());
+            stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + cantidadAgregar);
             var ms = new MovimientoStock();
             ms.setTipoMovimiento("ENTRADA");
             ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
-            ms.setCantidad(u.getCantidadStockUnidadesDto());
+            ms.setCantidad(cantidadAgregar);
             ms.setTipoUnidad(stockUnidades.getTipoUnidad());
+            ms.setDescripcion(ProductoMapper.toConcatProduct(precioPorTipoUnidad.getProducto()));
             imovimientoStockDao.create(ms);
-            return istockUnidadesDao.update(u, stockUnidades.getId());
+            istockUnidadesDao.update(stockUnidades.getId(), cantidadAgregar);
 
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidadId + " no existe.");
@@ -63,23 +65,23 @@ public class StockUnidadesService implements Serializable {
     }
 
     @Transactional
-    public StockUnidades subtractStockUnidades(int precioPorTipoUnidadId, UpdateStockUnidadesDto u) {
-        if (u.getCantidadStockUnidadesDto() <= 0) {
+    public StockUnidades subtractStockUnidades(int precioPorTipoUnidadId, double cantidadRestar) {
+        if (cantidadRestar <= 0) {
             throw new IllegalArgumentException("La cantidad a restar debe ser mayor que cero.");
         }
         var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(precioPorTipoUnidadId);
         if (precioPorTipoUnidad != null) {
             var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev());
-            if (stockUnidades != null && verificarStockUnidades(stockUnidades, u.getCantidadStockUnidadesDto())) {
-                double cantidadActual = stockUnidades.getCantidadStockUnidad() - u.getCantidadStockUnidadesDto();
+            if (stockUnidades != null && verificarStockUnidades(stockUnidades, cantidadRestar)) {
+                double cantidadActual = stockUnidades.getCantidadStockUnidad() - cantidadRestar;
                 stockUnidades.setCantidadStockUnidad(cantidadActual);
                 var ms = new MovimientoStock();
                 ms.setTipoMovimiento("SALIDA");
                 ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
-                ms.setCantidad(u.getCantidadStockUnidadesDto());
+                ms.setCantidad(cantidadRestar);
                 ms.setTipoUnidad(stockUnidades.getTipoUnidad());
                 imovimientoStockDao.create(ms);
-                return istockUnidadesDao.update(u, stockUnidades.getId());
+                return istockUnidadesDao.update(stockUnidades.getId(), cantidadRestar);
             } else {
                 throw new IllegalStateException("No hay suficiente stock o el stock no existe.");
             }

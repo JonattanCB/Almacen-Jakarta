@@ -14,7 +14,7 @@ public interface IStockUnidadesDao {
 
     StockUnidades create(StockUnidades c);
 
-    StockUnidades update(UpdateStockUnidadesDto c,int id);
+    StockUnidades update(int id, double cantidadAgregar);
 
     StockUnidades delete(int id);
 

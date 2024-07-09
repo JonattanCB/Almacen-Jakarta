@@ -53,16 +53,8 @@ public class ProductoProveedorEntradaService implements Serializable {
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
             iDetalleProductoProveedorEntradaDao.create(detalle);
-/*
-            var stock = stockUnidadesService.getStockUnidadesById(d.getPrecioPorTipoUnidad().getStockUnidades().getId());
 
-            var dto = new CreateMovimientoStockDto();
-            dto.setTipoMovimiento("ENTRADA");
-            dto.setCantidad(d.getCantidad());
-            dto.setTipoUnidad(d.getTipoUnidad());
-            dto.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
-            movimientoStockService.create(dto);
-*/
+            stockUnidadesService.addStockUnidades(d.getPrecioPorTipoUnidad().getId(), d.getCantidad());
 
         }
         return prodcu;

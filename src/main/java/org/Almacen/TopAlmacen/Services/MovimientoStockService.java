@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.DTO.MovimientoStock.CreateMovimientoStockDto;
 import org.Almacen.TopAlmacen.DTO.MovimientoStock.MovimientoStockDto;
 import org.Almacen.TopAlmacen.Mappers.MovimientoStockMapper;
+import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 
 import java.io.Serializable;

@@ -34,10 +34,10 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
     }
 
     @Override
-    public StockUnidades update(UpdateStockUnidadesDto c, int id) {
+    public StockUnidades update(int id, double cantidadAgregar) {
         var obj = _entityManager.find(StockUnidades.class, id);
         if (obj != null) {
-            obj.setCantidadStockUnidad(c.getCantidadStockUnidadesDto());
+            obj.setCantidadStockUnidad(cantidadAgregar);
             _entityManager.merge(obj);
             return obj;
         }
@@ -59,11 +59,15 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
     @Override
     public StockUnidades findByProductoAndTipoUnidad(Producto producto, String tipoUnidad) {
         try {
-            return _entityManager.createQuery("SELECT s FROM StockUnidades s WHERE s.tipoUnidad = :tipoUnidad", StockUnidades.class)
+            return _entityManager.createQuery(
+                            "SELECT su FROM StockUnidades su JOIN su.precios p WHERE p.producto = :producto AND su.tipoUnidad = :tipoUnidad",
+                            StockUnidades.class)
+                    .setParameter("producto", producto)
                     .setParameter("tipoUnidad", tipoUnidad)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
     }
+
 }
