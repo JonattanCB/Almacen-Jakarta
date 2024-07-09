@@ -73,5 +73,10 @@ public class UsuarioService implements Serializable {
         }
     }
 
+    @Transactional
+    public void cambiarContrasenia(String password, int id){
+        String MD5 = PasswordUtil.hashPassword(password);
+        iUsuarioDao.cambiarPasswor(MD5,id);
+    }
 
 }

@@ -21,4 +21,6 @@ public interface IUsuarioDao {
     boolean existeEmail(String email);
 
     Usuario checkLogin(String login, String password);
+
+    void cambiarPasswor( String password, int id);
 }
