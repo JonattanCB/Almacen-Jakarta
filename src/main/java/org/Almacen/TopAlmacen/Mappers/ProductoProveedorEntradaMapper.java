@@ -24,6 +24,7 @@ public class ProductoProveedorEntradaMapper {
         p.setEmpresa(dto.getEmpresa());
         p.setUsuario(dto.getUsuario());
         p.setPrecioFinal(dto.getPrecioFinal());
+        p.setObservacion(dto.getObservacion());
         return p;
     }
 }
