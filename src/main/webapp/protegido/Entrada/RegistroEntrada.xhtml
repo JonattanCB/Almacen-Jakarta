@@ -14,12 +14,17 @@
                 <h:panelGrid styleClass="contendedor-card-paneles">
                     <p:toolbar>
                         <p:toolbarGroup>
-                            <p:commandButton value="Registrar Entrada " icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{RegistroEntradaBeans.NuevoRegister()}"
-                                 disabled="#{RegistroEntradaBeans.btnNuevoEntrada}" update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                            <p:commandButton value="Registrar Entrada " icon="pi pi-plus"
+                                             styleClass="disenio-nuevo ui-button-success"
+                                             action="#{RegistroEntradaBeans.NuevoRegister()}"
+                                             disabled="#{RegistroEntradaBeans.btnNuevoEntrada}" update="dialogs"
+                                             oncomplete="PF('dialogsa').show()"/>
                         </p:toolbarGroup>
                     </p:toolbar>
-                    <p:dataTable id="tabla" var="obj" value="#{RegistroEntradaBeans.productoProveedorEntradaDtos}" widgetVar="obj" style="margin-top: 1rem"
-                                 emptyMessage="No hay elementos disponibles" filteredValue="#{RegistroEntradaBeans.productoProveedorEntradaDtosSeleccion}"
+                    <p:dataTable id="tabla" var="obj" value="#{RegistroEntradaBeans.productoProveedorEntradaDtos}"
+                                 widgetVar="obj" style="margin-top: 1rem"
+                                 emptyMessage="No hay elementos disponibles"
+                                 filteredValue="#{RegistroEntradaBeans.productoProveedorEntradaDtosSeleccion}"
                                  globalFilterFunction="#{RegistroEntradaBeans.globalFilterFunction}"
                                  rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                         <f:facet name="header">
@@ -33,200 +38,249 @@
                                         </span>
                             </div>
                         </f:facet>
-                        <p:column headerText="#"  sortBy="#{obj.OC}" width="80"  >
-                            <h:outputText value="#{obj.OC}" />
+                        <p:column headerText="#" sortBy="#{obj.OC}" width="80">
+                            <h:outputText value="#{obj.OC}"/>
                         </p:column>
-                        <p:column headerText="Responsable" sortBy="#{obj.usuario.nombres} #{obj.usuario.apellidos}" width="180" >
-                            <h:outputText value="#{obj.usuario.nombres} #{obj.usuario.apellidos}" />
+                        <p:column headerText="Responsable" sortBy="#{obj.usuario.nombres} #{obj.usuario.apellidos}"
+                                  width="180">
+                            <h:outputText value="#{obj.usuario.nombres} #{obj.usuario.apellidos}"/>
                         </p:column>
-                        <p:column headerText="Empresa" sortBy="#{obj.empresa.nombre}" width="150" >
-                            <h:outputText value="#{obj.empresa.nombre}" />
+                        <p:column headerText="Empresa" sortBy="#{obj.empresa.nombre}" width="150">
+                            <h:outputText value="#{obj.empresa.nombre}"/>
                         </p:column>
-                        <p:column headerText="Precio Final" sortBy="#{obj.precioFinal}" width="150" >
-                            <h:outputText value="S/. #{obj.precioFinal}" />
+                        <p:column headerText="Precio Final" sortBy="#{obj.precioFinal}" width="150">
+                            <h:outputText value="S/. #{obj.precioFinal}"/>
                         </p:column>
                         <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistro}" width="100">
                             <h:outputText value="#{obj.fechaRegistro}"/>
                         </p:column>
                         <p:column exportable="false" width="100">
-                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             action="#{RegistroEntradaBeans.verDatos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
-                                             styleClass="edit-button rounded-button "  >
-                                <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
-                            </p:commandButton>
-
-                            <p:commandButton value="Ajax Download" icon="pi pi-arrow-down" styleClass="ui-button-outlined"
-                                             actionListener="#{ReportesEntradaBeans.updateAndGeneratePDF(obj.OC)}"
-                                             ajax="false">
-                                <p:fileDownload value="#{ReportesEntradaBeans.file}" />
-                            </p:commandButton>
-
-                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             action="#{ReportesEntradaBeans.GenerarPDF()}"
-                                             styleClass="edit-button rounded-button "  >
-
+                            <p:commandButton icon="pi pi-file"
+                                             style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                             action="#{RegistroEntradaBeans.verDatos()}" update=":dialogs"
+                                             oncomplete="PF('dialogsa').show()"
+                                             styleClass="edit-button rounded-button ">
+                                <f:setPropertyActionListener value="#{obj.OC}"
+                                                             target="#{RegistroEntradaBeans.idRegistroEntrada}"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" appendTo="@(body)" modal="true"
+                  widgetVar="dialogsa">
             <h:form id="form-dialogProducto">
-                <div id="dialog-content" class="dialogs-barra-grande" >
+                <div id="dialog-content" class="dialogs-barra-grande">
                     <h:panelGrid columns="2" width="1200">
                         <h:panelGrid>
-                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Empresa" /></h:panelGrid>
-                            <h:panelGrid >
-                                <p:selectOneMenu id="empresa" style="width: 50rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                                         disabled="#{RegistroEntradaBeans.bloquearEmpesa}" value="#{RegistroEntradaBeans.idEmpresa}" required="true" autoWidth="false"  >
-                                    <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                    <f:selectItems  value="#{RegistroEntradaBeans.empresaDtoList}" var="empre" itemLabel="#{empre.nombre}" itemValue="#{empre.nroRUC}" />
-                                    <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.CargarEmpresa()}" update="empresa tabla-detalle Datos-empresa"  />
+                            <h:panelGrid><h:outputText styleClass="texto_dialog" value="Empresa"/></h:panelGrid>
+                            <h:panelGrid>
+                                <p:selectOneMenu id="empresa" style="width: 50rem;" filter="true"
+                                                 filterMatchMode="startsWith" styleClass="ui-selectonemenu"
+                                                 disabled="#{RegistroEntradaBeans.bloquearEmpesa}"
+                                                 value="#{RegistroEntradaBeans.idEmpresa}" required="true"
+                                                 autoWidth="false">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione una Opcion"/>
+                                    <f:selectItems value="#{RegistroEntradaBeans.empresaDtoList}" var="empre"
+                                                   itemLabel="#{empre.nombre}" itemValue="#{empre.nroRUC}"/>
+                                    <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.CargarEmpresa()}"
+                                            update="empresa tabla-detalle Datos-empresa"/>
                                 </p:selectOneMenu>
                             </h:panelGrid>
                         </h:panelGrid>
-                        <h:panelGrid  style="float: right" >
-                            <h:outputText  styleClass="texto_dialog" style="margin-top: 3rem" value="N° Registro: #{RegistroEntradaBeans.productoProveedorEntradaDto.OC}"/>
-                            <h:outputText  styleClass="texto_dialog"  value="Fecha : #{RegistroEntradaBeans.fechaActual}"/>
+                        <h:panelGrid style="float: right">
+                            <h:outputText styleClass="texto_dialog" style="margin-top: 3rem"
+                                          value="N° Registro: #{RegistroEntradaBeans.productoProveedorEntradaDto.OC}"/>
+                            <h:outputText styleClass="texto_dialog"
+                                          value="Fecha : #{RegistroEntradaBeans.fechaActual}"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1200" >
-                        <h:panelGrid >
-                            <h:outputText styleClass="texto_dialog"  value="RUC: #{RegistroEntradaBeans.empresaDto.nroRUC}"  style="margin-top: 1rem" />
-                            <h:outputText styleClass="texto_dialog"  value="Tipo de Empresa: #{RegistroEntradaBeans.empresaDto.tipoEmpresa.nombre} - #{RegistroEntradaBeans.empresaDto.tipoEmpresa.abrev}" style="margin-top: 3rem"  />
+                    <h:panelGrid id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1200">
+                        <h:panelGrid>
+                            <h:outputText styleClass="texto_dialog"
+                                          value="RUC: #{RegistroEntradaBeans.empresaDto.nroRUC}"
+                                          style="margin-top: 1rem"/>
+                            <h:outputText styleClass="texto_dialog"
+                                          value="Tipo de Empresa: #{RegistroEntradaBeans.empresaDto.tipoEmpresa.nombre} - #{RegistroEntradaBeans.empresaDto.tipoEmpresa.abrev}"
+                                          style="margin-top: 3rem"/>
                         </h:panelGrid>
                         <h:panelGrid>
-                            <h:outputText styleClass="texto_dialog"  value="Nombre: #{RegistroEntradaBeans.empresaDto.nombre}" style="margin-top: 1rem"  />
-                            <h:outputText styleClass="texto_dialog"  value="Direccion: #{RegistroEntradaBeans.empresaDto.direccion}" style="margin-top: 3rem"  />
+                            <h:outputText styleClass="texto_dialog"
+                                          value="Nombre: #{RegistroEntradaBeans.empresaDto.nombre}"
+                                          style="margin-top: 1rem"/>
+                            <h:outputText styleClass="texto_dialog"
+                                          value="Direccion: #{RegistroEntradaBeans.empresaDto.direccion}"
+                                          style="margin-top: 3rem"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid style="margin-top: 1rem" >
+                    <h:panelGrid style="margin-top: 1rem">
                         <h:panelGrid>
-                            <p:dataTable size="small"  scrollable="true" scrollHeight="250" style="width: 80rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
-                                         rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom" >
+                            <p:dataTable size="small" scrollable="true" scrollHeight="250" style="width: 80rem"
+                                         id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld"
+                                         editable="true"
+                                         rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                                 <f:facet name="header">
                                     <div class="header-tabla">
                                         <span class="titulo-hearder-tabla">Listado de Productos</span>
-                                        <p:commandButton id="btnagregar" rendered="#{RegistroEntradaBeans.verDatosValidacion}" value="Agregar" disabled="#{RegistroEntradaBeans.btnBotonAgregrar}" action="#{RegistroEntradaBeans.AgregarNuevoDetalle()}"
-                                                         icon="pi pi-plus" style="width: 8rem" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
+                                        <p:commandButton id="btnagregar"
+                                                         rendered="#{RegistroEntradaBeans.verDatosValidacion}"
+                                                         value="Agregar"
+                                                         disabled="#{RegistroEntradaBeans.btnBotonAgregrar}"
+                                                         action="#{RegistroEntradaBeans.AgregarNuevoDetalle()}"
+                                                         icon="pi pi-plus" style="width: 8rem"
+                                                         styleClass="disenio-nuevo ui-button-success"
+                                                         update="form-dialogo-producto"
+                                                         oncomplete="PF('dialogProducto').show()"/>
                                     </div>
                                 </f:facet>
-                                <p:ajax event="rowEdit" listener="#{RegistroEntradaBeans.editarTablaDetalle}" update="form-dialogProducto:precioTotal"  />
+                                <p:ajax event="rowEdit" listener="#{RegistroEntradaBeans.editarTablaDetalle}"
+                                        update="form-dialogProducto:precioTotal"/>
                                 <p:column headerText="#" width="80">
-                                    <h:outputText  value="#{ld.id}"  />
+                                    <h:outputText value="#{ld.id}"/>
                                 </p:column>
                                 <p:column headerText="Descripcion" width="180">
-                                    <h:outputText  value="#{ld.descripcion}" />
+                                    <h:outputText value="#{ld.descripcion}"/>
                                 </p:column>
                                 <p:column headerText="Tipo Unidad" width="70">
-                                    <h:outputText  value="#{ld.tipoUnidad.abrev}" />
+                                    <h:outputText value="#{ld.tipoUnidad.abrev}"/>
                                 </p:column>
                                 <p:column headerText="Precio" width="100">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText  value="S/. #{ld.precioUnitario}" />
+                                            <h:outputText value="S/. #{ld.precioUnitario}"/>
                                         </f:facet>
-                                       <f:facet name="input">
-                                           <p:inputText value="#{ld.precioUnitario}" />
-                                       </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{ld.precioUnitario}"/>
+                                        </f:facet>
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Cantidad" width="100">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText  value="#{ld.cantidad}" />
+                                            <h:outputText value="#{ld.cantidad}"/>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{ld.cantidad}" />
+                                            <p:inputText value="#{ld.cantidad}"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Precio Total" width="80">
-                                    <h:outputText  value="S/. #{ld.precioTotal}" />
+                                    <h:outputText value="S/. #{ld.precioTotal}"/>
                                 </p:column>
                                 <p:column width="100">
-                                    <p:rowEditor  rendered="#{RegistroEntradaBeans.verDatosValidacion}"  styleClass="rounded-button ui-button-warning ui-button-flat" editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
-                                    <p:commandButton icon="pi pi-trash" rendered="#{RegistroEntradaBeans.verDatosValidacion}"   styleClass="rounded-button ui-button-danger ui-button-flat" update="form-dialogProducto:tabla-detalle form-dialogProducto:precioTotal" actionListener="#{RegistroEntradaBeans.eliminarTablaDetalle()}" >
-                                        <f:setPropertyActionListener value="#{ld.id}" target="#{RegistroEntradaBeans.idTempora}" />
+                                    <p:rowEditor rendered="#{RegistroEntradaBeans.verDatosValidacion}"
+                                                 styleClass="rounded-button ui-button-warning ui-button-flat"
+                                                 editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                                    <p:commandButton icon="pi pi-trash"
+                                                     rendered="#{RegistroEntradaBeans.verDatosValidacion}"
+                                                     styleClass="rounded-button ui-button-danger ui-button-flat"
+                                                     update="form-dialogProducto:tabla-detalle form-dialogProducto:precioTotal"
+                                                     actionListener="#{RegistroEntradaBeans.eliminarTablaDetalle()}">
+                                        <f:setPropertyActionListener value="#{ld.id}"
+                                                                     target="#{RegistroEntradaBeans.idTempora}"/>
                                     </p:commandButton>
                                 </p:column>
                             </p:dataTable>
                             <h:panelGrid styleClass="precio-Final-Entrada" columns="2">
-                                <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Fianl :" />
-                                <h:outputText id="precioTotal"  value="S/. #{RegistroEntradaBeans.precioTotal}" />
+                                <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Fianl :"/>
+                                <h:outputText id="precioTotal" value="S/. #{RegistroEntradaBeans.precioTotal}"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
+                <h:panelGrid columns="2" style="float: right;">
+                    <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"
+                                     disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check"
+                                     style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}"/>
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"
+                                     styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>
-        </p:dialog >
+        </p:dialog>
 
-        <p:dialog id="dialogProducto" header="Seleccione Producto" appendTo="@(body)"  showEffect="fade" modal="true"  widgetVar="dialogProducto" >
+        <p:dialog id="dialogProducto" header="Seleccione Producto" appendTo="@(body)" showEffect="fade" modal="true"
+                  widgetVar="dialogProducto">
             <h:form id="form-dialogo-producto">
                 <div style="width: 27rem;height: 23rem">
                     <h:panelGrid>
-                        <h:panelGrid><h:outputLabel for="prducto"  styleClass="texto_dialog" value="Productos: " /></h:panelGrid>
-                        <h:panelGrid >
+                        <h:panelGrid><h:outputLabel for="prducto" styleClass="texto_dialog"
+                                                    value="Productos: "/></h:panelGrid>
+                        <h:panelGrid>
                             <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
+                                <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="pi pi-inbox" style="margin-right: 1rem"/>
-                                    <p:selectOneMenu disabled="#{RegistroEntradaBeans.bloquearProducto}" id="prducto" style="width: 23rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                                      value="#{RegistroEntradaBeans.idProducto}" required="true" autoWidth="false"  >
-                                        <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                        <f:selectItems  value="#{RegistroEntradaBeans.productoDescripcionDtoList}" var="pro" itemLabel="#{pro.descripcion}" itemValue="#{pro.id}" />
-                                        <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.cargarTipoUnidad()}" update="prducto tipoUnidad precio cantidad"  />
+                                    <p:selectOneMenu disabled="#{RegistroEntradaBeans.bloquearProducto}" id="prducto"
+                                                     style="width: 23rem;" filter="true" filterMatchMode="startsWith"
+                                                     styleClass="ui-selectonemenu"
+                                                     value="#{RegistroEntradaBeans.idProducto}" required="true"
+                                                     autoWidth="false">
+                                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione una Opcion"/>
+                                        <f:selectItems value="#{RegistroEntradaBeans.productoDescripcionDtoList}"
+                                                       var="pro" itemLabel="#{pro.descripcion}" itemValue="#{pro.id}"/>
+                                        <p:ajax event="valueChange"
+                                                listener="#{RegistroEntradaBeans.cargarTipoUnidad()}"
+                                                update="prducto tipoUnidad precio cantidad"/>
                                     </p:selectOneMenu>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Tipo de Unidad: " /></h:panelGrid>
-                        <h:panelGrid >
+                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Tipo de Unidad: "/></h:panelGrid>
+                        <h:panelGrid>
                             <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
+                                <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-rulers" style="margin-right: 1rem"/>
-                                    <p:selectOneMenu disabled="#{RegistroEntradaBeans.bloquearTipoUnidad}" id="tipoUnidad" style="width: 23rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                                     value="#{RegistroEntradaBeans.idTipoUnidad}" required="true" autoWidth="false"  >
-                                        <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                        <f:selectItems  value="#{RegistroEntradaBeans.tipoUnidadDtoList}" var="tu" itemLabel="#{tu.nombre}" itemValue="#{tu.id}" />
-                                        <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.cargarPrecioPorTipoUnidad()}" update="prducto tipoUnidad precio cantidad"  />
+                                    <p:selectOneMenu disabled="#{RegistroEntradaBeans.bloquearTipoUnidad}"
+                                                     id="tipoUnidad" style="width: 23rem;" filter="true"
+                                                     filterMatchMode="startsWith" styleClass="ui-selectonemenu"
+                                                     value="#{RegistroEntradaBeans.idTipoUnidad}" required="true"
+                                                     autoWidth="false">
+                                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione una Opcion"/>
+                                        <f:selectItems value="#{RegistroEntradaBeans.tipoUnidadDtoList}" var="tu"
+                                                       itemLabel="#{tu.nombre}" itemValue="#{tu.id}"/>
+                                        <p:ajax event="valueChange"
+                                                listener="#{RegistroEntradaBeans.cargarPrecioPorTipoUnidad()}"
+                                                update="prducto tipoUnidad precio cantidad"/>
                                     </p:selectOneMenu>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Precio: " /></h:panelGrid>
-                        <h:panelGrid >
+                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Precio: "/></h:panelGrid>
+                        <h:panelGrid>
                             <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
+                                <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-cash" style="margin-right: 1rem"/>
-                                    <p:inputText disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.detalleProductoProveedorEntradaDto.precioUnitario}"  id="precio" style="width: 23rem;"  />
+                                    <p:inputText disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}"
+                                                 value="#{RegistroEntradaBeans.detalleProductoProveedorEntradaDto.precioUnitario}"
+                                                 id="precio" style="width: 23rem;"/>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Cantidad: " /></h:panelGrid>
-                        <h:panelGrid >
+                        <h:panelGrid><h:outputText styleClass="texto_dialog" value="Cantidad: "/></h:panelGrid>
+                        <h:panelGrid>
                             <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
+                                <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-archive-fill" style="margin-right: 1rem"/>
-                                    <p:inputText id="cantidad"  style="width: 23rem;" disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}"  value="#{RegistroEntradaBeans.detalleProductoProveedorEntradaDto.cantidad}" />
+                                    <p:inputText id="cantidad" style="width: 23rem;"
+                                                 disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}"
+                                                 value="#{RegistroEntradaBeans.detalleProductoProveedorEntradaDto.cantidad}"/>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;"  action="#{RegistroEntradaBeans.registrarProducto()}" process="form-dialogo-producto @this" update="form-dialogProducto" />
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>
+                <h:panelGrid columns="2" style="float: right;">
+                    <p:commandButton value="Guardar" icon="pi pi-check" style="margin-right: 0.5rem;"
+                                     action="#{RegistroEntradaBeans.registrarProducto()}"
+                                     process="form-dialogo-producto @this" update="form-dialogProducto"/>
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()"
+                                     update="form-dialogProducto" styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>
         </p:dialog>
