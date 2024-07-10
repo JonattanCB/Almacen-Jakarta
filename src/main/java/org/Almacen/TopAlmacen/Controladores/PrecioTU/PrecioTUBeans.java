@@ -95,7 +95,6 @@ public class PrecioTUBeans implements Serializable {
     }
 
     public void determinarPrecioPorTipoUnidad() {
-        System.out.println("entro aca");
         if (precioPorTipoUnidadDto.getId() == 0) {
             createPrecioPorTipoUnidad();
         } else {

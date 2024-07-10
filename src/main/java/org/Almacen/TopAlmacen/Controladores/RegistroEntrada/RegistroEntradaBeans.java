@@ -149,7 +149,6 @@ public class RegistroEntradaBeans implements Serializable {
         this.detalleProductoProveedorEntradaDto.setId(getNextId());
         this.detalleProductoProveedorEntradaDto.setOC_id(ProductoProveedorEntradaMapper.toEntityCreate(productoProveedorEntradaDto));
         this.detalleProductoProveedorEntradaDto.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadDto));
-        System.out.println(precioPorTipoUnidadDto.getStockUnidades().getId() + "Segunda vez encontrado y "+precioPorTipoUnidadDto.getStockUnidades().getTipoUnidad() + "La unidad es esa");
         this.detalleProductoProveedorEntradaDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
         this.detalleProductoProveedorEntradaDto.setPrecioTotal(detalleProductoProveedorEntradaDto.getPrecioUnitario() * detalleProductoProveedorEntradaDto.getCantidad());
         this.detalleProductoProveedorEntradaDto.setDescripcion(ProductoMapper.toConcatProduct(precioPorTipoUnidadDto.getProducto()));
@@ -175,7 +174,6 @@ public class RegistroEntradaBeans implements Serializable {
 
     public void cargarPrecioPorTipoUnidad() {
         this.precioPorTipoUnidadDto = precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(idProducto, idTipoUnidad);
-        System.out.println(precioPorTipoUnidadDto.getStockUnidades().getId() + "Este es el ID");
         this.detalleProductoProveedorEntradaDto.setPrecioUnitario(precioPorTipoUnidadDto.getPrecioUnitario());
         validacionNuevoProducto(3);
     }
