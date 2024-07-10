@@ -5,6 +5,8 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
+import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
+import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
@@ -12,6 +14,7 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
+import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;
@@ -27,6 +30,10 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
     @Inject
     private StockUnidadesService stockUnidadesService;
+    @Inject
+    private IPrecioPorTipoUnidadDao iPrecioPorTipoUnidadDao;
+    @Inject
+    private IHistorialPreciosDao iHistorialPreciosDao;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -47,6 +54,13 @@ public class ProductoProveedorEntradaService implements Serializable {
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
 
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
+            var pptu = iPrecioPorTipoUnidadDao.getById(d.getPrecioPorTipoUnidad().getId());
+            if (pptu.getPrecioUnitario() != detalle.getPrecioUnitario()) {
+                var his = new HistorialPrecios();
+                his.setPrecioPorTipoUnidad(pptu);
+                his.setPrecioRegistro(detalle.getPrecioUnitario());
+                iHistorialPreciosDao.create(his);
+            }
             iDetalleProductoProveedorEntradaDao.create(detalle);
 
 
@@ -61,7 +75,6 @@ public class ProductoProveedorEntradaService implements Serializable {
     public ProductoProveedorEntrada update(UpdateProductoProveedorEntradaDto u, int oc) {
         return iProductoProveedorEntradaDao.update(u, oc);
     }
-
 
 
     @Transactional

@@ -33,7 +33,5 @@ public class Acceso {
     private String Tipo;
     @Column(name = "SubMenuId")
     private int SubMenuId;
-    @OneToMany(mappedBy = "acceso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Permiso> permisos;
 
 }
