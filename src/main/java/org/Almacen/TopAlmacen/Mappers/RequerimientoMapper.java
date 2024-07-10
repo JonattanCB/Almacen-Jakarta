@@ -6,7 +6,7 @@ import org.Almacen.TopAlmacen.DTO.Requerimiento.UpdateRequerimientoDto;
 import org.Almacen.TopAlmacen.Model.Requerimiento;
 
 public class RequerimientoMapper {
-    public static RequerimientoDto toDto(Requerimiento requerimiento){
+    public static RequerimientoDto toDto(Requerimiento requerimiento) {
         RequerimientoDto requerimientoDto = new RequerimientoDto();
         requerimientoDto.setId(requerimiento.getId());
         requerimientoDto.setFechaRegistrada(requerimiento.getFechaRegistrada());
@@ -16,7 +16,8 @@ public class RequerimientoMapper {
         requerimientoDto.setRazonSalida(requerimiento.getRazonSalida());
         return requerimientoDto;
     }
-    public static Requerimiento toEntity(RequerimientoDto requerimientoDto){
+
+    public static Requerimiento toEntity(RequerimientoDto requerimientoDto) {
         Requerimiento requerimiento = new Requerimiento();
         requerimiento.setId(requerimientoDto.getId());
         requerimiento.setUnidadDependencia(requerimientoDto.getUnidadDependencia());
@@ -27,21 +28,23 @@ public class RequerimientoMapper {
         return requerimiento;
     }
 
-    public static  CreateRequerimientoDto tocreate(RequerimientoDto requerimientoDto){
+    public static CreateRequerimientoDto tocreate(RequerimientoDto requerimientoDto) {
         CreateRequerimientoDto createRequerimientoDto = new CreateRequerimientoDto();
         createRequerimientoDto.setRazonEntrada(requerimientoDto.getRazonEntrada());
         createRequerimientoDto.setUnidadDependencia(requerimientoDto.getUnidadDependencia());
         return createRequerimientoDto;
     }
 
-    public static Requerimiento fromCreate(CreateRequerimientoDto dto){
+    public static Requerimiento fromCreate(CreateRequerimientoDto dto) {
         Requerimiento requerimiento = new Requerimiento();
         requerimiento.setEstado("PENDIENTE");
         requerimiento.setUnidadDependencia(dto.getUnidadDependencia());
         requerimiento.setRazonEntrada(dto.getRazonEntrada());
+        System.out.println(requerimiento.getEstado()  + requerimiento.getRazonEntrada() + requerimiento.getUnidadDependencia().getNombre());
         return requerimiento;
     }
-    public static Requerimiento fromUpdate(UpdateRequerimientoDto dto){
+
+    public static Requerimiento fromUpdate(UpdateRequerimientoDto dto) {
         Requerimiento requerimiento = new Requerimiento();
         dto.setEstado(dto.getEstado());
         dto.setRazonEntrada(dto.getRazonEntrada());

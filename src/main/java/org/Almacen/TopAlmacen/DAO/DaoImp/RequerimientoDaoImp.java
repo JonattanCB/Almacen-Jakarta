@@ -15,7 +15,7 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
 
     @Override
     public List<Requerimiento> getAll() {
-        return _entityManager.createQuery("SELECT r FROM Requerimiento r", Requerimiento.class).getResultList();
+        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.Requerimientos JOIN FETCH r.unidadDependencia", Requerimiento.class).getResultList();
     }
 
     @Override

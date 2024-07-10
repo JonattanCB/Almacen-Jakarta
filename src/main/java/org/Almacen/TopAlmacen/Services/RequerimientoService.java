@@ -37,6 +37,7 @@ public class RequerimientoService {
         iRequerimientoDao.create(created);
         for (CreateItemsRequerimientoDto item : itemsDto) {
             var newItem = ItemsRequerimientoMapper.fromCreate(item);
+            newItem.setRequerimiento(created);
             iItemsRequerimientoDao.create(newItem);
         }
         return created;
