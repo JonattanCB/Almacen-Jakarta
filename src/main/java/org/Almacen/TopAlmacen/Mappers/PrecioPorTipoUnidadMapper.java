@@ -10,7 +10,6 @@ import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 
 public class PrecioPorTipoUnidadMapper {
     public static PrecioPorTipoUnidadDto toDto(PrecioPorTipoUnidad p) {
-        System.out.println(p.getStockUnidades() + "encontrado");
         return new PrecioPorTipoUnidadDto(p.getId(), p.getTipoUnidad(), p.getProducto(), p.getPrecioUnitario(), p.getUnidadesPorTipoUnidadDeProducto(), p.getStockUnidades());
     }
 
@@ -42,6 +41,7 @@ public class PrecioPorTipoUnidadMapper {
         precio.setProducto(p.getProducto());
         precio.setPrecioUnitario(p.getPrecioUnitario());
         precio.setUnidadesPorTipoUnidadDeProducto(p.getUnidadesPorTipoUnidadPorProducto());
+        precio.setStockUnidades(p.getStockUnidades());
         return precio;
     }
 

@@ -12,11 +12,11 @@ public class DetalleProductoProveedorEntradaMapper {
     }
 
     public static ListaDetalleProductoProveedorEntradaDto toDtoLista(DetalleProductoProveedorEntrada d) {
-        return new ListaDetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(),d.getCantidad(),d.getTipoUnidad(),d.getPrecioPorTipoUnidad(),ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()),d.getPrecioUnitario(),d.getPrecioTotal() );
+        return new ListaDetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getPrecioPorTipoUnidad(), ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()), d.getPrecioUnitario(), d.getPrecioTotal());
     }
 
     public static PdfDetalleProductoProveedorEntradaDto toDtoPdf(DetalleProductoProveedorEntrada d) {
-        return new PdfDetalleProductoProveedorEntradaDto(d.getPrecioPorTipoUnidad().getProducto().getId(), ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()),d.getTipoUnidad().getNombre(),d.getPrecioPorTipoUnidad().getProducto().getMarca().getNombre(),d.getCantidad());
+        return new PdfDetalleProductoProveedorEntradaDto(d.getPrecioPorTipoUnidad().getProducto().getId(), ProductoMapper.toConcatProduct(d.getPrecioPorTipoUnidad().getProducto()), d.getTipoUnidad().getNombre(), d.getPrecioPorTipoUnidad().getProducto().getMarca().getNombre(), d.getCantidad());
     }
 
     public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<ListaDetalleProductoProveedorEntradaDto> d) {
@@ -27,6 +27,8 @@ public class DetalleProductoProveedorEntradaMapper {
             dto.setTipoUnidad(l.getTipoUnidad());
             dto.setPrecioTotal(l.getPrecioTotal());
             dto.setPrecioPorTipoUnidad(l.getPrecioPorTipoUnidad());
+            System.out.println(l.getPrecioPorTipoUnidad().getProducto().getNombre()+"Este es el producto");
+            System.out.println(l.getPrecioPorTipoUnidad().getStockUnidades().getTipoUnidad()+"Aqui esta el TipoUnidad UND");
             dto.setPrecioUnitario(l.getPrecioUnitario());
             dto.setOC_id(l.getOC_id());
             lst.add(dto);
@@ -40,6 +42,8 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setCantidad(d.getCantidad());
         e.setTipoUnidad(d.getTipoUnidad());
         e.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
+        System.out.println(d.getPrecioPorTipoUnidad().getProducto().getNombre() + "Encontrado");
+        System.out.println(d.getPrecioPorTipoUnidad().getStockUnidades().getId() + "Encontrado");
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;

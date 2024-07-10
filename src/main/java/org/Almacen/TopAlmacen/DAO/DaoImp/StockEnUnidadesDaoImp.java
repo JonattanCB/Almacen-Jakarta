@@ -39,7 +39,7 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
     public StockUnidades update(int id, double nuevaCantidad) {
         var obj = _entityManager.find(StockUnidades.class, id);
         if (obj != null) {
-            obj.setCantidadStockUnidad(obj.getCantidadStockUnidad() + nuevaCantidad);
+            obj.setCantidadStockUnidad(nuevaCantidad);
             _entityManager.merge(obj);
             return obj;
         }

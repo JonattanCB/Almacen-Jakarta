@@ -45,7 +45,6 @@ public class MarcaBeans implements Serializable {
 
     public void determinarAccion(){
         if (marcaDto.getNombre().equals("")){
-            System.out.println("entras aca");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Por favor, complete todos los campos requeridos.",null));
             PrimeFaces.current().ajax().update(":form-datos:messages");
         }else{

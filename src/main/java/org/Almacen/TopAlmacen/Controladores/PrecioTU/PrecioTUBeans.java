@@ -95,7 +95,6 @@ public class PrecioTUBeans implements Serializable {
     }
 
     public void determinarPrecioPorTipoUnidad() {
-        System.out.println("entro aca");
         if (precioPorTipoUnidadDto.getId() == 0) {
             createPrecioPorTipoUnidad();
         } else {
@@ -154,6 +153,7 @@ public class PrecioTUBeans implements Serializable {
             PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         } else {
             createPrecioPorTipoUnidadDto.setStockUnidades(precioPorTipoUnidadService.getByIdProducto(productoId).getStockUnidades());
+
             if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto) == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                 PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
