@@ -72,36 +72,30 @@ public class StockUnidadesService implements Serializable {
         }
     }
 
-    /*
-        @Transactional
-        public StockUnidades subtractStockUnidades(int precioPorTipoUnidadId, double cantidadRestar) {
-            if (cantidadRestar <= 0) {
-                throw new IllegalArgumentException("La cantidad a restar debe ser mayor que cero.");
-            }
-            var precioPorTipoUnidad = iprecioPorTipoUnidadDao.getById(precioPorTipoUnidadId);
-            if (precioPorTipoUnidad != null) {
-                var stockUnidades = istockUnidadesDao.findByProductoAndTipoUnidad(precioPorTipoUnidad.getProducto(), precioPorTipoUnidad.getTipoUnidad().getAbrev());
-                if (stockUnidades != null && verificarStockUnidades(stockUnidades, cantidadRestar)) {
-                    double cantidadActual = stockUnidades.getCantidadStockUnidad() - cantidadRestar;
-                    stockUnidades.setCantidadStockUnidad(cantidadActual);
-                    var ms = new MovimientoStock();
-                    ms.setTipoMovimiento("SALIDA");
-                    ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
-                    ms.setCantidad(cantidadRestar);
-                    ms.setTipoUnidad(stockUnidades.getTipoUnidad());
-                    imovimientoStockDao.create(ms);
-                    return istockUnidadesDao.update(stockUnidades.getId(), cantidadRestar);
-                } else {
-                    throw new IllegalStateException("No hay suficiente stock o el stock no existe.");
-                }
-            } else {
-                throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidadId + " no existe.");
-            }
-        }
-    */
+
     @Transactional
-    private boolean verificarStockUnidades(StockUnidades stockUnidades, double cantidadARestar) {
-        return stockUnidades.getCantidadStockUnidad() >= cantidadARestar;
+    public void subtractStockUnidades(PrecioPorTipoUnidad precioPorTipoUnidad, double cantidadRestar) {
+        if (cantidadRestar <= 0) {
+            throw new IllegalArgumentException("La cantidad a agregar debe ser mayor que cero.");
+        }
+        if (precioPorTipoUnidad != null) {
+            var stockUnidades = precioPorTipoUnidad.getStockUnidades();
+            var resto = stockUnidades.getCantidadStockUnidad() - cantidadRestar;
+            if (resto <= 0) {
+                throw new IllegalArgumentException("No hay suficiente Stock disponible");
+            } else {
+                stockUnidades.setCantidadStockUnidad(resto);
+                istockUnidadesDao.update(stockUnidades.getId(), resto);
+                var ms = new MovimientoStock();
+                ms.setTipoMovimiento("ENTRADA");
+                ms.setPrecioPorTipoUnidad(precioPorTipoUnidad);
+                ms.setCantidad(cantidadRestar);
+                ms.setTipoUnidad(stockUnidades.getTipoUnidad());
+                imovimientoStockDao.create(ms);
+            }
+        } else {
+            throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidad.getId() + " no existe.");
+        }
     }
 
 }
