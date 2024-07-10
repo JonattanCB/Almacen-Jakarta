@@ -35,5 +35,4 @@ public class Requerimiento {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requerimiento", cascade = CascadeType.ALL)
     private List<ItemsRequerimiento> Requerimientos;
 
-
 }

@@ -19,4 +19,5 @@ public class ProductoProveedorEntradaDto {
     private LocalDateTime fechaRegistro;
     private Usuario usuario;
     private double precioFinal;
+    private String observacion;
 }

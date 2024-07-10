@@ -94,6 +94,8 @@ public class RegistroEntradaBeans implements Serializable {
 
     private boolean verDatosValidacion;
 
+    private boolean observacion;
+
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtos;
 
     private List<ProductoProveedorEntradaDto> productoProveedorEntradaDtosSeleccion;
@@ -223,6 +225,7 @@ public class RegistroEntradaBeans implements Serializable {
         this.productoProveedorEntradaDto.setOC(dto.getOC());
         this.fechaActual = dto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.idEmpresa = dto.getEmpresa().getNroRUC();
+        this.productoProveedorEntradaDto.setObservacion(dto.getObservacion());
         empresaDto = EmpresaMapper.toDto(dto.getEmpresa());
         precioTotal = dto.getPrecioFinal();
         var detalles = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
@@ -238,8 +241,17 @@ public class RegistroEntradaBeans implements Serializable {
     }
 
     private String generarNumeroDeSeisCifras() {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        int LENGTH = 6;
         Random random = new Random();
-        return String.valueOf(100000 + random.nextInt(900000));
+        StringBuilder codigo = new StringBuilder(LENGTH);
+
+        for (int i = 0; i < LENGTH; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            codigo.append(CHARACTERS.charAt(index));
+        }
+
+        return codigo.toString();
     }
 
     private int getNextId() {
@@ -351,9 +363,11 @@ public class RegistroEntradaBeans implements Serializable {
         switch (opcion) {
             case 1:
                 verDatosValidacion = true;
+                observacion = false;
                 break;
             case 2:
                 verDatosValidacion = false;
+                observacion = true;
                 break;
         }
     }
