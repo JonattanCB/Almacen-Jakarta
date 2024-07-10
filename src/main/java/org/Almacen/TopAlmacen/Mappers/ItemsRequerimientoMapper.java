@@ -13,6 +13,10 @@ public class ItemsRequerimientoMapper {
         return new ItemsRequerimiento(dto.getId(), dto.getRequerimiento(), dto.getCantidad(), dto.getTipoUnidad(), dto.getDescripcion());
     }
 
+    public static  CreateItemsRequerimientoDto tocreate(ItemsRequerimientoDto item) {
+        return  new CreateItemsRequerimientoDto(item.getRequerimiento(),item.getCantidad(),item.getTipoUnidad(),item.getDescripcion());
+    }
+
     public static ItemsRequerimiento fromCreate(CreateItemsRequerimientoDto dto) {
         var items = new ItemsRequerimiento();
         items.setRequerimiento(dto.getRequerimiento());

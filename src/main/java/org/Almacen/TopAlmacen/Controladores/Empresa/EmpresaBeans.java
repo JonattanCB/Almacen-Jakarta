@@ -103,11 +103,17 @@ public class EmpresaBeans implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "Advertencia!! La empresa con este RUC ya existe "));
             PrimeFaces.current().ajax().update(":form-datos:messages");
         }else{
-            empresaService.createEmpresa(createEmpresaDto);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Empresa "+createEmpresaDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
-            loadEmpresa();
-            PrimeFaces.current().executeScript("PF('dialogsa').hide()");
-            PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+            if(createEmpresaDto.getNroRUC().length() == 11){
+                empresaService.createEmpresa(createEmpresaDto);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La Empresa "+createEmpresaDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
+                loadEmpresa();
+                PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+                PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+            }else{
+                System.out.println("no tiene 11 caracteres");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El RUC debe tener 11 caracteres."));
+                PrimeFaces.current().ajax().update(":form-datos:messages");
+            }
         }
     }
 

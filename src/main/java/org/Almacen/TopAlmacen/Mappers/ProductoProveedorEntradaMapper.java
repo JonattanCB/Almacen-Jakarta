@@ -6,7 +6,7 @@ import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 public class ProductoProveedorEntradaMapper {
     public static ProductoProveedorEntradaDto toDto(ProductoProveedorEntrada p) {
-        return new ProductoProveedorEntradaDto(p.getOC(), p.getEmpresa(), p.getFechaRegistro(), p.getUsuario(), p.getPrecioFinal());
+        return new ProductoProveedorEntradaDto(p.getOC(), p.getEmpresa(), p.getFechaRegistro(), p.getUsuario(), p.getPrecioFinal(),p.getObservacion());
     }
 
     public static ProductoProveedorEntrada toEntityCreate(CreateProductoProveedorEntradaDto dto) {
@@ -15,6 +15,7 @@ public class ProductoProveedorEntradaMapper {
         p.setEmpresa(dto.getEmpresa());
         p.setUsuario(dto.getUsuario());
         p.setPrecioFinal(dto.getPrecioFinal());
+        p.setObservacion(dto.getObservacion());
         return p;
     }
 

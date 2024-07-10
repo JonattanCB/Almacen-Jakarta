@@ -54,9 +54,9 @@
                                              styleClass="edit-button rounded-button "  >
                                 <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
                             </p:commandButton>
-                            <p:commandButton  icon="pi pi-file-pdf" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"  styleClass="ui-button-help rounded-button"
-                                             action="#{ReportesEntradaBeans.GenerarPDF}" ajax="false">
-                                <f:setPropertyActionListener value="#{obj.OC}" target="#{ReportesEntradaBeans.idRegistro}" />
+                            <p:commandButton icon="pi pi-file-pdf" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" styleClass="ui-button-help rounded-button"
+                                             actionListener="#{ReportesEntradaBeans.generarPDF()}" ajax="false">
+                                <f:param name="id" value="#{obj.OC}" />
                                 <p:fileDownload value="#{ReportesEntradaBeans.file}" />
                             </p:commandButton>
                         </p:column>
@@ -92,6 +92,14 @@
                         <h:panelGrid>
                             <h:outputText styleClass="texto_dialog"  value="Nombre: #{RegistroEntradaBeans.empresaDto.nombre}" style="margin-top: 1rem"  />
                             <h:outputText styleClass="texto_dialog"  value="Direccion: #{RegistroEntradaBeans.empresaDto.direccion}" style="margin-top: 3rem"  />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem" >
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="observacion"   styleClass="texto_dialog" value="Observacion: " /></h:panelGrid>
+                            <h:panelGrid >
+                                <p:inputTextarea style="width: 64vw"  disabled="#{RegistroEntradaBeans.observacion}" id="observacion" value="#{RegistroEntradaBeans.productoProveedorEntradaDto.observacion}" />
+                            </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
@@ -148,14 +156,6 @@
                             <h:panelGrid styleClass="precio-Final-Entrada" columns="2">
                                 <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Final :" />
                                 <h:outputText id="precioTotal"  value="S/. #{RegistroEntradaBeans.precioTotal}" />
-                            </h:panelGrid>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <h:panelGrid>
-                            <h:panelGrid><h:outputLabel for="observacion"  styleClass="texto_dialog" value="Observacion: " /></h:panelGrid>
-                            <h:panelGrid >
-                                <p:inputTextarea  id="observacion" value="#{RegistroEntradaBeans.productoProveedorEntradaDto.observacion}" />
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
