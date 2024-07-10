@@ -91,7 +91,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
             if (dto.getStockUnidades() == null) {
                 System.out.println("No se puede crear unidad superior");
             }
-
             var createdUnidad = iprecioPorTipoUnidadDao.create(pptu);
             var historialPrecios = new HistorialPrecios();
             historialPrecios.setPrecioPorTipoUnidad(createdUnidad);

@@ -23,8 +23,6 @@ public class Acceso {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Rol_ID")
     private Rol rol;
-    @Column(name = "Nombre")
-    private String nombre;
     @Column(name = "URL")
     private String URL;
     @Column(name = "Nombre")

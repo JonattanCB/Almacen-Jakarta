@@ -14,10 +14,12 @@ import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadD
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
+import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.TipoUnidadMapper;
+import org.Almacen.TopAlmacen.Model.StockUnidades;
 import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 import org.Almacen.TopAlmacen.Services.ProductoService;
 import org.Almacen.TopAlmacen.Services.StockUnidadesService;
@@ -46,6 +48,8 @@ public class PrecioTUBeans implements Serializable {
     private StockUnidadesService stockUnidadesService;
 
     private PrecioPorTipoUnidadDto precioPorTipoUnidadDto;
+
+    private StockUnidades stockUnidades;
 
     private int precioPorTipoUnidadID;
 
@@ -104,7 +108,7 @@ public class PrecioTUBeans implements Serializable {
         tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
         productoDescripcionDtos = productoService.productoDescripcionDtos();
         tipoUnidadID = precioPorTipoUnidadDto.getTipoUnidad().getId();
-        stockUnidadId = precioPorTipoUnidadDto.getStockUnidades().getId();
+        stockUnidades = precioPorTipoUnidadDto.getStockUnidades();
         productoId = precioPorTipoUnidadDto.getProducto().getId();
     }
 
@@ -142,7 +146,7 @@ public class PrecioTUBeans implements Serializable {
         createPrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
         createPrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         createPrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
-        createPrecioPorTipoUnidadDto.setStockUnidades(stockUnidadesService.getStockUnidadesById(stockUnidadId));
+        //createPrecioPorTipoUnidadDto.setStockUnidades(stockUnidadId);
         System.out.println(createPrecioPorTipoUnidadDto.getStockUnidades()+"Si existe");
         if (createPrecioPorTipoUnidadDto.getTipoUnidad().getAbrev().equals("UND")) {
             precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
