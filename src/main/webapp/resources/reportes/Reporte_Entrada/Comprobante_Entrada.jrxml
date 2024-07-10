@@ -7,7 +7,6 @@
 	<parameter name="id_EnAl" class="java.lang.String"/>
 	<parameter name="fecha_EnAl" class="java.lang.String"/>
 	<parameter name="procedencia" class="java.lang.String"/>
-	<parameter name="n_guia" class="java.lang.String"/>
 	<parameter name="n_orden_compra" class="java.lang.String"/>
 	<parameter name="observacion" class="java.lang.String"/>
 	<field name="id_pr" class="java.lang.Integer"/>
@@ -53,7 +52,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="139" splitType="Stretch">
+		<band height="104" splitType="Stretch">
 			<staticText>
 				<reportElement x="9" y="9" width="124" height="20" uuid="bad8eee0-929f-4973-ae04-b83ebcca39a1"/>
 				<textElement>
@@ -69,18 +68,11 @@
 				<text><![CDATA[Procedencia:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="108" width="168" height="20" uuid="1d0a10b2-ae95-4224-92f4-c70fffa6c3bf"/>
+				<reportElement x="9" y="75" width="168" height="20" uuid="1d0a10b2-ae95-4224-92f4-c70fffa6c3bf"/>
 				<textElement>
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[N° Orden de Compra:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="9" y="77" width="68" height="20" uuid="10066238-83c0-4648-975a-c4607b2221f2"/>
-				<textElement>
-					<font fontName="Arial Black" size="12"/>
-				</textElement>
-				<text><![CDATA[N° Guia:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="89" y="8" width="452" height="20" uuid="f9e7cb4f-f70f-4afc-b51b-e7087225f72c"/>
@@ -93,12 +85,7 @@
 				<textFieldExpression><![CDATA[$P{procedencia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="56" y="76" width="485" height="20" uuid="daecf626-c96b-428b-a96a-477f5ca70eb3"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{n_guia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="130" y="107" width="411" height="20" uuid="a73b7da6-c1ef-4aa7-bc47-66516a850127"/>
+				<reportElement x="130" y="74" width="411" height="20" uuid="a73b7da6-c1ef-4aa7-bc47-66516a850127"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{n_orden_compra}]]></textFieldExpression>
 			</textField>

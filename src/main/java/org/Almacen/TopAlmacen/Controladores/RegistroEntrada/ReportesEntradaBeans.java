@@ -1,13 +1,11 @@
 package org.Almacen.TopAlmacen.Controladores.RegistroEntrada;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -43,6 +41,8 @@ public class ReportesEntradaBeans implements Serializable {
     @Inject
     private DetalleProductoProveedorEntradaService detalleProductoProveedorEntradaService;
 
+    private String idRegistro;
+
     private StreamedContent file;
 
     @PostConstruct
@@ -50,29 +50,21 @@ public class ReportesEntradaBeans implements Serializable {
         // Initialization logic if needed
     }
 
-    public void generarPDF() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String idParam = request.getParameter("id");
-        if (idParam != null && !idParam.isEmpty()) {
-            descargar(idParam);
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se ha proporcionado un ID válido."));
-        }
+    public void updateAndGeneratePDF(String idRegistro) {
+        this.idRegistro = idRegistro;
+        GenerarPDF();
     }
 
+    public void GenerarPDF() {
 
-    private void descargar(String id){
-        try{
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-            ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(id);
+        try {
+            // Fetching data
+            ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(idRegistro);
             var detalle = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
-            List<PdfDetalleProductoProveedorEntradaDto> lst = detalle.stream()
-                    .map(DetalleProductoProveedorEntradaMapper::toDtoPdf)
-                    .collect(Collectors.toList());
+            List<PdfDetalleProductoProveedorEntradaDto> lst = detalle.stream().map(DetalleProductoProveedorEntradaMapper::toDtoPdf).collect(Collectors.toList());
 
             // Getting resources
+            FacesContext context = FacesContext.getCurrentInstance();
             ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
             InputStream logoEmpresa = servletContext.getResourceAsStream("/resources/imagenes/logo.png");
             InputStream reporteEntrada = servletContext.getResourceAsStream("/resources/reportes/Reporte_Entrada/Comprobante_Entrada.jasper");
@@ -112,9 +104,12 @@ public class ReportesEntradaBeans implements Serializable {
                     System.out.println("No se pudo encontrar el archivo del reporte.");
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public StreamedContent getFile() {
+        return file;
+    }
 }
