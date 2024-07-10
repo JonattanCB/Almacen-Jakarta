@@ -87,7 +87,8 @@ public class UsuarioDaoImp implements IUsuarioDao {
     @Override
     public Usuario checkLogin(String login, String password) {
         String hashedPassword = PasswordUtil.hashPassword(password);
-        var query = _entityManager.createQuery("SELECT u FROM Usuario u WHERE u.correo = :login AND u.contra = :password", Usuario.class);
+        var query = _entityManager.createQuery("SELECT u FROM Usuario u LEFT JOIN FETCH u.unidadDependencia LEFT JOIN FETCH u.unidadDependencia.rol LEFT JOIN FETCH u.unidadDependencia.dependencia  " +
+                " WHERE u.correo = :login AND u.contra = :password", Usuario.class);
         query.setParameter("login", login);
         query.setParameter("password", hashedPassword);
         query.setMaxResults(1);

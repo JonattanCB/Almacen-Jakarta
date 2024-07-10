@@ -88,10 +88,23 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     public PrecioPorTipoUnidad getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad) {
         try {
             return _entityManager.createQuery(
-                            "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto WHERE p.producto.id = :producto AND p.tipoUnidad.id = :tipoUnidad",
+                            "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH  p.producto JOIN FETCH P.stockUnidades WHERE p.producto.id = :producto AND p.tipoUnidad.id = :tipoUnidad",
                             PrecioPorTipoUnidad.class)
                     .setParameter("producto", idProducto)
                     .setParameter("tipoUnidad", idTipoUnidad)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public PrecioPorTipoUnidad getByIdProducto(int idProducto) {
+        try {
+            return _entityManager.createQuery(
+                            "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto JOIN FETCH P.stockUnidades WHERE p.producto.id = :producto AND p.tipoUnidad.Abrev = 'UND'",
+                            PrecioPorTipoUnidad.class)
+                    .setParameter("producto", idProducto)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;

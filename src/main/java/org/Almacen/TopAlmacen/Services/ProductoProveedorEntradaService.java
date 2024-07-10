@@ -60,6 +60,8 @@ public class ProductoProveedorEntradaService implements Serializable {
         return iProductoProveedorEntradaDao.update(u, oc);
     }
 
+
+
     @Transactional
     public void delete(int id) {
         iProductoProveedorEntradaDao.delete(id);

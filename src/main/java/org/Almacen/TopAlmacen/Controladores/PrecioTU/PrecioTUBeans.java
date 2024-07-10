@@ -146,8 +146,6 @@ public class PrecioTUBeans implements Serializable {
         createPrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
         createPrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         createPrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
-        //createPrecioPorTipoUnidadDto.setStockUnidades(stockUnidadId);
-        System.out.println(createPrecioPorTipoUnidadDto.getStockUnidades()+"Si existe");
         if (createPrecioPorTipoUnidadDto.getTipoUnidad().getAbrev().equals("UND")) {
             precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
@@ -155,6 +153,7 @@ public class PrecioTUBeans implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");
             PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         } else {
+            createPrecioPorTipoUnidadDto.setStockUnidades(precioPorTipoUnidadService.getByIdProducto(productoId).getStockUnidades());
             if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto) == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                 PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");

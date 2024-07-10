@@ -24,4 +24,5 @@ public interface IPrecioPorTipoUnidadDao {
 
     PrecioPorTipoUnidad getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad);
 
+    PrecioPorTipoUnidad getByIdProducto(int idProducto);
 }
