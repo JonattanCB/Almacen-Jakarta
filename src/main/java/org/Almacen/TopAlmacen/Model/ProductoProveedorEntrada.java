@@ -32,4 +32,6 @@ public class ProductoProveedorEntrada {
     private double precioFinal = 0.00;
     @OneToMany(mappedBy = "OC_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DetalleProductoProveedorEntrada> DetalleProductoProveedorEntrada;
+    @Column(name = "Observacion")
+    private String Observacion;
 }

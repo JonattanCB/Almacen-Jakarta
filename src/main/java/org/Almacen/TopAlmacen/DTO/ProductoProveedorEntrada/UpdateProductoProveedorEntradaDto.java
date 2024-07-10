@@ -14,4 +14,5 @@ import org.Almacen.TopAlmacen.Model.Usuario;
 public class UpdateProductoProveedorEntradaDto {
     private Empresa empresa;
     private double precioFinal;
+    private String Observacion;
 }

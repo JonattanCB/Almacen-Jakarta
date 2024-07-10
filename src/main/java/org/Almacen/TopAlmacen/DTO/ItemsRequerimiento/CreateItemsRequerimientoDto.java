@@ -1,10 +1,19 @@
 package org.Almacen.TopAlmacen.DTO.ItemsRequerimiento;
 
-import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.Almacen.TopAlmacen.Model.Requerimiento;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class CreateItemsRequerimientoDto {
-    private RequerimientoDto requerimientoDto;
+    private Requerimiento requerimiento;
     private double Cantidad;
     private TipoUnidad tipoUnidad;
     private String descripcion;

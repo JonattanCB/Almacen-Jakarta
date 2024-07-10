@@ -28,10 +28,9 @@ public class RequerimientoMapper {
     }
     public static Requerimiento fromCreate(CreateRequerimientoDto dto){
         Requerimiento requerimiento = new Requerimiento();
-        dto.setEstado(dto.getEstado());
-        dto.setUnidadDependencia(dto.getUnidadDependencia());
-        dto.setRazonEntrada(dto.getRazonEntrada());
-        dto.setRazonSalida(dto.getRazonSalida());
+        requerimiento.setEstado("PENDIENTE");
+        requerimiento.setUnidadDependencia(dto.getUnidadDependencia());
+        requerimiento.setRazonEntrada(dto.getRazonEntrada());
         return requerimiento;
     }
     public static Requerimiento fromUpdate(UpdateRequerimientoDto dto){

@@ -22,18 +22,18 @@ public class Requerimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "fechaRegistrada", nullable = false)
-    private LocalDateTime fechaRegistrada=LocalDateTime.now();
+    private LocalDateTime fechaRegistrada = LocalDateTime.now();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unidadDependencia", nullable = false)
     private UnidadDependencia unidadDependencia;
     @Column(name = "Estado", nullable = false)
     private String Estado;
-    @Column(name = "RazonEntrada", nullable = false)
+    @Column(name = "RazonEntrada")
     private String RazonEntrada;
-    @Column(name = "RazonSalida", nullable = false)
+    @Column(name = "RazonSalida")
     private String RazonSalida;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "requerimiento")
-    private List<ItemsRequerimiento>Requerimientos;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "requerimiento", cascade = CascadeType.ALL)
+    private List<ItemsRequerimiento> Requerimientos;
 
 
 }

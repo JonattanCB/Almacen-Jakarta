@@ -7,15 +7,11 @@ import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.MovimientoStock.CreateMovimientoStockDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
-import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
-import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
-import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;
@@ -29,8 +25,6 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IProductoProveedorEntradaDao iProductoProveedorEntradaDao;
     @Inject
     private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
-    @Inject
-    private MovimientoStockService movimientoStockService;
     @Inject
     private StockUnidadesService stockUnidadesService;
 

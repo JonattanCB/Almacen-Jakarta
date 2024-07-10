@@ -2,9 +2,7 @@ package org.Almacen.TopAlmacen.Mappers;
 
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.CreateItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.ItemsRequerimientoDto;
-import org.Almacen.TopAlmacen.DTO.Requerimiento.CreateRequerimientoDto;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
-import org.Almacen.TopAlmacen.Model.Requerimiento;
 
 public class ItemsRequerimientoMapper {
     public static ItemsRequerimientoDto toDto(ItemsRequerimiento item) {
@@ -17,10 +15,10 @@ public class ItemsRequerimientoMapper {
 
     public static ItemsRequerimiento fromCreate(CreateItemsRequerimientoDto dto) {
         var items = new ItemsRequerimiento();
-        items.setRequerimiento(items.getRequerimiento());
-        items.setDescripcion(items.getDescripcion());
-        items.setCantidad(items.getCantidad());
-        items.setTipoUnidad(items.getTipoUnidad());
+        items.setRequerimiento(dto.getRequerimiento());
+        items.setDescripcion(dto.getDescripcion());
+        items.setCantidad(dto.getCantidad());
+        items.setTipoUnidad(dto.getTipoUnidad());
         return items;
     }
 }

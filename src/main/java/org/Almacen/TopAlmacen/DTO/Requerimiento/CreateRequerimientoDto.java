@@ -14,7 +14,5 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CreateRequerimientoDto {
     private UnidadDependencia unidadDependencia;
-    private String estado;
     private String RazonEntrada;
-    private String RazonSalida;
 }
