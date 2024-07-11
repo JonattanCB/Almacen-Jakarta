@@ -7,6 +7,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -30,7 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
+@Setter
 @Named("ReportesEntradaBeans")
 @ViewScoped
 public class ReportesEntradaBeans implements Serializable {
@@ -107,9 +110,5 @@ public class ReportesEntradaBeans implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public StreamedContent getFile() {
-        return file;
     }
 }
