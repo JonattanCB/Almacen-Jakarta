@@ -34,6 +34,7 @@ public class RequerimientoService {
     public Requerimiento getRequerimiento(int id) {
         return iRequerimientoDao.getById(id);
     }
+
     public Requerimiento create(CreateRequerimientoDto dto, List<CreateItemsRequerimientoDto> itemsDto) {
         var created = RequerimientoMapper.fromCreate(dto);
         iRequerimientoDao.create(created);
@@ -53,7 +54,15 @@ public class RequerimientoService {
         return iRequerimientoDao.delete(id);
     }
 
-    public List<ItemsRequerimiento> getItemsRequerimientos(int id){
-        return  iItemsRequerimientoDao.getAllByRequerimiento(id);
+    public List<ItemsRequerimiento> getItemsRequerimientos(int id) {
+        return iItemsRequerimientoDao.getAllByRequerimiento(id);
+    }
+
+    public void setEstadoAprobado(int id) {
+        iRequerimientoDao.setEstado(id, "APROBADO");
+    }
+
+    public void setEstadoDesaprobado(int id) {
+        iRequerimientoDao.setEstado(id, "DESAPROBADO");
     }
 }

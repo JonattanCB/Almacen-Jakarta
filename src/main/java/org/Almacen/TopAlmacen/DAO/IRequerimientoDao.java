@@ -15,4 +15,6 @@ public interface IRequerimientoDao {
     Requerimiento update(UpdateRequerimientoDto c, int id);
 
     Requerimiento delete(int id);
+
+    void setEstado(int id, String estado);
 }

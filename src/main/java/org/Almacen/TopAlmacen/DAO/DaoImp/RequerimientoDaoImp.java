@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.DTO.Requerimiento.UpdateRequerimientoDto;
 import org.Almacen.TopAlmacen.Model.Dependencia;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.Requerimiento;
+
 import java.util.List;
 
 @Named
@@ -57,5 +58,12 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void setEstado(int id, String estado) {
+        var findObj = getById(id);
+        findObj.setEstado(estado);
+        _entityManager.merge(findObj);
     }
 }
