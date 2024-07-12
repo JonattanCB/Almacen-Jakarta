@@ -8,9 +8,11 @@ import org.Almacen.TopAlmacen.DAO.IItemsRequerimientoDao;
 import org.Almacen.TopAlmacen.DAO.IRequerimientoDao;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.CreateItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.CreateRequerimientoDto;
+import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.UpdateRequerimientoDto;
 import org.Almacen.TopAlmacen.Mappers.ItemsRequerimientoMapper;
 import org.Almacen.TopAlmacen.Mappers.RequerimientoMapper;
+import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 import org.Almacen.TopAlmacen.Model.Requerimiento;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class RequerimientoService {
 
     @Inject
     private IRequerimientoDao iRequerimientoDao;
+
     @Inject
     private IItemsRequerimientoDao iItemsRequerimientoDao;
 
@@ -31,7 +34,6 @@ public class RequerimientoService {
     public Requerimiento getRequerimiento(int id) {
         return iRequerimientoDao.getById(id);
     }
-
     public Requerimiento create(CreateRequerimientoDto dto, List<CreateItemsRequerimientoDto> itemsDto) {
         var created = RequerimientoMapper.fromCreate(dto);
         iRequerimientoDao.create(created);
@@ -49,5 +51,9 @@ public class RequerimientoService {
 
     public Requerimiento delete(int id) {
         return iRequerimientoDao.delete(id);
+    }
+
+    public List<ItemsRequerimiento> getItemsRequerimientos(int id){
+        return  iItemsRequerimientoDao.getAllByRequerimiento(id);
     }
 }

@@ -112,35 +112,6 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-me
 }
 
 
-.dialogs-barra-pequenia{
-    width: 29.17vw;
-    height: 6vw;
-    border: none;
-    overflow-y: auto;
-}
-
-.dialogs-barra-pequenia::-webkit-scrollbar{
-    width: 9px;
-}
-
-.dialogs-barra-pequenia::-webkit-scrollbar-track {
-    background: #ffffff;
-}
-
-.dialogs-barra-pequenia::-webkit-scrollbar-thumb {
-    background-color: #797979;
-    border-radius: 20px;
-    border: 3px solid #ffffff;
-}
-
-.dialogs-barra{
-    width: 31vw;
-    height: 50vh;
-    border: none;
-    overflow-y: auto;
-}
-
-
 .dialogs-barra::-webkit-scrollbar{
     width: 9px;
 }
@@ -150,28 +121,6 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-me
 }
 
 .dialogs-barra::-webkit-scrollbar-thumb {
-    background-color: #797979;
-    border-radius: 20px;
-    border: 3px solid #ffffff;
-}
-
-.dialogs-barra-grande{
-    width: 80rem;
-    height: 33rem;
-    border: none;
-    overflow-y: auto;
-}
-
-
-.dialogs-barra-grande::-webkit-scrollbar{
-    width: 9px;
-}
-
-.dialogs-barra-grande::-webkit-scrollbar-track {
-    background: #ffffff;
-}
-
-.dialogs-barra-grande::-webkit-scrollbar-thumb {
     background-color: #797979;
     border-radius: 20px;
     border: 3px solid #ffffff;

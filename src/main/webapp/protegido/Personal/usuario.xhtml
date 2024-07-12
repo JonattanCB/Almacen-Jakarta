@@ -82,7 +82,7 @@
                     </p:confirmDialog>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles del Usuario" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form>
                 <div id="dialog-content" class="dialogs-barra" >
                     <h:panelGrid>
@@ -104,7 +104,7 @@
                         </h:panelGrid>
                         <h:panelGrid>
                             <h:panelGrid><h:outputLabel for="contra" styleClass="texto_dialog" value="Contraseña: "/> </h:panelGrid>
-                            <p:inputText id="contra" disabled="#{UsuarioBeans.validacionUsuario}"  styleClass="input-custom" style="width:14.17vw " value="#{UsuarioBeans.usuarioDto.contra}" required="true"/>
+                            <p:inputText id="contra" disabled="#{UsuarioBeans.validacionUsuario}"  styleClass="input-custom" style="width:15vw " value="#{UsuarioBeans.usuarioDto.contra}" required="true"/>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem">
@@ -118,7 +118,7 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid style="margin-top: 1rem;margin-bottom: 1rem">
+                    <h:panelGrid style="margin-top: 1rem;margin-bottom: 2rem">
                         <h:panelGrid><h:outputLabel for="unidaddependencia" styleClass="texto_dialog" value="Unidad de Dependencia: "/></h:panelGrid>
                         <h:panelGrid>
                             <p:selectOneMenu disabled="#{UsuarioBeans.validacionUnidad}" style="width:29.58vw" filter="true" filterMatchMode="startsWith" id="unidaddependencia" styleClass="ui-selectonemenu"
@@ -128,7 +128,6 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
-
                 </div>
                 <h:panelGrid columns="2" style="float: right;" >
                     <p:commandButton value="Guardar"  rendered="#{UsuarioBeans.btnguardar}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{UsuarioBeans.DeterminarAccion()}" />

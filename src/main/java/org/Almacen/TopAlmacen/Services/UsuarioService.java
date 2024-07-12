@@ -49,6 +49,7 @@ public class UsuarioService implements Serializable {
 
     @Transactional
     public Usuario updateUsuario(UpdateUsuarioDto updateUsuarioDto, int id) {
+        updateUsuarioDto.setContra(PasswordUtil.hashPassword(updateUsuarioDto.getContra()));
         var usuarioExistente = getUsuarioById(id);
         if (usuarioExistente != null && !usuarioExistente.getCorreo().equals(updateUsuarioDto.getCorreo())) {
             if (iUsuarioDao.existeEmail(updateUsuarioDto.getCorreo())) {

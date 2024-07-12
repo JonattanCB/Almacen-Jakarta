@@ -4,8 +4,11 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IItemsRequerimientoDao;
+import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.ItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.UpdateItemsRequerimientoDto;
+import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
+import org.Almacen.TopAlmacen.Model.Requerimiento;
 
 import java.util.List;
 
@@ -17,6 +20,15 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
     @Override
     public List<ItemsRequerimiento> getAll() {
         return _entityManager.createQuery("SELECT i FROM ItemsRequerimiento i", ItemsRequerimiento.class).getResultList();
+    }
+
+    @Override
+    public List<ItemsRequerimiento> getAllByRequerimiento(int id) {
+        var query = _entityManager.createQuery(
+                "SELECT i FROM ItemsRequerimiento i  LEFT JOIN FETCH  i.tipoUnidad  LEFT JOIN FETCH i.requerimiento  LEFT JOIN FETCH  i.requerimiento.unidadDependencia  where i.requerimiento.id = :id ",
+                ItemsRequerimiento.class);
+        query.setParameter("id", id);
+        return query.getResultList();
     }
 
     @Override

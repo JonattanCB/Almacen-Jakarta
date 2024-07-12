@@ -82,7 +82,7 @@
                     </p:confirmDialog>
              </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles de Categoria" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles de Categoria" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa" width="630" >
             <h:form>
                 <div id="dialog-content" class="dialogs-barra" >
                     <h:panelGrid>
@@ -91,25 +91,25 @@
                                 <p:inputText  styleClass="input-custom" style="width: 29.58vw" value="#{CategoriaBeans.categoriaDto.nombre}" disabled="#{CategoriaBeans.renderedCategoria}" required="true"/>
                             </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  style="margin-top: 1rem">
+                    <h:panelGrid  style="margin-top: 1rem; margin-bottom: 2rem">
                         <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Descripcion: "/></h:panelGrid>
                         <h:panelGrid>
-                            <p:inputTextarea style="width: 29.58vw"   rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
+                            <p:inputTextarea style="width: 29.58vw"    rows="6" cols="33"  value="#{CategoriaBeans.categoriaDto.descripcion}"  disabled="#{CategoriaBeans.renderedCategoria}" required="true" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid rendered="#{CategoriaBeans.renderedProducto}" style="margin-top: 1rem">
                             <h:panelGrid><h:outputText styleClass="texto_dialog" value="Productos de la Categoria"/></h:panelGrid>
-                            <p:dataTable id="tablaproducto" var="prod" value="#{CategoriaBeans.productoDtoList}" widgetVar="produc"
-                                         emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccion}"
+                            <p:dataTable id="tablaproducto" style="width: 29.5vw"  var="prod" value="#{CategoriaBeans.productoDtoList}" widgetVar="produc"
+                                         emptyMessage="No hay elementos disponibles" filteredValue="#{CategoriaBeans.productoDtoListSeleccion}" size="small"
                                          globalFilterFunction="#{CategoriaBeans.globalFilterFunction}"
                                          rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                                 <p:column headerText="#"  sortBy="#{prod.id}" width="50"  >
                                     <h:outputText value="#{prod.id}" />
                                 </p:column>
-                                <p:column headerText="Nombre"  sortBy="#{prod.nombre}" width="50"  >
+                                <p:column headerText="Nombre"  sortBy="#{prod.nombre}" width="250"  >
                                     <h:outputText value="#{prod.nombre}" />
                                 </p:column>
-                                <p:column headerText="Marca"  sortBy="#{prod.marca.nombre}" width="50"  >
+                                <p:column headerText="Marca"  sortBy="#{prod.marca.nombre}" width="100"  >
                                     <h:outputText value="#{prod.marca.nombre}" />
                                 </p:column>
                             </p:dataTable>

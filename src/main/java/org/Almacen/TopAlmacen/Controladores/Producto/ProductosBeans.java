@@ -160,7 +160,7 @@ public class ProductosBeans implements Serializable {
                 || p.getNombre().toLowerCase().contains(filterText)
                 || (p.getCategoria().getNombre()).toLowerCase().contains(filterText)
                 || (p.getMarca().getNombre()).toLowerCase().contains(filterText)
-                || p.getFechaRegistro().equals(filterText.toLowerCase());
+                || String.valueOf(p.getFechaRegistro()).toLowerCase().contains(filterText);
     }
 
     private int getInteger(String string) {

@@ -111,17 +111,16 @@ public class UsuarioBeans implements Serializable {
         var usuario = usuarioService.getUsuarioById(idUsuario);
         String estado;
         switch (usuario.getEstado()){
-            case "Activo":
-                estado = "Inactivo";
+            case "ACTIVO":
+                estado = "INACTIVO";
                 break;
-            case "Inactivo":
-                estado = "Activo";
+            case "INACTIVO":
+                estado = "ACTIVO";
                 break;
             default:
                 estado = usuario.getEstado();
                 break;
         }
-        System.out.println(estado);
         usuarioService.cambiarEstado(idUsuario, estado);
         loadUsuario();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado del usuario " + (usuario.getNombres() +" "+usuario.getApellidos()) + " ha cambiado a " + estado + "!"));
@@ -146,7 +145,9 @@ public class UsuarioBeans implements Serializable {
         UsuarioDto c = (UsuarioDto) value;
         return (c.getId() >= filterInt && c.getId() <= filterInt)
                 || (c.getNombres() + " "+c.getApellidos()).toLowerCase().contains(filterText)
-                || c.getUnidad().getNombre().toLowerCase().contains(filterText);
+                || (c.getUnidad().getNombre()).toLowerCase().contains(filterText)
+                || (c.getUnidad().getRol().getNombre()).toLowerCase().contains(filterText)
+                || c.getEstado().toLowerCase().contains(filterText);
     }
 
     private int getInteger(String string) {

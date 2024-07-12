@@ -147,7 +147,8 @@ public class EmpresaBeans implements Serializable {
         EmpresaDto e = (EmpresaDto) value;
         return   e.getNroRUC().toLowerCase().contains(filterText)
                 || e.getNombre().toLowerCase().contains(filterText)
-                || (e.getTipoEmpresa().getAbrev()).toLowerCase().contains(filterText);
+                || (e.getTipoEmpresa().getAbrev()).toLowerCase().contains(filterText)
+                || e.getDireccion().toLowerCase().contains(filterText);
     }
 
     private int getInteger(String string) {

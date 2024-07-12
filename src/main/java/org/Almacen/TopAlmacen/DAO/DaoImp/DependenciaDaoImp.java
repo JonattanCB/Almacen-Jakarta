@@ -20,7 +20,7 @@ public class DependenciaDaoImp implements IDependenciaDao {
 
     @Override
     public List<Dependencia> getAllActivos() {
-        return _entityManager.createQuery("SELECT d FROM Dependencia d where  d.estado= 'Activo'", Dependencia.class).getResultList();
+        return _entityManager.createQuery("SELECT d FROM Dependencia d where  d.estado= 'ACTIVO'", Dependencia.class).getResultList();
     }
 
     @Override

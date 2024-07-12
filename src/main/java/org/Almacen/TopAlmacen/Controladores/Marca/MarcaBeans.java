@@ -121,7 +121,7 @@ public class MarcaBeans implements Serializable {
         return (m.getId() >= filterInt && m.getId() <= filterInt)
                 || m.getNombre().toLowerCase().contains(filterText)
                 || m.getEstado().toLowerCase().contains(filterText)
-                || m.getFechaRegistro().equals(filterText.toLowerCase());
+                || String.valueOf(m.getFechaRegistro()).contains(filterText.toLowerCase());
     }
 
     private int getInteger(String string) {

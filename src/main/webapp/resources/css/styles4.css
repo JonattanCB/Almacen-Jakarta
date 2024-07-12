@@ -77,10 +77,24 @@ body .disenio-export .ui-button-help{
     color: #C63737;
 }
 
+.customer-badge.status-ACTIVO {
+    background: #C8E6C9;
+    color: #256029;
+}
+
+.customer-badge.status-INACTIVO {
+    background: #FFCDD2;
+    color: #C63737;
+}
 
 .customer-badge.status-ENTRADA {
     background: #C8E6C9;
     color: #256029;
+}
+
+.customer-badge.status-PENDIENTE {
+    background: #FFF9C4;
+    color: #795548;
 }
 
 .customer-badge.status-SALIDA {

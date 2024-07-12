@@ -54,17 +54,21 @@
                                           styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
                         </p:column>
                         <p:column exportable="false" width="100">
-
+                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                             action="#{RequerimientoBeans.ViewDatosRequerimiento()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                             styleClass="edit-button rounded-button "  >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{RequerimientoBeans.idRequerimiento}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true"
-                  widgetVar="dialogsa">
+        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1340" height="480"
+                  widgetVar="dialogsa" styleClass="dialogs-barra">
             <h:form id="form-dialogProducto">
-                <div id="dialog-content" class="dialogs-barra-grande">
-                    <h:panelGrid columns="2" width="1200">
+                <p:outputPanel>
+                    <h:panelGrid columns="2" style="width: 67vw">
                         <h:panelGrid>
                             <h:panelGrid><h:outputText styleClass="texto_dialog"
                                                        value="Unidad de Dependencia"/></h:panelGrid>
@@ -82,64 +86,62 @@
                             <h:panelGrid><h:outputLabel for="observacion" styleClass="texto_dialog"
                                                         value="Razon de Entrada: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputTextarea style="width: 64vw" id="observacion"
+                                <p:inputTextarea style="width: 66.5vw" id="observacion" disabled="#{RequerimientoBeans.observacionVisual}"
                                                  value="#{RequerimientoBeans.requerimientoDto.razonEntrada}"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem">
-                        <h:panelGrid>
-                            <p:dataTable size="small" scrollable="true" scrollHeight="250" style="width: 80rem"
-                                         id="tabla-detalle" value="#{RequerimientoBeans.listadoRequerimientos}" var="ld"
-                                         editable="true"
-                                         rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
-                                <f:facet name="header">
-                                    <div class="header-tabla">
-                                        <span class="titulo-hearder-tabla">Listado de Productos</span>
-                                        <p:commandButton id="btnagregar" value="Agregar"
-                                                         action="#{RequerimientoBeans.AgregarRequerimiento()}"
-                                                         icon="pi pi-plus" style="width: 8rem"
-                                                         styleClass="disenio-nuevo ui-button-success"
-                                                         update="form-dialogo-producto"
-                                                         oncomplete="PF('dialogProducto').show()"/>
-                                    </div>
-                                </f:facet>
-                                <p:column headerText="#" width="80">
-                                    <h:outputText value="#{ld.id}"/>
-                                </p:column>
-                                <p:column headerText="Descripcion" width="180">
-                                    <h:outputText value="#{ld.descripcion}"/>
-                                </p:column>
-                                <p:column headerText="Tipo Unidad" width="70">
-                                    <h:outputText value="#{ld.tipoUnidad.abrev}"/>
-                                </p:column>
-                                <p:column headerText="Cantidad" width="100">
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <h:outputText value="#{ld.cantidad}"/>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:inputText value="#{ld.cantidad}"/>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column width="100">
-                                    <p:rowEditor styleClass="rounded-button ui-button-warning ui-button-flat"
-                                                 editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
-                                    <p:commandButton icon="pi pi-trash"
-                                                     styleClass="rounded-button ui-button-danger ui-button-flat"
-                                                     update="form-dialogProducto:tabla-detalle"
-                                                     actionListener="#{RequerimientoBeans.eliminarTablaRequerimiento()}">
-                                        <f:setPropertyActionListener value="#{ld.id}"
-                                                                     target="#{RequerimientoBeans.idTempora}"/>
-                                    </p:commandButton>
-                                </p:column>
-                            </p:dataTable>
-                        </h:panelGrid>
+                        <p:dataTable size="small" scrollable="true" scrollHeight="250" style="width: 80rem"
+                                     id="tabla-detalle" value="#{RequerimientoBeans.listadoRequerimientos}" var="ld"
+                                     editable="true"
+                                     rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="header-tabla">
+                                    <span class="titulo-hearder-tabla">Listado de Productos</span>
+                                    <p:commandButton id="btnagregar" value="Agregar"
+                                                     action="#{RequerimientoBeans.AgregarRequerimiento()}" rendered="#{RequerimientoBeans.btnEdicion}"
+                                                     icon="pi pi-plus" style="width: 8rem"
+                                                     styleClass="disenio-nuevo ui-button-success"
+                                                     update="form-dialogo-producto"
+                                                     oncomplete="PF('dialogProducto').show()"/>
+                                </div>
+                            </f:facet>
+                            <p:column headerText="#" width="80">
+                                <h:outputText value="#{ld.id}"/>
+                            </p:column>
+                            <p:column headerText="Descripcion" width="180">
+                                <h:outputText value="#{ld.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Unidad" width="70">
+                                <h:outputText value="#{ld.tipoUnidad.abrev}"/>
+                            </p:column>
+                            <p:column headerText="Cantidad" width="100">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{ld.cantidad}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{ld.cantidad}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column width="100">
+                                <p:rowEditor styleClass="rounded-button ui-button-warning ui-button-flat" rendered="#{RequerimientoBeans.btnEdicion}"
+                                             editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                                <p:commandButton icon="pi pi-trash"
+                                                 styleClass="rounded-button ui-button-danger ui-button-flat"
+                                                 update="form-dialogProducto:tabla-detalle" rendered="#{RequerimientoBeans.btnEdicion}"
+                                                 actionListener="#{RequerimientoBeans.eliminarTablaRequerimiento()}">
+                                    <f:setPropertyActionListener value="#{ld.id}"
+                                                                 target="#{RequerimientoBeans.idTempora}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
                     </h:panelGrid>
-                </div>
-                <h:panelGrid columns="2" style="float: right;">
-                    <p:commandButton value="Guardar" icon="pi pi-check" style="margin-right: 0.5rem;"
+                </p:outputPanel>
+                <h:panelGrid columns="2" style="float: right;   top: 100%;">
+                    <p:commandButton value="Guardar" icon="pi pi-check" style="margin-right: 0.5rem;" disabled="#{RequerimientoBeans.btnGuardar}" rendered="#{RequerimientoBeans.btnEdicion}"
                                      action="#{RequerimientoBeans.guardar()}"/>
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"
                                      styleClass="ui-button-secondary" type="button"/>
@@ -158,7 +160,7 @@
                             <h:panelGroup styleClass="ui-inputgroup">
                                 <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="pi pi-inbox" style="margin-right: 1rem"/>
-                                    <p:selectOneMenu id="prducto" style="width: 23rem;" filter="true"
+                                    <p:selectOneMenu id="prducto" style="width: 23rem;" filter="true" disabled="#{RequerimientoBeans.producto}"
                                                      filterMatchMode="startsWith" styleClass="ui-selectonemenu"
                                                      value="#{RequerimientoBeans.idProducto}" required="true"
                                                      autoWidth="false">
@@ -178,7 +180,7 @@
                             <h:panelGroup styleClass="ui-inputgroup">
                                 <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-rulers" style="margin-right: 1rem"/>
-                                    <p:selectOneMenu id="tipoUnidad" style="width: 23rem;" filter="true"
+                                    <p:selectOneMenu id="tipoUnidad" style="width: 23rem;" filter="true" disabled="#{RequerimientoBeans.tipoUnidad}"
                                                      filterMatchMode="startsWith" styleClass="ui-selectonemenu"
                                                      value="#{RequerimientoBeans.idTipoUnidad}" required="true"
                                                      autoWidth="false">
@@ -198,7 +200,7 @@
                             <h:panelGroup styleClass="ui-inputgroup">
                                 <h:panelGroup styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-archive-fill" style="margin-right: 1rem"/>
-                                    <p:inputText id="cantidad" style="width: 23rem;"
+                                    <p:inputText id="cantidad" style="width: 23rem;" disabled="#{RequerimientoBeans.cantidad}"
                                                  value="#{RequerimientoBeans.itemsRequerimientoDto.cantidad}"/>
                                 </h:panelGroup>
                             </h:panelGroup>
@@ -208,7 +210,7 @@
                 <h:panelGrid columns="2" style="float: right;">
                     <p:commandButton value="Guardar" icon="pi pi-check" style="margin-right: 0.5rem;"
                                      action="#{RequerimientoBeans.registrarItemRequerimiento()}"
-                                     process="form-dialogo-producto @this" update="form-dialogProducto"/>
+                                     process="form-dialogo-producto @this" update="form-dialogProducto form-dialogProducto"/>
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()"
                                      update="form-dialogProducto" styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>

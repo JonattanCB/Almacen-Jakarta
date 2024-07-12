@@ -78,7 +78,7 @@
         <p:dialog id="dialogs" header="Detalles de Marca" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="formdialog">
                 <p:outputPanel id="dialog-content" styleClass="dialogs-barra-pequenia">
-                    <h:panelGrid>
+                    <h:panelGrid style="margin-bottom: 2rem">
                         <h:panelGrid><h:outputLabel for="nombre" styleClass="texto_dialog" value="Nombre: "/></h:panelGrid>
                         <h:panelGrid>
                             <p:inputText id="nombre"  styleClass="input-custom" style="width: 28.33vw" value="#{MarcaBeans.marcaDto.nombre}"  required="true" />

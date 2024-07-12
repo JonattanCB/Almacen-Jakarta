@@ -6,7 +6,6 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.ListaDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.CreateItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.ItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
@@ -18,8 +17,6 @@ import org.Almacen.TopAlmacen.Mappers.ItemsRequerimientoMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.RequerimientoMapper;
 import org.Almacen.TopAlmacen.Mappers.TipoUnidadMapper;
-import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
-import org.Almacen.TopAlmacen.Model.Requerimiento;
 import org.Almacen.TopAlmacen.Services.EmpresaService;
 import org.Almacen.TopAlmacen.Services.ProductoService;
 import org.Almacen.TopAlmacen.Services.RequerimientoService;
@@ -58,13 +55,25 @@ public class RequerimientoBeans implements Serializable {
 
     private String fecha;
 
-    private int id;
+    private int idRequerimiento;
 
     private int idProducto;
 
     private int idTipoUnidad;
 
     private int idTempora;
+
+    private boolean producto;
+
+    private boolean tipoUnidad;
+
+    private boolean cantidad;
+
+    private boolean btnGuardar;
+
+    private boolean observacionVisual;
+
+    private boolean btnEdicion;
 
     private List<ItemsRequerimientoDto> ListadoRequerimientos;
 
@@ -89,6 +98,8 @@ public class RequerimientoBeans implements Serializable {
         requerimientoDto.setEstado("PENDIENTE");
         fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LimpiarListadoRequerimiento();
+        validarGuardar();
+        ValidacionEdicion(1);
     }
 
     private void loadRequerimiento(){
@@ -119,10 +130,12 @@ public class RequerimientoBeans implements Serializable {
         productoDescripcionDtos = productoService.productoDescripcionDtos();
         idProducto = 0;
         idTipoUnidad = 0;
+        validarRegistrar(1);
     }
 
     public void cargarTipoUnidad() {
         this.tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadListProducto(idProducto);
+        validarRegistrar(2);
     }
 
     public void habilitarCantidad(){
@@ -135,6 +148,7 @@ public class RequerimientoBeans implements Serializable {
         itemsRequerimientoDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
         itemsRequerimientoDto.setDescripcion(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
         ListadoRequerimientos.add(itemsRequerimientoDto);
+        validarGuardar();
         PrimeFaces.current().executeScript("PF('dialogProducto').hide()");
     }
 
@@ -172,4 +186,42 @@ public class RequerimientoBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
+    private void validarRegistrar(int opcion){
+        switch (opcion){
+            case 1:
+                producto = false;
+                tipoUnidad = true;
+                cantidad = true;
+                break;
+            case 2:
+                producto = true;
+                tipoUnidad = false;
+                cantidad = false;
+                break;
+        }
+    }
+
+    private void validarGuardar(){
+        btnGuardar = ListadoRequerimientos.isEmpty();
+    }
+
+    public void ViewDatosRequerimiento(){
+        requerimientoDto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
+        fecha = requerimientoDto.getFechaRegistrada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        ListadoRequerimientos = requerimientoService.getItemsRequerimientos(idRequerimiento).stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
+        ValidacionEdicion(2);
+    }
+
+    private void ValidacionEdicion(int opcion){
+        switch (opcion){
+            case 1:
+                observacionVisual = false;
+                btnEdicion = true;
+                break;
+            case 2:
+                observacionVisual = true;
+                btnEdicion = false;
+                break;
+        }
+    }
 }

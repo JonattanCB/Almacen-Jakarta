@@ -37,7 +37,7 @@
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
                                                          style="font-size: 13px;width: 300px"
-                                                         placeholder="Buscar entre los datos de marca"/>
+                                                         placeholder="Buscar entre los datos de la Empresa"/>
                                         </span>
                                     </div>
                             </f:facet>
@@ -103,7 +103,7 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  style="margin-top: 1rem" >
+                    <h:panelGrid  style="margin-top: 1rem; margin-bottom: 2rem" >
                         <h:panelGrid><h:outputLabel for="direccion" styleClass="texto_dialog" value="Direccion: "/></h:panelGrid>
                         <h:panelGrid>
                             <p:inputText id="direccion"  styleClass="input-custom" style="width: 29.58vw" value="#{EmpresaBeans.empresaDto.direccion}" disabled="#{EmpresaBeans.escribirDatos}"   required="true"/>

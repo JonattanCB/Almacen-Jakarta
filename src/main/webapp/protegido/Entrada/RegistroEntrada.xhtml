@@ -71,10 +71,9 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" width="1400" height="600" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="form-dialogProducto">
-                <div id="dialog-content" class="dialogs-barra-grande" >
-                    <h:panelGrid columns="2" width="1200">
+                    <h:panelGrid columns="2" width="1330">
                         <h:panelGrid>
                             <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Empresa" /></h:panelGrid>
                             <h:panelGrid >
@@ -91,7 +90,7 @@
                             <h:outputText  styleClass="texto_dialog"  value="Fecha : #{RegistroEntradaBeans.fechaActual}"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1200" >
+                    <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1330" >
                         <h:panelGrid >
                             <h:outputText styleClass="texto_dialog"  value="RUC: #{RegistroEntradaBeans.empresaDto.nroRUC}"  style="margin-top: 1rem" />
                             <h:outputText styleClass="texto_dialog"  value="Tipo de Empresa: #{RegistroEntradaBeans.empresaDto.tipoEmpresa.nombre} - #{RegistroEntradaBeans.empresaDto.tipoEmpresa.abrev}" style="margin-top: 3rem"  />
@@ -103,8 +102,8 @@
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
                         <h:panelGrid>
-                            <p:dataTable size="small"  scrollable="true" scrollHeight="250" style="width: 80rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
-                                         rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom" >
+                            <p:dataTable size="small"  scrollable="true" scrollHeight="300" style="width: 84rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
+                                         rows="6" paginator="true" rowSelectMode="add" paginatorPosition="bottom" >
                                 <f:facet name="header">
                                     <div class="header-tabla">
                                         <span class="titulo-hearder-tabla">Listado de Productos</span>
@@ -158,8 +157,7 @@
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
-                </div>
-                <h:panelGrid columns="2" style="float: right;" >
+                <h:panelGrid columns="2" style="float: right; margin-top: 50rem" >
                     <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
@@ -224,6 +222,7 @@
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
+                <br/>
                 <h:panelGrid columns="2" style="float: right;" >
                     <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;"  action="#{RegistroEntradaBeans.registrarProducto()}" process="form-dialogo-producto @this" update="form-dialogProducto" />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>

@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IRequerimientoDao;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.UpdateRequerimientoDto;
+import org.Almacen.TopAlmacen.Model.Dependencia;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.Requerimiento;
 import java.util.List;
 
@@ -20,7 +22,10 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
 
     @Override
     public Requerimiento getById(int id) {
-        return _entityManager.find(Requerimiento.class, id);
+        return _entityManager.createQuery(
+                        "SELECT r FROM Requerimiento r  LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia  WHERE r.id = :id", Requerimiento.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override

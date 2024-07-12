@@ -36,8 +36,8 @@ public class MenuBeans implements Serializable {
     @PostConstruct
     private void init(){
         usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        loadLista();
-        menuListar();
+      //  loadLista();
+       // menuListar();
     }
 
     private void loadLista(){
