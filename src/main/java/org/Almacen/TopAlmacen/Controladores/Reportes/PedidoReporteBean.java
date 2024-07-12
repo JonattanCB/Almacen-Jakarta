@@ -36,19 +36,19 @@ public class PedidoReporteBean implements Serializable {
             if (logoEmpresa != null && reportePedido != null) {
                 // Crear datos falsos para `registro`
                 PedidoRegistro registro = new PedidoRegistro();
-                registro.setFecha(new Date());
-                registro.setId(id);
-                registro.setD_sol("Dependencia Solicitante Ejemplo");
-                registro.setDestino("Destino Ejemplo");
-                registro.setObservacion("Observación de prueba");
+                registro.setFecha(new Date()); //fecha
+                registro.setId(id); //id
+                registro.setD_sol("Dependencia Solicitante Ejemplo"); //Unidad dependencia
+                registro.setDestino("Destino Ejemplo"); // No va
+                registro.setObservacion("Observación de prueba"); //observacion
 
                 // Crear lista de datos falsos para `detalles`
                 List<PedidoDetalle> detalles = new ArrayList<>();
                 PedidoDetalle detalle1 = new PedidoDetalle();
-                detalle1.setId_p(1);
-                detalle1.setDesc_p("Producto 1");
-                detalle1.setNom_tunid("Unidad");
-                detalle1.setCantidad(10);
+                detalle1.setId_p(1); //id
+                detalle1.setDesc_p("Producto 1"); //descrio
+                detalle1.setNom_tunid("Unidad"); //unidad
+                detalle1.setCantidad(10);//cantidad
                 detalles.add(detalle1);
 
                 PedidoDetalle detalle2 = new PedidoDetalle();

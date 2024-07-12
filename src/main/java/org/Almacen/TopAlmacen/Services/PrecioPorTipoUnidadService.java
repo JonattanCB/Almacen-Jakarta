@@ -96,7 +96,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
             historialPrecios.setPrecioPorTipoUnidad(createdUnidad);
             historialPrecios.setPrecioRegistro(dto.getPrecio());
             ihistorialPreciosDao.create(historialPrecios);
-
             return createdUnidad;
         } else {
             System.out.println("No existe una unidad básica del tipo 'UND' para este producto.");

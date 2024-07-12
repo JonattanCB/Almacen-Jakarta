@@ -18,4 +18,8 @@ public interface IItemsRequerimientoDao {
     ItemsRequerimiento update(UpdateItemsRequerimientoDto c, int id);
 
     ItemsRequerimiento delete(int id);
+
+    void deleteRequerimientoAll(int id);
+
 }
+

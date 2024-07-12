@@ -1,6 +1,7 @@
 package org.Almacen.TopAlmacen.Controladores.RegistroEntrada;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -178,6 +179,7 @@ public class RegistroEntradaBeans implements Serializable {
     public void cargarPrecioPorTipoUnidad() {
         this.precioPorTipoUnidadDto = precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(idProducto, idTipoUnidad);
         this.detalleProductoProveedorEntradaDto.setPrecioUnitario(precioPorTipoUnidadDto.getPrecioUnitario());
+        this.detalleProductoProveedorEntradaDto.setCantidad(1);
         validacionNuevoProducto(3);
     }
 
@@ -201,6 +203,8 @@ public class RegistroEntradaBeans implements Serializable {
         int filterInt = getInteger(filterText);
         ProductoProveedorEntradaDto c = (ProductoProveedorEntradaDto) value;
         return c.getOC().toLowerCase().contains(filterText)
+                || (c.getUsuario().getNombres()+" "+c.getUsuario().getApellidos()).toLowerCase().contains(filterText)
+                || String.valueOf(c.getPrecioFinal()).contains(filterText)
                 || c.getEmpresa().getNombre().toLowerCase().contains(filterText)
                 || (String.valueOf(c.getFechaRegistro())).contains(filterText);
     }
@@ -214,6 +218,7 @@ public class RegistroEntradaBeans implements Serializable {
         List<CreateDetalleProductoProveedorEntradaDto> lst = DetalleProductoProveedorEntradaMapper.toDtoCreate(ListadoDeDetalle);
         this.productoProveedorEntradaService.create(productoProveedorEntradaDto, lst);
         loadRegistrarEntrant();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL registro de entrada ha sido registrado exitosamente en el sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
 

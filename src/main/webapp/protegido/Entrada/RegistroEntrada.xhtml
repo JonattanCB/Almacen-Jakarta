@@ -29,7 +29,7 @@
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
                                                          style="font-size: 13px;width: 300px"
-                                                         placeholder="Buscar entre los datos de categorias"/>
+                                                         placeholder="Buscar entre los datos de Registros"/>
                                         </span>
                             </div>
                         </f:facet>
@@ -54,17 +54,10 @@
                                              styleClass="edit-button rounded-button "  >
                                 <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
                             </p:commandButton>
-
-                            <p:commandButton value="Ajax Download" icon="pi pi-arrow-down" styleClass="ui-button-outlined"
+                            <p:commandButton icon="pi pi-file-pdf" styleClass="rounded-button ui-button-help" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                              actionListener="#{ReportesEntradaBeans.updateAndGeneratePDF(obj.OC)}"
                                              ajax="false">
                                 <p:fileDownload value="#{ReportesEntradaBeans.file}" />
-                            </p:commandButton>
-
-                            <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             action="#{ReportesEntradaBeans.GenerarPDF()}"
-                                             styleClass="edit-button rounded-button "  >
-
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -105,7 +98,7 @@
                             <h:outputText styleClass="texto_dialog"  value="Observacion: "  />
                         </h:panelGrid>
                         <h:panelGrid>
-                            <p:inputTextarea styleClass="texto_dialog"  disabled="#{RegistroEntradaBeans.observacion}" value="#{RegistroEntradaBeans.productoProveedorEntradaDto.observacion}" style="width: 89rem" />
+                            <p:inputTextarea styleClass="texto_dialog"  disabled="#{RegistroEntradaBeans.observacion}" value="#{RegistroEntradaBeans.productoProveedorEntradaDto.observacion}" style="width: 90rem" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
@@ -135,7 +128,7 @@
                                             <h:outputText  value="S/. #{ld.precioUnitario}" />
                                         </f:facet>
                                        <f:facet name="input">
-                                           <p:inputText value="#{ld.precioUnitario}" />
+                                           <p:inputText value="#{ld.precioUnitario}" style="width: 8rem" />
                                        </f:facet>
                                     </p:cellEditor>
                                 </p:column>
@@ -145,7 +138,7 @@
                                             <h:outputText  value="#{ld.cantidad}" />
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{ld.cantidad}" />
+                                            <p:inputText value="#{ld.cantidad}" style="width: 8rem"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
@@ -166,9 +159,9 @@
                         </h:panelGrid>
                     </h:panelGrid>
                 <h:panelGrid width="1100">
-                    <h:panelGrid columns="2" style=" margin-left: 76rem; position: absolute; top: 46rem " >
+                    <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 46rem " >
                         <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
-                        <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" style="margin-right: 0.5rem;"  type="button"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </h:form>

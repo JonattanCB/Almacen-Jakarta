@@ -33,7 +33,7 @@
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
                                                          style="font-size: 13px;width: 300px"
-                                                         placeholder="Buscar entre los datos de categorias"/>
+                                                         placeholder="Buscar entre los datos de Requerimientos"/>
                                         </span>
                             </div>
                         </f:facet>
@@ -59,16 +59,27 @@
                                              styleClass="edit-button rounded-button "  >
                                 <f:setPropertyActionListener value="#{obj.id}" target="#{RequerimientoBeans.idRequerimiento}" />
                             </p:commandButton>
+                            <p:commandButton icon="pi pi-file-pdf" styleClass="rounded-button ui-button-help" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                             actionListener="#{ReporteRequerimientoBeans.updateAndGeneratePDF(obj.id)}" rendered="#{obj.estado != 'PENDIENTE'}"
+                                             ajax="false">
+                                <p:fileDownload value="#{ReporteRequerimientoBeans.file}" />
+                            </p:commandButton>
+
+                            <p:commandButton icon="pi pi-trash" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                              update=":dialogs" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RequerimientoBeans.deledeRequerimiento()}"
+                                             styleClass="edit-button ui-button-danger rounded-button"  >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{RequerimientoBeans.idRequerimiento}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1340" height="480"
+        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="650"
                   widgetVar="dialogsa" styleClass="dialogs-barra">
             <h:form id="form-dialogProducto">
                 <p:outputPanel>
-                    <h:panelGrid columns="2" style="width: 67vw">
+                    <h:panelGrid columns="2" style="width: 69vw">
                         <h:panelGrid>
                             <h:panelGrid><h:outputText styleClass="texto_dialog"
                                                        value="Unidad de Dependencia"/></h:panelGrid>
@@ -86,13 +97,13 @@
                             <h:panelGrid><h:outputLabel for="observacion" styleClass="texto_dialog"
                                                         value="Razon de Entrada: "/></h:panelGrid>
                             <h:panelGrid>
-                                <p:inputTextarea style="width: 66.5vw" id="observacion" disabled="#{RequerimientoBeans.observacionVisual}"
+                                <p:inputTextarea style="width: 70vw" id="observacion" disabled="#{RequerimientoBeans.observacionVisual}"
                                                  value="#{RequerimientoBeans.requerimientoDto.razonEntrada}"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem">
-                        <p:dataTable size="small" scrollable="true" scrollHeight="250" style="width: 80rem"
+                        <p:dataTable size="small" scrollable="true" scrollHeight="200" style="width: 84rem"
                                      id="tabla-detalle" value="#{RequerimientoBeans.listadoRequerimientos}" var="ld"
                                      editable="true"
                                      rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
@@ -110,19 +121,19 @@
                             <p:column headerText="#" width="80">
                                 <h:outputText value="#{ld.id}"/>
                             </p:column>
-                            <p:column headerText="Descripcion" width="180">
+                            <p:column headerText="Descripcion" width="300">
                                 <h:outputText value="#{ld.descripcion}"/>
                             </p:column>
-                            <p:column headerText="Tipo Unidad" width="70">
+                            <p:column headerText="Tipo Unidad" width="100">
                                 <h:outputText value="#{ld.tipoUnidad.abrev}"/>
                             </p:column>
-                            <p:column headerText="Cantidad" width="100">
+                            <p:column headerText="Cantidad" width="150">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{ld.cantidad}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{ld.cantidad}"/>
+                                        <p:inputText value="#{ld.cantidad}" style="width: 15rem"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -140,10 +151,10 @@
                         </p:dataTable>
                     </h:panelGrid>
                 </p:outputPanel>
-                <h:panelGrid columns="2" style="float: right;   top: 100%;">
+                <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 41rem ">
                     <p:commandButton value="Guardar" icon="pi pi-check" style="margin-right: 0.5rem;" disabled="#{RequerimientoBeans.btnGuardar}" rendered="#{RequerimientoBeans.btnEdicion}"
                                      action="#{RequerimientoBeans.guardar()}"/>
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()" style="margin-right: 0.5rem;"
                                      styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>
