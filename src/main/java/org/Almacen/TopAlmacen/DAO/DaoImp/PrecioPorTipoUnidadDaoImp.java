@@ -110,7 +110,8 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     public PrecioPorTipoUnidad getByIdProducto(int idProducto) {
         try {
             return _entityManager.createQuery(
-                            "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto JOIN FETCH P.stockUnidades WHERE p.producto.id = :producto AND p.tipoUnidad.Abrev = 'UND'",
+                            "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto JOIN FETCH p.producto.categoria " +
+                                    "JOIN FETCH p.producto.marca JOIN FETCH p.stockUnidades WHERE p.producto.id = :producto AND p.tipoUnidad.Abrev = 'UND'",
                             PrecioPorTipoUnidad.class)
                     .setParameter("producto", idProducto)
                     .getSingleResult();

@@ -8,6 +8,8 @@ import java.util.List;
 public interface IRequerimientoDao {
     List<Requerimiento> getAll();
 
+    List<Requerimiento> getRequerimientoByDependencia(int id);
+
     Requerimiento getById(int id);
 
     Requerimiento create(Requerimiento c);

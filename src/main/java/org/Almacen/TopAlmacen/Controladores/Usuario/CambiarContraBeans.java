@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.Controladores.Usuario;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -9,6 +10,7 @@ import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Services.UsuarioService;
 import org.Almacen.TopAlmacen.Util.PasswordUtil;
+import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
 
@@ -43,13 +45,16 @@ public class CambiarContraBeans implements Serializable {
         if(PasswordUtil.hashPassword(contra).equals(getUsuarioDto().getContra())){
             if (contra1.equals(contra2)) {
                 usuarioService.cambiarContrasenia(contra1, usuarioDto.getId());
-                System.out.println("Cambiado Contrasenia");
+                abrirContrasenia();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡La contraseña fue actualizada!"));
+                PrimeFaces.current().executeScript("PF('dialog-password').hide()");
             }else{
-                System.out.println("contra 1 y contra 2 no son iguales");
+                FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error! Las nuevas contraseñas no son iguales.", null));
             }
         }else{
-            System.out.println("Password Incorrecta");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error! La contraseña actual es incorrecta.", null));
         }
+        PrimeFaces.current().ajax().update("mensaje-plantilla");
     }
 
 }

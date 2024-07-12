@@ -41,7 +41,8 @@ public class DependenciaBeans implements Serializable {
         DependenciaDto c = (DependenciaDto) value;
         return (c.getId() >= filterInt && c.getId() <= filterInt)
                 || c.getNombre().toLowerCase().contains(filterText)
-                || c.getEstado().toLowerCase().contains(filterText);
+                || c.getEstado().toLowerCase().contains(filterText)
+                || String.valueOf(c.getFechaRegistro()).contains(filterText);
     }
 
     private int getInteger(String string) {

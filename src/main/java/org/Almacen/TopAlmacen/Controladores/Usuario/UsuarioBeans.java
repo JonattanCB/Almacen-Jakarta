@@ -173,7 +173,7 @@ public class UsuarioBeans implements Serializable {
         dto.setApellidos(usuarioDto.getApellidos());
         dto.setContra(usuarioDto.getContra());
         dto.setCorreo(usuarioDto.getCorreo());
-        dto.setEstado("Activo");
+        dto.setEstado("ACTIVO");
         dto.setUnidad(UnidadDependenciaMapper.toEntity(unidadService.getById(idUnidadDependencia)));
         if (usuarioService.createUsuario(dto) == null){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El correo electrónico ingresado ya está registrado en el sistema. Por favor, use un correo diferente",null ));
@@ -190,7 +190,7 @@ public class UsuarioBeans implements Serializable {
         dto.setApellidos(usuarioDto.getApellidos());
         dto.setContra(usuarioDto.getContra());
         dto.setCorreo(usuarioDto.getCorreo());
-        dto.setEstado("Activo");
+        dto.setEstado("ACTIVO");
         dto.setUnidad(UnidadDependenciaMapper.toEntity(unidadService.getById(idUnidadDependencia)));
         if (usuarioService.updateUsuario(dto,idUsuario) == null){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El correo electrónico ingresado ya está registrado en el sistema. Por favor, use un correo diferente",null ));

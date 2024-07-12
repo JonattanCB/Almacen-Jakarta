@@ -8,7 +8,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
    <title><h:outputText value="Dasboard"/></title>
-   <link href="http://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
    <h:outputStylesheet library="primefaces-saga" name="theme.css"/>
    <h:outputStylesheet library="css" name="styles2.css"/>
    <h:outputStylesheet library="css" name="styles3.css"/>
@@ -16,7 +16,7 @@
     <f:event type="preRenderView" listener="#{PantillaBeans.verificarSesion()}"/>
 </h:head>
 <h:body>
-    <p:growl  id="mensaje-plantilla" />
+    <p:growl id="mensaje-plantilla" />
       <div class="contenido-menu">
          <div class="contenedor-logo-Empresa" >
             <h:graphicImage styleClass="logo-menu" library="imagenes" name="logo.png" />
@@ -58,7 +58,7 @@
          <div id="submenu-perfil" class="submenu-perfil">
              <h:panelGrid style="padding: 0.5rem;">
                  <h:form>
-                     <p:commandLink action="#{CambiarContraBeans.abrirContrasenia()}"  oncomplete="PF('dialog-password').show()"  styleClass="opciones-perfil" >
+                     <p:commandLink action="#{CambiarContraBeans.abrirContrasenia()}" update=":from-cambiarContra"  oncomplete="PF('dialog-password').show()"  styleClass="opciones-perfil" >
                          <i class="bi bi-person-fill-lock" /><h:outputText  value="Cambiar Contraseña" styleClass="perfil-editar"/>
                      </p:commandLink>
                      <p:commandLink  actionListener="#{LoginBeans.cerrarSession()}" action="/index?faces-redirect=true"  styleClass="opciones-perfil">
@@ -71,26 +71,26 @@
                 <ui:insert name="contenido">Content</ui:insert>
          </div>
      </div>
-    <p:dialog  id="dialog-password" header="Cambiar Contraseñas" width="600" height="300" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialog-password">
-        <h:form>
-            <h:panelGrid>
+    <p:dialog  id="dialog-password" header="Cambiar Contraseñas" width="600" height="330" showEffect="fade" appendTo="@(body)" modal="true" widgetVar="dialog-password">
+        <h:form id="from-cambiarContra">
+            <h:panelGrid >
                 <h:panelGrid><h:outputText styleClass="texto_dialog" value="Contraseña Anterior: "/></h:panelGrid>
                 <h:panelGrid>
-                    <p:password toggleMask="true"  style="width: 29.58vw;" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra}"  required="true"/>
+                    <p:password toggleMask="true"  style="width: 28vw;" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra}"  required="true"/>
                 </h:panelGrid>
             </h:panelGrid>
 
-            <h:panelGrid>
+            <h:panelGrid style="margin-top: 1rem">
                 <h:panelGrid><h:outputText styleClass="texto_dialog" value="Nueva Contraseña: "/></h:panelGrid>
                 <h:panelGrid>
-                    <p:password  toggleMask="true" style="width: 29.58vw;" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra1}"  required="true"/>
+                    <p:password  toggleMask="true" style="width: 28vw;" redisplay="true"  styleClass="input-custom" value="#{CambiarContraBeans.contra1}"  required="true"/>
                 </h:panelGrid>
             </h:panelGrid>
 
-            <h:panelGrid>
+            <h:panelGrid style="margin-top: 1rem; margin-bottom: 1rem">
                 <h:panelGrid><h:outputText styleClass="texto_dialog" value="Verifica Contraseña: "/></h:panelGrid>
                 <h:panelGrid>
-                    <p:password toggleMask="true" style="width: 29.58vw;" redisplay="true" styleClass="input-custom" value="#{CambiarContraBeans.contra2}"  required="true"/>
+                    <p:password toggleMask="true" style="width: 28vw;" redisplay="true" styleClass="input-custom" value="#{CambiarContraBeans.contra2}"  required="true"/>
                 </h:panelGrid>
             </h:panelGrid>
 
@@ -100,7 +100,6 @@
             </h:panelGrid>
         </h:form>
     </p:dialog>
-
     <h:outputScript library="js" name="script.js"  />
 </h:body>
 </html>

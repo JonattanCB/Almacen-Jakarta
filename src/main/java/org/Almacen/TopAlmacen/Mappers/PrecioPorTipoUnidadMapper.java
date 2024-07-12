@@ -14,14 +14,13 @@ public class PrecioPorTipoUnidadMapper {
     }
 
     public static PrecioPorTipoUnidad toPrecioPorTipoUnidadFromCreate(CreatePrecioPorTipoUnidadDto dto) {
-        var p = new PrecioPorTipoUnidad();
+        PrecioPorTipoUnidad p = new PrecioPorTipoUnidad();
         p.setTipoUnidad(dto.getTipoUnidad());
         p.setProducto(dto.getProducto());
         p.setPrecioUnitario(dto.getPrecio());
         p.setUnidadesPorTipoUnidadDeProducto(dto.getUnidadesPorTipoUnidadPorProducto());
         p.setStockUnidades(dto.getStockUnidades());
         return p;
-
     }
 
     public static PrecioPorTipoUnidad toPrecioPorTipoUnidadFromUpdate(UpdatePrecioPorTipoUnidadDto dto) {

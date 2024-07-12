@@ -54,7 +54,11 @@ public class RequerimientoBeans implements Serializable {
 
     private ItemsRequerimientoDto itemsRequerimientoDto;
 
+    private UsuarioDto usuarioDto;
+
     private String fecha;
+
+    private String observacionSalida;
 
     private int idRequerimiento;
 
@@ -76,6 +80,10 @@ public class RequerimientoBeans implements Serializable {
 
     private boolean btnEdicion;
 
+    private boolean btnAprobar;
+
+    private boolean btnDesaprobar;
+
     private List<ItemsRequerimientoDto> ListadoRequerimientos;
 
     private List<RequerimientoDto> requerimientoDtos;
@@ -88,13 +96,13 @@ public class RequerimientoBeans implements Serializable {
 
     @PostConstruct
     private void init(){
+        usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         loadRequerimiento();
     }
 
 
     public void NuevoRequerimiento(){
         requerimientoDto = new RequerimientoDto();
-        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         requerimientoDto.setUnidadDependencia(usuarioDto.getUnidad());
         requerimientoDto.setEstado("PENDIENTE");
         fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -105,7 +113,7 @@ public class RequerimientoBeans implements Serializable {
 
     private void loadRequerimiento(){
         try {
-            requerimientoDtos = requerimientoService.getRequerimientos().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+            requerimientoDtos = requerimientoService.getRequerimientosbyDependencia(usuarioDto.getUnidad().getDependencia().getId()).stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -242,6 +250,46 @@ public class RequerimientoBeans implements Serializable {
         loadRequerimiento();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido eliminado exitosamente en el sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    private void verificarEstados(int opcion){
+        switch (opcion){
+            case 1:
+                btnAprobar = true;
+                btnDesaprobar = false;
+                break;
+            case 2:
+                btnAprobar = false;
+                btnDesaprobar = true;
+                break;
+        }
+    }
+
+    public void limpiarObservacionSalidaAceptada(){
+        observacionSalida = "";
+        verificarEstados(1);
+    }
+    public void limpiarObservacionSalidaDesaprobada(){
+        observacionSalida = "";
+        verificarEstados(2);
+    }
+
+    public void estadoAprovado(){
+        cambiarEstado("APROBADO",idRequerimiento,observacionSalida );
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"¡El requerimiento ha sido aprobado.!",null));
+
+    }
+
+    public void estadoDesaprovado(){
+        cambiarEstado("DESAPROBADO",idRequerimiento,observacionSalida);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido desaprobado.!"));
+    }
+
+    private void cambiarEstado(String estado, int id, String observacion){
+        // falta el camni de estado
+        loadRequerimiento();
+        PrimeFaces.current().executeScript("PF('aceptar').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 }

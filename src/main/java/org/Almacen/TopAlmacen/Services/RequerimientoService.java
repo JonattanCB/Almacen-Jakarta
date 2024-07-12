@@ -31,6 +31,11 @@ public class RequerimientoService {
         return iRequerimientoDao.getAll();
     }
 
+    public List<Requerimiento> getRequerimientosbyDependencia(int idDependencia) {
+        return iRequerimientoDao.getRequerimientoByDependencia(idDependencia);
+    }
+
+
     public Requerimiento getRequerimiento(int id) {
         return iRequerimientoDao.getById(id);
     }
