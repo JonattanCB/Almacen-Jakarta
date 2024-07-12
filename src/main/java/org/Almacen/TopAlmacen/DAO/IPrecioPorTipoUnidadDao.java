@@ -24,5 +24,7 @@ public interface IPrecioPorTipoUnidadDao {
 
     PrecioPorTipoUnidad getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad);
 
+    void updatePrecioU(double p, int id);
+
     PrecioPorTipoUnidad getByIdProducto(int idProducto);
 }

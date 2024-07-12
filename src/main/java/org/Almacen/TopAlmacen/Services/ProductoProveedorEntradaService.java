@@ -60,6 +60,7 @@ public class ProductoProveedorEntradaService implements Serializable {
                 his.setPrecioPorTipoUnidad(pptu);
                 his.setPrecioRegistro(detalle.getPrecioUnitario());
                 iHistorialPreciosDao.create(his);
+                iPrecioPorTipoUnidadDao.updatePrecioU(detalle.getPrecioUnitario(),pptu.getId());
             }
             iDetalleProductoProveedorEntradaDao.create(detalle);
 

@@ -58,6 +58,12 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
             return null;
         }
     }
+    @Override
+    public void updatePrecioU(double newPre,int id){
+        var findObj=_entityManager.find(PrecioPorTipoUnidad.class, id);
+        findObj.setPrecioUnitario(newPre);
+        _entityManager.merge(findObj);
+    }
 
     @Override
     public PrecioPorTipoUnidad delete(int id) {
