@@ -90,6 +90,7 @@ public class RegistroEntradaBeans implements Serializable {
 
     private boolean btnBotonAgregrar;
 
+
     private boolean guardarLista;
 
     private boolean verDatosValidacion;

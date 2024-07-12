@@ -50,5 +50,4 @@ function toggleMenu() {
     } else {
         console.error("Elemento 'visible-menu' no encontrado.");
     }
-
 }
