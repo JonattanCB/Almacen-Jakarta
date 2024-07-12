@@ -71,7 +71,7 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" width="1500" height="740" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" width="1500" height="720" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="form-dialogProducto">
                     <h:panelGrid columns="2" width="1400">
                         <h:panelGrid>
@@ -110,7 +110,7 @@
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
                         <h:panelGrid>
-                            <p:dataTable size="small"  scrollable="true" scrollHeight="200" style="width: 90rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
+                            <p:dataTable size="small"  scrollable="true" scrollHeight="180" style="width: 90rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
                                          rows="6" paginator="true" rowSelectMode="add" paginatorPosition="bottom" >
                                 <f:facet name="header">
                                     <div class="header-tabla">
@@ -166,7 +166,7 @@
                         </h:panelGrid>
                     </h:panelGrid>
                 <h:panelGrid width="1100">
-                    <h:panelGrid columns="2" style=" margin-left: 76rem; position: absolute; top: 47rem " >
+                    <h:panelGrid columns="2" style=" margin-left: 76rem; position: absolute; top: 46rem " >
                         <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
                         <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                     </h:panelGrid>

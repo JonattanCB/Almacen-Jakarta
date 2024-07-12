@@ -340,9 +340,11 @@ public class RegistroEntradaBeans implements Serializable {
         switch (opcion) {
             case 1:
                 this.btnBotonAgregrar = true;
+                this.observacion = true;
                 break;
             case 2:
                 this.btnBotonAgregrar = false;
+                this.observacion = false;
                 break;
         }
     }
