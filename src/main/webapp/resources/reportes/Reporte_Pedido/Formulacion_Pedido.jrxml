@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="478457f3-3ffd-40af-9b21-b355e5c8d44c">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Formulacion_Pedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="478457f3-3ffd-40af-9b21-b355e5c8d44c">
 	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
-	<parameter name="fecha" class="java.util.Date"/>
+	<parameter name="fecha" class="java.lang.String"/>
 	<parameter name="id" class="java.lang.Integer"/>
 	<parameter name="D_sol" class="java.lang.String"/>
-	<parameter name="destino" class="java.lang.String"/>
 	<parameter name="observacion" class="java.lang.String"/>
 	<field name="id_p" class="java.lang.Integer"/>
 	<field name="desc_p" class="java.lang.String"/>
 	<field name="nom_tunid" class="java.lang.String"/>
-	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,17 +49,6 @@
 				<text><![CDATA[N REQUERIMIENTO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="454" y="77" width="88" height="20" uuid="45293ff9-d4ff-46ab-afe0-6ad1ffab57c2"/>
-				<box topPadding="4" leftPadding="4" bottomPadding="2" rightPadding="4">
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="454" y="104" width="88" height="20" uuid="e4db4869-901c-4c18-8ccd-4d6e6e37bf7f"/>
 				<box topPadding="4" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<pen lineWidth="1.0"/>
@@ -71,28 +59,26 @@
 				</box>
 				<textFieldExpression><![CDATA[$P{id}]]></textFieldExpression>
 			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="455" y="77" width="87" height="20" uuid="5a798252-68fc-4468-ae38-6f4ee9efe9bb"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="2" rightPadding="4">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="101" splitType="Stretch">
+		<band height="44" splitType="Stretch">
 			<staticText>
 				<reportElement x="14" y="0" width="201" height="20" uuid="ec68f440-487e-4842-bb80-a52c1a87d72e"/>
 				<textElement>
 					<font fontName="Berlin Sans FB Demi" size="12"/>
 				</textElement>
 				<text><![CDATA[DEPENDENCIA DEL SOLICITANTE:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="14" y="59" width="528" height="20" uuid="a71dee1e-039f-4245-8bad-e698199fc1f4"/>
-				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="0">
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement>
-					<font fontName="Berlin Sans FB Demi" size="12"/>
-				</textElement>
-				<text><![CDATA[DESTINADO A:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="15" y="24" width="528" height="20" uuid="cdf90e56-6989-46cf-95a5-40af37c236c6"/>
@@ -104,15 +90,6 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$P{D_sol}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="79" width="528" height="20" uuid="29ca19bb-d1d3-4961-adfc-ef68c309ee1c"/>
-				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textFieldExpression><![CDATA[$P{destino}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

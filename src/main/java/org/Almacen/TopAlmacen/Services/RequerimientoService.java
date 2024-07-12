@@ -51,6 +51,7 @@ public class RequerimientoService {
     }
 
     public Requerimiento delete(int id) {
+        iItemsRequerimientoDao.deleteRequerimientoAll(id);
         return iRequerimientoDao.delete(id);
     }
 

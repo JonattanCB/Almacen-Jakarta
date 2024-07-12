@@ -80,12 +80,13 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     public PrecioPorTipoUnidad findIfExist(Producto producto, TipoUnidad tipoUnidad) {
         try {
             return _entityManager.createQuery(
-                            "SELECT p FROM PrecioPorTipoUnidad p WHERE p.producto = :producto AND p.tipoUnidad = :tipoUnidad",
+                            "SELECT p FROM PrecioPorTipoUnidad  p  JOIN FETCH p.producto JOIN FETCH p.tipoUnidad JOIN FETCH p.stockUnidades WHERE p.producto.id = :producto AND p.tipoUnidad.id = :tipoUnidad",
                             PrecioPorTipoUnidad.class)
-                    .setParameter("producto", producto)
-                    .setParameter("tipoUnidad", tipoUnidad)
+                    .setParameter("producto", producto.getId())
+                    .setParameter("tipoUnidad", tipoUnidad.getId())
                     .getSingleResult();
         } catch (NoResultException e) {
+
             return null;
         }
     }

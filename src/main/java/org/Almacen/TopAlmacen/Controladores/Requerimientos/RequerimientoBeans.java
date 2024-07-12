@@ -1,6 +1,7 @@
 package org.Almacen.TopAlmacen.Controladores.Requerimientos;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -119,10 +120,21 @@ public class RequerimientoBeans implements Serializable {
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
-
+        int filterInt = getInteger(filterText);
         RequerimientoDto c = (RequerimientoDto) value;
-        return c.getUnidadDependencia().getNombre().toLowerCase().contains(filterText)
+        return (c.getId() >= filterInt && c.getId() <= filterInt)
+                ||c.getUnidadDependencia().getNombre().toLowerCase().contains(filterText)
+                || c.getRazonEntrada().toLowerCase().contains(filterText)
+                ||c.getEstado().toLowerCase().contains(filterText)
                 || (String.valueOf(c.getFechaRegistrada())).contains(filterText);
+    }
+
+    private int getInteger(String string) {
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public void AgregarRequerimiento(){
@@ -182,6 +194,7 @@ public class RequerimientoBeans implements Serializable {
         List<CreateItemsRequerimientoDto> lst = ListadoRequerimientos.stream().map(ItemsRequerimientoMapper::tocreate).collect(Collectors.toList());
         requerimientoService.create(create,lst);
         loadRequerimiento();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido registrado exitosamente en el sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
@@ -223,5 +236,12 @@ public class RequerimientoBeans implements Serializable {
                 btnEdicion = false;
                 break;
         }
+    }
+    public void deledeRequerimiento(){
+        requerimientoService.delete(idRequerimiento);
+        loadRequerimiento();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido eliminado exitosamente en el sistema!"));
+        PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 }

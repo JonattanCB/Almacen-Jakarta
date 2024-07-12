@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.Mappers;
 
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.CreateItemsRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.ItemsRequerimientoDto;
+import org.Almacen.TopAlmacen.DTO.ItemsRequerimiento.PdfItemsRequerimientosDto;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 
 public class ItemsRequerimientoMapper {
@@ -11,6 +12,10 @@ public class ItemsRequerimientoMapper {
 
     public static ItemsRequerimiento toEntity(ItemsRequerimientoDto dto) {
         return new ItemsRequerimiento(dto.getId(), dto.getRequerimiento(), dto.getCantidad(), dto.getTipoUnidad(), dto.getDescripcion());
+    }
+
+    public static PdfItemsRequerimientosDto toPdfDto(ItemsRequerimiento item) {
+        return  new PdfItemsRequerimientosDto(item.getId(), item.getDescripcion(), item.getTipoUnidad().getEstado(), item.getCantidad());
     }
 
     public static  CreateItemsRequerimientoDto tocreate(ItemsRequerimientoDto item) {
