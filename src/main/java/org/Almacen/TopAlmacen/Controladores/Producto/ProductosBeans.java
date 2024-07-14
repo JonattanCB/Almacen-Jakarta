@@ -116,11 +116,8 @@ public class ProductosBeans implements Serializable {
 
     public void eliminarProducto(){
         ProductoDto p = productoService.getProductoById(productoid);
-        if (productoService.deleteProducto(productoid) == null){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede eliminar el producto " + p.getNombre() + " porque está siendo utilizado en el sistema."));
-        }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + p.getNombre() + " ha sido eliminado exitosamente del sistema!"));
-        }
+        productoService.deleteProducto(productoid);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + p.getNombre() + " ha sido eliminado exitosamente del sistema!"));
         loadProductos();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
