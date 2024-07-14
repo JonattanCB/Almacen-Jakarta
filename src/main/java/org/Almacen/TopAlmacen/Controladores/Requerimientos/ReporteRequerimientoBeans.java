@@ -73,8 +73,9 @@ public class ReporteRequerimientoBeans implements Serializable {
             if (logoEmpresa != null && reporteEntrada != null) {
                 JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
                 Map<String, Object> parameters = new HashMap<>();
+                String fecha = String.valueOf(dto.getFechaRegistrada());
                 parameters.put("Ruta_Imagen", logoEmpresa);
-                parameters.put("fecha", String.valueOf(dto.getFechaRegistrada()));
+                parameters.put("fecha", fecha);
                 parameters.put("id", dto.getId());
                 parameters.put("D_sol", dto.getUnidadDependencia().getNombre());
                 parameters.put("observacion", dto.getRazonEntrada());

@@ -64,11 +64,11 @@ public class RequerimientoService {
         return iItemsRequerimientoDao.getAllByRequerimiento(id);
     }
 
-    public void setEstadoAprobado(int id) {
-        iRequerimientoDao.setEstado(id, "APROBADO");
+    public void setEstadoAprobado(int id, String observacion) {
+        iRequerimientoDao.setEstado(id, "APROBADO",observacion);
     }
 
-    public void setEstadoDesaprobado(int id) {
-        iRequerimientoDao.setEstado(id, "DESAPROBADO");
+    public void setEstadoDesaprobado(int id, String observacion) {
+        iRequerimientoDao.setEstado(id, "DESAPROBADO", observacion);
     }
 }

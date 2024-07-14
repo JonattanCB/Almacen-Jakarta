@@ -89,12 +89,10 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link:hover{
 
 body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-icon {
     color: #c5c6c8;
-    font-weight: 800;
 }
 
 body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-text {
     color: #c5c6c8;
-    font-weight: 800;
 }
 
 .Contenedor-menu-opciones::-webkit-scrollbar {

@@ -18,5 +18,5 @@ public interface IRequerimientoDao {
 
     Requerimiento delete(int id);
 
-    void setEstado(int id, String estado);
+    void setEstado(int id, String estado, String observacion);
 }

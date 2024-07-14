@@ -36,16 +36,13 @@ public class MenuBeans implements Serializable {
     @PostConstruct
     private void init(){
         usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        //loadLista();
-        //menuListar();
+        loadLista();
+        menuListar();
     }
 
     private void loadLista(){
         try {
             listaAcceso = accesoService.listarAccesos(usuarioDto.getUnidad().getRol().getId());
-            for (AccesoDto acceso : listaAcceso) {
-                System.out.println(acceso.getNombre());
-            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -53,13 +50,14 @@ public class MenuBeans implements Serializable {
 
     private void menuListar(){
         model = new DefaultMenuModel();
+        String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
         for (AccesoDto m :listaAcceso){
             if (m.getTipo().equalsIgnoreCase("S")){
                 DefaultSubMenu subMenu = DefaultSubMenu.builder().label(m.getNombre()).expanded(true).build();
                 for (AccesoDto m2 : listaAcceso){
                     if(m2.getSubMenuId() != 0){
                         if(m2.getSubMenuId() == m.getId()){
-                            DefaultMenuItem menuItem = DefaultMenuItem.builder().value(m2.getNombre()).build();
+                            DefaultMenuItem menuItem = DefaultMenuItem.builder().value(m2.getNombre()).icon(m2.getIcon()).url(contextPath+m2.getURL()).build();
                             subMenu.getElements().add(menuItem);
                         }
                     }
@@ -67,7 +65,6 @@ public class MenuBeans implements Serializable {
                 model.getElements().add(subMenu);
             }
         }
-        System.out.println("Modelo de menú construido con " + model.getElements().size() + " elementos principales.");
     }
 
 

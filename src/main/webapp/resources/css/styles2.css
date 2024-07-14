@@ -14,7 +14,7 @@
     width: 16%;
     height: 100vw;
     position: absolute;
-    box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.8);
+    box-shadow: 0 0 30px rgb(0, 0, 0, 0.8);
 }
 
 .contenido-escritorio{

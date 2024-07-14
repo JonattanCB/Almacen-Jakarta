@@ -102,6 +102,16 @@ body .disenio-export .ui-button-help{
     color: #C63737;
 }
 
+.customer-badge.status-APROBADO {
+    background: #C8E6C9;
+    color: #256029;
+}
+
+.customer-badge.status-DESAPROBADO {
+    background: #FFCDD2;
+    color: #C63737;
+}
+
 body .ui-datatable thead th .ui-column-title{
     font-size: 1rem;
 }

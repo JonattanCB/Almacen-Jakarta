@@ -276,20 +276,20 @@ public class RequerimientoBeans implements Serializable {
     }
 
     public void estadoAprovado(){
-        cambiarEstado("APROBADO",idRequerimiento,observacionSalida );
+        requerimientoService.setEstadoAprobado(idRequerimiento,observacionSalida);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"¡El requerimiento ha sido aprobado.!",null));
+        loadRequerimiento();
+        PrimeFaces.current().executeScript("PF('aceptar').hide()");
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
 
     }
 
     public void estadoDesaprovado(){
-        cambiarEstado("DESAPROBADO",idRequerimiento,observacionSalida);
+        requerimientoService.setEstadoDesaprobado(idRequerimiento, observacionSalida);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido desaprobado.!"));
-    }
-
-    private void cambiarEstado(String estado, int id, String observacion){
-        // falta el camni de estado
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
+
 }

@@ -69,9 +69,10 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
-    public void setEstado(int id, String estado) {
+    public void setEstado(int id, String estado,String observacion) {
         var findObj = getById(id);
         findObj.setEstado(estado);
+        findObj.setRazonSalida(observacion);
         _entityManager.merge(findObj);
     }
 }
