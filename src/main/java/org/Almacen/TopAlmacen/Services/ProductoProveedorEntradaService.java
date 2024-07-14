@@ -4,10 +4,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.Almacen.TopAlmacen.DAO.IDetalleProductoProveedorEntradaDao;
-import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
-import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
-import org.Almacen.TopAlmacen.DAO.IProductoProveedorEntradaDao;
+import org.Almacen.TopAlmacen.DAO.*;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
@@ -30,6 +27,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IDetalleProductoProveedorEntradaDao iDetalleProductoProveedorEntradaDao;
     @Inject
     private StockUnidadesService stockUnidadesService;
+    @Inject
+    private IStockUnidadesDao iStockUnidadesDao;
     @Inject
     private IPrecioPorTipoUnidadDao iPrecioPorTipoUnidadDao;
     @Inject
@@ -60,7 +59,7 @@ public class ProductoProveedorEntradaService implements Serializable {
                 his.setPrecioPorTipoUnidad(pptu);
                 his.setPrecioRegistro(detalle.getPrecioUnitario());
                 iHistorialPreciosDao.create(his);
-                iPrecioPorTipoUnidadDao.updatePrecioU(detalle.getPrecioUnitario(),pptu.getId());
+                iPrecioPorTipoUnidadDao.updatePrecioU(detalle.getPrecioUnitario(), pptu.getId());
             }
             iDetalleProductoProveedorEntradaDao.create(detalle);
 
@@ -80,6 +79,15 @@ public class ProductoProveedorEntradaService implements Serializable {
 
     @Transactional
     public void delete(int id) {
-        iProductoProveedorEntradaDao.delete(id);
+        var precio = iPrecioPorTipoUnidadDao.getById(id);
+        var stock = precio.getStockUnidades();
+        if (stock != null) {
+            var Stock = stock.getPrecios();
+            if (Stock.isEmpty()) {
+                // El stock no tiene más asociaciones
+                iStockUnidadesDao.delete(stock.getId());
+            }
+            iPrecioPorTipoUnidadDao.delete(id);
+        }
     }
 }

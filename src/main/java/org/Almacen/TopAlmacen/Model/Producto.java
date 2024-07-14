@@ -36,5 +36,4 @@ public class Producto {
 
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate FechaRegistro = LocalDate.now();
-
 }

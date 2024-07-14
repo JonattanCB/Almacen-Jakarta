@@ -58,23 +58,25 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
             return null;
         }
     }
+
     @Override
-    public void updatePrecioU(double newPre,int id){
-        var findObj=_entityManager.find(PrecioPorTipoUnidad.class, id);
+    public void updatePrecioU(double newPre, int id) {
+        var findObj = _entityManager.find(PrecioPorTipoUnidad.class, id);
         findObj.setPrecioUnitario(newPre);
         _entityManager.merge(findObj);
     }
 
     @Override
     public PrecioPorTipoUnidad delete(int id) {
-        var findObj = _entityManager.find(PrecioPorTipoUnidad.class, id);
-        if (findObj != null) {
-            _entityManager.remove(findObj);
-            return findObj;
-        } else {
-            return null;
+        PrecioPorTipoUnidad entity = _entityManager.find(PrecioPorTipoUnidad.class, id);
+        if (entity != null) {
+            entity.getStockUnidades().getPrecios().remove(entity);
+            _entityManager.remove(entity);
+            return entity;
         }
+        return null;
     }
+
 
     @Override
     public PrecioPorTipoUnidad findIfExist(Producto producto, TipoUnidad tipoUnidad) {
