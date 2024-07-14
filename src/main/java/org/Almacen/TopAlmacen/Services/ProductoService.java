@@ -29,7 +29,7 @@ public class ProductoService implements Serializable {
     public List<ProductoDto> getAllProducto() {
         List<Producto> productos = iProductoDao.getAll();
         return productos.stream()
-                .map(c -> new ProductoDto(c.getId(), c.getNombre(), c.getColor(), c.getPeso(), c.getCategoria(), c.getMarca(), c.getFechaRegistro()))
+                .map(c -> new ProductoDto(c.getId(), c.getNombre(), c.getColor(), c.getPeso(), c.getCategoria(), c.getMarca(), c.getFechaRegistro(), c.getStockUnidades()))
                 .collect(Collectors.toList());
     }
 

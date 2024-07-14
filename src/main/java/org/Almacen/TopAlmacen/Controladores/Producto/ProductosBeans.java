@@ -116,7 +116,7 @@ public class ProductosBeans implements Serializable {
 
     public void eliminarProducto(){
         ProductoDto p = productoService.getProductoById(productoid);
-        productoService.deleteProducto(productoid);
+        productoService.delete(productoid);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + p.getNombre() + " ha sido eliminado exitosamente del sistema!"));
         loadProductos();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");

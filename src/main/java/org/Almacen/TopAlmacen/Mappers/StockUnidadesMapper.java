@@ -4,6 +4,7 @@ import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class StockUnidadesMapper {
     }
 
     public static TablaStockUnidadesDto toTablaStockUnidadesDto(StockUnidades s) {
-        return new TablaStockUnidadesDto(s.getId(),concatFromList(s.getProducto()), s.getCantidadStockUnidad(), s.getTipoUnidad());
+        return new TablaStockUnidadesDto(s.getId(), ProductoMapper.toConcatProduct(s.getProducto()), s.getCantidadStockUnidad(), s.getTipoUnidad());
     }
 
     public static StockUnidades toStockUnidadesFromUpdate(UpdateStockUnidadesDto dto) {
@@ -23,11 +24,4 @@ public class StockUnidadesMapper {
         return s;
     }
 
-    public static String concatFromList(List<PrecioPorTipoUnidad> list) {
-        if (list == null || list.isEmpty()) {
-            return "";
-        }
-        var fistStock = list.get(0).getProducto();
-        return ProductoMapper.toConcatProduct(fistStock);
-    }
 }

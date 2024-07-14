@@ -28,7 +28,6 @@ public class DetalleProductoProveedorEntradaMapper {
             dto.setPrecioTotal(l.getPrecioTotal());
             dto.setPrecioPorTipoUnidad(l.getPrecioPorTipoUnidad());
             System.out.println(l.getPrecioPorTipoUnidad().getProducto().getNombre()+"Este es el producto");
-            System.out.println(l.getPrecioPorTipoUnidad().getStockUnidades().getTipoUnidad()+"Aqui esta el TipoUnidad UND");
             dto.setPrecioUnitario(l.getPrecioUnitario());
             dto.setOC_id(l.getOC_id());
             lst.add(dto);

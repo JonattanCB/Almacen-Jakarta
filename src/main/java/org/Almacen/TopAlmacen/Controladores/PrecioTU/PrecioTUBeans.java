@@ -107,7 +107,7 @@ public class PrecioTUBeans implements Serializable {
         tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
         productoDescripcionDtos = productoService.productoDescripcionDtos();
         tipoUnidadID = precioPorTipoUnidadDto.getTipoUnidad().getId();
-        stockUnidades = precioPorTipoUnidadDto.getStockUnidades();
+        stockUnidades = precioPorTipoUnidadDto.getProducto().getStockUnidades();
         productoId = precioPorTipoUnidadDto.getProducto().getId();
     }
 
@@ -153,11 +153,11 @@ public class PrecioTUBeans implements Serializable {
             PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         } else {
             var precio = precioPorTipoUnidadService.getByIdProducto(productoId);
-            if( precio == null){
+            if (precio == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                 PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
-            }else {
-                createPrecioPorTipoUnidadDto.setStockUnidades(precio.getStockUnidades());
+            } else {
+                createPrecioPorTipoUnidadDto.setStockUnidades(precio.getProducto().getStockUnidades());
                 if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto) == null) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                     PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
@@ -205,7 +205,7 @@ public class PrecioTUBeans implements Serializable {
                 || c.getTipoUnidad().getNombre().toLowerCase().contains(filterText)
                 || c.getProducto().getNombre().toLowerCase().contains(filterText)
                 || String.valueOf(c.getUnidadesPorTipoUnidadPorProducto()).contains(filterText)
-                ||String.valueOf(c.getPrecioUnitario()).contains(filterText);
+                || String.valueOf(c.getPrecioUnitario()).contains(filterText);
     }
 
     private int getInteger(String string) {
