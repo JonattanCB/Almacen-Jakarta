@@ -7,12 +7,14 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.TopAlmacen.DAO.IProductoDao;
+import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Model.Producto;
+import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +26,8 @@ public class ProductoService implements Serializable {
 
     @Inject
     private IProductoDao iProductoDao;
+    @Inject
+    private IStockUnidadesDao IStockUnidadesDao;
 
     @Transactional
     public List<ProductoDto> getAllProducto() {
@@ -36,6 +40,10 @@ public class ProductoService implements Serializable {
     @Transactional
     public Producto createProducto(CreateProductoDto createMarcaDto) {
         var Producto = ProductoMapper.toProductoFromCreate(createMarcaDto);
+        var stockCreated = new StockUnidades();
+        stockCreated.setProducto(Producto);
+        stockCreated.setCantidadStockUnidad(0);
+        IStockUnidadesDao.create(stockCreated);
         return iProductoDao.create(Producto);
     }
 

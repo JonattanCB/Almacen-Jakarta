@@ -6,8 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.Marca;
+import org.Almacen.TopAlmacen.Model.StockUnidades;
 
-import java.time.LocalDate;
+
 
 @Getter
 @Setter
