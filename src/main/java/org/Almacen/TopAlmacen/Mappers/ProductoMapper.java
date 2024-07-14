@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 
 public class ProductoMapper {
     public static ProductoDto toDto(Producto producto) {
-        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(), producto.getFechaRegistro());
+        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(), producto.getFechaRegistro(), producto.getStockUnidades());
     }
 
     public static Producto toProducto(ProductoDto dto) {
-        return new Producto(dto.getId(), dto.getNombre(), dto.getColor(), dto.getPeso(), dto.getMarca(), dto.getCategoria(), dto.getFechaRegistro());
+        return new Producto(dto.getId(), dto.getNombre(), dto.getColor(), dto.getPeso(), dto.getMarca(), dto.getCategoria(), dto.getFechaRegistro(), dto.getStockUnidades());
     }
 
     public static List<ProductoDto> toDTOList(List<Producto> productos) {

@@ -79,15 +79,8 @@ public class ProductoProveedorEntradaService implements Serializable {
 
     @Transactional
     public void delete(int id) {
-        var precio = iPrecioPorTipoUnidadDao.getById(id);
-        var stock = precio.getStockUnidades();
-        if (stock != null) {
-            var Stock = stock.getPrecios();
-            if (Stock.isEmpty()) {
-                // El stock no tiene más asociaciones
-                iStockUnidadesDao.delete(stock.getId());
-            }
-            iPrecioPorTipoUnidadDao.delete(id);
-        }
+
+        iPrecioPorTipoUnidadDao.delete(id);
     }
 }
+

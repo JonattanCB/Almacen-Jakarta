@@ -51,18 +51,10 @@ public class ProductoService implements Serializable {
     }
 
     @Transactional
-    public Producto deleteProducto(int id) {
-        Producto producto = iProductoDao.getById(id);
-        if (producto == null) {
-            return null;
-        }
-
-        if (iProductoDao.existsByProducto(producto)) {
-            return null;
-        }
-
-        return iProductoDao.delete(id);
+    public void delete(int id) {
+        iProductoDao.delete(id);
     }
+
 
     @Transactional
     public List<ProductoDescripcionDto> productoDescripcionDtos() {

@@ -54,7 +54,7 @@ public class StockUnidadesService implements Serializable {
             throw new IllegalArgumentException("La cantidad a agregar debe ser mayor que cero.");
         }
         if (precioPorTipoUnidad != null) {
-            var stockUnidades = precioPorTipoUnidad.getStockUnidades();
+            var stockUnidades = precioPorTipoUnidad.getProducto().getStockUnidades();
             if (stockUnidades == null) {
                 throw new IllegalArgumentException("El precio por tipo de unidad no está asociado a ningún stock.");
             }
@@ -79,7 +79,7 @@ public class StockUnidadesService implements Serializable {
             throw new IllegalArgumentException("La cantidad a agregar debe ser mayor que cero.");
         }
         if (precioPorTipoUnidad != null) {
-            var stockUnidades = precioPorTipoUnidad.getStockUnidades();
+            var stockUnidades = precioPorTipoUnidad.getProducto().getStockUnidades();
             var resto = stockUnidades.getCantidadStockUnidad() - cantidadRestar;
             if (resto <= 0) {
                 throw new IllegalArgumentException("No hay suficiente Stock disponible");

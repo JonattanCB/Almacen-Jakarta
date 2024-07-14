@@ -16,7 +16,7 @@ public class ProductoDaoImp implements IProductoDao {
 
     @Override
     public List<Producto> getAll() {
-        return _entityManager.createQuery("SELECT p FROM Producto p", Producto.class).getResultList();
+        return _entityManager.createQuery("SELECT p FROM Producto p JOIN fetch p.stockUnidades", Producto.class).getResultList();
     }
 
     @Override

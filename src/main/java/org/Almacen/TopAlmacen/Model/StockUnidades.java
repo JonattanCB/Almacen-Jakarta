@@ -13,11 +13,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "StockUnidades")
 public class StockUnidades {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -28,8 +26,7 @@ public class StockUnidades {
     @Column(name = "TipoUnidad", nullable = false)
     private String tipoUnidad = "UND";
 
-    @OneToMany(mappedBy = "stockUnidades", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<PrecioPorTipoUnidad> precios;
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Producto_ID", nullable = false)
+    private Producto producto;
 }
-

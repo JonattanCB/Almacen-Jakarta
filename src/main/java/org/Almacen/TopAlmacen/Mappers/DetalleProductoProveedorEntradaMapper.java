@@ -43,7 +43,6 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setTipoUnidad(d.getTipoUnidad());
         e.setPrecioPorTipoUnidad(d.getPrecioPorTipoUnidad());
         System.out.println(d.getPrecioPorTipoUnidad().getProducto().getNombre() + "Encontrado");
-        System.out.println(d.getPrecioPorTipoUnidad().getStockUnidades().getId() + "Encontrado");
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;

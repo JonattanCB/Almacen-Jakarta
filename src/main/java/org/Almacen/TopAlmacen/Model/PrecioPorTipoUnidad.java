@@ -10,11 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "PrecioPorTipoUnidad")
 public class PrecioPorTipoUnidad {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,7 +31,4 @@ public class PrecioPorTipoUnidad {
     @Column(name = "unidadesPorTipoUnidadDeProducto")
     private double unidadesPorTipoUnidadDeProducto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "StockUnidades_ID")
-    private StockUnidades stockUnidades;
 }

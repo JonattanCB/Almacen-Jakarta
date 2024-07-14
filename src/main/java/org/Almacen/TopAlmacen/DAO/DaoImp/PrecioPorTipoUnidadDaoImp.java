@@ -70,7 +70,6 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     public PrecioPorTipoUnidad delete(int id) {
         PrecioPorTipoUnidad entity = _entityManager.find(PrecioPorTipoUnidad.class, id);
         if (entity != null) {
-            entity.getStockUnidades().getPrecios().remove(entity);
             _entityManager.remove(entity);
             return entity;
         }
@@ -113,7 +112,7 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
         try {
             return _entityManager.createQuery(
                             "SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto JOIN FETCH p.producto.categoria " +
-                                    "JOIN FETCH p.producto.marca JOIN FETCH p.stockUnidades WHERE p.producto.id = :producto AND p.tipoUnidad.Abrev = 'UND'",
+                                    "JOIN FETCH p.producto.marca WHERE p.producto.id = :producto AND p.tipoUnidad.Abrev = 'UND'",
                             PrecioPorTipoUnidad.class)
                     .setParameter("producto", idProducto)
                     .getSingleResult();

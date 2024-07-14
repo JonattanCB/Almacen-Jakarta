@@ -14,7 +14,7 @@ public class StockUnidadesMapper {
     }
 
     public static TablaStockUnidadesDto toTablaStockUnidadesDto(StockUnidades s) {
-        return new TablaStockUnidadesDto(s.getId(),concatFromList(s.getPrecios()), s.getCantidadStockUnidad(), s.getTipoUnidad());
+        return new TablaStockUnidadesDto(s.getId(),concatFromList(s.getProducto()), s.getCantidadStockUnidad(), s.getTipoUnidad());
     }
 
     public static StockUnidades toStockUnidadesFromUpdate(UpdateStockUnidadesDto dto) {
