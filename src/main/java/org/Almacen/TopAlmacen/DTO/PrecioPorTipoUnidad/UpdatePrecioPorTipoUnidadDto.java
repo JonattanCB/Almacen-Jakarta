@@ -16,5 +16,6 @@ public class UpdatePrecioPorTipoUnidadDto {
     private Producto producto;
     private double precio;
     private double unidadesPorTipoUnidadPorProducto;
+    private String estado;
 
 }

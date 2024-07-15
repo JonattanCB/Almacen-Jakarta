@@ -18,5 +18,6 @@ public class PrecioPorTipoUnidadDto {
     private Producto producto;
     private double precioUnitario;
     private double unidadesPorTipoUnidadPorProducto;
+    private String estado;
 
 }

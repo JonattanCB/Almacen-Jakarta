@@ -16,7 +16,12 @@ public class ProductoDaoImp implements IProductoDao {
 
     @Override
     public List<Producto> getAll() {
-        return _entityManager.createQuery("SELECT p FROM Producto p JOIN fetch p.stockUnidades", Producto.class).getResultList();
+        return _entityManager.createQuery("SELECT p FROM Producto p JOIN fetch p.stockUnidades WHERE p.estado ='ACTIVO'", Producto.class).getResultList();
+    }
+
+    @Override
+    public List<Producto> getAllFalseEstado() {
+        return _entityManager.createQuery("SELECT p FROM Producto p JOIN fetch p.stockUnidades WHERE p.estado ='INACTIVO'", Producto.class).getResultList();
     }
 
     @Override
@@ -55,15 +60,6 @@ public class ProductoDaoImp implements IProductoDao {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public boolean existsByProducto(Producto producto) {
-        Long count = _entityManager.createQuery(
-                        "SELECT COUNT(p) FROM PrecioPorTipoUnidad p WHERE p.producto = :producto", Long.class)
-                .setParameter("producto", producto)
-                .getSingleResult();
-        return count > 0;
     }
 
 }

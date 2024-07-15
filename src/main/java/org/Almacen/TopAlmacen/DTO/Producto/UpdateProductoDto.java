@@ -20,4 +20,5 @@ public class UpdateProductoDto {
     private Categoria categoria;
     private Marca marca;
     private LocalDate fechaRegistro;
+    private String estado;
 }

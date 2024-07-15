@@ -9,6 +9,7 @@ import org.Almacen.TopAlmacen.Model.Marca;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,5 +22,6 @@ public class ProductoDto {
     private Categoria categoria;
     private Marca marca;
     private LocalDate fechaRegistro;
+    private String estado;
     private StockUnidades stockUnidades;
 }

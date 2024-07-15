@@ -36,6 +36,9 @@ public class Producto {
     @JoinColumn(name = "Categoria_ID", nullable = false)
     private Categoria categoria;
 
+    @Column(name = "estado")
+    private String estado;
+
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDate fechaRegistro = LocalDate.now();
 

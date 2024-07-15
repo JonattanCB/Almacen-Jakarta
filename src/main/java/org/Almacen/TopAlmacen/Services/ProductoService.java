@@ -33,13 +33,19 @@ public class ProductoService implements Serializable {
     public List<ProductoDto> getAllProducto() {
         List<Producto> productos = iProductoDao.getAll();
         return productos.stream()
-                .map(c -> new ProductoDto(c.getId(), c.getNombre(), c.getColor(), c.getPeso(), c.getCategoria(), c.getMarca(), c.getFechaRegistro(), c.getStockUnidades()))
+                .map(c -> new ProductoDto(c.getId(), c.getNombre(), c.getColor(), c.getPeso(), c.getCategoria(), c.getMarca(), c.getFechaRegistro(), c.getEstado(), c.getStockUnidades()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public Producto createProducto(CreateProductoDto createMarcaDto) {
-        var Producto = ProductoMapper.toProductoFromCreate(createMarcaDto);
+    public List<ProductoDto> getAllFalseEstao() {
+        var productos = iProductoDao.getAllFalseEstado();
+        return productos.stream().map(p -> new ProductoDto(p.getId(), p.getNombre(), p.getColor(), p.getPeso(), p.getCategoria(), p.getMarca(), p.getFechaRegistro(), p.getEstado(), p.getStockUnidades())).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Producto createProducto(CreateProductoDto c) {
+        var Producto = ProductoMapper.toProductoFromCreate(c);
         var stockCreated = new StockUnidades();
         stockCreated.setProducto(Producto);
         stockCreated.setCantidadStockUnidad(0);

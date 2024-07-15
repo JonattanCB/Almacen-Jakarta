@@ -9,7 +9,6 @@ import org.Almacen.TopAlmacen.Model.Marca;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
 
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,4 +19,5 @@ public class CreateProductoDto {
     private String peso;
     private Categoria categoria;
     private Marca marca;
+    private String estado = "ACTIVO";
 }

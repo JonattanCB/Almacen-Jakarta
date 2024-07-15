@@ -59,15 +59,10 @@ public class PrecioPorTipoUnidadService implements Serializable {
     @Transactional
     public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
-            var nuevaUnidad = new PrecioPorTipoUnidad();
-            var stockUnidades = new StockUnidades();
-
-            nuevaUnidad.setProducto(dto.getProducto());
-            nuevaUnidad.setTipoUnidad(dto.getTipoUnidad());
-            nuevaUnidad.setPrecioUnitario(dto.getPrecio());
+            var nuevaUnidad = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
-
             var created = iprecioPorTipoUnidadDao.create(nuevaUnidad);
+
             var hp = new HistorialPrecios();
             hp.setPrecioPorTipoUnidad(created);
             hp.setPrecioRegistro(dto.getPrecio());
@@ -138,6 +133,16 @@ public class PrecioPorTipoUnidadService implements Serializable {
         } else {
             return PrecioPorTipoUnidadMapper.toDto(precioTU);
         }
+    }
+
+    @Transactional
+    public void ChangeStateACTIVO(int id) {
+        iprecioPorTipoUnidadDao.changeState(id, "ACTIVO");
+    }
+
+    @Transactional
+    public void ChangeStateINACTIVO(int id) {
+        iprecioPorTipoUnidadDao.changeState(id, "INACTIVO");
     }
 
 }

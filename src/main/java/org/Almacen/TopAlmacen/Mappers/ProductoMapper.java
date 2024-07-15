@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 
 public class ProductoMapper {
     public static ProductoDto toDto(Producto producto) {
-        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(), producto.getFechaRegistro(), producto.getStockUnidades());
+        return new ProductoDto(producto.getId(), producto.getNombre(), producto.getColor(), producto.getPeso(), producto.getCategoria(), producto.getMarca(), producto.getFechaRegistro(), producto.getEstado(), producto.getStockUnidades());
     }
 
     public static Producto toProducto(ProductoDto dto) {
-        return new Producto(dto.getId(), dto.getNombre(), dto.getColor(), dto.getPeso(), dto.getMarca(), dto.getCategoria(), dto.getFechaRegistro(), dto.getStockUnidades());
+        return new Producto(dto.getId(), dto.getNombre(), dto.getColor(), dto.getPeso(), dto.getMarca(), dto.getCategoria(), dto.getEstado(), dto.getFechaRegistro(), dto.getStockUnidades());
     }
 
     public static List<ProductoDto> toDTOList(List<Producto> productos) {
@@ -33,6 +33,7 @@ public class ProductoMapper {
         p.setPeso(dto.getPeso());
         p.setCategoria(dto.getCategoria());
         p.setMarca(dto.getMarca());
+        p.setEstado(dto.getEstado());
         return p;
     }
 
@@ -43,6 +44,7 @@ public class ProductoMapper {
         p.setPeso(dto.getPeso());
         p.setCategoria(dto.getCategoria());
         p.setMarca(dto.getMarca());
+        p.setEstado(dto.getEstado());
         return p;
     }
 

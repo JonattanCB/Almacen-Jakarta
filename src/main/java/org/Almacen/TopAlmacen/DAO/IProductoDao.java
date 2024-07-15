@@ -9,6 +9,8 @@ import java.util.List;
 public interface IProductoDao {
     List<Producto> getAll();
 
+    List<Producto> getAllFalseEstado();
+
     Producto getById(int id);
 
     Producto create(Producto c);
@@ -16,7 +18,5 @@ public interface IProductoDao {
     Producto update(UpdateProductoDto u, int id);
 
     Producto delete(int id);
-
-    boolean existsByProducto(Producto producto);
 
 }
