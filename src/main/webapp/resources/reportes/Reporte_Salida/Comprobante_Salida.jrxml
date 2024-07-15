@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante_Salida" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a9c8a9b-c3c2-4796-a86b-a6c62a9a2cf2">
-	<property name="ireport.zoom" value="1.210000000000004"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.0000000000000033"/>
+	<property name="ireport.x" value="20"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
-	<parameter name="Fecha" class="java.util.Date"/>
+	<parameter name="Fecha" class="java.lang.String"/>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="dependencia_s" class="java.lang.String"/>
 	<parameter name="para_uso" class="java.lang.String"/>
-	<parameter name="totalC_v" class="java.lang.String"/>
+	<parameter name="totalC_v" class="java.lang.Double"/>
 	<field name="item_s" class="java.lang.Integer"/>
 	<field name="cantidad_s" class="java.lang.Integer"/>
 	<field name="medida_s" class="java.lang.String"/>
@@ -17,7 +17,7 @@
 	<field name="cant_d" class="java.lang.String"/>
 	<field name="medida_d" class="java.lang.String"/>
 	<field name="unidad_v" class="java.lang.String"/>
-	<field name="total_v" class="java.lang.String"/>
+	<field name="total_v" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -108,8 +108,8 @@
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="673" y="0" width="128" height="38" uuid="96113a37-7615-4704-baf8-b0232168f613"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="673" y="0" width="128" height="38" uuid="96113a37-7615-4704-baf8-b0232168f613"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
