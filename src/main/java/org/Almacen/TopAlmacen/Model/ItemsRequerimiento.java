@@ -26,7 +26,9 @@ public class ItemsRequerimiento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoUnidad", nullable = false)
     private TipoUnidad tipoUnidad;
-    @Column(name = "Descripcion")
-    private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto")
+    private Producto producto;
 
 }

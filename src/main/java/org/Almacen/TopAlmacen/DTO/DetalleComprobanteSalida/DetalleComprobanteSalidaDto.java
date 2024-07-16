@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
 @Getter
@@ -18,7 +19,7 @@ public class DetalleComprobanteSalidaDto {
     private ComprobanteSalida comprobanteSalida;
     private double cantidad;
     private TipoUnidad tipoUnidad;
-    private String descripcion;
+    private Producto producto;
     private double precioUnitario;
     private double precioTotal;
 }

@@ -92,16 +92,16 @@ public class RequerimientoBeans implements Serializable {
 
     private List<ProductoDescripcionDto> productoDescripcionDtos;
 
-    private  List<TipoUnidadDto> tipoUnidadDtoList;
+    private List<TipoUnidadDto> tipoUnidadDtoList;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         loadRequerimiento();
     }
 
 
-    public void NuevoRequerimiento(){
+    public void NuevoRequerimiento() {
         requerimientoDto = new RequerimientoDto();
         requerimientoDto.setUnidadDependencia(usuarioDto.getUnidad());
         requerimientoDto.setEstado("PENDIENTE");
@@ -111,15 +111,15 @@ public class RequerimientoBeans implements Serializable {
         ValidacionEdicion(1);
     }
 
-    private void loadRequerimiento(){
+    private void loadRequerimiento() {
         try {
             requerimientoDtos = requerimientoService.getRequerimientosbyDependencia(usuarioDto.getUnidad().getDependencia().getId()).stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void LimpiarListadoRequerimiento(){
+    private void LimpiarListadoRequerimiento() {
         ListadoRequerimientos = new ArrayList<>();
     }
 
@@ -131,9 +131,9 @@ public class RequerimientoBeans implements Serializable {
         int filterInt = getInteger(filterText);
         RequerimientoDto c = (RequerimientoDto) value;
         return (c.getId() >= filterInt && c.getId() <= filterInt)
-                ||c.getUnidadDependencia().getNombre().toLowerCase().contains(filterText)
+                || c.getUnidadDependencia().getNombre().toLowerCase().contains(filterText)
                 || c.getRazonEntrada().toLowerCase().contains(filterText)
-                ||c.getEstado().toLowerCase().contains(filterText)
+                || c.getEstado().toLowerCase().contains(filterText)
                 || (String.valueOf(c.getFechaRegistrada())).contains(filterText);
     }
 
@@ -145,7 +145,7 @@ public class RequerimientoBeans implements Serializable {
         }
     }
 
-    public void AgregarRequerimiento(){
+    public void AgregarRequerimiento() {
         itemsRequerimientoDto = new ItemsRequerimientoDto();
         productoDescripcionDtos = productoService.productoDescripcionDtos();
         idProducto = 0;
@@ -158,15 +158,15 @@ public class RequerimientoBeans implements Serializable {
         validarRegistrar(2);
     }
 
-    public void habilitarCantidad(){
+    public void habilitarCantidad() {
 
     }
 
-    public void registrarItemRequerimiento(){
+    public void registrarItemRequerimiento() {
         itemsRequerimientoDto.setId(getNextId());
         itemsRequerimientoDto.setRequerimiento(RequerimientoMapper.toEntity(requerimientoDto));
         itemsRequerimientoDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
-        itemsRequerimientoDto.setDescripcion(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
+        itemsRequerimientoDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(idProducto)));
         ListadoRequerimientos.add(itemsRequerimientoDto);
         validarGuardar();
         PrimeFaces.current().executeScript("PF('dialogProducto').hide()");
@@ -195,20 +195,20 @@ public class RequerimientoBeans implements Serializable {
         }
     }
 
-    public void guardar(){
+    public void guardar() {
         CreateRequerimientoDto create = new CreateRequerimientoDto();
         create.setUnidadDependencia(requerimientoDto.getUnidadDependencia());
         create.setRazonEntrada(requerimientoDto.getRazonEntrada());
         List<CreateItemsRequerimientoDto> lst = ListadoRequerimientos.stream().map(ItemsRequerimientoMapper::tocreate).collect(Collectors.toList());
-        requerimientoService.create(create,lst);
+        requerimientoService.create(create, lst);
         loadRequerimiento();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido registrado exitosamente en el sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void validarRegistrar(int opcion){
-        switch (opcion){
+    private void validarRegistrar(int opcion) {
+        switch (opcion) {
             case 1:
                 producto = false;
                 tipoUnidad = true;
@@ -222,19 +222,19 @@ public class RequerimientoBeans implements Serializable {
         }
     }
 
-    private void validarGuardar(){
+    private void validarGuardar() {
         btnGuardar = ListadoRequerimientos.isEmpty();
     }
 
-    public void ViewDatosRequerimiento(){
+    public void ViewDatosRequerimiento() {
         requerimientoDto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
         fecha = requerimientoDto.getFechaRegistrada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         ListadoRequerimientos = requerimientoService.getItemsRequerimientos(idRequerimiento).stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
         ValidacionEdicion(2);
     }
 
-    private void ValidacionEdicion(int opcion){
-        switch (opcion){
+    private void ValidacionEdicion(int opcion) {
+        switch (opcion) {
             case 1:
                 observacionVisual = false;
                 btnEdicion = true;
@@ -245,7 +245,8 @@ public class RequerimientoBeans implements Serializable {
                 break;
         }
     }
-    public void deledeRequerimiento(){
+
+    public void deledeRequerimiento() {
         requerimientoService.delete(idRequerimiento);
         loadRequerimiento();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido eliminado exitosamente en el sistema!"));
@@ -253,8 +254,8 @@ public class RequerimientoBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void verificarEstados(int opcion){
-        switch (opcion){
+    private void verificarEstados(int opcion) {
+        switch (opcion) {
             case 1:
                 btnAprobar = true;
                 btnDesaprobar = false;
@@ -266,25 +267,26 @@ public class RequerimientoBeans implements Serializable {
         }
     }
 
-    public void limpiarObservacionSalidaAceptada(){
+    public void limpiarObservacionSalidaAceptada() {
         observacionSalida = "";
         verificarEstados(1);
     }
-    public void limpiarObservacionSalidaDesaprobada(){
+
+    public void limpiarObservacionSalidaDesaprobada() {
         observacionSalida = "";
         verificarEstados(2);
     }
 
-    public void estadoAprovado(){
-        requerimientoService.setEstadoAprobado(idRequerimiento,observacionSalida);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"¡El requerimiento ha sido aprobado.!",null));
+    public void estadoAprovado() {
+        requerimientoService.setEstadoAprobado(idRequerimiento, observacionSalida);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El requerimiento ha sido aprobado.!", null));
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
 
     }
 
-    public void estadoDesaprovado(){
+    public void estadoDesaprovado() {
         requerimientoService.setEstadoDesaprobado(idRequerimiento, observacionSalida);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido desaprobado.!"));
         loadRequerimiento();

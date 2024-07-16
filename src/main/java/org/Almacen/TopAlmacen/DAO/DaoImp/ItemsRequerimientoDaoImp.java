@@ -48,7 +48,7 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
         if (itemFound != null) {
             itemFound.setCantidad(c.getCantidad());
             itemFound.setTipoUnidad(c.getTipoUnidad());
-            itemFound.setDescripcion(c.getDescripcion());
+            itemFound.setProducto(c.getProducto());
             return _entityManager.merge(itemFound);
         }else{
             return null;

@@ -27,8 +27,9 @@ public class DetalleComprobanteSalida {
     @JoinColumn(name = "TipoUnidad",nullable = false)
     private TipoUnidad tipoUnidad;
 
-    @Column(name = "Descripcion",nullable = false)
-    private String descripcion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto", nullable = false)
+    private Producto producto;
 
     @Column(name = "PrecioUnitario",nullable = false)
     private double precioUnitario;

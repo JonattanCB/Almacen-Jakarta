@@ -18,6 +18,7 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
+import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Services.*;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
@@ -152,7 +153,7 @@ public class RegistroEntradaBeans implements Serializable {
     public void registrarProducto() {
         this.detalleProductoProveedorEntradaDto.setId(getNextId());
         this.detalleProductoProveedorEntradaDto.setOC_id(ProductoProveedorEntradaMapper.toEntityCreate(productoProveedorEntradaDto));
-        this.detalleProductoProveedorEntradaDto.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadDto));
+        this.detalleProductoProveedorEntradaDto.setProducto(precioPorTipoUnidadDto.getProducto());
         this.detalleProductoProveedorEntradaDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
         this.detalleProductoProveedorEntradaDto.setPrecioTotal(detalleProductoProveedorEntradaDto.getPrecioUnitario() * detalleProductoProveedorEntradaDto.getCantidad());
         this.detalleProductoProveedorEntradaDto.setDescripcion(ProductoMapper.toConcatProduct(precioPorTipoUnidadDto.getProducto()));

@@ -26,8 +26,8 @@ public class DetalleProductoProveedorEntrada {
     @JoinColumn(name = "TipoUnidad_ID")
     private TipoUnidad tipoUnidad;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "precioPorTipoUnidad_id")
-    private PrecioPorTipoUnidad precioPorTipoUnidad;
+    @JoinColumn(name = "producto", nullable = false)
+    private Producto producto;
     @Column(name = "PrecioUnitario", nullable = false)
     private double precioUnitario;
     @Column(name = "precioTotal", nullable = false)
