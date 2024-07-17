@@ -19,4 +19,6 @@ public interface IProductoDao {
 
     Producto delete(int id);
 
+    void changeState(int id, String estado);
+
 }

@@ -62,4 +62,13 @@ public class ProductoDaoImp implements IProductoDao {
         }
     }
 
+    @Override
+    public void changeState(int id, String estado) {
+        var findObj = getById(id);
+        if (findObj != null) {
+            findObj.setEstado(estado);
+            _entityManager.merge(findObj);
+        }
+    }
+
 }

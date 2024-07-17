@@ -11,17 +11,14 @@ public class DetalleProductoProveedorEntradaMapper {
         return new DetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getProducto(), d.getPrecioUnitario(), d.getPrecioTotal());
     }
 
-    public static ListaDetalleProductoProveedorEntradaDto toDtoLista(DetalleProductoProveedorEntrada d) {
-        return new ListaDetalleProductoProveedorEntradaDto(d.getId(), d.getOC_id(), d.getCantidad(), d.getTipoUnidad(), d.getProducto(), ProductoMapper.toConcatProduct(d.getProducto()), d.getPrecioUnitario(), d.getPrecioTotal());
-    }
 
     public static PdfDetalleProductoProveedorEntradaDto toDtoPdf(DetalleProductoProveedorEntrada d) {
         return new PdfDetalleProductoProveedorEntradaDto(d.getProducto().getId(), ProductoMapper.toConcatProduct(d.getProducto()), d.getTipoUnidad().getNombre(), d.getProducto().getMarca().getNombre(), d.getCantidad());
     }
 
-    public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<ListaDetalleProductoProveedorEntradaDto> d) {
+   /* public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<CreateDetalleProductoProveedorEntradaDto> d) {
         List<CreateDetalleProductoProveedorEntradaDto> lst = new ArrayList<>();
-        for (ListaDetalleProductoProveedorEntradaDto l : d) {
+        for (CreateDetalleProductoProveedorEntradaDto l : d) {
             var dto = new CreateDetalleProductoProveedorEntradaDto();
             dto.setCantidad(l.getCantidad());
             dto.setTipoUnidad(l.getTipoUnidad());
@@ -33,7 +30,7 @@ public class DetalleProductoProveedorEntradaMapper {
             lst.add(dto);
         }
         return lst;
-    }
+    }*/
 
     public static DetalleProductoProveedorEntrada fromCreate(CreateDetalleProductoProveedorEntradaDto d) {
         var e = new DetalleProductoProveedorEntrada();

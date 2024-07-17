@@ -135,14 +135,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
         }
     }
 
-    @Transactional
-    public void ChangeStateACTIVO(int id) {
-        iprecioPorTipoUnidadDao.changeState(id, "ACTIVO");
-    }
 
-    @Transactional
-    public void ChangeStateINACTIVO(int id) {
-        iprecioPorTipoUnidadDao.changeState(id, "INACTIVO");
-    }
 
 }

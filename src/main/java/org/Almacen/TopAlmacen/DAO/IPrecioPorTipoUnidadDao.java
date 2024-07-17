@@ -10,8 +10,6 @@ import java.util.List;
 public interface IPrecioPorTipoUnidadDao {
     List<PrecioPorTipoUnidad> getAll();
 
-    List<PrecioPorTipoUnidad> getAllFalseEstado();
-
     List<Integer> getAllbyProducto(int id);
 
     PrecioPorTipoUnidad getById(int id);
@@ -20,7 +18,6 @@ public interface IPrecioPorTipoUnidadDao {
 
     PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto c, int id);
 
-    void changeState(int id, String estado);
 
     PrecioPorTipoUnidad delete(int id);
 

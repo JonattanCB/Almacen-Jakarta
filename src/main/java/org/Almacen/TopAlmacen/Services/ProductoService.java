@@ -76,4 +76,14 @@ public class ProductoService implements Serializable {
         List<Producto> productos = iProductoDao.getAll();
         return productos.stream().map(c -> new ProductoDescripcionDto(c.getId(), ProductoMapper.toConcatProduct(c))).collect(Collectors.toList());
     }
+
+    @Transactional
+    public void ChangeStateACTIVO(int id) {
+        iProductoDao.changeState(id, "ACTIVO");
+    }
+
+    @Transactional
+    public void ChangeStateINACTIVO(int id) {
+        iProductoDao.changeState(id, "INACTIVO");
+    }
 }

@@ -23,23 +23,11 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
     }
 
     @Override
-    public List<PrecioPorTipoUnidad> getAllFalseEstado() {
-        return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto WHERE p.estado='INACTIVO'", PrecioPorTipoUnidad.class).getResultList();
-    }
-
-    @Override
     public List<Integer> getAllbyProducto(int id) {
         var query = _entityManager.createQuery(
                 "SELECT p.tipoUnidad.id FROM PrecioPorTipoUnidad p WHERE p.producto.id = :id", Integer.class);
         query.setParameter("id", id);
         return query.getResultList();
-    }
-
-    @Override
-    public void changeState(int id, String estado) {
-        var obj = getById(id);
-        obj.setEstado(estado);
-        _entityManager.merge(obj);
     }
 
     @Override
