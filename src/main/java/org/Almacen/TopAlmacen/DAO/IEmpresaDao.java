@@ -10,6 +10,8 @@ public interface IEmpresaDao {
 
     List<Empresa> getAllInactiveEstado();
 
+    List<Empresa> getAllActiveEstado();
+
     boolean isEmpresaAsociada(String empresaId);
 
     void changeState(String empresaId, String estado);

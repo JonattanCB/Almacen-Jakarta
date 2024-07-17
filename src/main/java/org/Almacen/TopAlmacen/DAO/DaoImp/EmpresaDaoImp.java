@@ -21,6 +21,11 @@ public class EmpresaDaoImp implements IEmpresaDao {
     }
 
     @Override
+    public List<Empresa> getAllActiveEstado() {
+        return _entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.tipoEmpresa WHERE e.estado='ACTIVO' ORDER BY e.NroRUC ASC", Empresa.class).getResultList();
+    }
+
+    @Override
     public List<Empresa> getAllInactiveEstado() {
         return _entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.tipoEmpresa WHERE e.estado='INACTIVO' ORDER BY e.NroRUC ASC", Empresa.class).getResultList();
     }

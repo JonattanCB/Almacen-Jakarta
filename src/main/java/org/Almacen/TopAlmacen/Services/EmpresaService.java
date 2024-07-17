@@ -28,10 +28,11 @@ public class EmpresaService implements Serializable {
     }
 
     @Transactional
-    public List<EmpresaDto> getAllInactiveEstado() {
-        var empresas = iEmpresaDao.getAllInactiveEstado();
+    public List<EmpresaDto> getAllActiveEstado() {
+        var empresas = iEmpresaDao.getAllActiveEstado();
         return empresas.stream().map(EmpresaMapper::toDto).collect(Collectors.toList());
     }
+
 
     @Transactional
     public EmpresaDto getEmpresa(String NroRuc) {
