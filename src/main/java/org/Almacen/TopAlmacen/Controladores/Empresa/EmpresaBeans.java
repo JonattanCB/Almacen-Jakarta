@@ -132,36 +132,27 @@ public class EmpresaBeans implements Serializable {
 
     public void OperacionEmpresa(){
         EmpresaDto dto = empresaService.getEmpresa(NroRUC);
-        if(dto.getEstado().equals("INACTIVO")){
+        if(dto.getEstado().equals("ACTIVO")){
             if(empresaService.deleteEmpresa(NroRUC) == null){
-                System.out.println("el esatado se cambio a nulo");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de la empresa " + dto.getNombre() + " ha cambiado a " + "Inactivo" + "!"));
             }else{
-                System.out.println("elimino");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getNombre() + " ha sido eliminado exitosamente del sistema!"));
             }
         }else{
             empresaService.changeActive(NroRUC);
-            System.out.println("se activo");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El estado de la empresa " + dto.getNombre() + " ha cambiado a " + "Activo" + "!"));
         }
         loadEmpresa();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getNombre() + " ha sido eliminado exitosamente del sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    public boolean validacionEliminacion(){
-        if(empresaService.isEmpresaAsociada(NroRUC)){
-            return true;
-        }else{
-            return false;
-        }
+    public boolean validacionEliminacion(String nroRUC){
+        return !empresaService.isEmpresaAsociada(nroRUC);
     }
 
-    public boolean validacionCambioEstado(){
-        if(empresaService.isEmpresaAsociada(NroRUC)){
-            return false;
-        }else{
-            return true;
-        }
+    public boolean validacionCambioEstado(String nroRUC){
+        return empresaService.isEmpresaAsociada(nroRUC);
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
