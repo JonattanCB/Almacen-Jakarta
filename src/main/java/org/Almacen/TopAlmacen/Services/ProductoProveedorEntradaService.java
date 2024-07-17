@@ -12,6 +12,7 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveed
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
+import org.Almacen.TopAlmacen.Model.MovimientoStock;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.io.Serializable;
@@ -33,6 +34,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IPrecioPorTipoUnidadDao iPrecioPorTipoUnidadDao;
     @Inject
     private IHistorialPreciosDao iHistorialPreciosDao;
+    @Inject
+    private IMovimientoStockDao iMovimientoStockDao;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -52,7 +55,7 @@ public class ProductoProveedorEntradaService implements Serializable {
         iProductoProveedorEntradaDao.create(prodcu);
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
-          var pptu = iPrecioPorTipoUnidadDao.getById(d.getPrecioPorTipoUnidad().getId());
+            var pptu = iPrecioPorTipoUnidadDao.getById(d.getPrecioPorTipoUnidad().getId());
             if (pptu.getPrecioUnitario() != detalle.getPrecioUnitario()) {
                 var his = new HistorialPrecios();
                 his.setPrecioPorTipoUnidad(pptu);
@@ -65,6 +68,14 @@ public class ProductoProveedorEntradaService implements Serializable {
 
             var totalAAgregar = d.getPrecioPorTipoUnidad().getUnidadesPorTipoUnidadDeProducto() * d.getCantidad();
             stockUnidadesService.addStockUnidades(d.getPrecioPorTipoUnidad(), totalAAgregar);
+
+            var ms = new MovimientoStock();
+            ms.setTipoMovimiento("ENTRADA");
+            ms.setProducto(d.getPrecioPorTipoUnidad().getProducto());
+            ms.setCantidad(d.getCantidad());
+            ms.setTipoUnidad(d.getPrecioPorTipoUnidad().getTipoUnidad().getAbrev());
+            iMovimientoStockDao.create(ms);
+
 
         }
         return prodcu;

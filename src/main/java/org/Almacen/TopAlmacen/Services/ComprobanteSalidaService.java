@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.IComprobanteSalidaDao;
 import org.Almacen.TopAlmacen.DAO.IDetalleComprobanteSalidaDao;
+import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.CreateDetalleComprobanteSalidaDto;
@@ -26,6 +27,8 @@ public class ComprobanteSalidaService implements Serializable {
     private IDetalleComprobanteSalidaDao iDetalleComprobanteSalidaDao;
     @Inject
     private StockUnidadesService stockUnidadesService;
+    @Inject
+    private IMovimientoStockDao imovimientoStockDao;
 
     @Transactional
     public List<ComprobanteSalida> getall() {
@@ -33,7 +36,7 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public ComprobanteSalida get(int id) {
+    public ComprobanteSalida getById(int id) {
         return iComprobanteSalidaDao.getById(id);
     }
 
@@ -44,8 +47,16 @@ public class ComprobanteSalidaService implements Serializable {
             var itemComprobante = DetalleComprobanteSalidaMapper.fromCreate(detalleDto);
             var pptu = detalleDto.getPrecioPorTipoUnidad();
             iDetalleComprobanteSalidaDao.create(itemComprobante);
+
             var cantidadARestar = detalleDto.getCantidad() * detalleDto.getPrecioPorTipoUnidad().getUnidadesPorTipoUnidadDeProducto();
             stockUnidadesService.subtractStockUnidades(pptu, cantidadARestar);
+
+            var ms = new MovimientoStock();
+            ms.setTipoMovimiento("SALIDA");
+            ms.setProducto(detalleDto.getPrecioPorTipoUnidad().getProducto());
+            ms.setCantidad(detalleDto.getCantidad());
+            ms.setTipoUnidad(detalleDto.getPrecioPorTipoUnidad().getTipoUnidad().getAbrev());
+            imovimientoStockDao.create(ms);
 
         }
         iComprobanteSalidaDao.create(newComprobante);

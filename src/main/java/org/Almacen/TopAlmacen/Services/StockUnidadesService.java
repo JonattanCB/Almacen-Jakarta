@@ -26,10 +26,6 @@ public class StockUnidadesService implements Serializable {
 
     @Inject
     private IStockUnidadesDao istockUnidadesDao;
-    @Inject
-    private IPrecioPorTipoUnidadDao iprecioPorTipoUnidadDao;
-    @Inject
-    private IMovimientoStockDao imovimientoStockDao;
 
 
     @Transactional
@@ -55,14 +51,8 @@ public class StockUnidadesService implements Serializable {
             }
             stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + cantidadAgregar);
 
-            var ms = new MovimientoStock();
-            ms.setTipoMovimiento("ENTRADA");
-            ms.setProducto(precioPorTipoUnidad.getProducto());
-            ms.setCantidad(cantidadAgregar);
-            ms.setTipoUnidad(precioPorTipoUnidad.getTipoUnidad().getAbrev());
             istockUnidadesDao.update(stockUnidades.getId(), stockUnidades.getCantidadStockUnidad());
 
-            imovimientoStockDao.create(ms);
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidad.getId() + " no existe.");
         }
@@ -82,14 +72,7 @@ public class StockUnidadesService implements Serializable {
                 throw new IllegalArgumentException("No hay suficiente Stock disponible");
             } else {
                 stockUnidades.setCantidadStockUnidad(resto);
-
-                var ms = new MovimientoStock();
-                ms.setTipoMovimiento("ENTRADA");
-                ms.setProducto(precioPorTipoUnidad.getProducto());
-                ms.setCantidad(cantidadRestar);
-                ms.setTipoUnidad(precioPorTipoUnidad.getTipoUnidad().getAbrev());
                 istockUnidadesDao.update(stockUnidades.getId(), resto);
-                imovimientoStockDao.create(ms);
             }
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidad.getId() + " no existe.");
