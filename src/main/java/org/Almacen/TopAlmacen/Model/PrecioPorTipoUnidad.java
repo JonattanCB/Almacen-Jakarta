@@ -31,7 +31,4 @@ public class PrecioPorTipoUnidad {
     @Column(name = "unidadesPorTipoUnidadDeProducto")
     private double unidadesPorTipoUnidadDeProducto;
 
-    @Column(name = "Estado")
-    private String estado;
-
 }

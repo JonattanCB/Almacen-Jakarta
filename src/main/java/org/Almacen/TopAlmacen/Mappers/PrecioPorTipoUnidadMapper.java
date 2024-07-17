@@ -10,7 +10,7 @@ import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 
 public class PrecioPorTipoUnidadMapper {
     public static PrecioPorTipoUnidadDto toDto(PrecioPorTipoUnidad p) {
-        return new PrecioPorTipoUnidadDto(p.getId(), p.getTipoUnidad(), p.getProducto(), p.getPrecioUnitario(), p.getUnidadesPorTipoUnidadDeProducto(), p.getEstado());
+        return new PrecioPorTipoUnidadDto(p.getId(), p.getTipoUnidad(), p.getProducto(), p.getPrecioUnitario(), p.getUnidadesPorTipoUnidadDeProducto());
     }
 
     public static PrecioPorTipoUnidad toPrecioPorTipoUnidadFromCreate(CreatePrecioPorTipoUnidadDto dto) {
@@ -19,7 +19,6 @@ public class PrecioPorTipoUnidadMapper {
         p.setProducto(dto.getProducto());
         p.setPrecioUnitario(dto.getPrecio());
         p.setUnidadesPorTipoUnidadDeProducto(dto.getUnidadesPorTipoUnidadPorProducto());
-        p.setEstado("ACTIVO");
 
         return p;
     }
@@ -30,7 +29,6 @@ public class PrecioPorTipoUnidadMapper {
         p.setProducto(dto.getProducto());
         p.setPrecioUnitario(dto.getPrecio());
         p.setUnidadesPorTipoUnidadDeProducto(dto.getUnidadesPorTipoUnidadPorProducto());
-        p.setEstado(dto.getEstado());
         return p;
 
     }
@@ -42,7 +40,6 @@ public class PrecioPorTipoUnidadMapper {
         precio.setProducto(p.getProducto());
         precio.setPrecioUnitario(p.getPrecioUnitario());
         precio.setUnidadesPorTipoUnidadDeProducto(p.getUnidadesPorTipoUnidadPorProducto());
-        precio.setEstado(p.getEstado());
 
         return precio;
     }

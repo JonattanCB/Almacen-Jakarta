@@ -17,5 +17,4 @@ public class CreatePrecioPorTipoUnidadDto {
     private Producto producto;
     private double precio;
     private double unidadesPorTipoUnidadPorProducto;
-    private StockUnidades stockUnidades;
 }

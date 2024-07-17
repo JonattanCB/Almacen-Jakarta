@@ -78,9 +78,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {//CUANDO ES PAQUETE
         if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
-            if (dto.getStockUnidades() == null) {
-                System.out.println("No se puede crear unidad superior");
-            }
+
             var createdUnidad = iprecioPorTipoUnidadDao.create(pptu);
             var historialPrecios = new HistorialPrecios();
             historialPrecios.setPrecioPorTipoUnidad(createdUnidad);
@@ -92,6 +90,13 @@ public class PrecioPorTipoUnidadService implements Serializable {
             return null;
         }
     }
+   /* @Transactional
+    public PrecioPorTipoUnidad eliminarUnidadBasica(PrecioPorTipoUnidadDto dto){
+        if (existeUnidadBasica(dto.getProducto())) {
+            var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
+
+        }
+    }*/
 
     @Transactional
     public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) { //Actualizar
@@ -134,7 +139,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
             return PrecioPorTipoUnidadMapper.toDto(precioTU);
         }
     }
-
 
 
 }
