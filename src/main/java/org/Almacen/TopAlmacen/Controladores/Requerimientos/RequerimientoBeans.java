@@ -84,6 +84,8 @@ public class RequerimientoBeans implements Serializable {
 
     private boolean btnDesaprobar;
 
+    private boolean verRazonSalidad;
+
     private List<ItemsRequerimientoDto> ListadoRequerimientos;
 
     private List<RequerimientoDto> requerimientoDtos;
@@ -239,10 +241,12 @@ public class RequerimientoBeans implements Serializable {
             case 1:
                 observacionVisual = false;
                 btnEdicion = true;
+                verRazonSalidad = false;
                 break;
             case 2:
                 observacionVisual = true;
                 btnEdicion = false;
+                verRazonSalidad = true;
                 break;
         }
     }

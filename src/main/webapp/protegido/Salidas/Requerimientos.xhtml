@@ -74,7 +74,7 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="650"
+        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="750"
                   widgetVar="dialogsa" styleClass="dialogs-barra">
             <h:form id="form-dialogProducto">
                 <p:outputPanel>
@@ -101,8 +101,18 @@
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem" rendered="#{RequerimientoBeans.verRazonSalidad}">
+                        <h:panelGrid>
+                            <h:panelGrid><h:outputLabel for="rs" styleClass="texto_dialog"
+                                                        value="Razon de Salida: "/></h:panelGrid>
+                            <h:panelGrid>
+                                <p:inputTextarea style="width: 70vw" id="rs" disabled="#{RequerimientoBeans.observacionVisual}"
+                                                 value="#{RequerimientoBeans.requerimientoDto.razonSalida}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem">
-                        <p:dataTable size="small" scrollable="true" scrollHeight="200" style="width: 84rem"
+                        <p:dataTable size="small" scrollable="true" scrollHeight="300" style="width: 84rem"
                                      id="tabla-detalle" value="#{RequerimientoBeans.listadoRequerimientos}" var="ld"
                                      editable="true"
                                      rows="5" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
@@ -150,7 +160,7 @@
                         </p:dataTable>
                     </h:panelGrid>
                 </p:outputPanel>
-                <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 41rem ">
+                <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 48rem ">
                     <p:commandButton value="Guardar" icon="pi pi-check" style="margin-right: 0.5rem;" disabled="#{RequerimientoBeans.btnGuardar}" rendered="#{RequerimientoBeans.btnEdicion}"
                                      action="#{RequerimientoBeans.guardar()}"/>
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()" style="margin-right: 0.5rem;"
