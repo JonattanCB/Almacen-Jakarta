@@ -129,8 +129,8 @@ public class PrecioTUBeans implements Serializable {
 
     public void deletePrecioPorTipoUnidad() {
         PrecioPorTipoUnidadDto dto = precioPorTipoUnidadService.getPrecioPorTipoUnidadById(precioPorTipoUnidadID);
-        if (precioPorTipoUnidadService.delete(precioPorTipoUnidadID) == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede eliminar el precio del producto " + dto.getProducto().getNombre() + " porque se está utilizando en el sistema."));
+        if (precioPorTipoUnidadService.eliminarUnidadSuperior(dto) == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede eliminar el precio del producto " + dto.getProducto().getNombre() + " porque tiene que eliminar una unidad superior"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + dto.getProducto().getNombre() + " ha sido eliminado exitosamente del sistema!"));
         }

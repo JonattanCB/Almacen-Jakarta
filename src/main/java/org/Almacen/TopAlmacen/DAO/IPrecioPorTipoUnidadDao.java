@@ -12,12 +12,13 @@ public interface IPrecioPorTipoUnidadDao {
 
     List<Integer> getAllbyProducto(int id);
 
+    List<PrecioPorTipoUnidad> getAllTipoUnidadbyProducto(int id);
+
     PrecioPorTipoUnidad getById(int id);
 
     PrecioPorTipoUnidad create(PrecioPorTipoUnidad c);
 
     PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto c, int id);
-
 
     PrecioPorTipoUnidad delete(int id);
 
@@ -28,4 +29,5 @@ public interface IPrecioPorTipoUnidadDao {
     void updatePrecioU(double p, int id);
 
     PrecioPorTipoUnidad getByIdProducto(int idProducto);
+
 }

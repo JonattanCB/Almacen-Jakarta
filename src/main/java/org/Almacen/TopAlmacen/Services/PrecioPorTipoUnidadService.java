@@ -88,13 +88,28 @@ public class PrecioPorTipoUnidadService implements Serializable {
             return null;
         }
     }
-   /* @Transactional
-    public PrecioPorTipoUnidad eliminarUnidadBasica(PrecioPorTipoUnidadDto dto){
-        if (existeUnidadBasica(dto.getProducto())) {
-            var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
 
+    @Transactional
+    public PrecioPorTipoUnidad eliminarUnidadBasica(PrecioPorTipoUnidadDto dto) {
+        var unidades = getAllTipoUnidadByIdProducto(dto.getProducto().getId());
+
+        if (unidades.size() != 1) {
+            return null;
         }
-    }*/
+        var pptu = PrecioPorTipoUnidadMapper.toEntity(dto);
+        iprecioPorTipoUnidadDao.delete(pptu.getId());
+        return pptu;
+
+    }
+
+    @Transactional
+    public PrecioPorTipoUnidad eliminarUnidadSuperior(PrecioPorTipoUnidadDto dto) {
+        if (dto.getTipoUnidad().getAbrev().equals("UND")) {
+            return eliminarUnidadBasica(dto);
+        }
+        iprecioPorTipoUnidadDao.delete(dto.getId());
+        return PrecioPorTipoUnidadMapper.toEntity(dto);
+    }
 
     @Transactional
     public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) { //Actualizar
@@ -118,10 +133,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
         return null;
     }
 
-    @Transactional
-    public PrecioPorTipoUnidad delete(int id) {
-        return iprecioPorTipoUnidadDao.delete(id);
-    }
 
     @Transactional
     public PrecioPorTipoUnidadDto getByIdProductoIdTipoUnidad(int idProducto, int idTipoUnidad) {
@@ -136,6 +147,11 @@ public class PrecioPorTipoUnidadService implements Serializable {
         } else {
             return PrecioPorTipoUnidadMapper.toDto(precioTU);
         }
+    }
+
+    @Transactional
+    public List<PrecioPorTipoUnidad> getAllTipoUnidadByIdProducto(int idProducto) {
+        return iprecioPorTipoUnidadDao.getAllTipoUnidadbyProducto(idProducto);
     }
 
 
