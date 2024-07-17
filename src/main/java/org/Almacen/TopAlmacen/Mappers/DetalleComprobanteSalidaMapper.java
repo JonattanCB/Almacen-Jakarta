@@ -13,13 +13,13 @@ public class DetalleComprobanteSalidaMapper {
     }
 
     public static DetalleComprobanteSalida fromCreate(CreateDetalleComprobanteSalidaDto d) {
-        var detalleComprobanteSalida = new DetalleComprobanteSalida();
-        d.setComprobanteSalida(detalleComprobanteSalida.getComprobanteSalida());
-        d.setCantidad(detalleComprobanteSalida.getCantidad());
-        d.setTipoUnidad(detalleComprobanteSalida.getTipoUnidad());
-        d.setProducto(detalleComprobanteSalida.getProducto());
-        d.setPrecioUnitario(detalleComprobanteSalida.getPrecioUnitario());
-        d.setPrecioTotal(detalleComprobanteSalida.getPrecioUnitario() * d.getCantidad());
-        return detalleComprobanteSalida;
+        var detalle = new DetalleComprobanteSalida();
+        detalle.setComprobanteSalida(d.getComprobanteSalida());
+        detalle.setCantidad(d.getCantidad());
+        detalle.setTipoUnidad(d.getPrecioPorTipoUnidad().getTipoUnidad());
+        detalle.setProducto(d.getPrecioPorTipoUnidad().getProducto());
+        detalle.setPrecioUnitario(d.getPrecioUnitario());
+        detalle.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
+        return detalle;
     }
 }
