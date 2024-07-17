@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Formulacion_Pedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="478457f3-3ffd-40af-9b21-b355e5c8d44c">
 	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="60"/>
+	<property name="ireport.y" value="55"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="fecha" class="java.lang.String"/>
 	<parameter name="id" class="java.lang.Integer"/>
@@ -101,9 +101,9 @@
 				<text><![CDATA[ESTADO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="50" y="0" width="100" height="20" uuid="5024b1b9-febd-4895-a6c3-6ca35e250ec1"/>
-				<box topPadding="1" rightPadding="3"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="65" y="0" width="100" height="20" uuid="5024b1b9-febd-4895-a6c3-6ca35e250ec1"/>
+				<box topPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -208,23 +208,23 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="141" splitType="Stretch">
+		<band height="137" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="79" width="108" height="20" uuid="22ce25df-b088-4b26-8daa-d7ed26083b84"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="75" width="108" height="20" uuid="22ce25df-b088-4b26-8daa-d7ed26083b84"/>
 				<textElement>
 					<font fontName="Berlin Sans FB Demi" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[RAZON DE SALIDA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="20" width="121" height="20" uuid="26ef9ff4-1ff7-499a-8423-be694922f45a"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="20" width="124" height="20" uuid="26ef9ff4-1ff7-499a-8423-be694922f45a"/>
 				<textElement>
 					<font fontName="Berlin Sans FB Demi" size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[RAZON DE ENTRADA]]></text>
+				<text><![CDATA[RAZON DE ENTRADA:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="15" y="40" width="405" height="20" uuid="0fc79be5-3fc5-47d6-b53c-3f44102b44fa"/>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="15" y="40" width="526" height="20" uuid="0fc79be5-3fc5-47d6-b53c-3f44102b44fa"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -234,7 +234,7 @@
 				<textFieldExpression><![CDATA[$P{r_entrada}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="15" y="99" width="405" height="20" uuid="ad8ef488-7c86-40b6-928b-523e5e3af53a"/>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="14" y="95" width="526" height="20" uuid="ad8ef488-7c86-40b6-928b-523e5e3af53a"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
