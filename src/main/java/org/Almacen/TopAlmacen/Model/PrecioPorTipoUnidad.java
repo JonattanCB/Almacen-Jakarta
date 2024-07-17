@@ -33,7 +33,7 @@ public class PrecioPorTipoUnidad {
     @Column(name = "unidadesPorTipoUnidadDeProducto")
     private double unidadesPorTipoUnidadDeProducto;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "PrecioPorTipoUnidad_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "precioPorTipoUnidad")
     private List<HistorialPrecios> historialPrecios;
 
 }
