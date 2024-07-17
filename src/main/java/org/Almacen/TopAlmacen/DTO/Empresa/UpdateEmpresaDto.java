@@ -15,5 +15,6 @@ public class UpdateEmpresaDto {
     private String nombre;
     private TipoEmpresa tipoEmpresa;
     private String direccion;
+    private String estado;
 }
 

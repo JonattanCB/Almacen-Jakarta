@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public class EmpresaMapper {
     public static EmpresaDto toDto(Empresa empresa) {
-        return new EmpresaDto(empresa.getNroRUC(), empresa.getNombre(),empresa.getTipoEmpresa(), empresa.getDireccion(), null);
+        return new EmpresaDto(empresa.getNroRUC(), empresa.getNombre(), empresa.getTipoEmpresa(), empresa.getDireccion(), empresa.getEstado());
     }
 
-    public static Empresa toEntity(EmpresaDto dto){
-        return new Empresa(dto.getNroRUC(), dto.getNombre(), dto.getTipoEmpresa(),dto.getDireccion());
+    public static Empresa toEntity(EmpresaDto dto) {
+        return new Empresa(dto.getNroRUC(), dto.getNombre(), dto.getTipoEmpresa(), dto.getDireccion(), dto.getEstado());
     }
 
     public static List<EmpresaDto> toDTOList(List<Empresa> empresas) {
@@ -29,6 +29,7 @@ public class EmpresaMapper {
         empresa.setNombre(dto.getNombre());
         empresa.setDireccion(dto.getDireccion());
         empresa.setTipoEmpresa(dto.getTipoEmpresa());
+        empresa.setEstado(dto.getEstado());
         return empresa;
     }
 
@@ -38,6 +39,7 @@ public class EmpresaMapper {
         empresa.setNombre(dto.getNombre());
         empresa.setDireccion(dto.getDireccion());
         empresa.setTipoEmpresa(dto.getTipoEmpresa());
+        empresa.setEstado(dto.getEstado());
         return empresa;
     }
 

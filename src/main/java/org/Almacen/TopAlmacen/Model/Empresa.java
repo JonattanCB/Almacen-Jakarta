@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Empresa {
     @Id
     private String NroRUC;
-    @Column(name = "Nombre",nullable = false)
+    @Column(name = "Nombre", nullable = false)
     private String nombre;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,4 +24,6 @@ public class Empresa {
     private TipoEmpresa tipoEmpresa;
     @Column(name = "direccion")
     private String direccion;
+    @Column(name = "estado")
+    private String estado;
 }

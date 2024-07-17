@@ -17,15 +17,30 @@ public class EmpresaDaoImp implements IEmpresaDao {
 
     @Override
     public List<Empresa> getAll() {
-        return _entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.tipoEmpresa ORDER BY e.NroRUC ASC", Empresa.class).getResultList();
+        return _entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.tipoEmpresa WHERE e.estado='ACTIVO' ORDER BY e.NroRUC ASC", Empresa.class).getResultList();
+    }
+
+    @Override
+    public List<Empresa> getAllInactiveEstado() {
+        return _entityManager.createQuery("SELECT e FROM Empresa e JOIN FETCH e.tipoEmpresa WHERE e.estado='INACTIVO' ORDER BY e.NroRUC ASC", Empresa.class).getResultList();
+    }
+
+    @Override
+    public boolean isEmpresaAsociada(String empresaId) {
+        Long count = _entityManager.createQuery("SELECT COUNT(p) FROM ProductoProveedorEntrada p WHERE p.empresa.NroRUC = :empresaId", Long.class).setParameter("empresaId", empresaId).getSingleResult();
+        return count > 0;
+    }
+
+    @Override
+    public void changeState(String empresaId, String estado) {
+        var findObj = _entityManager.find(Empresa.class, empresaId);
+        findObj.setEstado(estado);
+        _entityManager.merge(findObj);
     }
 
     @Override
     public Empresa getById(String NroRuc) {
-        return _entityManager.createQuery(
-                        "SELECT d FROM Empresa d LEFT JOIN FETCH d.tipoEmpresa WHERE d.NroRUC = :NroRuc",Empresa.class)
-                .setParameter("NroRuc", NroRuc)
-                .getSingleResult();
+        return _entityManager.createQuery("SELECT d FROM Empresa d LEFT JOIN FETCH d.tipoEmpresa WHERE d.NroRUC = :NroRuc", Empresa.class).setParameter("NroRuc", NroRuc).getSingleResult();
     }
 
     @Override
@@ -60,9 +75,7 @@ public class EmpresaDaoImp implements IEmpresaDao {
 
     @Override
     public boolean exist(String NroRuc) {
-        var query = _entityManager.createQuery(
-                "SELECT count(c) FROM Empresa c WHERE c.NroRUC = :NroRuc", Long.class
-        );
+        var query = _entityManager.createQuery("SELECT count(c) FROM Empresa c WHERE c.NroRUC = :NroRuc", Long.class);
         query.setParameter("NroRuc", NroRuc);
         Long count = query.getSingleResult();
         return count > 0;

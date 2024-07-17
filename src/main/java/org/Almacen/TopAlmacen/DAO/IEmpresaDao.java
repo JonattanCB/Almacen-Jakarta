@@ -8,6 +8,12 @@ import java.util.List;
 public interface IEmpresaDao {
     List<Empresa> getAll();
 
+    List<Empresa> getAllInactiveEstado();
+
+    boolean isEmpresaAsociada(String empresaId);
+
+    void changeState(String empresaId, String estado);
+
     Empresa getById(String NroRUC);
 
     Empresa create(Empresa c);

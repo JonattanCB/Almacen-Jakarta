@@ -28,6 +28,12 @@ public class EmpresaService implements Serializable {
     }
 
     @Transactional
+    public List<EmpresaDto> getAllInactiveEstado() {
+        var empresas = iEmpresaDao.getAllInactiveEstado();
+        return empresas.stream().map(EmpresaMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Transactional
     public EmpresaDto getEmpresa(String NroRuc) {
         var empresa = iEmpresaDao.getById(NroRuc);
         return EmpresaMapper.toDto(empresa);
@@ -46,7 +52,15 @@ public class EmpresaService implements Serializable {
 
     @Transactional
     public Empresa deleteEmpresa(String NroRuc) {
+        if (iEmpresaDao.isEmpresaAsociada(NroRuc)) {
+            iEmpresaDao.changeState(NroRuc, "INACTIVO");
+        }
         return iEmpresaDao.delete(NroRuc);
+    }
+
+    @Transactional
+    public void changeActive(String NroRuc) {
+        iEmpresaDao.changeState(NroRuc, "ACTIVO");
     }
 
     @Transactional
