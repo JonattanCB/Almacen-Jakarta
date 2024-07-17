@@ -23,7 +23,7 @@ public class DetalleProductoProveedorEntradaMapper {
             dto.setOC_id(l.getProductoProveedorEntrada());
             dto.setCantidad(l.getCantidad());
             dto.setTipoUnidad(l.getTipoUnidad());
-            dto.setProducto(l.getProducto());
+            dto.setPrecioPorTipoUnidad(l.getPrecioPorTipoUnidad());
             dto.setPrecioUnitario(l.getPrecioUniario());
             dto.setPrecioTotal(l.getPrecioTotal());
             lst.add(dto);
@@ -36,8 +36,7 @@ public class DetalleProductoProveedorEntradaMapper {
         e.setOC_id(d.getOC_id());
         e.setCantidad(d.getCantidad());
         e.setTipoUnidad(d.getTipoUnidad());
-       // e.setProducto(d.getPrecioPorTipoUnidad().getProducto());
-       // System.out.println(d.getPrecioPorTipoUnidad().getProducto().getNombre() + "Encontrado");
+        e.setProducto(d.getPrecioPorTipoUnidad().getProducto());
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;

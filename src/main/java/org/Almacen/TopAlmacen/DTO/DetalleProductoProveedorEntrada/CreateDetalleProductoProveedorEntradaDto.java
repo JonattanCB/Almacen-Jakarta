@@ -18,7 +18,7 @@ public class CreateDetalleProductoProveedorEntradaDto {
     private ProductoProveedorEntrada OC_id;
     private double cantidad;
     private TipoUnidad tipoUnidad;
-    private Producto producto;
+    private PrecioPorTipoUnidad precioPorTipoUnidad;
     private double precioUnitario;
     private double precioTotal;
 }

@@ -51,9 +51,8 @@ public class ProductoProveedorEntradaService implements Serializable {
         var prodcu = ProductoProveedorEntradaMapper.fromCreate(c);
         iProductoProveedorEntradaDao.create(prodcu);
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
-
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
-          /*var pptu = iPrecioPorTipoUnidadDao.getById(d.getPrecioPorTipoUnidad().getId());
+          var pptu = iPrecioPorTipoUnidadDao.getById(d.getPrecioPorTipoUnidad().getId());
             if (pptu.getPrecioUnitario() != detalle.getPrecioUnitario()) {
                 var his = new HistorialPrecios();
                 his.setPrecioPorTipoUnidad(pptu);
@@ -65,7 +64,7 @@ public class ProductoProveedorEntradaService implements Serializable {
 
 
             var totalAAgregar = d.getPrecioPorTipoUnidad().getUnidadesPorTipoUnidadDeProducto() * d.getCantidad();
-            stockUnidadesService.addStockUnidades(d.getPrecioPorTipoUnidad(), totalAAgregar);*/
+            stockUnidadesService.addStockUnidades(d.getPrecioPorTipoUnidad(), totalAAgregar);
 
         }
         return prodcu;

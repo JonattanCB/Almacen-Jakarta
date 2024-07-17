@@ -151,7 +151,7 @@ public class RegistroEntradaBeans implements Serializable {
     public void registrarProducto() {
         this.DPPE.setId(getNextId());
         this.DPPE.setProductoProveedorEntrada(ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaDto));
-        this.DPPE.setProducto(precioPorTipoUnidadDto.getProducto());
+        this.DPPE.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadDto));
         this.DPPE.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
         this.DPPE.setDescripcionProducto(ProductoMapper.toConcatProduct(precioPorTipoUnidadDto.getProducto()));
         this.DPPE.setPrecioTotal(this.DPPE.getPrecioUniario() * this.DPPE.getCantidad());
@@ -216,10 +216,10 @@ public class RegistroEntradaBeans implements Serializable {
         List<CreateDetalleProductoProveedorEntradaDto> lst = DetalleProductoProveedorEntradaMapper.toDtoCreate(ListadoDetallesPPE);
         CreateProductoProveedorEntradaDto dto = new CreateProductoProveedorEntradaDto();
         dto.setOC(productoProveedorEntradaDto.getOC());
-        dto.setObservacion(dto.getObservacion());
-        dto.setEmpresa(dto.getEmpresa());
+        dto.setObservacion(productoProveedorEntradaDto.getObservacion());
+        dto.setEmpresa(productoProveedorEntradaDto.getEmpresa());
         dto.setPrecioFinal(precioTotal);
-        dto.setUsuario(dto.getUsuario());
+        dto.setUsuario(productoProveedorEntradaDto.getUsuario());
         this.productoProveedorEntradaService.create(dto, lst);
         loadRegistrarEntrant();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL registro de entrada ha sido registrado exitosamente en el sistema!"));
