@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante_Salida" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a9c8a9b-c3c2-4796-a86b-a6c62a9a2cf2">
 	<property name="ireport.zoom" value="1.0000000000000033"/>
-	<property name="ireport.x" value="20"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="28"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="dependencia_s" class="java.lang.String"/>
 	<parameter name="para_uso" class="java.lang.String"/>
 	<parameter name="totalC_v" class="java.lang.Double"/>
+	<parameter name="estado" class="java.lang.String"/>
 	<field name="item_s" class="java.lang.Integer"/>
 	<field name="cantidad_s" class="java.lang.Integer"/>
 	<field name="medida_s" class="java.lang.String"/>
@@ -16,7 +17,7 @@
 	<field name="codigo_d" class="java.lang.String"/>
 	<field name="cant_d" class="java.lang.String"/>
 	<field name="medida_d" class="java.lang.String"/>
-	<field name="unidad_v" class="java.lang.String"/>
+	<field name="unidad_v" class="java.lang.Double"/>
 	<field name="total_v" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -43,7 +44,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="144" splitType="Stretch">
+		<band height="179" splitType="Stretch">
 			<rectangle>
 				<reportElement x="573" y="0" width="100" height="38" backcolor="#F1F6EE" uuid="3010307c-45b3-4e1e-b86c-146b01fbf853"/>
 			</rectangle>
@@ -121,6 +122,19 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="83" y="144" width="100" height="20" uuid="b40d2a23-1dc7-44fc-9546-1c60ba6f3914"/>
+				<box topPadding="1" rightPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="144" width="137" height="20" uuid="57fbf5a2-f6db-4a3e-a5bd-f37985f6938b"/>
+				<textElement>
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<text><![CDATA[ESTADO:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
