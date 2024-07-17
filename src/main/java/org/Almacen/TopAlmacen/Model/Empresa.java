@@ -18,7 +18,6 @@ public class Empresa {
     private String NroRUC;
     @Column(name = "Nombre", nullable = false)
     private String nombre;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoEmpresa_Id")
     private TipoEmpresa tipoEmpresa;

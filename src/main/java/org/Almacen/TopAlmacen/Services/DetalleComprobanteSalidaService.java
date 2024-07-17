@@ -10,12 +10,13 @@ import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.DetalleComprobanteSal
 import org.Almacen.TopAlmacen.Mappers.DetalleComprobanteSalidaMapper;
 import org.Almacen.TopAlmacen.Model.DetalleComprobanteSalida;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
-public class DetalleComprobanteSalidaService {
+public class DetalleComprobanteSalidaService implements Serializable {
 
     @Inject
     private IDetalleComprobanteSalidaDao iDetalleComprobanteSalidaDao;
