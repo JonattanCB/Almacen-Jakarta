@@ -26,8 +26,8 @@ public class MovimientoStock {
     private LocalDateTime fechaRegistro = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PrecioPorTipoUnidad_id", nullable = false)
-    private PrecioPorTipoUnidad precioPorTipoUnidad;
+    @JoinColumn(name = "Producto_Id", nullable = false)
+    private Producto producto;
 
     @Column(name = "Tipo_Movimiento", nullable = false)
     private String tipoMovimiento;

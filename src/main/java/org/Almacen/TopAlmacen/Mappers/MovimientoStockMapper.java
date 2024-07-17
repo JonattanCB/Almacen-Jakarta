@@ -6,7 +6,7 @@ import org.Almacen.TopAlmacen.Model.MovimientoStock;
 
 public class MovimientoStockMapper {
     public static MovimientoStockDto toDto(MovimientoStock m) {
-        return new MovimientoStockDto(m.getId(), m.getFechaRegistro(), m.getTipoMovimiento(), ProductoMapper.toConcatProduct(m.getPrecioPorTipoUnidad().getProducto()), m.getCantidad(), m.getTipoUnidad());
+        return new MovimientoStockDto(m.getId(), m.getFechaRegistro(), m.getTipoMovimiento(), ProductoMapper.toConcatProduct(m.getProducto()), m.getCantidad(), m.getTipoUnidad());
     }
 
     public static MovimientoStock fromCrate(CreateMovimientoStockDto dto) {

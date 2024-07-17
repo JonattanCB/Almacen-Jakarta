@@ -23,7 +23,7 @@ public class DetalleProductoProveedorEntradaDaoImp implements IDetalleProductoPr
     @Override
     public List<DetalleProductoProveedorEntrada> getAllByProveedorEntrada(String id) {
         var query = _entityManager.createQuery(
-                "SELECT d FROM DetalleProductoProveedorEntrada d LEFT JOIN FETCH d.OC_id LEFT JOIN FETCH d.tipoUnidad LEFT JOIN FETCH  d.producto LEFT JOIN FETCH  d.producto.marca LEFT JOIN FETCH  d.producto.categoria   WHERE d.OC_id.OC = :id",
+                "SELECT d FROM DetalleProductoProveedorEntrada d LEFT JOIN FETCH d.OC_id LEFT JOIN FETCH d.tipoUnidad LEFT JOIN FETCH  d.producto  WHERE d.OC_id.OC = :id",
                 DetalleProductoProveedorEntrada.class);
         query.setParameter("id", id);
 
