@@ -54,6 +54,7 @@ public class EmpresaService implements Serializable {
     public Empresa deleteEmpresa(String NroRuc) {
         if (iEmpresaDao.isEmpresaAsociada(NroRuc)) {
             iEmpresaDao.changeState(NroRuc, "INACTIVO");
+            return null;
         }
         return iEmpresaDao.delete(NroRuc);
     }
