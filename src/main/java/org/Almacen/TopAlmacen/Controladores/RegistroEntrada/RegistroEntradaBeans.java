@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -229,17 +230,14 @@ public class RegistroEntradaBeans implements Serializable {
     }
 
     public void verDatos() {
-        ProductoProveedorEntradaDto dto = productoProveedorEntradaService.findById(idRegistroEntrada);
-       // this.productoProveedorEntradaDto = new CreateProductoProveedorEntradaDto();
+        productoProveedorEntradaDto = productoProveedorEntradaService.findById(idRegistroEntrada);
         this.empresaDtoList = empresaService.getAllEmpresa();
-        this.productoProveedorEntradaDto.setOC(dto.getOC());
-        this.fechaActual = dto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.idEmpresa = dto.getEmpresa().getNroRUC();
-        this.productoProveedorEntradaDto.setObservacion(dto.getObservacion());
-        empresaDto = EmpresaMapper.toDto(dto.getEmpresa());
-        precioTotal = dto.getPrecioFinal();
-        var detalles = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(dto.getOC());
-       // this.ListadoDeDetalle = detalles.stream().map(DetalleProductoProveedorEntradaMapper::toDtoLista).collect(Collectors.toList());
+        this.fechaActual = productoProveedorEntradaDto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        this.idEmpresa = productoProveedorEntradaDto.getEmpresa().getNroRUC();
+        empresaDto = EmpresaMapper.toDto(productoProveedorEntradaDto.getEmpresa());
+        precioTotal = productoProveedorEntradaDto.getPrecioFinal();
+        var detalles = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(productoProveedorEntradaDto.getOC());
+        this.ListadoDetallesPPE = detalles.stream().map(DetalleProductoProveedorEntradaMapper::toDtoLista).collect(Collectors.toList());
         verficiacionEmpresa(2);
         validarVerDatos(2);
     }

@@ -16,6 +16,11 @@ public class DetalleProductoProveedorEntradaMapper {
         return new PdfDetalleProductoProveedorEntradaDto(d.getProducto().getId(), ProductoMapper.toConcatProduct(d.getProducto()), d.getTipoUnidad().getNombre(), d.getProducto().getMarca().getNombre(), d.getCantidad());
     }
 
+    public static ListadoDetalleProductoProveedorEntradaDto toDtoLista(DetalleProductoProveedorEntrada d) {
+        return new ListadoDetalleProductoProveedorEntradaDto(d.getId(),d.getOC_id(),d.getCantidad(),d.getTipoUnidad(),null,ProductoMapper.toConcatProduct(d.getProducto()),d.getPrecioUnitario(),d.getPrecioTotal());
+    }
+
+
     public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<ListadoDetalleProductoProveedorEntradaDto> d) {
         List<CreateDetalleProductoProveedorEntradaDto> lst = new ArrayList<>();
         for (ListadoDetalleProductoProveedorEntradaDto l : d) {
