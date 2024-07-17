@@ -16,18 +16,18 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name ="ComprobanteSalida")
+@Table(name = "ComprobanteSalida")
 public class ComprobanteSalida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unidadDependencia", nullable = false)
-    private  UnidadDependencia unidadDependencia;
+    private UnidadDependencia unidadDependencia;
     @Column(name = "paraUso")
     private String paraUso;
     @Column(name = "fechaRegistro")
-    private LocalDateTime fechaRegistro= LocalDateTime.now();
+    private LocalDate fechaRegistro = LocalDate.now();
     @Column(name = "precioFinal")
     private double precioFinal;
     @Column(name = "Observacion")

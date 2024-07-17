@@ -31,11 +31,6 @@ public class StockUnidadesService implements Serializable {
     @Inject
     private IMovimientoStockDao imovimientoStockDao;
 
-    @Transactional
-    public List<StockUnidadesDto> getAllStockUnidades() {
-        var stockUnidades = istockUnidadesDao.getAll();
-        return stockUnidades.stream().map(StockUnidadesMapper::toStockUnidadesDto).collect(Collectors.toList());
-    }
 
     @Transactional
     public List<TablaStockUnidadesDto> getAllTablaStockUnidadesDto() {
@@ -59,13 +54,14 @@ public class StockUnidadesService implements Serializable {
                 throw new IllegalArgumentException("El precio por tipo de unidad no está asociado a ningún stock.");
             }
             stockUnidades.setCantidadStockUnidad(stockUnidades.getCantidadStockUnidad() + cantidadAgregar);
-            istockUnidadesDao.update(stockUnidades.getId(), stockUnidades.getCantidadStockUnidad());
 
             var ms = new MovimientoStock();
             ms.setTipoMovimiento("ENTRADA");
             ms.setProducto(precioPorTipoUnidad.getProducto());
             ms.setCantidad(cantidadAgregar);
-            ms.setTipoUnidad(stockUnidades.getTipoUnidad());
+            ms.setTipoUnidad(precioPorTipoUnidad.getTipoUnidad().getAbrev());
+            istockUnidadesDao.update(stockUnidades.getId(), stockUnidades.getCantidadStockUnidad());
+
             imovimientoStockDao.create(ms);
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidad.getId() + " no existe.");
@@ -76,8 +72,9 @@ public class StockUnidadesService implements Serializable {
     @Transactional
     public void subtractStockUnidades(PrecioPorTipoUnidad precioPorTipoUnidad, double cantidadRestar) {
         if (cantidadRestar <= 0) {
-            throw new IllegalArgumentException("La cantidad a agregar debe ser mayor que cero.");
+            throw new IllegalArgumentException("La cantidad a restar debe ser mayor que cero.");
         }
+
         if (precioPorTipoUnidad != null) {
             var stockUnidades = precioPorTipoUnidad.getProducto().getStockUnidades();
             var resto = stockUnidades.getCantidadStockUnidad() - cantidadRestar;
@@ -85,17 +82,28 @@ public class StockUnidadesService implements Serializable {
                 throw new IllegalArgumentException("No hay suficiente Stock disponible");
             } else {
                 stockUnidades.setCantidadStockUnidad(resto);
-                istockUnidadesDao.update(stockUnidades.getId(), resto);
+
                 var ms = new MovimientoStock();
                 ms.setTipoMovimiento("ENTRADA");
                 ms.setProducto(precioPorTipoUnidad.getProducto());
                 ms.setCantidad(cantidadRestar);
-                ms.setTipoUnidad(stockUnidades.getTipoUnidad());
+                ms.setTipoUnidad(precioPorTipoUnidad.getTipoUnidad().getAbrev());
+                istockUnidadesDao.update(stockUnidades.getId(), resto);
                 imovimientoStockDao.create(ms);
             }
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidad.getId() + " no existe.");
         }
+    }
+
+    @Transactional
+    public Boolean checkStock(int id, double cantidad) {
+        var stock = getStockUnidadesById(id);
+        var existCant = stock.getCantidadStockUnidad()-cantidad;
+        if (existCant < 0) {
+            return false;
+        }
+        return true;
     }
 
 }

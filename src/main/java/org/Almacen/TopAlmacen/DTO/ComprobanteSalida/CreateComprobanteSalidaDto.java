@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
-
+import org.Almacen.TopAlmacen.Model.UnidadDependencia;
 
 
 @Getter
@@ -15,7 +14,7 @@ import org.Almacen.TopAlmacen.DTO.UnidadDependencia.UnidadDependenciaDto;
 
 public class CreateComprobanteSalidaDto {
 
-    private UnidadDependenciaDto unidadDependenciaDto;
+    private UnidadDependencia unidadDependencia;
     private String paraUso;
     private String observacion;
     private double precioFinal;
