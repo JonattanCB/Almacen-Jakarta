@@ -69,14 +69,14 @@
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                 </p:commandButton>
                                 <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{EmpresaBeans.validacionEliminacion()}"
-                                                 icon="pi pi-trash"  action="#{EmpresaBeans.deleteEmpresa()}"  >
+                                                 icon="pi pi-trash"  action="#{EmpresaBeans.OperacionEmpresa()}"  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                     <p:confirm header="Confirmación"
                                                message="¿Está seguro de que desea eliminar esta empresa #{obj.nombre} ? Esta acción no se puede deshacer."
                                                icon="pi pi-info-circle"/>
                                 </p:commandButton>
                                 <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{EmpresaBeans.validacionCambioEstado()}"
-                                                 icon="pi pi-arrow-right-arrow-left"  action="#{EmpresaBeans.cambioEstado()}"  >
+                                                 icon="pi pi-arrow-right-arrow-left"  action="#{EmpresaBeans.OperacionEmpresa()}"  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                     <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la empresa #{obj.nombre}?" icon="pi pi-info-circle"/>
                                 </p:commandButton>

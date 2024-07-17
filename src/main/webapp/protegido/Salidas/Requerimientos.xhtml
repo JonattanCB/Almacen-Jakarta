@@ -60,11 +60,10 @@
                                 <f:setPropertyActionListener value="#{obj.id}" target="#{RequerimientoBeans.idRequerimiento}" />
                             </p:commandButton>
                             <p:commandButton icon="pi pi-file-pdf" styleClass="rounded-button ui-button-help" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             actionListener="#{ReporteRequerimientoBeans.updateAndGeneratePDF(obj.id)}" rendered="#{obj.estado != 'PENDIENTE'}"
+                                             actionListener="#{ReporteRequerimientoBeans.updateAndGeneratePDF(obj.id)}"
                                              ajax="false">
                                 <p:fileDownload value="#{ReporteRequerimientoBeans.file}" />
                             </p:commandButton>
-
                             <p:commandButton icon="pi pi-trash" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                               update=":dialogs" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RequerimientoBeans.deledeRequerimiento()}"
                                              styleClass="edit-button ui-button-danger rounded-button"  >

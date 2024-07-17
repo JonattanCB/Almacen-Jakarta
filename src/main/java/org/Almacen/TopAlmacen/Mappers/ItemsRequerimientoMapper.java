@@ -7,7 +7,7 @@ import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 
 public class ItemsRequerimientoMapper {
     public static ItemsRequerimientoDto toDto(ItemsRequerimiento item) {
-        return new ItemsRequerimientoDto(item.getId(), item.getRequerimiento(), item.getCantidad(), item.getTipoUnidad(), item.getProducto(),null);
+        return new ItemsRequerimientoDto(item.getId(), item.getRequerimiento(), item.getCantidad(), item.getTipoUnidad(), item.getProducto(),ProductoMapper.toConcatProduct(item.getProducto()));
     }
 
     public static ItemsRequerimiento toEntity(ItemsRequerimientoDto dto) {

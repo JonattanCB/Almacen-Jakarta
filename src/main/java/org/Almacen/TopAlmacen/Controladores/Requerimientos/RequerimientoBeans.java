@@ -159,7 +159,7 @@ public class RequerimientoBeans implements Serializable {
     }
 
     public void habilitarCantidad() {
-
+        itemsRequerimientoDto.setCantidad(1);
     }
 
     public void registrarItemRequerimiento() {

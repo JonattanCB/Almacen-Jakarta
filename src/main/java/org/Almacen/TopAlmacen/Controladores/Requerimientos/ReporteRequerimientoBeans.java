@@ -29,6 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,12 +74,15 @@ public class ReporteRequerimientoBeans implements Serializable {
             if (logoEmpresa != null && reporteEntrada != null) {
                 JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
                 Map<String, Object> parameters = new HashMap<>();
-                String fecha = String.valueOf(dto.getFechaRegistrada());
+                String fecha = dto.getFechaRegistrada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 parameters.put("Ruta_Imagen", logoEmpresa);
                 parameters.put("fecha", fecha);
                 parameters.put("id", dto.getId());
                 parameters.put("D_sol", dto.getUnidadDependencia().getNombre());
-                parameters.put("observacion", dto.getRazonEntrada());
+                parameters.put("estado",dto.getEstado());
+                parameters.put("r_entrada", dto.getRazonEntrada());
+                parameters.put("r_salida", dto.getRazonSalida());
+
 
                 JasperReport report = (JasperReport) JRLoader.loadObject(reporteEntrada);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);

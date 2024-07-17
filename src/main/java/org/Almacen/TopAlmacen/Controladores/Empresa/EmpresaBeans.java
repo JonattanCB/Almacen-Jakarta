@@ -130,24 +130,38 @@ public class EmpresaBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    public void deleteEmpresa(){
-        EmpresaDto dto = EmpresaMapper.toDto(empresaService.deleteEmpresa(NroRUC));
+    public void OperacionEmpresa(){
+        EmpresaDto dto = empresaService.getEmpresa(NroRUC);
+        if(dto.getEstado().equals("INACTIVO")){
+            if(empresaService.deleteEmpresa(NroRUC) == null){
+                System.out.println("el esatado se cambio a nulo");
+            }else{
+                System.out.println("elimino");
+            }
+        }else{
+            empresaService.changeActive(NroRUC);
+            System.out.println("se activo");
+        }
         loadEmpresa();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getNombre() + " ha sido eliminado exitosamente del sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    public void cambioEstado(){
-
-    }
-
     public boolean validacionEliminacion(){
-        return true;
+        if(empresaService.isEmpresaAsociada(NroRUC)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean validacionCambioEstado(){
-        return false;
+        if(empresaService.isEmpresaAsociada(NroRUC)){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {

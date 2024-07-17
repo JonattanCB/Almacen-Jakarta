@@ -358,7 +358,12 @@ public class RegistroEntradaBeans implements Serializable {
 
     private void validarBtnnuevoEntrada() {
         List<PrecioPorTipoUnidadDto> lst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
-        this.btnNuevoEntrada = lst.isEmpty();
+        List<EmpresaDto> lstEmpresa = empresaService.getAllEmpresa();
+        if(lstEmpresa.isEmpty() || lst.isEmpty()) {
+            btnNuevoEntrada = true;
+        }else{
+            btnNuevoEntrada = false;
+        }
     }
 
     private void validarGuardado() {

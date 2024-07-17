@@ -60,6 +60,11 @@ public class EmpresaService implements Serializable {
     }
 
     @Transactional
+    public boolean isEmpresaAsociada(String NroRuc) {
+        return iEmpresaDao.isEmpresaAsociada(NroRuc);
+    }
+
+    @Transactional
     public void changeActive(String NroRuc) {
         iEmpresaDao.changeState(NroRuc, "ACTIVO");
     }

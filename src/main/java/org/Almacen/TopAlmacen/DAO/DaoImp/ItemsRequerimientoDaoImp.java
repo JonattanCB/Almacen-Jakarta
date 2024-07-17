@@ -25,7 +25,7 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
     @Override
     public List<ItemsRequerimiento> getAllByRequerimiento(int id) {
         var query = _entityManager.createQuery(
-                "SELECT i FROM ItemsRequerimiento i  LEFT JOIN FETCH  i.tipoUnidad  LEFT JOIN FETCH i.requerimiento  LEFT JOIN FETCH  i.requerimiento.unidadDependencia  where i.requerimiento.id = :id ",
+                "SELECT i FROM ItemsRequerimiento i  LEFT JOIN FETCH  i.tipoUnidad  LEFT JOIN FETCH i.requerimiento  LEFT JOIN FETCH  i.requerimiento.unidadDependencia  LEFT JOIN FETCH i.producto where i.requerimiento.id = :id ",
                 ItemsRequerimiento.class);
         query.setParameter("id", id);
         return query.getResultList();
