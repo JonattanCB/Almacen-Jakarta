@@ -15,4 +15,5 @@ public class CreateEmpresaDto {
     private String nombre;
     private TipoEmpresa tipoEmpresa;
     private String direccion;
+    private String estado;
 }

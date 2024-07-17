@@ -19,7 +19,7 @@ public class PrecioPorTipoUnidadDaoImp implements IPrecioPorTipoUnidadDao {
 
     @Override
     public List<PrecioPorTipoUnidad> getAll() {
-        return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto WHERE p.estado='ACTIVO'", PrecioPorTipoUnidad.class).getResultList();
+        return _entityManager.createQuery("SELECT p FROM PrecioPorTipoUnidad p JOIN FETCH p.tipoUnidad JOIN FETCH p.producto", PrecioPorTipoUnidad.class).getResultList();
     }
 
     @Override

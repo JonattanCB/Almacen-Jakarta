@@ -53,6 +53,10 @@
                             <p:column headerText="Direccion" sortBy="#{obj.direccion}" width="140" >
                                 <h:outputText value="#{obj.direccion}" />
                             </p:column>
+                            <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
+                                <h:outputText value="#{obj.estado}"
+                                              styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                            </p:column>
                             <p:column exportable="false" width="100">
                                 <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{EmpresaBeans.cargarEmpresaVista()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
@@ -64,17 +68,22 @@
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{EmpresaBeans.validacionEliminacion()}"
                                                  icon="pi pi-trash"  action="#{EmpresaBeans.deleteEmpresa()}"  >
                                     <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
                                     <p:confirm header="Confirmación"
-                                               message="¿Está seguro de que desea eliminar esta empresa? Esta acción no se puede deshacer."
+                                               message="¿Está seguro de que desea eliminar esta empresa #{obj.nombre} ? Esta acción no se puede deshacer."
                                                icon="pi pi-info-circle"/>
+                                </p:commandButton>
+                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{EmpresaBeans.validacionCambioEstado()}"
+                                                 icon="pi pi-arrow-right-arrow-left"  action="#{EmpresaBeans.cambioEstado()}"  >
+                                    <f:setPropertyActionListener value="#{obj.nroRUC}" target="#{EmpresaBeans.nroRUC}" />
+                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la empresa #{obj.nombre}?" icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="500">
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                         <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
                     </p:confirmDialog>
@@ -112,7 +121,7 @@
                 </div>
                 <h:panelGrid columns="3" style="float: right;" >
                     <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.createEmpresa()}" rendered="#{EmpresaBeans.btnRegistar}"  />
-                    <p:commandButton value="Guardar editar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.updateEmpresa()}" rendered="#{EmpresaBeans.btnEditar}"  />
+                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;" action="#{EmpresaBeans.updateEmpresa()}" rendered="#{EmpresaBeans.btnEditar}"  />
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
                </h:form>

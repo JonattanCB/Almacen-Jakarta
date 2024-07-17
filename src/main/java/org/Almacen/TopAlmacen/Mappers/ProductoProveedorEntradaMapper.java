@@ -9,6 +9,17 @@ public class ProductoProveedorEntradaMapper {
         return new ProductoProveedorEntradaDto(p.getOC(), p.getEmpresa(), p.getFechaRegistro(), p.getUsuario(), p.getPrecioFinal(),p.getObservacion());
     }
 
+    public static ProductoProveedorEntrada toEntity(ProductoProveedorEntradaDto dto) {
+        ProductoProveedorEntrada p = new ProductoProveedorEntrada();
+        p.setOC(dto.getOC());
+        p.setEmpresa(dto.getEmpresa());
+        p.setUsuario(dto.getUsuario());
+        p.setPrecioFinal(dto.getPrecioFinal());
+        p.setObservacion(dto.getObservacion());
+        return p;
+    }
+
+
     public static ProductoProveedorEntrada toEntityCreate(CreateProductoProveedorEntradaDto dto) {
         ProductoProveedorEntrada p = new ProductoProveedorEntrada();
         p.setOC(dto.getOC());

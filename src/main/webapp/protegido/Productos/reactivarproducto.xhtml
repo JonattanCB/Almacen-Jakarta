@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
+    <ui:define name="contenido">
+        <h:form id="form-datos">
+            <h:panelGrid styleClass="contenido-panel">
+                <p:growl id="messages"/>
+                    <h:panelGrid styleClass="contendedor-card-paneles">
+                        <p:toolbar>
+                            <p:toolbarGroup align="right" >
+                                <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
+                                    <p:dataExporter type="pdf" target="tabla" fileName="Producto" exportHeader="false"/>
+                                </p:commandButton>
+                                <p:commandButton  value="csv" icon="pi pi-file-excel" styleClass="disenio-export ui-button-help">
+                                    <p:dataExporter type="csv" target="tabla" fileName="Producto" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="tabla" var="obj" value="#{ReactivarProductoBean.productoDtoList}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{ReactivarProductoBean.productoDtoListSeleccionado}"
+                                     globalFilterFunction="#{ReactivarProductoBean.globalFilterFunction}"
+                                     rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                    <div class="header-tabla">
+                                        <span class="titulo-hearder-tabla">Catálogo de Productos</span>
+                                        <span class="ui-input-icon-left busqueda-hearder-tabla">
+                                            <i class="pi pi-search"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
+                                                         style="font-size: 13px;width: 300px"
+                                                         placeholder="Buscar entre los datos del Producto"/>
+                                        </span>
+                                    </div>
+                            </f:facet>
+                            <p:column headerText="#"  sortBy="#{obj.id}" width="100"  >
+                                <h:outputText value="#{obj.id}" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{obj.nombre}" width="160" >
+                                <h:outputText value="#{obj.nombre}" />
+                            </p:column>
+                            <p:column headerText="Marca" sortBy="#{obj.marca.nombre}" width="100" >
+                                <h:outputText value="#{obj.marca.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Categoria" sortBy="#{obj.categoria.nombre}" width="100" >
+                                <h:outputText value="#{obj.categoria.nombre}" />
+                            </p:column>
+                            <p:column headerText="Fecha" sortBy="#{obj.fechaRegistro}" width="100">
+                                <h:outputText value="#{obj.fechaRegistro}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:commandButton class="edit-button ui-button-success rounded-button" style="color: #ffffff ; height: 2.3rem; font-size: 0.2rem"
+                                                 icon="pi pi-arrow-circle-up" action="#{ReactivarProductoBean.reactivarProducto()}"  >
+                                    <f:setPropertyActionListener value="#{obj.id}" target="#{ReactivarProductoBean.idProducto}" />
+                                    <p:confirm header="Confirmación del Sistema"
+                                               message="¿Está seguro de que desea dar de alta al producto #{obj.nombre}?"
+                                               icon="pi pi-info-circle"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="500">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>
+             </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

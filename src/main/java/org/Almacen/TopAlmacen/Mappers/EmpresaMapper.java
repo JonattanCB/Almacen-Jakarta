@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class EmpresaMapper {
     public static EmpresaDto toDto(Empresa empresa) {
-        return new EmpresaDto(empresa.getNroRUC(), empresa.getNombre(),empresa.getTipoEmpresa(), empresa.getDireccion());
+        return new EmpresaDto(empresa.getNroRUC(), empresa.getNombre(),empresa.getTipoEmpresa(), empresa.getDireccion(), null);
     }
 
     public static Empresa toEntity(EmpresaDto dto){

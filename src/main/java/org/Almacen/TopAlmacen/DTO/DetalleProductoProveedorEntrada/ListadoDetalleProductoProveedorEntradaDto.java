@@ -1,24 +1,22 @@
 package org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateDetalleProductoProveedorEntradaDto {
+public class ListadoDetalleProductoProveedorEntradaDto {
     private int id;
-    private ProductoProveedorEntrada OC_id;
+    private ProductoProveedorEntrada productoProveedorEntrada;
     private double cantidad;
     private TipoUnidad tipoUnidad;
     private Producto producto;
-    private double precioUnitario;
+    private String descripcionProducto;
+    private double precioUniario;
     private double precioTotal;
 }

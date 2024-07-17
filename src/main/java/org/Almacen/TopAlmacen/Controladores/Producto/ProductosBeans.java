@@ -88,13 +88,7 @@ public class ProductosBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void loadProductos() {
-        try {
-            productosProductoDtoList = productoService.getAllProducto();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private void cargarProductos(){
         categoriaDtoListActiva = categoriaService.getAllCategoriasActivas();
@@ -114,10 +108,10 @@ public class ProductosBeans implements Serializable {
         validarOpcion(2);
     }
 
-    public void eliminarProducto(){
+    public void cambiarEstado (){
         ProductoDto p = productoService.getProductoById(productoid);
-        productoService.delete(productoid);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + p.getNombre() + " ha sido eliminado exitosamente del sistema!"));
+        productoService.ChangeStateINACTIVO(p.getId());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + p.getNombre() + " ha sido dado de baja exitosamente del sistema!"));
         loadProductos();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
@@ -189,6 +183,13 @@ public class ProductosBeans implements Serializable {
             btnNuevoProducto = true;
         }else {
             btnNuevoProducto = false;
+        }
+    }
+    private void loadProductos() {
+        try {
+            productosProductoDtoList = productoService.getAllProducto();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

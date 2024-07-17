@@ -86,11 +86,11 @@ public class PrecioTUBeans implements Serializable {
     }
 
     public void newPrecioPorTipoUnidad() {
-        precioPorTipoUnidadDto = new PrecioPorTipoUnidadDto();
-        productoDescripcionDtos = productoService.productoDescripcionDtos();
-        tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
-        tipoUnidadID = 0;
-        productoId = 0;
+        this.precioPorTipoUnidadDto = new PrecioPorTipoUnidadDto();
+        this.productoDescripcionDtos = productoService.productoDescripcionDtos();
+        this.tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
+        this.tipoUnidadID = 0;
+        this.productoId = 0;
         disabledPrecio(1);
     }
 
@@ -103,17 +103,17 @@ public class PrecioTUBeans implements Serializable {
     }
 
     private void CargarPrecioPorTipoUnidad() {
-        precioPorTipoUnidadDto = precioPorTipoUnidadService.getPrecioPorTipoUnidadById(precioPorTipoUnidadID);
-        tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
-        productoDescripcionDtos = productoService.productoDescripcionDtos();
-        tipoUnidadID = precioPorTipoUnidadDto.getTipoUnidad().getId();
-        stockUnidades = precioPorTipoUnidadDto.getProducto().getStockUnidades();
-        productoId = precioPorTipoUnidadDto.getProducto().getId();
+        this.precioPorTipoUnidadDto = precioPorTipoUnidadService.getPrecioPorTipoUnidadById(precioPorTipoUnidadID);
+        this.tipoUnidadDtoList = tipoUnidadService.getAllTipoUnidad();
+        this.productoDescripcionDtos = productoService.productoDescripcionDtos();
+        this.tipoUnidadID = precioPorTipoUnidadDto.getTipoUnidad().getId();
+        this.stockUnidades = precioPorTipoUnidadDto.getProducto().getStockUnidades();
+        this.productoId = precioPorTipoUnidadDto.getProducto().getId();
     }
 
 
     public void seleccionaProducto() {
-        tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadList(productoId);
+        this.tipoUnidadDtoList = tipoUnidadService.filterTipoUnidadList(productoId);
         disabledPrecio(4);
     }
 
@@ -157,7 +157,6 @@ public class PrecioTUBeans implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                 PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
             } else {
-                createPrecioPorTipoUnidadDto.setStockUnidades(precio.getProducto().getStockUnidades());
                 if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto) == null) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                     PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
@@ -169,8 +168,6 @@ public class PrecioTUBeans implements Serializable {
                 }
             }
         }
-
-
     }
 
     private void updatePrecioPorTipoUnidad() {
@@ -188,7 +185,7 @@ public class PrecioTUBeans implements Serializable {
 
     private void loadPrecioPorTipoUnidad() {
         try {
-            precioPorTipoUnidadlst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
+            this.precioPorTipoUnidadlst = precioPorTipoUnidadService.getAllPrecioPorTipoUnidad();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -220,84 +217,75 @@ public class PrecioTUBeans implements Serializable {
         TipoUnidadDto tu = tipoUnidadService.getTipoUnidad(tipoUnidadID);
         switch (tu.getAbrev()) {
             case "UND":
-                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1);
-                unidad = true;
+                this.precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1);
+                this.unidad = true;
                 break;
             case "DOC":
-                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(12);
-                unidad = true;
+                this.precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(12);
+                this.unidad = true;
                 break;
             case "DEC":
-                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(10);
-                unidad = true;
+                this.precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(10);
+                this.unidad = true;
                 break;
             case "CEN":
-                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(100);
-                unidad = true;
+                this.precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(100);
+                this.unidad = true;
                 break;
             case "MIL":
-                precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1000);
-                unidad = true;
+                this.precioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(1000);
+                this.unidad = true;
                 break;
             default:
-                unidad = false;
+                this.unidad = false;
+                break;
         }
     }
 
     private void disabledPrecio(int opcion) {
         switch (opcion) {
             case 1:
-                unidad = true;
-                productoDesactivado = false;
-                escribirdatos = true;
-                preciodatos = true;
-                btnGuardar = true;
+                this.unidad = true;
+                this.productoDesactivado = false;
+                this. escribirdatos = true;
+                this.preciodatos = true;
+                this.btnGuardar = true;
                 break;
             case 2:
-                unidad = true;
-                escribirdatos = true;
-                preciodatos = false;
-                btnGuardar = true;
-                productoDesactivado = true;
+                this.unidad = true;
+                this.escribirdatos = true;
+                this.preciodatos = false;
+                this.btnGuardar = true;
+                this.productoDesactivado = true;
                 break;
             case 3:
-                unidad = true;
-                escribirdatos = true;
-                preciodatos = true;
-                btnGuardar = false;
-                productoDesactivado = true;
+                this.unidad = true;
+                this.escribirdatos = true;
+                this.preciodatos = true;
+                this.btnGuardar = false;
+                this.productoDesactivado = true;
                 break;
 
             case 4:
-                unidad = false;
-                productoDesactivado = true;
-                escribirdatos = false;
-                preciodatos = false;
-                btnGuardar = true;
+                this.unidad = false;
+                this.productoDesactivado = true;
+                this.escribirdatos = false;
+                this.preciodatos = false;
+                this.btnGuardar = true;
+                break;
+            default:
+                this.unidad = false;
+                this.productoDesactivado = false;
+                this.escribirdatos = false;
+                this.preciodatos = false;
+                this.btnGuardar = false;
                 break;
         }
     }
 
     private void verificarExistenciProducto() {
         List<ProductoDto> dtoList = productoService.getAllProducto();
-        if (dtoList.isEmpty()) {
-            btnNuevoPrecio = true;
-        } else {
-            btnNuevoPrecio = false;
-        }
-
+        btnNuevoPrecio = dtoList.isEmpty();
     }
-
-    // ================ methods de Invocation ===============
-    //=======================================================
-
-
-    // ================ methods de Private =================
-    //=======================================================
-
-
-    // ================ methods de Validation =================
-    //=======================================================
-
 
 }

@@ -167,6 +167,7 @@ public class RequerimientoBeans implements Serializable {
         itemsRequerimientoDto.setRequerimiento(RequerimientoMapper.toEntity(requerimientoDto));
         itemsRequerimientoDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(idTipoUnidad)));
         itemsRequerimientoDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(idProducto)));
+        itemsRequerimientoDto.setDescripcionProducto(ProductoMapper.toConcatProduct(ProductoMapper.toProducto(productoService.getProductoById(idProducto))));
         ListadoRequerimientos.add(itemsRequerimientoDto);
         validarGuardar();
         PrimeFaces.current().executeScript("PF('dialogProducto').hide()");

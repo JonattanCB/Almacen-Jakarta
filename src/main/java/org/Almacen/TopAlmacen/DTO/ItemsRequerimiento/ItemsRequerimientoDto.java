@@ -18,4 +18,5 @@ public class ItemsRequerimientoDto {
     private double Cantidad;
     private TipoUnidad tipoUnidad;
     private Producto producto;
+    private String descripcionProducto;
 }

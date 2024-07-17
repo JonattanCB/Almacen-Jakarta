@@ -103,7 +103,7 @@
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
                         <h:panelGrid>
-                            <p:dataTable size="small"  scrollable="true" scrollHeight="180" style="width: 90rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDeDetalle}" var="ld" editable="true"
+                            <p:dataTable size="small"  scrollable="true" scrollHeight="180" style="width: 90rem" id="tabla-detalle" value="#{RegistroEntradaBeans.listadoDetallesPPE}" var="ld" editable="true"
                                          rows="6" paginator="true" rowSelectMode="add" paginatorPosition="bottom" >
                                 <f:facet name="header">
                                     <div class="header-tabla">
@@ -117,7 +117,7 @@
                                     <h:outputText  value="#{ld.id}"  />
                                 </p:column>
                                 <p:column headerText="Descripcion" width="180">
-                                    <h:outputText  value="#{ld.descripcion}" />
+                                    <h:outputText  value="#{ld.descripcionProducto}" />
                                 </p:column>
                                 <p:column headerText="Tipo Unidad" width="70">
                                     <h:outputText  value="#{ld.tipoUnidad.abrev}" />
@@ -125,10 +125,10 @@
                                 <p:column headerText="Precio" width="100">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText  value="S/. #{ld.precioUnitario}" />
+                                            <h:outputText  value="S/. #{ld.precioUniario}" />
                                         </f:facet>
                                        <f:facet name="input">
-                                           <p:inputText value="#{ld.precioUnitario}" style="width: 8rem" />
+                                           <p:inputText value="#{ld.precioUniario}" style="width: 8rem" />
                                        </f:facet>
                                     </p:cellEditor>
                                 </p:column>
@@ -208,7 +208,7 @@
                             <h:panelGroup styleClass="ui-inputgroup">
                                 <h:panelGroup  styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-cash" style="margin-right: 1rem"/>
-                                    <p:inputText disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.detalleProductoProveedorEntradaDto.precioUnitario}"  id="precio" style="width: 23rem;"  />
+                                    <p:inputText disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.DPPE.precioUniario}"  id="precio" style="width: 23rem;"  />
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGrid>
@@ -219,7 +219,7 @@
                             <h:panelGroup styleClass="ui-inputgroup">
                                 <h:panelGroup  styleClass="ui-inputgroup-addon">
                                     <i class="bi bi-archive-fill" style="margin-right: 1rem"/>
-                                    <p:inputText id="cantidad"  style="width: 23rem;" disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.detalleProductoProveedorEntradaDto.cantidad}" />
+                                    <p:inputText id="cantidad"  style="width: 23rem;" disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.DPPE.cantidad}" />
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGrid>

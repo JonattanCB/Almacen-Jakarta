@@ -28,8 +28,6 @@ public class PrecioPorTipoUnidadService implements Serializable {
     private ITipoUnidadDao itipoUnidadDao;
     @Inject
     private IHistorialPreciosDao ihistorialPreciosDao;
-    @Inject
-    private IStockUnidadesDao istockUnidadesDao;
 
     @Transactional
     public List<PrecioPorTipoUnidadDto> getAllPrecioPorTipoUnidad() { //LISTAR

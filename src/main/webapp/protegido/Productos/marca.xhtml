@@ -64,12 +64,12 @@
                                 <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
-                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca?" icon="pi pi-info-circle"/>
+                                    <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca #{obj.nombre}?" icon="pi pi-info-circle"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="500">
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                         <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
                     </p:confirmDialog>

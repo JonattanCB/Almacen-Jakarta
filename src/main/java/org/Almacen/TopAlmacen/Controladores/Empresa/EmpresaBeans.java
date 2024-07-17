@@ -98,6 +98,7 @@ public class EmpresaBeans implements Serializable {
         createEmpresaDto.setNroRUC(empresaDto.getNroRUC());
         createEmpresaDto.setNombre(empresaDto.getNombre());
         createEmpresaDto.setDireccion(empresaDto.getDireccion());
+        createEmpresaDto.setEstado("ACTIVO");
         createEmpresaDto.setTipoEmpresa(TipoEmpresaMapper.toTipoEmpresa(tipoEmpresaService.getTipoEmpesa(idTipoEmpresa)));
         if (empresaExists){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "Advertencia!! La empresa con este RUC ya existe "));
@@ -110,7 +111,6 @@ public class EmpresaBeans implements Serializable {
                 PrimeFaces.current().executeScript("PF('dialogsa').hide()");
                 PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
             }else{
-                System.out.println("no tiene 11 caracteres");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El RUC debe tener 11 caracteres."));
                 PrimeFaces.current().ajax().update(":form-datos:messages");
             }
@@ -136,6 +136,18 @@ public class EmpresaBeans implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + dto.getNombre() + " ha sido eliminado exitosamente del sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    public void cambioEstado(){
+
+    }
+
+    public boolean validacionEliminacion(){
+        return true;
+    }
+
+    public boolean validacionCambioEstado(){
+        return false;
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {

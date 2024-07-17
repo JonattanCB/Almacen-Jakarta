@@ -16,29 +16,28 @@ public class DetalleProductoProveedorEntradaMapper {
         return new PdfDetalleProductoProveedorEntradaDto(d.getProducto().getId(), ProductoMapper.toConcatProduct(d.getProducto()), d.getTipoUnidad().getNombre(), d.getProducto().getMarca().getNombre(), d.getCantidad());
     }
 
-   /* public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<CreateDetalleProductoProveedorEntradaDto> d) {
+    public static List<CreateDetalleProductoProveedorEntradaDto> toDtoCreate(List<ListadoDetalleProductoProveedorEntradaDto> d) {
         List<CreateDetalleProductoProveedorEntradaDto> lst = new ArrayList<>();
-        for (CreateDetalleProductoProveedorEntradaDto l : d) {
+        for (ListadoDetalleProductoProveedorEntradaDto l : d) {
             var dto = new CreateDetalleProductoProveedorEntradaDto();
+            dto.setOC_id(l.getProductoProveedorEntrada());
             dto.setCantidad(l.getCantidad());
             dto.setTipoUnidad(l.getTipoUnidad());
+            dto.setProducto(l.getProducto());
+            dto.setPrecioUnitario(l.getPrecioUniario());
             dto.setPrecioTotal(l.getPrecioTotal());
-            dto.setPrecioPorTipoUnidad(l.getProducto());
-
-            dto.setPrecioUnitario(l.getPrecioUnitario());
-            dto.setOC_id(l.getOC_id());
             lst.add(dto);
         }
         return lst;
-    }*/
+    }
 
     public static DetalleProductoProveedorEntrada fromCreate(CreateDetalleProductoProveedorEntradaDto d) {
         var e = new DetalleProductoProveedorEntrada();
         e.setOC_id(d.getOC_id());
         e.setCantidad(d.getCantidad());
         e.setTipoUnidad(d.getTipoUnidad());
-        e.setProducto(d.getPrecioPorTipoUnidad().getProducto());
-        System.out.println(d.getPrecioPorTipoUnidad().getProducto().getNombre() + "Encontrado");
+       // e.setProducto(d.getPrecioPorTipoUnidad().getProducto());
+       // System.out.println(d.getPrecioPorTipoUnidad().getProducto().getNombre() + "Encontrado");
         e.setPrecioUnitario(d.getPrecioUnitario());
         e.setPrecioTotal(d.getPrecioUnitario() * d.getCantidad());
         return e;
