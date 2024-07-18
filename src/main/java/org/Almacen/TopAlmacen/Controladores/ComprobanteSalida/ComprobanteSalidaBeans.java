@@ -2,17 +2,19 @@ package org.Almacen.TopAlmacen.Controladores.ComprobanteSalida;
 
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.ComprobanteSalidaDto;
+import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.CreateDetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.DetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.MovimientoStock.ValidacionStockDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
-import org.Almacen.TopAlmacen.Mappers.ComprobanteSalidaMapper;
-import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
-import org.Almacen.TopAlmacen.Mappers.RequerimientoMapper;
+import org.Almacen.TopAlmacen.Mappers.*;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 import org.Almacen.TopAlmacen.Services.ComprobanteSalidaService;
 import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
@@ -62,6 +64,10 @@ public class ComprobanteSalidaBeans implements Serializable {
 
     private boolean btnGuardarRequermiento;
 
+    private boolean btnGuardarRequerimientoView;
+
+    private boolean inputObservacion;
+
     private List<RequerimientoDto> listRequermientoAprobado;
 
     private List<DetalleComprobanteSalidaDto> detalleComprobanteSalidaDtos;
@@ -84,6 +90,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         idRequerimiento = "";
         fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         validacionRequerimiento(1);
+        validarVerComprobanteSalida(1);
     }
 
     public void CargarRequerimiento(){
@@ -103,9 +110,11 @@ public class ComprobanteSalidaBeans implements Serializable {
             DetalleComprobanteSalidaDto detalle = new DetalleComprobanteSalidaDto();
             detalle.setId(idTemporar++);
             detalle.setComprobanteSalida(ComprobanteSalidaMapper.toEntity(comprobanteSalidaDto));
+            System.out.println();
             detalle.setCantidad(item.getCantidad());
             detalle.setTipoUnidad(item.getTipoUnidad());
             detalle.setProducto(item.getProducto());
+            detalle.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(item.getProducto().getId(),item.getTipoUnidad().getId())));
             detalle.setPrecioUnitario(precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(item.getProducto().getId(),item.getTipoUnidad().getId()).getPrecioUnitario());
             detalle.setPrecioTotal(detalle.getCantidad()*detalle.getPrecioUnitario());
             detalle.setDescripcionProducto(ProductoMapper.toConcatProduct(item.getProducto()));
@@ -117,7 +126,17 @@ public class ComprobanteSalidaBeans implements Serializable {
         if (verificastock()){
             PrimeFaces.current().executeScript("PF('dialogProducto').show()");
         }else{
-            System.out.println("Guardado");
+            CreateComprobanteSalidaDto create = new CreateComprobanteSalidaDto();
+            create.setObservacion(comprobanteSalidaDto.getObservacion());
+            create.setUnidadDependencia(comprobanteSalidaDto.getUnidadDependencia());
+            create.setParaUso(comprobanteSalidaDto.getParaUso());
+            create.setPrecioFinal(precioTotal);
+            List<CreateDetalleComprobanteSalidaDto > lst = detalleComprobanteSalidaDtos.stream().map(DetalleComprobanteSalidaMapper::toCreateDto).collect(Collectors.toList());
+            comprobanteSalidaService.create(create,lst);
+            loadComprobanteSalida();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL Comprobante de Salida ha sido registrado exitosamente en el sistema!"));
+            PrimeFaces.current().executeScript("PF('dialogsa').hide()");
+            PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         }
     }
 
@@ -132,9 +151,19 @@ public class ComprobanteSalidaBeans implements Serializable {
         return  (c.getId() >= filterInt && c.getId() <= filterInt)
                 || (String.valueOf(c.getFechaRegistro())).toLowerCase().contains(filterText)
                 || String.valueOf(c.getPrecioFinal()).contains(filterText)
-                || (c.getUnidadDependencia().getNombre()).toLowerCase().contains(filterText)
+                || (c.getUnidadDependencia().getDependencia().getNombre()).toLowerCase().contains(filterText)
                 || (c.getParaUso()).toLowerCase().contains(filterText)
                 || (c.getObservacion()).toLowerCase().contains(filterText);
+    }
+
+    public void verDatosComprobanteSalida(){
+        comprobanteSalidaDto = ComprobanteSalidaMapper.toDto(comprobanteSalidaService.getById(idComprobateSalida));
+        fechaActual = comprobanteSalidaDto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        listRequermientoAprobado = requerimientoService.getAllAprobed().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+        idRequerimiento = "";
+        detalleComprobanteSalidaDtos = comprobanteSalidaService.getDetalleComprobanteSalida(idComprobateSalida).stream().map(DetalleComprobanteSalidaMapper::toDto).collect(Collectors.toList());
+        precioTotal = comprobanteSalidaDto.getPrecioFinal();
+        validarVerComprobanteSalida(2);
     }
 
     private int getInteger(String string) {
@@ -190,6 +219,21 @@ public class ComprobanteSalidaBeans implements Serializable {
            }
         }
         return stockInsuficiente;
+    }
+
+    private void validarVerComprobanteSalida(int opcion){
+        switch (opcion){
+            case 1:
+                btnGuardarRequerimientoView = true;
+                comboRequerimiento = false;
+                inputObservacion = false;
+                break;
+            case 2:
+                btnGuardarRequerimientoView = false;
+                comboRequerimiento = true;
+                inputObservacion = true;
+                break;
+        }
     }
 
 

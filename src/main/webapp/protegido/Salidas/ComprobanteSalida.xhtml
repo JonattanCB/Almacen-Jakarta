@@ -53,7 +53,7 @@
                         </p:column>
                         <p:column exportable="false" width="100">
                             <p:commandButton icon="pi pi-file" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                             action="#{RegistroEntradaBeans.verDatos()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
+                                             action="#{ComprobanteSalidaBeans.verDatosComprobanteSalida()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                              styleClass="edit-button rounded-button "  >
                                 <f:setPropertyActionListener value="#{obj.id}" target="#{ComprobanteSalidaBeans.idComprobateSalida}" />
                             </p:commandButton>
@@ -106,7 +106,7 @@
                             <h:outputText styleClass="texto_dialog"  value="Observacion: "  />
                         </h:panelGrid>
                         <h:panelGrid>
-                            <p:inputTextarea styleClass="texto_dialog"  value="#{ComprobanteSalidaBeans.comprobanteSalidaDto.observacion}" style="width: 90rem" />
+                            <p:inputTextarea styleClass="texto_dialog" disabled="#{ComprobanteSalidaBeans.inputObservacion}" value="#{ComprobanteSalidaBeans.comprobanteSalidaDto.observacion}" style="width: 90rem" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
@@ -145,7 +145,7 @@
                     </h:panelGrid>
                 <h:panelGrid width="1100">
                     <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 46rem " >
-                        <p:commandButton value="Guardar" id="btnGuardar" disabled="#{ComprobanteSalidaBeans.btnGuardarRequermiento}" update=":form-dialogo-producto" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{ComprobanteSalidaBeans.guardarComprobateSalida()}" />
+                        <p:commandButton value="Guardar" id="btnGuardar" rendered="#{ComprobanteSalidaBeans.btnGuardarRequerimientoView}" disabled="#{ComprobanteSalidaBeans.btnGuardarRequermiento}" update=":form-dialogo-producto" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{ComprobanteSalidaBeans.guardarComprobateSalida()}" />
                         <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" style="margin-right: 0.5rem;"  type="button"/>
                     </h:panelGrid>
                 </h:panelGrid>

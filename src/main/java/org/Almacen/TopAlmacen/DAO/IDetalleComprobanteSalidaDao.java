@@ -9,6 +9,8 @@ public interface IDetalleComprobanteSalidaDao {
 
     List<DetalleComprobanteSalida> getAll();
 
+    List<DetalleComprobanteSalida> getAllbyComprobateSalida(int id);
+
     DetalleComprobanteSalida getById(int id);
 
     DetalleComprobanteSalida create(DetalleComprobanteSalida c);

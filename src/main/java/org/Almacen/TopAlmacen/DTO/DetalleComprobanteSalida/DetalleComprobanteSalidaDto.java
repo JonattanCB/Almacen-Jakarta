@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
+import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.TipoUnidad;
 
@@ -20,6 +21,7 @@ public class DetalleComprobanteSalidaDto {
     private double cantidad;
     private TipoUnidad tipoUnidad;
     private Producto producto;
+    private PrecioPorTipoUnidad precioPorTipoUnidad;
     private String descripcionProducto;
     private double precioUnitario;
     private double precioTotal;

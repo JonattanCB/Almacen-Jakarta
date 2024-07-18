@@ -226,7 +226,6 @@ public class RegistroEntradaBeans implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL registro de entrada ha sido registrado exitosamente en el sistema!"));
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
-
     }
 
     public void verDatos() {

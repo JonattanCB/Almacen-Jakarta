@@ -7,6 +7,7 @@ import org.Almacen.TopAlmacen.DAO.IComprobanteSalidaDao;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.UpdateComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
+import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 
 import java.util.List;
 
@@ -18,21 +19,19 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
 
     @Override
     public List<ComprobanteSalida> getAll() {
-        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c", ComprobanteSalida.class).getResultList();
+        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN fetch  c.unidadDependencia join fetch  c.unidadDependencia.dependencia", ComprobanteSalida.class).getResultList();
     }
 
     @Override
     public ComprobanteSalida getById(int id) {
-        var comprobanteSalida = _entityManager.find(ComprobanteSalida.class, id);
-        _entityManager.detach(comprobanteSalida);
-        return comprobanteSalida;
+        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN FETCH c.unidadDependencia JOIN FETCH c.unidadDependencia.dependencia WHERE c.id = :id",
+                ComprobanteSalida.class).setParameter("id", id).getSingleResult();
     }
 
     @Override
     public ComprobanteSalida create(ComprobanteSalida c) {
         _entityManager.persist(c);
         return c;
-
     }
 
     @Override

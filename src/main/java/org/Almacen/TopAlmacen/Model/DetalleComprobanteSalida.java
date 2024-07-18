@@ -17,7 +17,7 @@ public class DetalleComprobanteSalida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ComprobanteSalida_ID", nullable = false)
     private ComprobanteSalida comprobanteSalida;
 
