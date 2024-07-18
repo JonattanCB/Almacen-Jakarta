@@ -13,6 +13,8 @@ public interface IItemsRequerimientoDao {
 
     ItemsRequerimiento create(ItemsRequerimiento c);
 
+    List<ItemsRequerimiento> getItemsByRequerimientoId(String requerimientoId);
+
     ItemsRequerimiento update(UpdateItemsRequerimientoDto c, int id);
 
     ItemsRequerimiento delete(int id);
