@@ -36,7 +36,7 @@ public class RequerimientoService {
     }
 
 
-    public Requerimiento getRequerimiento(int id) {
+    public Requerimiento getRequerimiento(String id) {
         return iRequerimientoDao.getById(id);
     }
 
@@ -51,11 +51,11 @@ public class RequerimientoService {
         return created;
     }
 
-    public Requerimiento update(UpdateRequerimientoDto dto, int id) {
+    public Requerimiento update(UpdateRequerimientoDto dto, String id) {
         return iRequerimientoDao.update(dto, id);
     }
 
-    public Requerimiento delete(int id) {
+    public Requerimiento delete(String id) {
         iItemsRequerimientoDao.deleteRequerimientoAll(id);
         return iRequerimientoDao.delete(id);
     }
@@ -68,11 +68,11 @@ public class RequerimientoService {
         return iRequerimientoDao.getAllAprobed();
     }
 
-    public void setEstadoAprobado(int id, String observacion) {
+    public void setEstadoAprobado(String id, String observacion) {
         iRequerimientoDao.setEstado(id, "APROBADO", observacion);
     }
 
-    public void setEstadoDesaprobado(int id, String observacion) {
+    public void setEstadoDesaprobado(String id, String observacion) {
         iRequerimientoDao.setEstado(id, "DESAPROBADO", observacion);
     }
 }

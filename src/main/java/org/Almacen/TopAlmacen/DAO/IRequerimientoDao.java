@@ -12,13 +12,13 @@ public interface IRequerimientoDao {
 
     List<Requerimiento> getAllAprobed();
 
-    Requerimiento getById(int id);
+    Requerimiento getById(String id);
 
     Requerimiento create(Requerimiento c);
 
-    Requerimiento update(UpdateRequerimientoDto c, int id);
+    Requerimiento update(UpdateRequerimientoDto c, String id);
 
-    Requerimiento delete(int id);
+    Requerimiento delete(String id);
 
-    void setEstado(int id, String estado, String observacion);
+    void setEstado(String id, String estado, String observacion);
 }

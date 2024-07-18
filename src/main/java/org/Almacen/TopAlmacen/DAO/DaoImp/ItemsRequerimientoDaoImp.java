@@ -71,7 +71,7 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
      */
 
     @Override
-    public void deleteRequerimientoAll(int id) {
+    public void deleteRequerimientoAll(String id) {
         var query = _entityManager.createQuery(
                 "delete from ItemsRequerimiento i where i.requerimiento.id = :id "
         );

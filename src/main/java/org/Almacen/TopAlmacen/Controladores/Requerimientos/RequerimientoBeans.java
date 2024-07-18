@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Data
@@ -60,7 +61,7 @@ public class RequerimientoBeans implements Serializable {
 
     private String observacionSalida;
 
-    private int idRequerimiento;
+    private String idRequerimiento;
 
     private int idProducto;
 
@@ -105,6 +106,7 @@ public class RequerimientoBeans implements Serializable {
 
     public void NuevoRequerimiento() {
         requerimientoDto = new RequerimientoDto();
+        requerimientoDto.setId(generarNumeroDeSeisCifras());
         requerimientoDto.setUnidadDependencia(usuarioDto.getUnidad());
         requerimientoDto.setEstado("PENDIENTE");
         fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -130,21 +132,12 @@ public class RequerimientoBeans implements Serializable {
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
-        int filterInt = getInteger(filterText);
         RequerimientoDto c = (RequerimientoDto) value;
-        return (c.getId() >= filterInt && c.getId() <= filterInt)
+        return c.getId().toLowerCase().contains(filterText)
                 || c.getUnidadDependencia().getNombre().toLowerCase().contains(filterText)
                 || c.getRazonEntrada().toLowerCase().contains(filterText)
                 || c.getEstado().toLowerCase().contains(filterText)
                 || (String.valueOf(c.getFechaRegistrada())).contains(filterText);
-    }
-
-    private int getInteger(String string) {
-        try {
-            return Integer.parseInt(string);
-        } catch (NumberFormatException ex) {
-            return 0;
-        }
     }
 
     public void AgregarRequerimiento() {
@@ -297,6 +290,20 @@ public class RequerimientoBeans implements Serializable {
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    private String generarNumeroDeSeisCifras() {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        int LENGTH = 6;
+        Random random = new Random();
+        StringBuilder codigo = new StringBuilder(LENGTH);
+
+        for (int i = 0; i < LENGTH; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            codigo.append(CHARACTERS.charAt(index));
+        }
+
+        return codigo.toString();
     }
 
 }

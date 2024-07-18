@@ -19,7 +19,7 @@ public interface IItemsRequerimientoDao {
 
     ItemsRequerimiento delete(int id);
 
-    void deleteRequerimientoAll(int id);
+    void deleteRequerimientoAll(String id);
 
 }
 

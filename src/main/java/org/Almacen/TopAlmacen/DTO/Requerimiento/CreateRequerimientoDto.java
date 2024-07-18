@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateRequerimientoDto {
+    private String id;
     private UnidadDependencia unidadDependencia;
     private String RazonEntrada;
 }

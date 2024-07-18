@@ -37,7 +37,7 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
-    public Requerimiento getById(int id) {
+    public Requerimiento getById(String id) {
         return _entityManager.createQuery(
                         "SELECT r FROM Requerimiento r  LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia JOIN FETCH r.Requerimientos  WHERE r.id = :id", Requerimiento.class)
                 .setParameter("id", id)
@@ -51,7 +51,7 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
-    public Requerimiento update(UpdateRequerimientoDto c, int id) {
+    public Requerimiento update(UpdateRequerimientoDto c, String id) {
         var findObj = getById(id);
         if (findObj != null) {
             findObj.setEstado(c.getEstado());
@@ -65,7 +65,7 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
-    public Requerimiento delete(int id) {
+    public Requerimiento delete(String id) {
         var findObj = getById(id);
         if (findObj != null) {
             _entityManager.remove(findObj);
@@ -76,7 +76,7 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
-    public void setEstado(int id, String estado, String observacion) {
+    public void setEstado(String id, String estado, String observacion) {
         var findObj = getById(id);
         findObj.setEstado(estado);
         findObj.setRazonSalida(observacion);

@@ -64,33 +64,38 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" width="1500" height="720" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
+        <p:dialog id="dialogs" header="Detalles del Comprobante Salida " showEffect="fade" width="1500" height="720" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="form-dialogProducto">
                     <h:panelGrid columns="2" width="1400">
                         <h:panelGrid>
-                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Empresa" /></h:panelGrid>
+                            <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Requerimiento: " /></h:panelGrid>
                             <h:panelGrid >
-                                <p:selectOneMenu id="empresa" style="width: 50rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                                         disabled="#{RegistroEntradaBeans.bloquearEmpesa}" value="#{RegistroEntradaBeans.idEmpresa}" required="true" autoWidth="false"  >
+                                <p:selectOneMenu id="requerimiento" style="width: 50rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
+                                                       disabled="#{ComprobanteSalidaBeans.comboRequerimiento}"   value="#{ComprobanteSalidaBeans.idRequerimiento}" required="true" autoWidth="false"  >
                                     <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                    <f:selectItems  value="#{RegistroEntradaBeans.empresaDtoList}" var="empre" itemLabel="#{empre.nombre}" itemValue="#{empre.nroRUC}" />
-                                    <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.CargarEmpresa()}" update="empresa tabla-detalle Datos-empresa"  />
+                                    <f:selectItems  value="#{ComprobanteSalidaBeans.listRequermientoAprobado}" var="req" itemLabel="#{req.id}" itemValue="#{req.id}" />
+                                    <p:ajax event="valueChange" listener="#{ComprobanteSalidaBeans.CargarRequerimiento()}" update="requerimiento tabla-detalle precioTotal Datos-Requerimiento"  />
                                 </p:selectOneMenu>
                             </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid  style="float: right" >
-                            <h:outputText  styleClass="texto_dialog" style="margin-top: 3rem" value="N° Registro: #{RegistroEntradaBeans.productoProveedorEntradaDto.OC}"/>
-                            <h:outputText  styleClass="texto_dialog"  value="Fecha : #{RegistroEntradaBeans.fechaActual}"/>
+                            <h:outputText  styleClass="texto_dialog"  value="Fecha : #{ComprobanteSalidaBeans.fechaActual}"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid  id="Datos-empresa" style="margin-top: 1rem" columns="2" width="1330" >
+                    <h:panelGrid  id="Datos-Requerimiento" style="margin-top: 1rem" columns="2" width="1330" >
                         <h:panelGrid >
-                            <h:outputText styleClass="texto_dialog"  value="RUC: #{RegistroEntradaBeans.empresaDto.nroRUC}"  style="margin-top: 1rem" />
-                            <h:outputText styleClass="texto_dialog"  value="Tipo de Empresa: #{RegistroEntradaBeans.empresaDto.tipoEmpresa.nombre} - #{RegistroEntradaBeans.empresaDto.tipoEmpresa.abrev}" style="margin-top: 3rem"  />
+                            <h:outputText styleClass="texto_dialog"  value="Dependencia: #{ComprobanteSalidaBeans.comprobanteSalidaDto.unidadDependencia.dependencia.nombre}"  style="margin-top: 1rem" />
                         </h:panelGrid>
                         <h:panelGrid>
-                            <h:outputText styleClass="texto_dialog"  value="Nombre: #{RegistroEntradaBeans.empresaDto.nombre}" style="margin-top: 1rem"  />
-                            <h:outputText styleClass="texto_dialog"  value="Direccion: #{RegistroEntradaBeans.empresaDto.direccion}" style="margin-top: 3rem"  />
+                            <h:outputText styleClass="texto_dialog"  value="Unidad Dependencia: #{ComprobanteSalidaBeans.comprobanteSalidaDto.unidadDependencia.nombre}" style="margin-top: 1rem"  />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid  style="margin-top: 1rem">
+                        <h:panelGrid>
+                            <h:outputText styleClass="texto_dialog"  value="Para Uso: "  />
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputTextarea styleClass="texto_dialog"  disabled="true" value="#{ComprobanteSalidaBeans.comprobanteSalidaDto.paraUso}" style="width: 90rem" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem">
@@ -98,7 +103,7 @@
                             <h:outputText styleClass="texto_dialog"  value="Observacion: "  />
                         </h:panelGrid>
                         <h:panelGrid>
-                            <p:inputTextarea styleClass="texto_dialog"  disabled="#{RegistroEntradaBeans.observacion}" value="#{RegistroEntradaBeans.productoProveedorEntradaDto.observacion}" style="width: 90rem" />
+                            <p:inputTextarea styleClass="texto_dialog"  value="#{ComprobanteSalidaBeans.comprobanteSalidaDto.observacion}" style="width: 90rem" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid style="margin-top: 1rem" >
@@ -108,8 +113,6 @@
                                 <f:facet name="header">
                                     <div class="header-tabla">
                                         <span class="titulo-hearder-tabla">Listado de Productos</span>
-                                        <p:commandButton id="btnagregar" rendered="#{RegistroEntradaBeans.verDatosValidacion}" value="Agregar" disabled="#{RegistroEntradaBeans.btnBotonAgregrar}" action="#{RegistroEntradaBeans.AgregarNuevoDetalle()}"
-                                                         icon="pi pi-plus" style="width: 8rem" styleClass="disenio-nuevo ui-button-success"  update="form-dialogo-producto"  oncomplete="PF('dialogProducto').show()"   />
                                     </div>
                                 </f:facet>
                                 <p:ajax event="rowEdit" listener="#{RegistroEntradaBeans.editarTablaDetalle}" update="form-dialogProducto:precioTotal"  />
@@ -153,7 +156,7 @@
                                 </p:column>
                             </p:dataTable>
                             <h:panelGrid styleClass="precio-Final-Entrada" columns="2">
-                                <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Fianl :" />
+                                <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Final :" />
                                 <h:outputText id="precioTotal"  value="S/. #{RegistroEntradaBeans.precioTotal}" />
                             </h:panelGrid>
                         </h:panelGrid>
