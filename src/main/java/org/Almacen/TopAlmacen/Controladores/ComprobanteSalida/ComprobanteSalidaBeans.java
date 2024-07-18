@@ -79,11 +79,11 @@ public class ComprobanteSalidaBeans implements Serializable {
     private List<ValidacionStockDto> validacionStockDtos;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         loadComprobanteSalida();
     }
 
-    public void registrarComprobateSalida(){
+    public void registrarComprobateSalida() {
         comprobanteSalidaDto = new ComprobanteSalidaDto();
         detalleComprobanteSalidaDtos = new ArrayList<>();
         listRequermientoAprobado = requerimientoService.getAllAprobed().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
@@ -93,7 +93,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         validarVerComprobanteSalida(1);
     }
 
-    public void CargarRequerimiento(){
+    public void CargarRequerimiento() {
         requerimientodto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
         comprobanteSalidaDto.setUnidadDependencia(requerimientodto.getUnidadDependencia());
         comprobanteSalidaDto.setParaUso(requerimientodto.getRazonEntrada());
@@ -103,9 +103,9 @@ public class ComprobanteSalidaBeans implements Serializable {
     }
 
 
-    private void cargarDatosTabla(){
+    private void cargarDatosTabla() {
         List<ItemsRequerimiento> lst = requerimientoService.getItemsByRequerimientoId(idRequerimiento);
-        int idTemporar=1;
+        int idTemporar = 1;
         for (ItemsRequerimiento item : lst) {
             DetalleComprobanteSalidaDto detalle = new DetalleComprobanteSalidaDto();
             detalle.setId(idTemporar++);
@@ -114,25 +114,25 @@ public class ComprobanteSalidaBeans implements Serializable {
             detalle.setCantidad(item.getCantidad());
             detalle.setTipoUnidad(item.getTipoUnidad());
             detalle.setProducto(item.getProducto());
-            detalle.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(item.getProducto().getId(),item.getTipoUnidad().getId())));
-            detalle.setPrecioUnitario(precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(item.getProducto().getId(),item.getTipoUnidad().getId()).getPrecioUnitario());
-            detalle.setPrecioTotal(detalle.getCantidad()*detalle.getPrecioUnitario());
+            detalle.setPrecioPorTipoUnidad(PrecioPorTipoUnidadMapper.toEntity(precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(item.getProducto().getId(), item.getTipoUnidad().getId())));
+            detalle.setPrecioUnitario(precioPorTipoUnidadService.getByIdProductoIdTipoUnidad(item.getProducto().getId(), item.getTipoUnidad().getId()).getPrecioUnitario());
+            detalle.setPrecioTotal(detalle.getCantidad() * detalle.getPrecioUnitario());
             detalle.setDescripcionProducto(ProductoMapper.toConcatProduct(item.getProducto()));
             detalleComprobanteSalidaDtos.add(detalle);
         }
     }
 
-    public void guardarComprobateSalida(){
-        if (verificastock()){
+    public void guardarComprobateSalida() {
+        if (verificastock()) {
             PrimeFaces.current().executeScript("PF('dialogProducto').show()");
-        }else{
+        } else {
             CreateComprobanteSalidaDto create = new CreateComprobanteSalidaDto();
             create.setObservacion(comprobanteSalidaDto.getObservacion());
             create.setUnidadDependencia(comprobanteSalidaDto.getUnidadDependencia());
             create.setParaUso(comprobanteSalidaDto.getParaUso());
             create.setPrecioFinal(precioTotal);
-            List<CreateDetalleComprobanteSalidaDto > lst = detalleComprobanteSalidaDtos.stream().map(DetalleComprobanteSalidaMapper::toCreateDto).collect(Collectors.toList());
-            comprobanteSalidaService.create(create,lst);
+            List<CreateDetalleComprobanteSalidaDto> lst = detalleComprobanteSalidaDtos.stream().map(DetalleComprobanteSalidaMapper::toCreateDto).collect(Collectors.toList());
+            comprobanteSalidaService.create(create, lst);
             loadComprobanteSalida();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL Comprobante de Salida ha sido registrado exitosamente en el sistema!"));
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");
@@ -148,7 +148,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         }
         int filterInt = getInteger(filterText);
         ComprobanteSalidaDto c = (ComprobanteSalidaDto) value;
-        return  (c.getId() >= filterInt && c.getId() <= filterInt)
+        return (c.getId() >= filterInt && c.getId() <= filterInt)
                 || (String.valueOf(c.getFechaRegistro())).toLowerCase().contains(filterText)
                 || String.valueOf(c.getPrecioFinal()).contains(filterText)
                 || (c.getUnidadDependencia().getDependencia().getNombre()).toLowerCase().contains(filterText)
@@ -156,7 +156,7 @@ public class ComprobanteSalidaBeans implements Serializable {
                 || (c.getObservacion()).toLowerCase().contains(filterText);
     }
 
-    public void verDatosComprobanteSalida(){
+    public void verDatosComprobanteSalida() {
         comprobanteSalidaDto = ComprobanteSalidaMapper.toDto(comprobanteSalidaService.getById(idComprobateSalida));
         fechaActual = comprobanteSalidaDto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         listRequermientoAprobado = requerimientoService.getAllAprobed().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
@@ -174,55 +174,55 @@ public class ComprobanteSalidaBeans implements Serializable {
         }
     }
 
-    private void loadComprobanteSalida(){
-        try{
-            comprobanteSalidaDtos =  comprobanteSalidaService.getall().stream().map(ComprobanteSalidaMapper::toDto).collect(Collectors.toList());
-        }catch (Exception e){
+    private void loadComprobanteSalida() {
+        try {
+            comprobanteSalidaDtos = comprobanteSalidaService.getall().stream().map(ComprobanteSalidaMapper::toDto).collect(Collectors.toList());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void  calcularPrecioFinal(){
+    private void calcularPrecioFinal() {
         precioTotal = 0;
-        for (DetalleComprobanteSalidaDto dt : detalleComprobanteSalidaDtos){
-            precioTotal= dt.getPrecioTotal()+precioTotal;
+        for (DetalleComprobanteSalidaDto dt : detalleComprobanteSalidaDtos) {
+            precioTotal = dt.getPrecioTotal() + precioTotal;
         }
     }
 
-    private void validacionRequerimiento(int opcion){
-        switch (opcion){
+    private void validacionRequerimiento(int opcion) {
+        switch (opcion) {
             case 1:
                 comboRequerimiento = false;
                 btnGuardarRequermiento = true;
                 break;
             case 2:
-                comboRequerimiento= true;
+                comboRequerimiento = true;
                 btnGuardarRequermiento = false;
                 break;
         }
     }
 
-    private boolean verificastock(){
-        int idTemporal=1;
+    private boolean verificastock() {
+        int idTemporal = 1;
         boolean stockInsuficiente = false;
         validacionStockDtos = new ArrayList<>();
-        for (DetalleComprobanteSalidaDto dt : detalleComprobanteSalidaDtos){
-           if (stockUnidadesService.checkStock(dt.getProducto().getId(), dt.getCantidad() )){
-               ValidacionStockDto vs = new ValidacionStockDto();
-               vs.setId(idTemporal++);
-               vs.setCantidad(dt.getCantidad());
-               vs.setDescripcion(dt.getDescripcionProducto());
-               vs.setTipoUnidad(dt.getTipoUnidad().getAbrev());
-               vs.setObservacion("STOCK INSUFICIENTE:El producto " + dt.getProducto().getNombre() + " no tiene suficiente stock para cubrir la solicitud.");
-               validacionStockDtos.add(vs);
-               stockInsuficiente = true;
-           }
+        for (DetalleComprobanteSalidaDto dt : detalleComprobanteSalidaDtos) {
+            if (stockUnidadesService.checkStock(dt.getProducto().getId(), dt.getCantidad(), dt.getPrecioPorTipoUnidad())) {
+                ValidacionStockDto vs = new ValidacionStockDto();
+                vs.setId(idTemporal++);
+                vs.setCantidad(dt.getCantidad());
+                vs.setDescripcion(dt.getDescripcionProducto());
+                vs.setTipoUnidad(dt.getTipoUnidad().getAbrev());
+                vs.setObservacion("STOCK INSUFICIENTE:El producto " + dt.getProducto().getNombre() + " no tiene suficiente stock para cubrir la solicitud. " + stockUnidadesService.convertStockFaltante(dt.getPrecioPorTipoUnidad(), dt.getCantidad()));
+                validacionStockDtos.add(vs);
+                stockInsuficiente = true;
+            }
         }
         return stockInsuficiente;
     }
 
-    private void validarVerComprobanteSalida(int opcion){
-        switch (opcion){
+    private void validarVerComprobanteSalida(int opcion) {
+        switch (opcion) {
             case 1:
                 btnGuardarRequerimientoView = true;
                 comboRequerimiento = false;

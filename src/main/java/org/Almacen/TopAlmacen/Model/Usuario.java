@@ -36,6 +36,4 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unidadDependencia", nullable = false)
     private UnidadDependencia unidadDependencia;
-
-
 }

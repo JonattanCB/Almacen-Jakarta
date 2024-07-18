@@ -60,19 +60,20 @@ public class StockUnidadesService implements Serializable {
 
 
     @Transactional
-    public void subtractStockUnidades(PrecioPorTipoUnidad precioPorTipoUnidad, double cantidadRestar) {
-        if (cantidadRestar <= 0) {
+    public StockUnidades subtractStockUnidades(PrecioPorTipoUnidad precioPorTipoUnidad, double cantidadRestar) {
+        if (cantidadRestar < 0) {
             throw new IllegalArgumentException("La cantidad a restar debe ser mayor que cero.");
         }
 
         if (precioPorTipoUnidad != null) {
             var stockUnidades = precioPorTipoUnidad.getProducto().getStockUnidades();
             var resto = stockUnidades.getCantidadStockUnidad() - cantidadRestar;
-            if (resto <= 0) {
-                throw new IllegalArgumentException("No hay suficiente Stock disponible");
+            System.out.println(resto);
+            if (resto < 0) {
+                return null;
             } else {
                 stockUnidades.setCantidadStockUnidad(resto);
-                istockUnidadesDao.update(stockUnidades.getId(), resto);
+                return istockUnidadesDao.update(stockUnidades.getId(), resto);
             }
         } else {
             throw new IllegalArgumentException("El precio por tipo de unidad con ID " + precioPorTipoUnidad.getId() + " no existe.");
@@ -80,13 +81,29 @@ public class StockUnidadesService implements Serializable {
     }
 
     @Transactional
-    public Boolean checkStock(int id, double cantidad) {
+    public Boolean checkStock(int id, double cantidad, PrecioPorTipoUnidad pptu) {
         var stock = istockUnidadesDao.getByProducto(id);
-        var existCant = stock.getCantidadStockUnidad()-cantidad;
+        var existCant = stock.getCantidadStockUnidad() - (cantidad * pptu.getUnidadesPorTipoUnidadDeProducto());
         if (existCant < 0) {
             return true;
         }
         return false;
     }
+
+    @Transactional
+    public String convertStockFaltante(PrecioPorTipoUnidad pptu, double cantidad) {
+        var stock = pptu.getProducto().getStockUnidades();
+        var cantidadPedida = pptu.getUnidadesPorTipoUnidadDeProducto() * cantidad;
+        var cantidadDisponible = stock.getCantidadStockUnidad();
+        int unidadSuperior = (int) (cantidadDisponible / cantidadPedida);
+        double unidadesRestantes = cantidadDisponible % pptu.getUnidadesPorTipoUnidadDeProducto();
+
+        if (unidadSuperior > 0) {
+            return "Stock disponible: " + unidadSuperior + " " +pptu.getTipoUnidad()+" y " + unidadesRestantes + " unidades.";
+        } else {
+            return "Stock disponible: " + cantidadDisponible + " unidades de " + cantidadPedida + " unidades pedidas.";
+        }
+    }
+
 
 }

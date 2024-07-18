@@ -43,15 +43,20 @@ public class ComprobanteSalidaService implements Serializable {
     @Transactional
     public ComprobanteSalida create(CreateComprobanteSalidaDto dto, List<CreateDetalleComprobanteSalidaDto> detallesDto) {
         var newComprobante = ComprobanteSalidaMapper.fromCreateDto(dto);
-        ComprobanteSalida c = iComprobanteSalidaDao.create(newComprobante);
+        var c = iComprobanteSalidaDao.create(newComprobante);
         for (CreateDetalleComprobanteSalidaDto detalleDto : detallesDto) {
             detalleDto.setComprobanteSalida(c);
             var itemComprobante = DetalleComprobanteSalidaMapper.fromCreate(detalleDto);
             var pptu = detalleDto.getPrecioPorTipoUnidad();
-            iDetalleComprobanteSalidaDao.create(itemComprobante);
 
             var cantidadARestar = detalleDto.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto();
-            stockUnidadesService.subtractStockUnidades(pptu, cantidadARestar);
+            System.out.println(pptu.getProducto().getNombre() + pptu.getProducto().getStockUnidades().getCantidadStockUnidad());
+
+            if (stockUnidadesService.subtractStockUnidades(pptu, cantidadARestar) == null) {
+                iComprobanteSalidaDao.delete(c.getId());
+                return null;
+            }
+            iDetalleComprobanteSalidaDao.create(itemComprobante);
 
             var ms = new MovimientoStock();
             ms.setTipoMovimiento("SALIDA");
@@ -66,7 +71,7 @@ public class ComprobanteSalidaService implements Serializable {
 
     @Transactional
     public List<DetalleComprobanteSalida> getDetalleComprobanteSalida(int id) {
-        return  iDetalleComprobanteSalidaDao.getAllbyComprobateSalida(id);
+        return iDetalleComprobanteSalidaDao.getAllbyComprobateSalida(id);
     }
 
 }
