@@ -68,6 +68,7 @@ body .ui-menu .ui-menu-list .ui-widget-header h3 {
 
 body .ui-menu .ui-menu-list .ui-widget-header {
     padding: 0.5rem;
+    padding-top: 1.2rem;
     background-color: rgb(52,58,64);
 }
 

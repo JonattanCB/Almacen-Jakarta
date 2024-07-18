@@ -36,8 +36,8 @@ public class MenuBeans implements Serializable {
     @PostConstruct
     private void init(){
         usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        //loadLista();
-        //menuListar();
+        loadLista();
+        menuListar();
     }
 
     private void loadLista(){
@@ -51,13 +51,17 @@ public class MenuBeans implements Serializable {
     private void menuListar(){
         model = new DefaultMenuModel();
         String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+        DefaultSubMenu subMenu = DefaultSubMenu.builder().label("PRINCIPAL").expanded(true).build();
+        DefaultMenuItem menuItem = DefaultMenuItem.builder().value("Dashboard").icon("pi pi-home").url(contextPath+"/protegido/principal.siman").build();
+        subMenu.getElements().add(menuItem);
+        model.getElements().add(subMenu);
         for (AccesoDto m :listaAcceso){
             if (m.getTipo().equalsIgnoreCase("S")){
-                DefaultSubMenu subMenu = DefaultSubMenu.builder().label(m.getNombre()).expanded(true).build();
+                subMenu = DefaultSubMenu.builder().label(m.getNombre()).expanded(true).build();
                 for (AccesoDto m2 : listaAcceso){
                     if(m2.getSubMenuId() != 0){
                         if(m2.getSubMenuId() == m.getId()){
-                            DefaultMenuItem menuItem = DefaultMenuItem.builder().value(m2.getNombre()).icon(m2.getIcon()).url(contextPath+m2.getURL()).build();
+                            menuItem = DefaultMenuItem.builder().value(m2.getNombre()).icon(m2.getIcon()).url(contextPath+"/protegido/"+m2.getURL()).build();
                             subMenu.getElements().add(menuItem);
                         }
                     }
