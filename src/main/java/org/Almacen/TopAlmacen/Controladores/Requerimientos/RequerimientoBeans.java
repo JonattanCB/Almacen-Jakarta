@@ -81,10 +81,6 @@ public class RequerimientoBeans implements Serializable {
 
     private boolean btnEdicion;
 
-    private boolean btnAprobar;
-
-    private boolean btnDesaprobar;
-
     private boolean verRazonSalidad;
 
     private List<ItemsRequerimientoDto> ListadoRequerimientos;
@@ -142,7 +138,7 @@ public class RequerimientoBeans implements Serializable {
 
     public void AgregarRequerimiento() {
         itemsRequerimientoDto = new ItemsRequerimientoDto();
-        productoDescripcionDtos = productoService.productoDescripcionDtos();
+        productoDescripcionDtos = productoService.getAllProductosDescripcipDto();
         idProducto = 0;
         idTipoUnidad = 0;
         validarRegistrar(1);
@@ -225,9 +221,8 @@ public class RequerimientoBeans implements Serializable {
 
     public void ViewDatosRequerimiento() {
         requerimientoDto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
-        var produc = requerimientoDto.getRequerimiento().get(0).getProducto();
         fecha = requerimientoDto.getFechaRegistrada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        ListadoRequerimientos = requerimientoDto.getRequerimiento().stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
+        ListadoRequerimientos = requerimientoService.getItemsByRequerimientoId(idRequerimiento).stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
         ValidacionEdicion(2);
     }
 
@@ -254,31 +249,13 @@ public class RequerimientoBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-    private void verificarEstados(int opcion) {
-        switch (opcion) {
-            case 1:
-                btnAprobar = true;
-                btnDesaprobar = false;
-                break;
-            case 2:
-                btnAprobar = false;
-                btnDesaprobar = true;
-                break;
-        }
-    }
-
-    public void limpiarObservacionSalidaAceptada() {
-        observacionSalida = "";
-        verificarEstados(1);
-    }
 
     public void limpiarObservacionSalidaDesaprobada() {
         observacionSalida = "";
-        verificarEstados(2);
     }
 
-    public void estadoAprovado() {
-        requerimientoService.setEstadoAprobado(idRequerimiento, observacionSalida);
+    public void estadoAprobado() {
+        requerimientoService.setEstadoAprobado(idRequerimiento, " ");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El requerimiento ha sido aprobado.!", null));
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");
@@ -286,7 +263,7 @@ public class RequerimientoBeans implements Serializable {
 
     }
 
-    public void estadoDesaprovado() {
+    public void estadoDesaprobado() {
         requerimientoService.setEstadoDesaprobado(idRequerimiento, observacionSalida);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido desaprobado.!"));
         loadRequerimiento();
@@ -296,7 +273,7 @@ public class RequerimientoBeans implements Serializable {
 
     private String generarNumeroDeSeisCifras() {
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int LENGTH = 6;
+        int LENGTH = 10;
         Random random = new Random();
         StringBuilder codigo = new StringBuilder(LENGTH);
 

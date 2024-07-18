@@ -62,8 +62,7 @@ public class ReporteRequerimientoBeans implements Serializable {
         try {
             // Fetching data
             RequerimientoDto dto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
-            var detalle = dto.getRequerimiento();
-            List<PdfItemsRequerimientosDto> lst = detalle.stream().map(ItemsRequerimientoMapper::toPdfDto).collect(Collectors.toList());
+            List<PdfItemsRequerimientosDto> lst = requerimientoService.getItemsByRequerimientoId(idRequerimiento).stream().map(ItemsRequerimientoMapper::toPdfDto).collect(Collectors.toList());
             // Getting resources
             FacesContext context = FacesContext.getCurrentInstance();
             ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();

@@ -62,8 +62,8 @@
                             </p:commandButton>
 
                             <p:commandButton icon="bi bi-check2" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
-                                              update=":form-dialogo-producto" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RequerimientoBeans.limpiarObservacionSalidaAceptada()}"
-                                             styleClass="edit-button ui-button-success rounded-button"  oncomplete="PF('aceptar').show()" >
+                                              update=":form-dialogo-producto" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RequerimientoBeans.estadoAprobado()}"
+                                             styleClass="edit-button ui-button-success rounded-button" >
                                 <f:setPropertyActionListener value="#{obj.id}" target="#{RequerimientoBeans.idRequerimiento}" />
                             </p:commandButton>
                             <p:commandButton icon="bi bi-x" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
@@ -81,15 +81,26 @@
             <h:form id="form-dialogProducto">
                 <p:outputPanel>
                     <h:panelGrid columns="2" style="width: 69vw">
-                        <h:panelGrid>
-                            <h:panelGrid><h:outputText styleClass="texto_dialog"
-                                                       value="Unidad de Dependencia"/></h:panelGrid>
+                        <h:panelGrid columns="2">
                             <h:panelGrid>
-                                <h:outputText styleClass="texto_dialog"
-                                              value="#{RequerimientoBeans.requerimientoDto.unidadDependencia.nombre}"/>
+                                <h:panelGrid><h:outputText styleClass="texto_dialog"
+                                                           value="Unidad de Dependencia:"/></h:panelGrid>
+                                <h:panelGrid>
+                                    <h:outputText styleClass="texto_dialog"
+                                                  value="Estado:"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid style="margin-left: 5rem">
+                                <h:panelGrid><h:outputText styleClass="texto_dialog"
+                                                           value="#{RequerimientoBeans.requerimientoDto.unidadDependencia.nombre}"/></h:panelGrid>
+                                <h:panelGrid>
+                                    <h:outputText styleClass="texto_dialog"
+                                                  value="#{RequerimientoBeans.requerimientoDto.estado}"/>
+                                </h:panelGrid>
                             </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid style="float: right">
+                            <h:outputText styleClass="texto_dialog" value="ID : #{RequerimientoBeans.requerimientoDto.id}"/>
                             <h:outputText styleClass="texto_dialog" value="Fecha : #{RequerimientoBeans.fecha}"/>
                         </h:panelGrid>
                     </h:panelGrid>
@@ -151,11 +162,8 @@
                     </h:panelGrid>
                 </h:panelGrid>
                 <h:panelGrid columns="2" style="float: right;">
-                    <p:commandButton value="Aprobar" icon="pi pi-check" style="margin-right: 0.5rem;" rendered="#{RequerimientoBeans.btnAprobar}"
-                                     action="#{RequerimientoBeans.estadoAprovado()}"
-                                     process="form-dialogo-producto @this" update="form-dialogProducto form-dialogProducto"/>
-                    <p:commandButton value="Desaprobar" icon="pi pi-check" style="margin-right: 0.5rem;" rendered="#{RequerimientoBeans.btnDesaprobar}"
-                                     action="#{RequerimientoBeans.estadoDesaprovado()}"
+                    <p:commandButton value="Desaprobar" icon="pi pi-check" style="margin-right: 0.5rem;"
+                                     action="#{RequerimientoBeans.estadoDesaprobado()}"
                                      process="form-dialogo-producto @this" update="form-dialogProducto form-dialogProducto"/>
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('aceptar').hide()"
                                      update="form-dialogProducto" styleClass="ui-button-secondary" type="button"/>

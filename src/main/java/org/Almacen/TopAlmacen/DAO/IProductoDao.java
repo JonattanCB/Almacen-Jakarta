@@ -11,6 +11,8 @@ public interface IProductoDao {
 
     List<Producto> getAllFalseEstado();
 
+    List<Producto> getAllbyProductos();
+
     Producto getById(int id);
 
     Producto create(Producto c);

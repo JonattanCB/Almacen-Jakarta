@@ -124,7 +124,7 @@ public class RegistroEntradaBeans implements Serializable {
         this.productoProveedorEntradaDto = new ProductoProveedorEntradaDto();
         this.empresaDto = new EmpresaDto();
         this.empresaDtoList = empresaService.getAllActiveEstado();
-        this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
+        this.productoDescripcionDtoList = productoService.getAllProductosDescripcipDto();
         this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
         this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
         this.fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -294,7 +294,7 @@ public class RegistroEntradaBeans implements Serializable {
     private void limpiarDetalles() {
         this.DPPE = new ListadoDetalleProductoProveedorEntradaDto();
         this.productoDto = new ProductoDto();
-        this.productoDescripcionDtoList = productoService.productoDescripcionDtos();
+        this.productoDescripcionDtoList = productoService.getAllProductosDescripcipDto();
         validacionNuevoProducto(1);
         this.idProducto = 0;
         this.idTipoUnidad = 0;

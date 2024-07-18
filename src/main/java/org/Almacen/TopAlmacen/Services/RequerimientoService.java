@@ -41,9 +41,13 @@ public class RequerimientoService implements Serializable {
 
     @Transactional
     public Requerimiento getRequerimiento(String id) {
-
         var req = iRequerimientoDao.getById(id);
         return req;
+    }
+
+    @Transactional
+    public List<ItemsRequerimiento> getItemsByRequerimientoId(String requerimientoId){
+        return iItemsRequerimientoDao.getItemsByRequerimientoId(requerimientoId);
     }
 
     @Transactional

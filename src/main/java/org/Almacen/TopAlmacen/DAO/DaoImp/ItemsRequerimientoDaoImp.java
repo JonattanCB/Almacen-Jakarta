@@ -67,10 +67,6 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
             return null;
         }
     }
-    /*
-    DELETE FROM public.producto
-	WHERE <condition>;
-     */
 
     @Override
     public void deleteRequerimientoAll(String id) {

@@ -25,6 +25,13 @@ public class ProductoDaoImp implements IProductoDao {
     }
 
     @Override
+    public List<Producto> getAllbyProductos() {
+        var query = _entityManager.createQuery(
+                "SELECT DISTINCT p.producto FROM PrecioPorTipoUnidad p", Producto.class);
+        return query.getResultList();
+    }
+
+    @Override
     public Producto getById(int id) {
         return _entityManager.find(Producto.class, id);
     }
