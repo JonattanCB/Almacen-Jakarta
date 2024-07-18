@@ -193,6 +193,7 @@ public class RequerimientoBeans implements Serializable {
 
     public void guardar() {
         CreateRequerimientoDto create = new CreateRequerimientoDto();
+        create.setId(requerimientoDto.getId());
         create.setUnidadDependencia(requerimientoDto.getUnidadDependencia());
         create.setRazonEntrada(requerimientoDto.getRazonEntrada());
         List<CreateItemsRequerimientoDto> lst = ListadoRequerimientos.stream().map(ItemsRequerimientoMapper::tocreate).collect(Collectors.toList());
@@ -224,6 +225,7 @@ public class RequerimientoBeans implements Serializable {
 
     public void ViewDatosRequerimiento() {
         requerimientoDto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
+        var produc = requerimientoDto.getRequerimiento().get(0).getProducto();
         fecha = requerimientoDto.getFechaRegistrada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         ListadoRequerimientos = requerimientoDto.getRequerimiento().stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
         ValidacionEdicion(2);

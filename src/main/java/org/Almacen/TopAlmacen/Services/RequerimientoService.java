@@ -40,7 +40,9 @@ public class RequerimientoService {
 
     @Transactional
     public Requerimiento getRequerimiento(String id) {
-        return iRequerimientoDao.getById(id);
+
+        var req = iRequerimientoDao.getById(id);
+        return req;
     }
 
     @Transactional

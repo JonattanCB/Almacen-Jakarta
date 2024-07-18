@@ -32,6 +32,6 @@ public class Requerimiento {
     @Column(name = "RazonSalida")
     private String RazonSalida;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requerimiento", cascade = CascadeType.ALL)
-    private List<ItemsRequerimiento> Requerimientos;
+    private List<ItemsRequerimiento> itemsRequerimientos;
 
 }

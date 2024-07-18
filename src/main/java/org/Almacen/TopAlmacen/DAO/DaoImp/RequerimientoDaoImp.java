@@ -18,13 +18,13 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
 
     @Override
     public List<Requerimiento> getAll() {
-        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.Requerimientos JOIN FETCH r.unidadDependencia", Requerimiento.class).getResultList();
+        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.itemsRequerimientos JOIN FETCH r.unidadDependencia", Requerimiento.class).getResultList();
     }
 
     @Override
     public List<Requerimiento> getRequerimientoByDependencia(int id) {
         return _entityManager.createQuery(
-                        "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia WHERE r.unidadDependencia.dependencia.id = :id", Requerimiento.class)
+                        "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia JOIN FETCH r.itemsRequerimientos WHERE r.unidadDependencia.dependencia.id = :id", Requerimiento.class)
                 .setParameter("id", id)
                 .getResultList();
     }
@@ -32,14 +32,14 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     @Override
     public List<Requerimiento> getAllAprobed() {
         return _entityManager.createQuery(
-                "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.Requerimientos LEFT JOIN FETCH r.unidadDependencia WHERE r.Estado = 'APROBADO'", Requerimiento.class).getResultList();
+                "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.unidadDependencia WHERE r.Estado = 'APROBADO'", Requerimiento.class).getResultList();
 
     }
 
     @Override
     public Requerimiento getById(String id) {
         return _entityManager.createQuery(
-                        "SELECT r FROM Requerimiento r  LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia JOIN FETCH r.Requerimientos  WHERE r.id = :id", Requerimiento.class)
+                        "SELECT r FROM Requerimiento r  JOIN FETCH r.unidadDependencia JOIN FETCH r.unidadDependencia.dependencia JOIN FETCH r.itemsRequerimientos  WHERE r.id = :id", Requerimiento.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

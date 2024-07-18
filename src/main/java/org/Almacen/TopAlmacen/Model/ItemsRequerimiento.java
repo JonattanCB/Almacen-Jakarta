@@ -21,13 +21,15 @@ public class ItemsRequerimiento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "requerimiento", nullable = false)
     private Requerimiento requerimiento;
+
     @Column(name = "Cantidad", nullable = false)
     private double Cantidad;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipoUnidad", nullable = false)
     private TipoUnidad tipoUnidad;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto")
     private Producto producto;
 
