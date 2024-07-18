@@ -16,11 +16,12 @@ import org.Almacen.TopAlmacen.Mappers.RequerimientoMapper;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 import org.Almacen.TopAlmacen.Model.Requerimiento;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Stateless
 @LocalBean
-public class RequerimientoService {
+public class RequerimientoService implements Serializable {
 
     @Inject
     private IRequerimientoDao iRequerimientoDao;
