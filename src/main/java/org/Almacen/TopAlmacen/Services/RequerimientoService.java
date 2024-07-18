@@ -35,6 +35,11 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
+    public List<Requerimiento> getAllFinalized() {
+        return iRequerimientoDao.getAllFinalized();
+    }
+
+    @Transactional
     public List<Requerimiento> getRequerimientosbyDependencia(int idDependencia) {
         return iRequerimientoDao.getRequerimientoByDependencia(idDependencia);
     }
@@ -46,7 +51,7 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
-    public List<ItemsRequerimiento> getItemsByRequerimientoId(String requerimientoId){
+    public List<ItemsRequerimiento> getItemsByRequerimientoId(String requerimientoId) {
         return iItemsRequerimientoDao.getItemsByRequerimientoId(requerimientoId);
     }
 
@@ -86,5 +91,10 @@ public class RequerimientoService implements Serializable {
     @Transactional
     public void setEstadoDesaprobado(String id, String observacion) {
         iRequerimientoDao.setEstado(id, "DESAPROBADO", observacion);
+    }
+
+    @Transactional
+    public void setEstadoFinalizado(String id, String observacion) {
+        iRequerimientoDao.setEstado(id, "FINALIZADO", observacion);
     }
 }

@@ -135,6 +135,7 @@ public class ComprobanteSalidaBeans implements Serializable {
             comprobanteSalidaService.create(create, lst);
             loadComprobanteSalida();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL Comprobante de Salida ha sido registrado exitosamente en el sistema!"));
+            requerimientoService.setEstadoFinalizado(idRequerimiento,"FINALIZADO");
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");
             PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         }

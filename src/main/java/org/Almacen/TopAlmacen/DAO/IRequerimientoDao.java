@@ -8,6 +8,8 @@ import java.util.List;
 public interface IRequerimientoDao {
     List<Requerimiento> getAll();
 
+    List<Requerimiento> getAllFinalized();
+
     List<Requerimiento> getRequerimientoByDependencia(int id);
 
     List<Requerimiento> getAllAprobed();
