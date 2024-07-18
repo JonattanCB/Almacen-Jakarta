@@ -60,10 +60,6 @@ public class RequerimientoService {
         return iRequerimientoDao.delete(id);
     }
 
-    public List<ItemsRequerimiento> getItemsRequerimientos(int id) {
-        return iItemsRequerimientoDao.getAllByRequerimiento(id);
-    }
-
     public List<Requerimiento> getAllAprobed() {
         return iRequerimientoDao.getAllAprobed();
     }

@@ -14,6 +14,7 @@ public class RequerimientoMapper {
         requerimientoDto.setEstado(requerimiento.getEstado());
         requerimientoDto.setRazonEntrada(requerimiento.getRazonEntrada());
         requerimientoDto.setRazonSalida(requerimiento.getRazonSalida());
+        requerimientoDto.setRequerimiento(requerimiento.getRequerimientos());
         return requerimientoDto;
     }
 
@@ -25,16 +26,10 @@ public class RequerimientoMapper {
         requerimiento.setFechaRegistrada(requerimientoDto.getFechaRegistrada());
         requerimiento.setRazonEntrada(requerimientoDto.getRazonEntrada());
         requerimiento.setRazonSalida(requerimientoDto.getRazonSalida());
+        requerimiento.setRequerimientos(requerimientoDto.getRequerimiento());
         return requerimiento;
     }
 
-    public static CreateRequerimientoDto tocreate(RequerimientoDto requerimientoDto) {
-        CreateRequerimientoDto createRequerimientoDto = new CreateRequerimientoDto();
-        createRequerimientoDto.setId(requerimientoDto.getId());
-        createRequerimientoDto.setRazonEntrada(requerimientoDto.getRazonEntrada());
-        createRequerimientoDto.setUnidadDependencia(requerimientoDto.getUnidadDependencia());
-        return createRequerimientoDto;
-    }
 
     public static Requerimiento fromCreate(CreateRequerimientoDto dto) {
         Requerimiento requerimiento = new Requerimiento();
@@ -42,7 +37,7 @@ public class RequerimientoMapper {
         requerimiento.setEstado("PENDIENTE");
         requerimiento.setUnidadDependencia(dto.getUnidadDependencia());
         requerimiento.setRazonEntrada(dto.getRazonEntrada());
-        System.out.println(requerimiento.getEstado()  + requerimiento.getRazonEntrada() + requerimiento.getUnidadDependencia().getNombre());
+        System.out.println(requerimiento.getEstado() + requerimiento.getRazonEntrada() + requerimiento.getUnidadDependencia().getNombre());
         return requerimiento;
     }
 

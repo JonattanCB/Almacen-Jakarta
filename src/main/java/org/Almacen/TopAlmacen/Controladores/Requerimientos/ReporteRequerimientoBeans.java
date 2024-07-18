@@ -43,18 +43,17 @@ public class ReporteRequerimientoBeans implements Serializable {
     @Inject
     private RequerimientoService requerimientoService;
 
-    private int idRequerimiento;
+    private String idRequerimiento;
 
     private StreamedContent file;
 
     @PostConstruct
-    private void init(){
+    private void init() {
 
     }
 
 
-
-    public void updateAndGeneratePDF(int idRegistro) {
+    public void updateAndGeneratePDF(String idRegistro) {
         this.idRequerimiento = idRegistro;
         GenerarPDF();
     }
@@ -63,7 +62,7 @@ public class ReporteRequerimientoBeans implements Serializable {
         try {
             // Fetching data
             RequerimientoDto dto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
-            var detalle = requerimientoService.getItemsRequerimientos(idRequerimiento);
+            var detalle = dto.getRequerimiento();
             List<PdfItemsRequerimientosDto> lst = detalle.stream().map(ItemsRequerimientoMapper::toPdfDto).collect(Collectors.toList());
             // Getting resources
             FacesContext context = FacesContext.getCurrentInstance();
@@ -79,7 +78,7 @@ public class ReporteRequerimientoBeans implements Serializable {
                 parameters.put("fecha", fecha);
                 parameters.put("id", dto.getId());
                 parameters.put("D_sol", dto.getUnidadDependencia().getNombre());
-                parameters.put("estado",dto.getEstado());
+                parameters.put("estado", dto.getEstado());
                 parameters.put("r_entrada", dto.getRazonEntrada());
                 parameters.put("r_salida", dto.getRazonSalida());
 
@@ -113,7 +112,6 @@ public class ReporteRequerimientoBeans implements Serializable {
             e.printStackTrace();
         }
     }
-
 
 
 }

@@ -9,8 +9,6 @@ import java.util.List;
 public interface IItemsRequerimientoDao {
     List<ItemsRequerimiento> getAll();
 
-    List<ItemsRequerimiento> getAllByRequerimiento(int id);
-
     ItemsRequerimiento getById(int id);
 
     ItemsRequerimiento create(ItemsRequerimiento c);

@@ -22,14 +22,6 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
         return _entityManager.createQuery("SELECT i FROM ItemsRequerimiento i", ItemsRequerimiento.class).getResultList();
     }
 
-    @Override
-    public List<ItemsRequerimiento> getAllByRequerimiento(int id) {
-        var query = _entityManager.createQuery(
-                "SELECT i FROM ItemsRequerimiento i  LEFT JOIN FETCH  i.tipoUnidad  LEFT JOIN FETCH i.requerimiento  LEFT JOIN FETCH  i.requerimiento.unidadDependencia  LEFT JOIN FETCH i.producto where i.requerimiento.id = :id ",
-                ItemsRequerimiento.class);
-        query.setParameter("id", id);
-        return query.getResultList();
-    }
 
     @Override
     public ItemsRequerimiento getById(int id) {
@@ -50,7 +42,7 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
             itemFound.setTipoUnidad(c.getTipoUnidad());
             itemFound.setProducto(c.getProducto());
             return _entityManager.merge(itemFound);
-        }else{
+        } else {
             return null;
         }
     }
@@ -61,7 +53,7 @@ public class ItemsRequerimientoDaoImp implements IItemsRequerimientoDao {
         if (itemFound != null) {
             _entityManager.remove(itemFound);
             return itemFound;
-        }else {
+        } else {
             return null;
         }
     }

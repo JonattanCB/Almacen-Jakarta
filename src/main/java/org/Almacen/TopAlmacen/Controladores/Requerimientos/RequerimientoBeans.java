@@ -225,7 +225,7 @@ public class RequerimientoBeans implements Serializable {
     public void ViewDatosRequerimiento() {
         requerimientoDto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
         fecha = requerimientoDto.getFechaRegistrada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        ListadoRequerimientos = requerimientoService.getItemsRequerimientos(idRequerimiento).stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
+        ListadoRequerimientos = requerimientoDto.getRequerimiento().stream().map(ItemsRequerimientoMapper::toDto).collect(Collectors.toList());
         ValidacionEdicion(2);
     }
 
