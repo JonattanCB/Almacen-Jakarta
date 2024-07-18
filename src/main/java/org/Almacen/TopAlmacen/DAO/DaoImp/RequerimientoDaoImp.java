@@ -32,7 +32,7 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     @Override
     public List<Requerimiento> getAllAprobed() {
         return _entityManager.createQuery(
-                "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.Requerimientos LEFT JOIN FETCH r.unidadDependencia WHERE r.Estado = 'APROBADOR'", Requerimiento.class).getResultList();
+                "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.Requerimientos LEFT JOIN FETCH r.unidadDependencia WHERE r.Estado = 'APROBADO'", Requerimiento.class).getResultList();
 
     }
 
