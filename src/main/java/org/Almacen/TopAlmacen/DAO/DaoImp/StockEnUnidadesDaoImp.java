@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.DAO.IStockUnidadesDao;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.UpdateStockUnidadesDto;
+import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
@@ -27,6 +28,14 @@ public class StockEnUnidadesDaoImp implements IStockUnidadesDao {
     @Override
     public StockUnidades getById(int id) {
         return _entityManager.find(StockUnidades.class, id);
+    }
+
+    @Override
+    public StockUnidades getByProducto(int id) {
+        var query = _entityManager.createQuery(
+                "SELECT s FROM StockUnidades s JOIN FETCH  s.producto where s.producto.id = :id", StockUnidades.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override

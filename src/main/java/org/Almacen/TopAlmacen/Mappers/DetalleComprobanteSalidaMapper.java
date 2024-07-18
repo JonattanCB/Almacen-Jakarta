@@ -9,7 +9,7 @@ import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
 
 public class DetalleComprobanteSalidaMapper {
     public static DetalleComprobanteSalidaDto toDto(DetalleComprobanteSalida d) {
-        return new DetalleComprobanteSalidaDto(d.getId(), d.getComprobanteSalida(), d.getCantidad(), d.getTipoUnidad(), d.getProducto(), d.getPrecioUnitario(), d.getPrecioTotal());
+        return new DetalleComprobanteSalidaDto(d.getId(), d.getComprobanteSalida(), d.getCantidad(), d.getTipoUnidad(), d.getProducto(), ProductoMapper.toConcatProduct(d.getProducto()),d.getPrecioUnitario(), d.getPrecioTotal());
     }
 
     public static DetalleComprobanteSalida fromCreate(CreateDetalleComprobanteSalidaDto d) {

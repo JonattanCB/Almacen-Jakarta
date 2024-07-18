@@ -81,12 +81,12 @@ public class StockUnidadesService implements Serializable {
 
     @Transactional
     public Boolean checkStock(int id, double cantidad) {
-        var stock = getStockUnidadesById(id);
+        var stock = istockUnidadesDao.getByProducto(id);
         var existCant = stock.getCantidadStockUnidad()-cantidad;
         if (existCant < 0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 }

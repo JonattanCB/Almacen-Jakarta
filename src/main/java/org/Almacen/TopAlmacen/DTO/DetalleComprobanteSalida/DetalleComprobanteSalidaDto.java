@@ -20,6 +20,7 @@ public class DetalleComprobanteSalidaDto {
     private double cantidad;
     private TipoUnidad tipoUnidad;
     private Producto producto;
+    private String descripcionProducto;
     private double precioUnitario;
     private double precioTotal;
 }

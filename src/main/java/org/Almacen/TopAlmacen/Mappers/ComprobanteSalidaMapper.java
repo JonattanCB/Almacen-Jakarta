@@ -9,6 +9,10 @@ public class ComprobanteSalidaMapper {
         return new ComprobanteSalidaDto(cs.getId(), cs.getUnidadDependencia(), cs.getParaUso(), cs.getObservacion(), cs.getFechaRegistro(), cs.getPrecioFinal());
     }
 
+    public static ComprobanteSalida toEntity(ComprobanteSalidaDto cs) {
+        return new ComprobanteSalida(cs.getId(), cs.getUnidadDependencia(), cs.getParaUso(),cs.getFechaRegistro(),cs.getPrecioFinal(), cs.getObservacion(),null);
+    }
+
     public static ComprobanteSalida fromCreateDto(CreateComprobanteSalidaDto dto) {
         var cs = new ComprobanteSalida();
         cs.setObservacion(dto.getObservacion());

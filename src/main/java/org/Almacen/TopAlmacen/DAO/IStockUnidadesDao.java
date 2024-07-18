@@ -13,6 +13,8 @@ public interface IStockUnidadesDao {
 
     StockUnidades getById(int id);
 
+    StockUnidades getByProducto(int id);
+
     StockUnidades create(StockUnidades c);
 
     StockUnidades update(int id, double nuevaCantidad);
