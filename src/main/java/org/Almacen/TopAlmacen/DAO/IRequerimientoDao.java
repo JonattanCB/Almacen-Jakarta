@@ -10,6 +10,8 @@ public interface IRequerimientoDao {
 
     List<Requerimiento> getRequerimientoByDependencia(int id);
 
+    List<Requerimiento> getAllAprobed();
+
     Requerimiento getById(int id);
 
     Requerimiento create(Requerimiento c);

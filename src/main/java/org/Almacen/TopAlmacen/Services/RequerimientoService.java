@@ -64,8 +64,12 @@ public class RequerimientoService {
         return iItemsRequerimientoDao.getAllByRequerimiento(id);
     }
 
+    public List<Requerimiento> getAllAprobed() {
+        return iRequerimientoDao.getAllAprobed();
+    }
+
     public void setEstadoAprobado(int id, String observacion) {
-        iRequerimientoDao.setEstado(id, "APROBADO",observacion);
+        iRequerimientoDao.setEstado(id, "APROBADO", observacion);
     }
 
     public void setEstadoDesaprobado(int id, String observacion) {
