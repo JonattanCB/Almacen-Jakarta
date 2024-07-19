@@ -10,7 +10,7 @@ public interface IRequerimientoDao {
 
     List<Requerimiento> getAllFinalized();
 
-    List<Requerimiento> getRequerimientoByDependencia(int id);
+    List<Requerimiento> getRequerimientoByDependencia();
 
     List<Requerimiento> getAllAprobed();
 

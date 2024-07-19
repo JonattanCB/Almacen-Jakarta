@@ -26,10 +26,9 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
-    public List<Requerimiento> getRequerimientoByDependencia(int id) {
+    public List<Requerimiento> getRequerimientoByDependencia() {
         return _entityManager.createQuery(
-                        "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia JOIN FETCH r.itemsRequerimientos WHERE r.unidadDependencia.dependencia.id = :id", Requerimiento.class)
-                .setParameter("id", id)
+                        "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.unidadDependencia LEFT JOIN FETCH r.unidadDependencia.dependencia JOIN FETCH r.itemsRequerimientos", Requerimiento.class)
                 .getResultList();
     }
 

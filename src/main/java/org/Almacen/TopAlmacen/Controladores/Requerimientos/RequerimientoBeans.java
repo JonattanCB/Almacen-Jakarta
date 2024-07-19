@@ -113,7 +113,7 @@ public class RequerimientoBeans implements Serializable {
 
     private void loadRequerimiento() {
         try {
-            requerimientoDtos = requerimientoService.getRequerimientosbyDependencia(usuarioDto.getUnidad().getDependencia().getId()).stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+            requerimientoDtos = requerimientoService.getRequerimientosbyDependencia().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }

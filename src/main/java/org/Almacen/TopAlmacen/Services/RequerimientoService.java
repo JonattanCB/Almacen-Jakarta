@@ -40,8 +40,8 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
-    public List<Requerimiento> getRequerimientosbyDependencia(int idDependencia) {
-        return iRequerimientoDao.getRequerimientoByDependencia(idDependencia);
+    public List<Requerimiento> getRequerimientosbyDependencia() {
+        return iRequerimientoDao.getRequerimientoByDependencia();
     }
 
     @Transactional
