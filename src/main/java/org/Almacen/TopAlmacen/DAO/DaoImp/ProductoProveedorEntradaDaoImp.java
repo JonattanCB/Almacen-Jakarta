@@ -16,7 +16,7 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
 
     @Override
     public List<ProductoProveedorEntrada> getAll() {
-        return _entityManager.createQuery("SELECT p FROM ProductoProveedorEntrada p LEFT JOIN FETCH p.DetalleProductoProveedorEntrada LEFT JOIN FETCH p.usuario LEFT JOIN FETCH p.empresa ", ProductoProveedorEntrada.class).getResultList();
+        return _entityManager.createQuery("SELECT p FROM ProductoProveedorEntrada p LEFT JOIN FETCH p.DetalleProductoProveedorEntrada LEFT JOIN FETCH p.usuario LEFT JOIN FETCH p.empresa", ProductoProveedorEntrada.class).getResultList();
     }
 
     @Override

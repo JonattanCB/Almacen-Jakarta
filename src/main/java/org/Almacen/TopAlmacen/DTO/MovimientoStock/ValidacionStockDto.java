@@ -15,4 +15,5 @@ public class ValidacionStockDto {
     private String TipoUnidad;
     private double cantidad;
     private String observacion;
+
 }

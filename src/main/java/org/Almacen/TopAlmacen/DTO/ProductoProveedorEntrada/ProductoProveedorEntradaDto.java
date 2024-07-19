@@ -20,4 +20,5 @@ public class ProductoProveedorEntradaDto {
     private Usuario usuario;
     private double precioFinal;
     private String observacion;
+    private String estado;
 }

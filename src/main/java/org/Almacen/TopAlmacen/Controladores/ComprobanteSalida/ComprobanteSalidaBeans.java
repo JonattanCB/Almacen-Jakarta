@@ -24,6 +24,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -110,7 +111,6 @@ public class ComprobanteSalidaBeans implements Serializable {
             DetalleComprobanteSalidaDto detalle = new DetalleComprobanteSalidaDto();
             detalle.setId(idTemporar++);
             detalle.setComprobanteSalida(ComprobanteSalidaMapper.toEntity(comprobanteSalidaDto));
-            System.out.println();
             detalle.setCantidad(item.getCantidad());
             detalle.setTipoUnidad(item.getTipoUnidad());
             detalle.setProducto(item.getProducto());
@@ -135,7 +135,7 @@ public class ComprobanteSalidaBeans implements Serializable {
             comprobanteSalidaService.create(create, lst);
             loadComprobanteSalida();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL Comprobante de Salida ha sido registrado exitosamente en el sistema!"));
-            requerimientoService.setEstadoFinalizado(idRequerimiento,"FINALIZADO");
+            requerimientoService.setEstadoFinalizado(idRequerimiento, "FINALIZADO|");
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");
             PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         }
@@ -184,9 +184,11 @@ public class ComprobanteSalidaBeans implements Serializable {
     }
 
     private void calcularPrecioFinal() {
+        var df = new DecimalFormat("#.00");
         precioTotal = 0;
         for (DetalleComprobanteSalidaDto dt : detalleComprobanteSalidaDtos) {
             precioTotal = dt.getPrecioTotal() + precioTotal;
+            df.format(precioTotal);
         }
     }
 

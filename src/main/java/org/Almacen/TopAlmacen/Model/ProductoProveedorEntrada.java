@@ -34,4 +34,6 @@ public class ProductoProveedorEntrada {
     private List<DetalleProductoProveedorEntrada> DetalleProductoProveedorEntrada;
     @Column(name = "Observacion")
     private String Observacion;
+    @Column(name = "Estado")
+    private String estado;
 }

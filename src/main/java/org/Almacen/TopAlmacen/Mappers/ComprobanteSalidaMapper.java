@@ -6,19 +6,21 @@ import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
 
 public class ComprobanteSalidaMapper {
     public static ComprobanteSalidaDto toDto(ComprobanteSalida cs) {
-        return new ComprobanteSalidaDto(cs.getId(), cs.getUnidadDependencia(), cs.getParaUso(), cs.getObservacion(), cs.getFechaRegistro(), cs.getPrecioFinal());
+        return new ComprobanteSalidaDto(cs.getId(), cs.getDependencia(), cs.getParaUso(), cs.getObservacion(), cs.getFechaRegistro(), cs.getPrecioFinal(), cs.getEstado(), cs.getUsuario());
     }
 
     public static ComprobanteSalida toEntity(ComprobanteSalidaDto cs) {
-        return new ComprobanteSalida(cs.getId(), cs.getUnidadDependencia(), cs.getParaUso(),cs.getFechaRegistro(),cs.getPrecioFinal(), cs.getObservacion(),null);
+        return new ComprobanteSalida(cs.getId(), cs.getSolicitante(), cs.getDependencia(), cs.getParaUso(), cs.getFechaRegistro(), cs.getPrecioFinal(), cs.getObservacion(), null, cs.getEstado());
     }
 
     public static ComprobanteSalida fromCreateDto(CreateComprobanteSalidaDto dto) {
         var cs = new ComprobanteSalida();
         cs.setObservacion(dto.getObservacion());
         cs.setParaUso(dto.getParaUso());
-        cs.setUnidadDependencia(dto.getUnidadDependencia());
+        cs.setDependencia(dto.getDependencia());
         cs.setPrecioFinal(dto.getPrecioFinal());
+        cs.setUsuario(dto.getSolicitante());
+        cs.setEstado(dto.getEstado());
         return cs;
     }
 }

@@ -15,4 +15,5 @@ public class UpdateProductoProveedorEntradaDto {
     private Empresa empresa;
     private double precioFinal;
     private String Observacion;
+    private String estado;
 }

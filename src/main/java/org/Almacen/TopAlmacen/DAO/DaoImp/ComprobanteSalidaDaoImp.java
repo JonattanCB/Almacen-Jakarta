@@ -19,12 +19,12 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
 
     @Override
     public List<ComprobanteSalida> getAll() {
-        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN fetch  c.unidadDependencia join fetch  c.unidadDependencia.dependencia", ComprobanteSalida.class).getResultList();
+        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN fetch  c.dependencia", ComprobanteSalida.class).getResultList();
     }
 
     @Override
     public ComprobanteSalida getById(int id) {
-        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN FETCH c.unidadDependencia JOIN FETCH c.unidadDependencia.dependencia WHERE c.id = :id",
+        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN FETCH c.dependencia WHERE c.id = :id",
                 ComprobanteSalida.class).setParameter("id", id).getSingleResult();
     }
 
@@ -38,7 +38,7 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
     public ComprobanteSalida update(UpdateComprobanteSalidaDto updateComprobanteSalidaDto, int id) {
         var existingComprobante = _entityManager.find(ComprobanteSalida.class, id);
         if (existingComprobante != null) {
-            existingComprobante.setUnidadDependencia(updateComprobanteSalidaDto.getUnidadDependencia());
+            existingComprobante.setDependencia(updateComprobanteSalidaDto.getDependencia());
             existingComprobante.setParaUso(updateComprobanteSalidaDto.getParaUso());
             existingComprobante.setObservacion(updateComprobanteSalidaDto.getObservacion());
             _entityManager.merge(existingComprobante);

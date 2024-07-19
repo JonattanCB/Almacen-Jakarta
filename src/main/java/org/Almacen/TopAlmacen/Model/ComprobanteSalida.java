@@ -22,16 +22,21 @@ public class ComprobanteSalida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unidadDependencia", nullable = false)
-    private UnidadDependencia unidadDependencia;
+    @JoinColumn(name = "Solicitante", nullable = false)
+    private Usuario usuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Dependencia", nullable = false)
+    private Dependencia dependencia;
     @Column(name = "paraUso")
     private String paraUso;
     @Column(name = "fechaRegistro")
     private LocalDate fechaRegistro = LocalDate.now();
-    @Column(name = "precioFinal")
+    @Column(name = "precioFinal", precision = 10, scale = 2)
     private double precioFinal;
     @Column(name = "Observacion")
     private String Observacion;
     @OneToMany(mappedBy = "comprobanteSalida")
     private List<DetalleComprobanteSalida> detalleComprobanteSalida;
+    @Column(name = "Estado", nullable = false)
+    private String estado;
 }
