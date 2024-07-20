@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante_Salida" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a9c8a9b-c3c2-4796-a86b-a6c62a9a2cf2">
-	<property name="ireport.zoom" value="1.0000000000000033"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.zoom" value="2.8531167061100193"/>
+	<property name="ireport.x" value="1454"/>
+	<property name="ireport.y" value="682"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<parameter name="usuario" class="java.lang.String"/>
@@ -334,34 +334,56 @@
 				<textFieldExpression><![CDATA[$F{medida_d}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="629" y="0" width="90" height="20" uuid="781dde6c-00b4-4b4b-ad67-c32f7afe0551"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="644" y="0" width="75" height="20" uuid="781dde6c-00b4-4b4b-ad67-c32f7afe0551"/>
 				<box topPadding="2" leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{unidad_v}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="719" y="0" width="83" height="20" uuid="91131def-5731-4348-873d-37b331549d5a"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="736" y="0" width="66" height="20" uuid="91131def-5731-4348-873d-37b331549d5a"/>
 				<box topPadding="2" leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{total_v}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="719" y="0" width="17" height="20" uuid="3ef1ecf7-f479-4926-b11b-aab896f515f9"/>
+				<box topPadding="3" leftPadding="0">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[S/.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="629" y="0" width="15" height="20" uuid="4631fb9d-455a-42d7-8064-8c223d7102ec"/>
+				<box topPadding="3" leftPadding="0">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[S/.]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<summary>
 		<band height="21" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="719" y="0" width="83" height="20" uuid="1a5cb95a-d0e8-4320-987e-28d541ff74c5"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="736" y="1" width="66" height="20" uuid="1a5cb95a-d0e8-4320-987e-28d541ff74c5"/>
 				<box topPadding="2" leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
@@ -376,6 +398,17 @@
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="719" y="1" width="17" height="20" uuid="39ac0755-fd9b-4475-9164-40010e093a3b"/>
+				<box topPadding="3" leftPadding="0">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[S/.]]></text>
 			</staticText>
 		</band>
 	</summary>
