@@ -15,12 +15,12 @@ public class MovimientoStockDaoImp implements IMovimientoStockDao {
 
     @Override
     public List<MovimientoStock> getAll() {
-        return _entityManager.createQuery("SELECT m FROM MovimientoStock m JOIN FETCH m.producto", MovimientoStock.class).getResultList();
+        return _entityManager.createQuery("SELECT m FROM MovimientoStock m JOIN FETCH m.producto JOIN FETCH m.dependencia", MovimientoStock.class).getResultList();
     }
 
     @Override
     public MovimientoStock getById(int id) {
-        return _entityManager.createQuery("SELECT m FROM MovimientoStock m JOIN FETCH m.producto WHERE m.id= :id ", MovimientoStock.class).setParameter("id", id).getSingleResult();
+        return _entityManager.createQuery("SELECT m FROM MovimientoStock m JOIN FETCH m.producto JOIN FETCH m.dependencia WHERE m.id= :id ", MovimientoStock.class).setParameter("id", id).getSingleResult();
     }
 
     @Override

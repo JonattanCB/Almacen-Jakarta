@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static org.Almacen.TopAlmacen.Util.RoundNumber.redondear;
+
 @Data
 @Named("ComprobanteSalidaBeans")
 @ViewScoped
@@ -184,12 +186,11 @@ public class ComprobanteSalidaBeans implements Serializable {
     }
 
     private void calcularPrecioFinal() {
-        var df = new DecimalFormat("#.00");
         precioTotal = 0;
         for (DetalleComprobanteSalidaDto dt : detalleComprobanteSalidaDtos) {
             precioTotal = dt.getPrecioTotal() + precioTotal;
-            df.format(precioTotal);
         }
+        precioTotal = redondear(precioTotal, 2);
     }
 
     private void validacionRequerimiento(int opcion) {
