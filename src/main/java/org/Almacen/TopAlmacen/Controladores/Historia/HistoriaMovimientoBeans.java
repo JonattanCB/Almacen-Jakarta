@@ -28,26 +28,26 @@ public class HistoriaMovimientoBeans implements Serializable {
     private List<MovimientoStockDto> movimientoStockDtosSeleccion;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         loadMoviminetoStock();
     }
 
-    private void loadMoviminetoStock(){
+    private void loadMoviminetoStock() {
         try {
             movimientoStockDtos = movimientoStockService.getAllMovimientoStock();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+   /* public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
         MovimientoStockDto c = (MovimientoStockDto) value;
         return c.getTipoUnidad().toLowerCase().contains(filterText);
-    }
+    }*/
 
 
 }

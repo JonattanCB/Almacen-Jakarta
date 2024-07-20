@@ -6,14 +6,13 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.*;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.CreateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.Mappers.DetalleProductoProveedorEntradaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoProveedorEntradaMapper;
-import org.Almacen.TopAlmacen.Model.HistorialPrecios;
-import org.Almacen.TopAlmacen.Model.MovimientoStock;
-import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
+import org.Almacen.TopAlmacen.Model.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -36,6 +35,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     private IHistorialPreciosDao iHistorialPreciosDao;
     @Inject
     private IMovimientoStockDao iMovimientoStockDao;
+    @Inject
+    private IHistorialStockDao iHistorialStockDao;
 
     @Transactional
     public List<ProductoProveedorEntradaDto> findAll() {
@@ -55,30 +56,41 @@ public class ProductoProveedorEntradaService implements Serializable {
         iProductoProveedorEntradaDao.create(prodcu);
         for (CreateDetalleProductoProveedorEntradaDto d : entradas) {
             var detalle = DetalleProductoProveedorEntradaMapper.fromCreate(d);
-            var pptu = iPrecioPorTipoUnidadDao.getById(d.getPrecioPorTipoUnidad().getId());
-            if (pptu.getPrecioUnitario() != detalle.getPrecioUnitario()) {
-                var his = new HistorialPrecios();
-                his.setPrecioPorTipoUnidad(pptu);
-                his.setPrecioRegistro(detalle.getPrecioUnitario());
-                iHistorialPreciosDao.create(his);
-                iPrecioPorTipoUnidadDao.updatePrecioU(detalle.getPrecioUnitario(), pptu.getId());
-            }
             iDetalleProductoProveedorEntradaDao.create(detalle);
+        }
+        return prodcu;
+    }
 
+    @Transactional
+    public void insertToBD(ProductoProveedorEntrada c, List<DetalleProductoProveedorEntrada> entradas) {
 
-            var totalAAgregar = d.getPrecioPorTipoUnidad().getUnidadesPorTipoUnidadDeProducto() * d.getCantidad();
-            stockUnidadesService.addStockUnidades(d.getPrecioPorTipoUnidad(), totalAAgregar);
+        for (DetalleProductoProveedorEntrada d : entradas) {
+            var pptu = iPrecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(d.getProducto().getId(), d.getTipoUnidad().getId());
+            if (pptu.getPrecioUnitario() != d.getPrecioUnitario()) {
+                var hisPre = new HistorialPrecios();
+                hisPre.setPrecioPorTipoUnidad(pptu);
+                hisPre.setPrecioRegistro(d.getPrecioUnitario());
+                iHistorialPreciosDao.create(hisPre);
+                iPrecioPorTipoUnidadDao.updatePrecioU(d.getPrecioUnitario(), pptu.getId());
+            }
+
+            var totalAAgregar = pptu.getUnidadesPorTipoUnidadDeProducto() * d.getCantidad();
+            stockUnidadesService.addStockUnidades(pptu, totalAAgregar);
+
+            var hisStock = new HistorialStock();
+            hisStock.setCantidadStock(totalAAgregar);
+            hisStock.setStockUnidades(d.getProducto().getStockUnidades());
+            iHistorialStockDao.add(hisStock);
 
             var ms = new MovimientoStock();
             ms.setTipoMovimiento("ENTRADA");
-            ms.setProducto(d.getPrecioPorTipoUnidad().getProducto());
-            ms.setCantidad(d.getCantidad());
-            ms.setTipoUnidad(d.getPrecioPorTipoUnidad().getTipoUnidad().getAbrev());
+            ms.setProducto(d.getProducto());
+            ms.setCantidad(d.getCantidad()*pptu.getUnidadesPorTipoUnidadDeProducto());
+            ms.setDependencia(c.getUsuario().getUnidadDependencia().getDependencia());
+            ms.setSolicitante_Responsable(d.getOC_id().getUsuario());
             iMovimientoStockDao.create(ms);
-
-
         }
-        return prodcu;
+        iProductoProveedorEntradaDao.setEstado("COMPLETADO", c.getOC());
     }
 
     @Transactional

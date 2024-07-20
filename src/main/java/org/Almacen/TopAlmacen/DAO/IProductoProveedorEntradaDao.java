@@ -14,7 +14,9 @@ public interface IProductoProveedorEntradaDao {
 
     ProductoProveedorEntrada update(UpdateProductoProveedorEntradaDto c, int id);
 
-    ProductoProveedorEntrada updatePrice(double price, String oc);
+    void updatePrice(double price, String oc);
+
+    void setEstado(String estado, String id);
 
     ProductoProveedorEntrada delete(int id);
 }

@@ -98,7 +98,7 @@ public class ComprobanteSalidaBeans implements Serializable {
 
     public void CargarRequerimiento() {
         requerimientodto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
-        comprobanteSalidaDto.setUnidadDependencia(requerimientodto.getUnidadDependencia());
+        comprobanteSalidaDto.setDependencia(requerimientodto.getUnidadDependencia().getDependencia());
         comprobanteSalidaDto.setParaUso(requerimientodto.getRazonEntrada());
         cargarDatosTabla();
         calcularPrecioFinal();
@@ -130,7 +130,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         } else {
             CreateComprobanteSalidaDto create = new CreateComprobanteSalidaDto();
             create.setObservacion(comprobanteSalidaDto.getObservacion());
-            create.setUnidadDependencia(comprobanteSalidaDto.getUnidadDependencia());
+            create.setDependencia(comprobanteSalidaDto.getDependencia());
             create.setParaUso(comprobanteSalidaDto.getParaUso());
             create.setPrecioFinal(precioTotal);
             List<CreateDetalleComprobanteSalidaDto> lst = detalleComprobanteSalidaDtos.stream().map(DetalleComprobanteSalidaMapper::toCreateDto).collect(Collectors.toList());
@@ -154,7 +154,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         return (c.getId() >= filterInt && c.getId() <= filterInt)
                 || (String.valueOf(c.getFechaRegistro())).toLowerCase().contains(filterText)
                 || String.valueOf(c.getPrecioFinal()).contains(filterText)
-                || (c.getUnidadDependencia().getDependencia().getNombre()).toLowerCase().contains(filterText)
+                || (c.getDependencia().getNombre()).toLowerCase().contains(filterText)
                 || (c.getParaUso()).toLowerCase().contains(filterText)
                 || (c.getObservacion()).toLowerCase().contains(filterText);
     }

@@ -15,4 +15,7 @@ public interface IComprobanteSalidaDao {
     ComprobanteSalida update(UpdateComprobanteSalidaDto c, int id);
 
     ComprobanteSalida delete(int id);
+
+    void setEstado(String estado, int id);
+
 }

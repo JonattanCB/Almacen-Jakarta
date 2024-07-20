@@ -31,7 +31,7 @@ public class ComprobanteSalida {
     private String paraUso;
     @Column(name = "fechaRegistro")
     private LocalDate fechaRegistro = LocalDate.now();
-    @Column(name = "precioFinal", precision = 10, scale = 2)
+    @Column(name = "precioFinal", nullable = false)
     private double precioFinal;
     @Column(name = "Observacion")
     private String Observacion;

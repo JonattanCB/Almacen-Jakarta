@@ -20,7 +20,6 @@ public class MovimientoStockDto {
     private String tipoMovimiento;
     private Producto producto;
     private double cantidad;
-    private String tipoUnidad;
     private Usuario solicitanteOResponsable;
     private Dependencia dependencia;
 

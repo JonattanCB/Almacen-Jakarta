@@ -58,4 +58,13 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
             return null;
         }
     }
+
+    @Override
+    public void setEstado(String estado, int id) {
+        var findObj= getById(id);
+        if (findObj != null) {
+            findObj.setEstado(estado);
+            _entityManager.merge(findObj);
+        }
+    }
 }

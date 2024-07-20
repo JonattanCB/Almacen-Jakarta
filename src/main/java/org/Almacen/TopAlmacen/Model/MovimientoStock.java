@@ -34,8 +34,6 @@ public class MovimientoStock {
 
     @Column(name = "Cantidad", nullable = false)
     private double cantidad;
-    @Column(name = "TipoUnidad")
-    private String tipoUnidad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Solicitante_Responsable", nullable = false)

@@ -11,7 +11,8 @@ import java.util.List;
 
 @Named
 public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
-    @PersistenceContext
+
+    @PersistenceContext(name = "YourPU")
     private EntityManager _entityManager;
 
     @Override

@@ -12,6 +12,8 @@ public interface IPrecioPorTipoUnidadDao {
 
     List<Integer> getAllbyProducto(int id);
 
+    PrecioPorTipoUnidad getPptuByTipoUnidadProducto(int productoId, int tipoUnidadId);
+
     List<PrecioPorTipoUnidad> getAllTipoUnidadbyProducto(int id);
 
     PrecioPorTipoUnidad getById(int id);

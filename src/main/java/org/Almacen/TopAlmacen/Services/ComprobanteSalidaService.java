@@ -9,9 +9,7 @@ import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.CreateDetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.Mappers.ComprobanteSalidaMapper;
 import org.Almacen.TopAlmacen.Mappers.DetalleComprobanteSalidaMapper;
-import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
-import org.Almacen.TopAlmacen.Model.DetalleComprobanteSalida;
-import org.Almacen.TopAlmacen.Model.MovimientoStock;
+import org.Almacen.TopAlmacen.Model.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +27,8 @@ public class ComprobanteSalidaService implements Serializable {
     private StockUnidadesService stockUnidadesService;
     @Inject
     private IMovimientoStockDao imovimientoStockDao;
+    @Inject
+    private IHistorialStockDao iHistorialStockDao;
 
     @Transactional
     public List<ComprobanteSalida> getall() {
@@ -45,29 +45,47 @@ public class ComprobanteSalidaService implements Serializable {
         var newComprobante = ComprobanteSalidaMapper.fromCreateDto(dto);
         var c = iComprobanteSalidaDao.create(newComprobante);
         for (CreateDetalleComprobanteSalidaDto detalleDto : detallesDto) {
-            detalleDto.setComprobanteSalida(c);
             var itemComprobante = DetalleComprobanteSalidaMapper.fromCreate(detalleDto);
             var pptu = detalleDto.getPrecioPorTipoUnidad();
 
             var cantidadARestar = detalleDto.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto();
             System.out.println(pptu.getProducto().getNombre() + pptu.getProducto().getStockUnidades().getCantidadStockUnidad());
-
-            if (stockUnidadesService.subtractStockUnidades(pptu, cantidadARestar) == null) {
+            if (stockUnidadesService.checkStock(pptu.getProducto().getId(), cantidadARestar, pptu)) {
+                iDetalleComprobanteSalidaDao.create(itemComprobante);
+                return c;
+            } else {
                 iComprobanteSalidaDao.delete(c.getId());
                 return null;
             }
-            iDetalleComprobanteSalidaDao.create(itemComprobante);
-
-            var ms = new MovimientoStock();
-            ms.setTipoMovimiento("SALIDA");
-            ms.setProducto(itemComprobante.getProducto());
-            ms.setCantidad(detalleDto.getCantidad());
-            ms.setTipoUnidad(itemComprobante.getTipoUnidad().getAbrev());
-            imovimientoStockDao.create(ms);
-
         }
         return newComprobante;
     }
+
+    @Transactional
+    public void insertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles) {
+        for (DetalleComprobanteSalida d : detalles) {
+            var pptu = iPrecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(d.getProducto().getId(), d.getTipoUnidad().getId());
+
+            var mov = new MovimientoStock();
+            mov.setTipoMovimiento("SALIDA");
+            mov.setCantidad(pptu.getUnidadesPorTipoUnidadDeProducto() * d.getCantidad());
+            mov.setSolicitante_Responsable(c.getUsuario());
+
+            mov.setProducto(d.getProducto());
+            mov.setDependencia(c.getDependencia());
+            imovimientoStockDao.create(mov);
+
+            var hisStock = new HistorialStock();
+            hisStock.setCantidadStock(d.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto());
+            hisStock.setStockUnidades(d.getProducto().getStockUnidades());
+            iHistorialStockDao.add(hisStock);
+
+            stockUnidadesService.subtractStockUnidades(pptu,d.getCantidad()*pptu.getUnidadesPorTipoUnidadDeProducto());
+
+        }
+        iComprobanteSalidaDao.setEstado("COMPLETADO",c.getId());
+    }
+
 
     @Transactional
     public List<DetalleComprobanteSalida> getDetalleComprobanteSalida(int id) {

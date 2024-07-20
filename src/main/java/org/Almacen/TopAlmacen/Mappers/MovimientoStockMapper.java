@@ -12,7 +12,6 @@ public class MovimientoStockMapper {
         dto.setTipoMovimiento(m.getTipoMovimiento());
         dto.setProducto(m.getProducto());
         dto.setCantidad(m.getCantidad());
-        dto.setTipoUnidad(m.getTipoUnidad());
         dto.setSolicitanteOResponsable(m.getSolicitante_Responsable());
         dto.setDependencia(m.getDependencia());
         return dto;
@@ -22,7 +21,6 @@ public class MovimientoStockMapper {
         var mov = new MovimientoStock();
         mov.setTipoMovimiento(dto.getTipoMovimiento());
         mov.setCantidad(dto.getCantidad());
-        mov.setTipoUnidad(dto.getTipoUnidad().getAbrev());
         mov.setDependencia(dto.getDependencia());
         return mov;
     }

@@ -17,7 +17,6 @@ public class CreateMovimientoStockDto {
     private String tipoMovimiento;
     private PrecioPorTipoUnidad precioPorTipoUnidad;
     private double cantidad;
-    private TipoUnidad tipoUnidad;
     private Usuario solicitanteOResponsable;
     private Dependencia dependencia;
 }

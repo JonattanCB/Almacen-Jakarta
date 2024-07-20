@@ -21,17 +21,6 @@ public class ProductoProveedorEntradaMapper {
     }
 
 
-    public static ProductoProveedorEntrada toEntityCreate(CreateProductoProveedorEntradaDto dto) {
-        ProductoProveedorEntrada p = new ProductoProveedorEntrada();
-        p.setOC(dto.getOC());
-        p.setEmpresa(dto.getEmpresa());
-        p.setUsuario(dto.getUsuario());
-        p.setPrecioFinal(dto.getPrecioFinal());
-        p.setObservacion(dto.getObservacion());
-        p.setEstado(dto.getEstado());
-        return p;
-    }
-
     public static ProductoProveedorEntrada fromCreate(CreateProductoProveedorEntradaDto dto) {
         ProductoProveedorEntrada p = new ProductoProveedorEntrada();
         p.setOC(dto.getOC());
@@ -39,7 +28,7 @@ public class ProductoProveedorEntradaMapper {
         p.setUsuario(dto.getUsuario());
         p.setPrecioFinal(dto.getPrecioFinal());
         p.setObservacion(dto.getObservacion());
-        p.setEstado(dto.getEstado());
+        p.setEstado("PENDIENTE");
         return p;
     }
 }

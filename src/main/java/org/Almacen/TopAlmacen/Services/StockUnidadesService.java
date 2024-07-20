@@ -84,10 +84,7 @@ public class StockUnidadesService implements Serializable {
     public Boolean checkStock(int id, double cantidad, PrecioPorTipoUnidad pptu) {
         var stock = istockUnidadesDao.getByProducto(id);
         var existCant = stock.getCantidadStockUnidad() - (cantidad * pptu.getUnidadesPorTipoUnidadDeProducto());
-        if (existCant < 0) {
-            return true;
-        }
-        return false;
+        return existCant < 0;
     }
 
     @Transactional
