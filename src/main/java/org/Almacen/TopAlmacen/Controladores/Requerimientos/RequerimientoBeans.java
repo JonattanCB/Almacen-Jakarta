@@ -14,14 +14,12 @@ import org.Almacen.TopAlmacen.DTO.Requerimiento.CreateRequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
-import org.Almacen.TopAlmacen.Mappers.ItemsRequerimientoMapper;
-import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
-import org.Almacen.TopAlmacen.Mappers.RequerimientoMapper;
-import org.Almacen.TopAlmacen.Mappers.TipoUnidadMapper;
+import org.Almacen.TopAlmacen.Mappers.*;
 import org.Almacen.TopAlmacen.Services.EmpresaService;
 import org.Almacen.TopAlmacen.Services.ProductoService;
 import org.Almacen.TopAlmacen.Services.RequerimientoService;
 import org.Almacen.TopAlmacen.Services.TipoUnidadService;
+import org.Almacen.TopAlmacen.Util.CodeGenerator;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
@@ -99,11 +97,10 @@ public class RequerimientoBeans implements Serializable {
         loadRequerimiento();
     }
 
-
     public void NuevoRequerimiento() {
         requerimientoDto = new RequerimientoDto();
-        requerimientoDto.setId(generarNumeroDeSeisCifras());
-        requerimientoDto.setUnidadDependencia(usuarioDto.getUnidad());
+        requerimientoDto.setId(CodeGenerator.Generator(10));
+        requerimientoDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
         requerimientoDto.setEstado("PENDIENTE");
         fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LimpiarListadoRequerimiento();
@@ -113,7 +110,7 @@ public class RequerimientoBeans implements Serializable {
 
     private void loadRequerimiento() {
         try {
-            requerimientoDtos = requerimientoService.getRequerimientosbyDependencia().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+            requerimientoDtos = requerimientoService.getRequerimientos(usuarioDto.getUnidad().getDependencia().getId()).stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +127,7 @@ public class RequerimientoBeans implements Serializable {
         }
         RequerimientoDto c = (RequerimientoDto) value;
         return c.getId().toLowerCase().contains(filterText)
-                || c.getUnidadDependencia().getNombre().toLowerCase().contains(filterText)
+                || (c.getUsuario().getNombres()+ " "+ c.getUsuario().getApellidos()).toLowerCase().contains(filterText)
                 || c.getRazonEntrada().toLowerCase().contains(filterText)
                 || c.getEstado().toLowerCase().contains(filterText)
                 || (String.valueOf(c.getFechaRegistrada())).contains(filterText);
@@ -190,7 +187,7 @@ public class RequerimientoBeans implements Serializable {
     public void guardar() {
         CreateRequerimientoDto create = new CreateRequerimientoDto();
         create.setId(requerimientoDto.getId());
-        create.setUnidadDependencia(requerimientoDto.getUnidadDependencia());
+        create.setUsuario(requerimientoDto.getUsuario());
         create.setRazonEntrada(requerimientoDto.getRazonEntrada());
         List<CreateItemsRequerimientoDto> lst = ListadoRequerimientos.stream().map(ItemsRequerimientoMapper::tocreate).collect(Collectors.toList());
         requerimientoService.create(create, lst);
@@ -249,7 +246,6 @@ public class RequerimientoBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
-
     public void limpiarObservacionSalidaDesaprobada() {
         observacionSalida = "";
     }
@@ -269,20 +265,6 @@ public class RequerimientoBeans implements Serializable {
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
-    }
-
-    private String generarNumeroDeSeisCifras() {
-        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int LENGTH = 10;
-        Random random = new Random();
-        StringBuilder codigo = new StringBuilder(LENGTH);
-
-        for (int i = 0; i < LENGTH; i++) {
-            int index = random.nextInt(CHARACTERS.length());
-            codigo.append(CHARACTERS.charAt(index));
-        }
-
-        return codigo.toString();
     }
 
 }

@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.Almacen.TopAlmacen.Model.UnidadDependencia;
-
-import java.time.LocalDateTime;
+import org.Almacen.TopAlmacen.Model.Usuario;
 
 @Getter
 @Setter
@@ -14,6 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CreateRequerimientoDto {
     private String id;
-    private UnidadDependencia unidadDependencia;
+    private Usuario usuario;
     private String RazonEntrada;
 }

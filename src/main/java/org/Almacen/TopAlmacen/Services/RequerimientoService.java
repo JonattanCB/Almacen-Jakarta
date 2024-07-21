@@ -30,8 +30,8 @@ public class RequerimientoService implements Serializable {
     private IItemsRequerimientoDao iItemsRequerimientoDao;
 
     @Transactional
-    public List<Requerimiento> getRequerimientos() {
-        return iRequerimientoDao.getAll();
+    public List<Requerimiento> getRequerimientos(int idDependencia) {
+        return iRequerimientoDao.getAll(idDependencia);
     }
 
     @Transactional

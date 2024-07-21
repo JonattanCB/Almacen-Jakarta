@@ -98,7 +98,7 @@ public class ComprobanteSalidaBeans implements Serializable {
 
     public void CargarRequerimiento() {
         requerimientodto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
-        comprobanteSalidaDto.setDependencia(requerimientodto.getUnidadDependencia().getDependencia());
+        comprobanteSalidaDto.setDependencia(requerimientodto.getUsuario().getUnidadDependencia().getDependencia());
         comprobanteSalidaDto.setParaUso(requerimientodto.getRazonEntrada());
         cargarDatosTabla();
         calcularPrecioFinal();

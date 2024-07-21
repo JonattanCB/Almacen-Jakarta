@@ -40,8 +40,8 @@
                         <p:column headerText="#" sortBy="#{obj.id}" width="80">
                             <h:outputText value="#{obj.id}"/>
                         </p:column>
-                        <p:column headerText="Unidad Dependencia" sortBy="#{obj.unidadDependencia.nombre}" width="180">
-                            <h:outputText value="#{obj.unidadDependencia.nombre}"/>
+                        <p:column headerText="Solicitante" sortBy="#{obj.usuario.nombres} #{obj.usuario.apellidos}" width="180">
+                            <h:outputText value="#{obj.usuario.nombres} #{obj.usuario.apellidos}"/>
                         </p:column>
                         <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistrada}" width="150">
                             <h:outputText value="#{obj.fechaRegistrada}"/>
@@ -90,7 +90,7 @@
                             </h:panelGrid>
                             <h:panelGrid style="margin-left: 2rem">
                                 <h:panelGrid><h:outputText styleClass="texto_dialog"
-                                                           value="#{RequerimientoBeans.requerimientoDto.unidadDependencia.nombre}"/></h:panelGrid>
+                                                           value="#{RequerimientoBeans.requerimientoDto.usuario.unidadDependencia.dependencia.nombre}"/></h:panelGrid>
                                 <h:panelGrid>
                                     <h:outputText styleClass="texto_dialog"
                                                   value="#{RequerimientoBeans.requerimientoDto.estado}"/>

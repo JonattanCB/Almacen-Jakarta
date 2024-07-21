@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,8 +22,8 @@ public class Requerimiento {
     @Column(name = "fechaRegistrada", nullable = false)
     private LocalDateTime fechaRegistrada = LocalDateTime.now();
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unidadDependencia", nullable = false)
-    private UnidadDependencia unidadDependencia;
+    @JoinColumn(name = "usuario", nullable = false)
+    private Usuario usuario;
     @Column(name = "Estado", nullable = false)
     private String Estado;
     @Column(name = "RazonEntrada")

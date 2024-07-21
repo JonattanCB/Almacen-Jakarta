@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 import org.Almacen.TopAlmacen.Model.UnidadDependencia;
+import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class RequerimientoDto {
     private String id;
     private LocalDateTime fechaRegistrada;
-    private UnidadDependencia unidadDependencia;
+    private Usuario usuario;
     private String estado;
     private String RazonEntrada;
     private String RazonSalida;

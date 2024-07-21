@@ -6,7 +6,7 @@ import org.Almacen.TopAlmacen.Model.Requerimiento;
 import java.util.List;
 
 public interface IRequerimientoDao {
-    List<Requerimiento> getAll();
+    List<Requerimiento> getAll(int idDependencia);
 
     List<Requerimiento> getAllFinalized();
 
