@@ -22,8 +22,11 @@ public class Requerimiento {
     @Column(name = "fechaRegistrada", nullable = false)
     private LocalDateTime fechaRegistrada = LocalDateTime.now();
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "Solicitante", nullable = false)
+    private Usuario solicitante;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Dependencia")
+    private Dependencia dependencia;
     @Column(name = "Estado", nullable = false)
     private String Estado;
     @Column(name = "RazonEntrada")

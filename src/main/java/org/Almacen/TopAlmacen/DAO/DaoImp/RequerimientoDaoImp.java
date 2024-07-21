@@ -18,33 +18,33 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
 
     @Override
     public List<Requerimiento> getAll(int idDepedencia) {
-        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.itemsRequerimientos JOIN FETCH r.usuario where r.usuario.unidadDependencia.dependencia.id = :id", Requerimiento.class)
+        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.itemsRequerimientos JOIN FETCH r.solicitante where r.dependencia.id = :id", Requerimiento.class)
                 .setParameter("id", idDepedencia)
                 .getResultList();
     }
     @Override
     public List<Requerimiento> getAllFinalized() {
-        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.itemsRequerimientos JOIN FETCH r.usuario WHERE r.Estado='FINALIZADO'", Requerimiento.class).getResultList();
+        return _entityManager.createQuery("SELECT r FROM Requerimiento r JOIN FETCH r.itemsRequerimientos JOIN FETCH r.solicitante JOIN FETCH r.dependencia WHERE r.Estado='FINALIZADO'", Requerimiento.class).getResultList();
     }
 
     @Override
     public List<Requerimiento> getRequerimientoByDependencia() {
         return _entityManager.createQuery(
-                        "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.usuario JOIN FETCH r.itemsRequerimientos", Requerimiento.class)
+                        "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.solicitante JOIN FETCH r.itemsRequerimientos", Requerimiento.class)
                 .getResultList();
     }
 
     @Override
     public List<Requerimiento> getAllAprobed() {
         return _entityManager.createQuery(
-                "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.usuario WHERE r.Estado = 'APROBADO'", Requerimiento.class).getResultList();
+                "SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.solicitante WHERE r.Estado = 'APROBADO'", Requerimiento.class).getResultList();
 
     }
 
     @Override
     public Requerimiento getById(String id) {
         return _entityManager.createQuery(
-                        "SELECT r FROM Requerimiento r  JOIN FETCH r.usuario JOIN FETCH r.itemsRequerimientos  WHERE r.id = :id", Requerimiento.class)
+                        "SELECT r FROM Requerimiento r  JOIN FETCH r.solicitante JOIN FETCH r.itemsRequerimientos  WHERE r.id = :id", Requerimiento.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
