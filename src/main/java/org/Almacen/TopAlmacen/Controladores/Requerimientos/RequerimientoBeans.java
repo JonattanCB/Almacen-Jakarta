@@ -101,6 +101,7 @@ public class RequerimientoBeans implements Serializable {
         requerimientoDto = new RequerimientoDto();
         requerimientoDto.setId(CodeGenerator.Generator(10));
         requerimientoDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
+        requerimientoDto.setDependencia(usuarioDto.getUnidad().getDependencia());
         requerimientoDto.setEstado("PENDIENTE");
         fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LimpiarListadoRequerimiento();
@@ -161,7 +162,6 @@ public class RequerimientoBeans implements Serializable {
         PrimeFaces.current().executeScript("PF('dialogProducto').hide()");
     }
 
-
     private int getNextId() {
         int maxId = 0;
         for (ItemsRequerimientoDto detalle : ListadoRequerimientos) {
@@ -189,6 +189,7 @@ public class RequerimientoBeans implements Serializable {
         create.setId(requerimientoDto.getId());
         create.setUsuario(requerimientoDto.getUsuario());
         create.setRazonEntrada(requerimientoDto.getRazonEntrada());
+        create.setDependencia(requerimientoDto.getDependencia());
         List<CreateItemsRequerimientoDto> lst = ListadoRequerimientos.stream().map(ItemsRequerimientoMapper::tocreate).collect(Collectors.toList());
         requerimientoService.create(create, lst);
         loadRequerimiento();

@@ -76,7 +76,7 @@ public class ReporteRequerimientoBeans implements Serializable {
                 parameters.put("Ruta_Imagen", logoEmpresa);
                 parameters.put("fecha", fecha);
                 parameters.put("id", dto.getId());
-                parameters.put("D_sol", dto.getUsuario().getUnidadDependencia().getDependencia().getNombre());
+                parameters.put("D_sol", dto.getDependencia().getNombre());
                 parameters.put("estado", dto.getEstado());
                 parameters.put("r_entrada", dto.getRazonEntrada());
                 parameters.put("r_salida", dto.getRazonSalida());

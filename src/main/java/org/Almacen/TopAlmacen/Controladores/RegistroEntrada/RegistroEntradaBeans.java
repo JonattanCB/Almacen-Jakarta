@@ -8,7 +8,9 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
 
+import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.DetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.CreateDetalleProductoProveedorEntradaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.DetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.ListadoDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.Empresa.EmpresaDto;
 import org.Almacen.TopAlmacen.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
@@ -19,7 +21,10 @@ import org.Almacen.TopAlmacen.DTO.ProductoProveedorEntrada.ProductoProveedorEntr
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
+import org.Almacen.TopAlmacen.Model.DetalleProductoProveedorEntrada;
+import org.Almacen.TopAlmacen.Model.ProductoProveedorEntrada;
 import org.Almacen.TopAlmacen.Services.*;
+import org.Almacen.TopAlmacen.Util.CodeGenerator;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.util.LangUtils;
@@ -125,8 +130,9 @@ public class RegistroEntradaBeans implements Serializable {
         this.empresaDto = new EmpresaDto();
         this.empresaDtoList = empresaService.getAllActiveEstado();
         this.productoDescripcionDtoList = productoService.getAllProductosDescripcipDto();
-        this.productoProveedorEntradaDto.setOC(generarNumeroDeSeisCifras());
+        this.productoProveedorEntradaDto.setOC(CodeGenerator.Generator(6));
         this.productoProveedorEntradaDto.setUsuario(UsuarioMapper.toUsuario(usuarioDto));
+        this.productoProveedorEntradaDto.setEstado("PENDIENTE");
         this.fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         limpiarNuevoRegistro();
         validacionNuevoProducto(1);
@@ -219,6 +225,7 @@ public class RegistroEntradaBeans implements Serializable {
         dto.setOC(productoProveedorEntradaDto.getOC());
         dto.setObservacion(productoProveedorEntradaDto.getObservacion());
         dto.setEmpresa(productoProveedorEntradaDto.getEmpresa());
+        dto.setEstado(productoProveedorEntradaDto.getEstado());
         dto.setPrecioFinal(precioTotal);
         dto.setUsuario(productoProveedorEntradaDto.getUsuario());
         this.productoProveedorEntradaService.create(dto, lst);
@@ -245,20 +252,6 @@ public class RegistroEntradaBeans implements Serializable {
     //=======================================================
     private void loadRegistrarEntrant() {
         this.productoProveedorEntradaDtos = productoProveedorEntradaService.findAll();
-    }
-
-    private String generarNumeroDeSeisCifras() {
-        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int LENGTH = 6;
-        Random random = new Random();
-        StringBuilder codigo = new StringBuilder(LENGTH);
-
-        for (int i = 0; i < LENGTH; i++) {
-            int index = random.nextInt(CHARACTERS.length());
-            codigo.append(CHARACTERS.charAt(index));
-        }
-
-        return codigo.toString();
     }
 
     private int getNextId() {
@@ -384,6 +377,22 @@ public class RegistroEntradaBeans implements Serializable {
                 observacion = true;
                 break;
         }
+    }
+
+    public void estadoAprobado(){
+        ProductoProveedorEntrada entity = ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaService.findById(idRegistroEntrada));
+        List<DetalleProductoProveedorEntrada> lst = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(entity.getOC());
+        productoProveedorEntradaService.insertToBD(entity, lst);
+        loadRegistrarEntrant();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El registro de entrada ha sido COMPLETADO en el sistema!"));
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    public void estadoDesaprobado(){
+        productoProveedorEntradaService.cambiarEstado("DESAPROBADO", idRegistroEntrada);
+        loadRegistrarEntrant();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El registro de entrada ha sido DESAPROBADO en el sistema!"));
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
 }

@@ -92,6 +92,11 @@ body .disenio-export .ui-button-help{
     color: #256029;
 }
 
+.customer-badge.status-COMPLETADO {
+    background: #b3e5fc;
+    color: #1e88e5;
+}
+
 .customer-badge.status-PENDIENTE {
     background: #FFF9C4;
     color: #795548;

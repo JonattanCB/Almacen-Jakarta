@@ -14,8 +14,6 @@
                 <h:panelGrid styleClass="contendedor-card-paneles">
                     <p:toolbar>
                         <p:toolbarGroup>
-                            <p:commandButton value="Registrar Entrada " icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{RegistroEntradaBeans.NuevoRegister()}"
-                                 disabled="#{RegistroEntradaBeans.btnNuevoEntrada}" update="dialogs"  oncomplete="PF('dialogsa').show()"  />
                         </p:toolbarGroup>
                     </p:toolbar>
                     <p:dataTable id="tabla" var="obj" value="#{RegistroEntradaBeans.productoProveedorEntradaDtos}" widgetVar="obj" style="margin-top: 1rem"
@@ -39,9 +37,6 @@
                         <p:column headerText="Responsable" sortBy="#{obj.usuario.nombres} #{obj.usuario.apellidos}" width="180" >
                             <h:outputText value="#{obj.usuario.nombres} #{obj.usuario.apellidos}" />
                         </p:column>
-                        <p:column headerText="Empresa" sortBy="#{obj.empresa.nombre}" width="150" >
-                            <h:outputText value="#{obj.empresa.nombre}" />
-                        </p:column>
                         <p:column headerText="Precio Final" sortBy="#{obj.precioFinal}" width="100" >
                             <h:outputText value="S/. #{obj.precioFinal}" />
                         </p:column>
@@ -63,11 +58,20 @@
                                              ajax="false">
                                 <p:fileDownload value="#{ReportesEntradaBeans.file}" />
                             </p:commandButton>
+                            <p:commandButton icon="bi bi-check2" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RegistroEntradaBeans.estadoAprobado()}"
+                                             styleClass="edit-button ui-button-success rounded-button" >
+                                <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
+                            </p:commandButton>
+                            <p:commandButton icon="bi bi-x" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RegistroEntradaBeans.estadoDesaprobado()}" oncomplete="PF('aceptar').show()"
+                                             styleClass="edit-button ui-button-danger rounded-button"  >
+                                <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
+
         <p:dialog id="dialogs" header="Detalles del Registro Entrada" showEffect="fade" width="1500" height="720" appendTo="@(body)" modal="true" widgetVar="dialogsa"  >
             <h:form id="form-dialogProducto">
                     <h:panelGrid columns="2" width="1400">
@@ -164,78 +168,12 @@
                     </h:panelGrid>
                 <h:panelGrid width="1100">
                     <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 46rem " >
-                        <p:commandButton value="Guardar" rendered="#{RegistroEntradaBeans.verDatosValidacion}"  disabled="#{RegistroEntradaBeans.guardarLista}" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{RegistroEntradaBeans.guardar()}" />
                         <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" style="margin-right: 0.5rem;"  type="button"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </h:form>
         </p:dialog >
 
-        <p:dialog id="dialogProducto" header="Seleccione Producto" appendTo="@(body)"  showEffect="fade" modal="true"  widgetVar="dialogProducto" >
-            <h:form id="form-dialogo-producto">
-                <div style="width: 27rem;height: 23rem">
-                    <h:panelGrid>
-                        <h:panelGrid><h:outputLabel for="prducto"  styleClass="texto_dialog" value="Productos: " /></h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
-                                    <i class="pi pi-inbox" style="margin-right: 1rem"/>
-                                    <p:selectOneMenu disabled="#{RegistroEntradaBeans.bloquearProducto}" id="prducto" style="width: 23rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                                      value="#{RegistroEntradaBeans.idProducto}" required="true" autoWidth="false"  >
-                                        <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                        <f:selectItems  value="#{RegistroEntradaBeans.productoDescripcionDtoList}" var="pro" itemLabel="#{pro.descripcion}" itemValue="#{pro.id}" />
-                                        <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.cargarTipoUnidad()}" update="prducto tipoUnidad precio cantidad"  />
-                                    </p:selectOneMenu>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Tipo de Unidad: " /></h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
-                                    <i class="bi bi-rulers" style="margin-right: 1rem"/>
-                                    <p:selectOneMenu disabled="#{RegistroEntradaBeans.bloquearTipoUnidad}" id="tipoUnidad" style="width: 23rem;" filter="true" filterMatchMode="startsWith"  styleClass="ui-selectonemenu"
-                                                     value="#{RegistroEntradaBeans.idTipoUnidad}" required="true" autoWidth="false"  >
-                                        <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
-                                        <f:selectItems  value="#{RegistroEntradaBeans.tipoUnidadDtoList}" var="tu" itemLabel="#{tu.nombre}" itemValue="#{tu.id}" />
-                                        <p:ajax event="valueChange" listener="#{RegistroEntradaBeans.cargarPrecioPorTipoUnidad()}" update="prducto tipoUnidad precio cantidad"  />
-                                    </p:selectOneMenu>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Precio: " /></h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
-                                    <i class="bi bi-cash" style="margin-right: 1rem"/>
-                                    <p:inputText disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.DPPE.precioUniario}"  id="precio" style="width: 23rem;"  />
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <h:panelGrid><h:outputText  styleClass="texto_dialog" value="Cantidad: " /></h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGroup styleClass="ui-inputgroup">
-                                <h:panelGroup  styleClass="ui-inputgroup-addon">
-                                    <i class="bi bi-archive-fill" style="margin-right: 1rem"/>
-                                    <p:inputText id="cantidad"  style="width: 23rem;" disabled="#{RegistroEntradaBeans.bloquearDatosAgregar}" value="#{RegistroEntradaBeans.DPPE.cantidad}" />
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                </div>
-                <br/>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Guardar"  icon="pi pi-check" style="margin-right: 0.5rem;"  action="#{RegistroEntradaBeans.registrarProducto()}" process="form-dialogo-producto @this" update="form-dialogProducto" />
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>
     </ui:define>
 </ui:composition>
 </html>

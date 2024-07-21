@@ -98,10 +98,13 @@ public class ProductoProveedorEntradaService implements Serializable {
         return iProductoProveedorEntradaDao.update(u, oc);
     }
 
+    @Transactional
+    public void cambiarEstado(String estado, String id){
+        iProductoProveedorEntradaDao.setEstado(estado, id);
+    }
 
     @Transactional
     public void delete(int id) {
-
         iPrecioPorTipoUnidadDao.delete(id);
     }
 }

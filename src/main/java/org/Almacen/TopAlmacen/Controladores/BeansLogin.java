@@ -72,6 +72,10 @@ public class BeansLogin implements Serializable {
         itemMenu = DefaultMenuItem.builder().value("Entrada ").icon("pi pi-home").url(contextPath + "/protegido/Entrada/RegistroEntrada.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
+        itemMenu = DefaultMenuItem.builder().value("Control Entrada Registro").icon("pi pi-home").url(contextPath+"/protegido/Entrada/ControlRegistroEntrada.siman").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
         itemMenu = DefaultMenuItem.builder().value("Requerimiento ").icon("pi pi-home").url(contextPath + "/protegido/Salidas/Requerimientos.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
@@ -93,6 +97,7 @@ public class BeansLogin implements Serializable {
 
         itemMenu = DefaultMenuItem.builder().value("Comprobante Salida").icon("pi pi-home").url(contextPath+"/protegido/Salidas/ComprobanteSalida.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
+
 
     }
 
