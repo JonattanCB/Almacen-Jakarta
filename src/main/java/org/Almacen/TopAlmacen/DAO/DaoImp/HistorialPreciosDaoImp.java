@@ -6,7 +6,9 @@ import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IHistorialPreciosDao;
 import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
+import org.Almacen.TopAlmacen.Model.HistorialStock;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Named
@@ -51,4 +53,13 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
         query.setParameter("id", id);
         return query.getSingleResult();
     }
+
+    @Override
+    public List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
+        return _entityManager.createQuery("SELECT h FROM HistorialPrecios  h WHERE h.precioPorTipoUnidad.producto= :productoId AND h.precioPorTipoUnidad.tipoUnidad.Abrev = :tipounidad AND h.fechaRegistro BETWEEN :startDate and :endDate", HistorialPrecios.class)
+                .setParameter("productoId", productoId)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("tipounidad", "UND")
+                .getResultList();    }
 }

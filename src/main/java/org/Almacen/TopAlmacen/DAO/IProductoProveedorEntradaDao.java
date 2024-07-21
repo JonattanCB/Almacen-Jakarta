@@ -18,5 +18,5 @@ public interface IProductoProveedorEntradaDao {
 
     void setEstado(String estado, String id);
 
-    ProductoProveedorEntrada delete(int id);
+    ProductoProveedorEntrada delete(String id);
 }

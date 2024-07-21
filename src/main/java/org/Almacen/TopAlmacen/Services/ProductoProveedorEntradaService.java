@@ -63,7 +63,6 @@ public class ProductoProveedorEntradaService implements Serializable {
 
     @Transactional
     public void insertToBD(ProductoProveedorEntrada c, List<DetalleProductoProveedorEntrada> entradas) {
-
         for (DetalleProductoProveedorEntrada d : entradas) {
             var pptu = iPrecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(d.getProducto().getId(), d.getTipoUnidad().getId());
             if (pptu.getPrecioUnitario() != d.getPrecioUnitario()) {
@@ -85,12 +84,20 @@ public class ProductoProveedorEntradaService implements Serializable {
             var ms = new MovimientoStock();
             ms.setTipoMovimiento("ENTRADA");
             ms.setProducto(d.getProducto());
-            ms.setCantidad(d.getCantidad()*pptu.getUnidadesPorTipoUnidadDeProducto());
+            ms.setCantidad(d.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto());
             ms.setDependencia(c.getUsuario().getUnidadDependencia().getDependencia());
             ms.setSolicitante_Responsable(d.getOC_id().getUsuario());
             iMovimientoStockDao.create(ms);
         }
-        iProductoProveedorEntradaDao.setEstado("COMPLETADO", c.getOC());
+        iProductoProveedorEntradaDao.setEstado("FINALIZADO", c.getOC());
+    }
+
+    @Transactional
+    public void noIsertToBD(ProductoProveedorEntrada c, List<DetalleProductoProveedorEntrada> entradas) {
+        for (DetalleProductoProveedorEntrada d : entradas) {
+            iDetalleProductoProveedorEntradaDao.delete(d.getId());
+        }
+        iProductoProveedorEntradaDao.delete(c.getOC());
     }
 
     @Transactional
@@ -99,7 +106,7 @@ public class ProductoProveedorEntradaService implements Serializable {
     }
 
     @Transactional
-    public void cambiarEstado(String estado, String id){
+    public void cambiarEstado(String estado, String id) {
         iProductoProveedorEntradaDao.setEstado(estado, id);
     }
 

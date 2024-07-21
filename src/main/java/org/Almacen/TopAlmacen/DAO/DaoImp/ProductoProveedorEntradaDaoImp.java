@@ -65,7 +65,7 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
     }
 
     @Override
-    public ProductoProveedorEntrada delete(int id) {
+    public ProductoProveedorEntrada delete(String id) {
         var findobj = _entityManager.find(ProductoProveedorEntrada.class, id);
         if (findobj != null) {
             _entityManager.remove(findobj);
