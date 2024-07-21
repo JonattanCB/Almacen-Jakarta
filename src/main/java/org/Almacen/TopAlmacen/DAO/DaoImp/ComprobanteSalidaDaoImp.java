@@ -19,12 +19,12 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
 
     @Override
     public List<ComprobanteSalida> getAll() {
-        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN fetch  c.dependencia", ComprobanteSalida.class).getResultList();
+        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c  LEFT JOIN FETCH c.usuario LEFT JOIN FETCH  c.dependencia LEFT JOIN FETCH c.usuario.unidadDependencia", ComprobanteSalida.class).getResultList();
     }
 
     @Override
     public ComprobanteSalida getById(int id) {
-        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c JOIN FETCH c.dependencia WHERE c.id = :id",
+        return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c LEFT JOIN FETCH c.dependencia  LEFT JOIN FETCH c.usuario  WHERE c.id = :id",
                 ComprobanteSalida.class).setParameter("id", id).getSingleResult();
     }
 

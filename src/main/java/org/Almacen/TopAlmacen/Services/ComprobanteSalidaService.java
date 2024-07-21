@@ -45,11 +45,11 @@ public class ComprobanteSalidaService implements Serializable {
         var newComprobante = ComprobanteSalidaMapper.fromCreateDto(dto);
         var c = iComprobanteSalidaDao.create(newComprobante);
         for (CreateDetalleComprobanteSalidaDto detalleDto : detallesDto) {
+            detalleDto.setComprobanteSalida(c);
             var itemComprobante = DetalleComprobanteSalidaMapper.fromCreate(detalleDto);
             var pptu = detalleDto.getPrecioPorTipoUnidad();
-
             var cantidadARestar = detalleDto.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto();
-            System.out.println(pptu.getProducto().getNombre() + pptu.getProducto().getStockUnidades().getCantidadStockUnidad());
+
             if (stockUnidadesService.checkStock(pptu.getProducto().getId(), cantidadARestar, pptu)) {
                 iDetalleComprobanteSalidaDao.create(itemComprobante);
                 return c;

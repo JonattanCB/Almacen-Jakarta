@@ -14,6 +14,7 @@ import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.CreateDetalleComproba
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.DetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.MovimientoStock.ValidacionStockDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
+import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
 import org.Almacen.TopAlmacen.Services.ComprobanteSalidaService;
@@ -90,6 +91,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         comprobanteSalidaDto = new ComprobanteSalidaDto();
         detalleComprobanteSalidaDtos = new ArrayList<>();
         listRequermientoAprobado = requerimientoService.getAllAprobed().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+        comprobanteSalidaDto.setEstado("PENDIENTE");
         idRequerimiento = "";
         fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         validacionRequerimiento(1);
@@ -100,6 +102,8 @@ public class ComprobanteSalidaBeans implements Serializable {
         requerimientodto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
         comprobanteSalidaDto.setDependencia(requerimientodto.getUsuario().getUnidadDependencia().getDependencia());
         comprobanteSalidaDto.setParaUso(requerimientodto.getRazonEntrada());
+        comprobanteSalidaDto.setSolicitante(requerimientodto.getUsuario());
+        comprobanteSalidaDto.setDependencia(requerimientodto.getUsuario().getUnidadDependencia().getDependencia());
         cargarDatosTabla();
         calcularPrecioFinal();
         validacionRequerimiento(2);
@@ -132,12 +136,14 @@ public class ComprobanteSalidaBeans implements Serializable {
             create.setObservacion(comprobanteSalidaDto.getObservacion());
             create.setDependencia(comprobanteSalidaDto.getDependencia());
             create.setParaUso(comprobanteSalidaDto.getParaUso());
+            create.setSolicitante(comprobanteSalidaDto.getSolicitante());
+            create.setEstado(comprobanteSalidaDto.getEstado());
             create.setPrecioFinal(precioTotal);
             List<CreateDetalleComprobanteSalidaDto> lst = detalleComprobanteSalidaDtos.stream().map(DetalleComprobanteSalidaMapper::toCreateDto).collect(Collectors.toList());
             comprobanteSalidaService.create(create, lst);
             loadComprobanteSalida();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL Comprobante de Salida ha sido registrado exitosamente en el sistema!"));
-            requerimientoService.setEstadoFinalizado(idRequerimiento, "FINALIZADO|");
+            requerimientoService.setEstadoFinalizado(idRequerimiento, "FINALIZADO");
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");
             PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
         }

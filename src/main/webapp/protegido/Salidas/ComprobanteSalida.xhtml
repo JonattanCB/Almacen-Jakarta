@@ -36,8 +36,8 @@
                         <p:column headerText="#"  sortBy="#{obj.id}" width="80"  >
                             <h:outputText value="#{obj.id}" />
                         </p:column>
-                        <p:column headerText="Dependencia" sortBy="#{obj.unidadDependencia.dependencia.nombre}" width="180" >
-                            <h:outputText value="#{obj.unidadDependencia.dependencia.nombre}" />
+                        <p:column headerText="Solicitante" sortBy="#{ComprobanteSalidaBeans.comprobanteSalidaDto.solicitante.nombres} #{ComprobanteSalidaBeans.comprobanteSalidaDto.solicitante.apellidos}" width="180" >
+                            <h:outputText value="#{ComprobanteSalidaBeans.comprobanteSalidaDto.solicitante.nombres} #{ComprobanteSalidaBeans.comprobanteSalidaDto.solicitante.apellidos}" />
                         </p:column>
                         <p:column headerText="Para Uso " sortBy="#{obj.paraUso}" width="150" >
                             <h:outputText value="#{obj.paraUso}" />
@@ -87,10 +87,10 @@
                     </h:panelGrid>
                     <h:panelGrid  id="Datos-Requerimiento" style="margin-top: 1rem" columns="2" width="1330" >
                         <h:panelGrid >
-                            <h:outputText styleClass="texto_dialog"  value="Dependencia: #{ComprobanteSalidaBeans.comprobanteSalidaDto.unidadDependencia.dependencia.nombre}"  style="margin-top: 1rem" />
+                            <h:outputText styleClass="texto_dialog"  value="Solicitante: #{ComprobanteSalidaBeans.comprobanteSalidaDto.solicitante.nombres} #{ComprobanteSalidaBeans.comprobanteSalidaDto.solicitante.apellidos}"  style="margin-top: 1rem" />
                         </h:panelGrid>
                         <h:panelGrid>
-                            <h:outputText styleClass="texto_dialog"  value="Unidad Dependencia: #{ComprobanteSalidaBeans.comprobanteSalidaDto.unidadDependencia.nombre}" style="margin-top: 1rem"  />
+                            <h:outputText styleClass="texto_dialog"  value="Dependencia: #{ComprobanteSalidaBeans.comprobanteSalidaDto.dependencia.nombre}" style="margin-top: 1rem"  />
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid  style="margin-top: 1rem">
