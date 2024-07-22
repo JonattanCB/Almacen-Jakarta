@@ -34,12 +34,7 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
 
     @Override
     public List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
-        LocalDateTime truncatedStartDate = startDate.withNano(0);
-        LocalDateTime truncatedEndDate = endDate.withNano(0);
-        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId  AND h.fechaRegistrada BETWEEN :startDate AND :endDate", HistorialStock.class)
-                .setParameter("productoId", productoId)
-                .setParameter("startDate", truncatedStartDate)
-                .setParameter("endDate", truncatedEndDate)
-                .getResultList();
+        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId  AND h.fechaRegistrada " +
+                "BETWEEN :startDate AND :endDate").getResultList();
     }
 }

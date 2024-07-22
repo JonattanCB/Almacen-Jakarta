@@ -395,5 +395,12 @@ public class RegistroEntradaBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
+    public void deleteRegistroEntrada(){
+        productoProveedorEntradaService.delete(idRegistroEntrada);
+        loadRegistrarEntrant();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El registro de entrada ha sido ELIMINADO en el sistema!"));
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
 }
 

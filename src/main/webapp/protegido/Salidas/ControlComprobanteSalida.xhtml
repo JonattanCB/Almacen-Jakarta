@@ -14,8 +14,6 @@
                 <h:panelGrid styleClass="contendedor-card-paneles">
                     <p:toolbar>
                         <p:toolbarGroup>
-                            <p:commandButton value="Registrar Comprobante Salida " icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{ComprobanteSalidaBeans.registrarComprobateSalida()}"
-                                  update="dialogs"  oncomplete="PF('dialogsa').show()"  />
                         </p:toolbarGroup>
                     </p:toolbar>
                     <p:dataTable id="tabla" var="obj" value="#{ComprobanteSalidaBeans.comprobanteSalidaDtos}" widgetVar="obj" style="margin-top: 1rem"
@@ -42,7 +40,7 @@
                         <p:column headerText="Observacion" sortBy="#{obj.observacion}" width="100" >
                             <h:outputText value="#{obj.observacion}" />
                         </p:column>
-                        <p:column headerText="Precio Final" sortBy="#{obj.precioFinal}" width="150" >
+                        <p:column headerText="Precio Final" sortBy="#{obj.precioFinal}" width="100" >
                             <h:outputText value="S/. #{obj.precioFinal}" />
                         </p:column>
                         <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistro}" width="100">
@@ -63,6 +61,14 @@
                                              ajax="false">
                                 <p:fileDownload value="#{ReportesComprobanteSalida.file}" />
                             </p:commandButton>
+                            <p:commandButton icon="bi bi-check2" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{obj.estado == 'PENDIENTE'}" action="#{ComprobanteSalidaBeans.aprobarComprobateSalida()}"
+                                             styleClass="edit-button ui-button-success rounded-button" >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{ComprobanteSalidaBeans.idComprobateSalida}" />
+                            </p:commandButton>
+                            <p:commandButton icon="bi bi-x" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{obj.estado == 'PENDIENTE'}" action="#{ComprobanteSalidaBeans.desaprobarComprobanteSalida()}"
+                                             styleClass="edit-button ui-button-danger rounded-button"  >
+                                <f:setPropertyActionListener value="#{obj.id}" target="#{ComprobanteSalidaBeans.idComprobateSalida}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
@@ -78,7 +84,7 @@
                                                        disabled="#{ComprobanteSalidaBeans.comboRequerimiento}"   value="#{ComprobanteSalidaBeans.idRequerimiento}" required="true" autoWidth="false"  >
                                     <f:selectItem  noSelectionOption="true" itemLabel="Seleccione una Opcion"  />
                                     <f:selectItems  value="#{ComprobanteSalidaBeans.listRequermientoAprobado}" var="req" itemLabel="#{req.id}" itemValue="#{req.id}" />
-                                    <p:ajax event="valueChange" listener="#{ComprobanteSalidaBeans.CargarRequerimiento()}" update="requerimiento btnGuardar tabla-detalle precioTotal Datos-Requerimiento razonUso"  />
+                                    <p:ajax event="valueChange" listener="#{ComprobanteSalidaBeans.CargarRequerimiento()}" update="requerimiento tabla-detalle precioTotal Datos-Requerimiento razonUso"  />
                                 </p:selectOneMenu>
                             </h:panelGrid>
                         </h:panelGrid>
@@ -145,10 +151,6 @@
                                 <p:column headerText="Precio Total" width="80">
                                     <h:outputText  value="S/. #{ld.precioTotal}" />
                                 </p:column>
-                                <p:column width="40">
-                                    <p:rowEditor styleClass="rounded-button ui-button-warning ui-button-flat"
-                                                 editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
-                                </p:column>
                             </p:dataTable>
                             <h:panelGrid styleClass="precio-Final-Entrada" columns="2">
                                 <h:outputText styleClass="precio-Final-Entrada-titulo" value="Precio Final :" />
@@ -158,40 +160,11 @@
                     </h:panelGrid>
                 <h:panelGrid width="1100">
                     <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 46rem " >
-                        <p:commandButton value="Guardar" id="btnGuardar" rendered="#{ComprobanteSalidaBeans.btnGuardarRequerimientoView}" disabled="#{ComprobanteSalidaBeans.btnGuardarRequermiento}" update=":form-dialogo-producto" icon="pi pi-check" style="margin-right: 0.5rem;" action="#{ComprobanteSalidaBeans.guardarComprobateSalida()}" />
                         <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogsa').hide()"  styleClass="ui-button-secondary" style="margin-right: 0.5rem;"  type="button"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </h:form>
         </p:dialog >
-
-        <p:dialog id="dialogProducto" header="Detalles de la Verificacion Stock" appendTo="@(body)" width="1000" height="400" showEffect="fade" modal="true"  widgetVar="dialogProducto" >
-            <h:form id="form-dialogo-producto">
-                <h:panelGrid>
-                    <p:dataTable size="small"  scrollable="true" scrollHeight="150" value="#{ComprobanteSalidaBeans.validacionStockDtos}"
-                                 rows="6" paginator="true" rowSelectMode="add" paginatorPosition="bottom" var="vs" >
-                        <p:column headerText="#" width="80">
-                            <h:outputText  value="#{vs.id}"  />
-                        </p:column>
-                        <p:column headerText="Descripcion" width="120">
-                            <h:outputText  value="#{vs.descripcion}"  />
-                        </p:column>
-                        <p:column headerText="Tipo Unidad" width="100">
-                            <h:outputText  value="#{vs.tipoUnidad}"  />
-                        </p:column>
-                        <p:column headerText="Cantidad" width="80">
-                            <h:outputText  value="#{vs.cantidad}"  />
-                        </p:column>
-                        <p:column headerText="Observacion" width="200">
-                            <h:outputText  value="#{vs.observacion}"  />
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGrid>
-                <h:panelGrid columns="2" style="float: right;" >
-                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>
     </ui:define>
 </ui:composition>
 </html>

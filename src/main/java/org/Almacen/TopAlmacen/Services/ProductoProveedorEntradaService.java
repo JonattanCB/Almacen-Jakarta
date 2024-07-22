@@ -111,8 +111,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     }
 
     @Transactional
-    public void delete(int id) {
-        iPrecioPorTipoUnidadDao.delete(id);
+    public void delete(String id) {
+        iProductoProveedorEntradaDao.delete(id);
     }
 }
 

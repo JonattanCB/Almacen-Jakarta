@@ -22,7 +22,7 @@ public class DetalleComprobanteSalidaDaoImp implements IDetalleComprobanteSalida
     }
 
     @Override
-    public List<DetalleComprobanteSalida> getAllbyComprobateSalida(int id) {
+    public List<DetalleComprobanteSalida> getAllbyComprobateSalida(String id) {
         var query = _entityManager.createQuery(
                 "Select d from DetalleComprobanteSalida d join fetch d.comprobanteSalida join fetch d.producto join fetch d.tipoUnidad where d.comprobanteSalida.id = :id",
                 DetalleComprobanteSalida.class);
@@ -38,7 +38,6 @@ public class DetalleComprobanteSalidaDaoImp implements IDetalleComprobanteSalida
         } else {
             return null;
         }
-
     }
 
     @Override

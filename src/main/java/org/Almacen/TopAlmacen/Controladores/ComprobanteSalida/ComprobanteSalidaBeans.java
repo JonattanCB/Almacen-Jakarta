@@ -12,16 +12,21 @@ import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.ComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.CreateDetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.DetalleComprobanteSalidaDto;
+import org.Almacen.TopAlmacen.DTO.DetalleProductoProveedorEntrada.ListadoDetalleProductoProveedorEntradaDto;
 import org.Almacen.TopAlmacen.DTO.MovimientoStock.ValidacionStockDto;
 import org.Almacen.TopAlmacen.DTO.Requerimiento.RequerimientoDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.*;
+import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
+import org.Almacen.TopAlmacen.Model.DetalleComprobanteSalida;
 import org.Almacen.TopAlmacen.Model.ItemsRequerimiento;
+import org.Almacen.TopAlmacen.Model.Requerimiento;
 import org.Almacen.TopAlmacen.Services.ComprobanteSalidaService;
 import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 import org.Almacen.TopAlmacen.Services.RequerimientoService;
 import org.Almacen.TopAlmacen.Services.StockUnidadesService;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.util.LangUtils;
 
 import java.io.Serializable;
@@ -60,7 +65,7 @@ public class ComprobanteSalidaBeans implements Serializable {
 
     private String fechaActual;
 
-    private int idComprobateSalida;
+    private String idComprobateSalida;
 
     private double precioTotal;
 
@@ -100,6 +105,7 @@ public class ComprobanteSalidaBeans implements Serializable {
 
     public void CargarRequerimiento() {
         requerimientodto = RequerimientoMapper.toDto(requerimientoService.getRequerimiento(idRequerimiento));
+        comprobanteSalidaDto.setId(requerimientodto.getId());
         comprobanteSalidaDto.setDependencia(requerimientodto.getUsuario().getUnidadDependencia().getDependencia());
         comprobanteSalidaDto.setParaUso(requerimientodto.getRazonEntrada());
         comprobanteSalidaDto.setSolicitante(requerimientodto.getUsuario());
@@ -133,6 +139,7 @@ public class ComprobanteSalidaBeans implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogProducto').show()");
         } else {
             CreateComprobanteSalidaDto create = new CreateComprobanteSalidaDto();
+            create.setId(comprobanteSalidaDto.getId());
             create.setObservacion(comprobanteSalidaDto.getObservacion());
             create.setDependencia(comprobanteSalidaDto.getDependencia());
             create.setParaUso(comprobanteSalidaDto.getParaUso());
@@ -141,6 +148,7 @@ public class ComprobanteSalidaBeans implements Serializable {
             create.setPrecioFinal(precioTotal);
             List<CreateDetalleComprobanteSalidaDto> lst = detalleComprobanteSalidaDtos.stream().map(DetalleComprobanteSalidaMapper::toCreateDto).collect(Collectors.toList());
             comprobanteSalidaService.create(create, lst);
+            System.out.println("A sido creado");
             loadComprobanteSalida();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡EL Comprobante de Salida ha sido registrado exitosamente en el sistema!"));
             requerimientoService.setEstadoFinalizado(idRequerimiento, "FINALIZADO");
@@ -157,7 +165,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         }
         int filterInt = getInteger(filterText);
         ComprobanteSalidaDto c = (ComprobanteSalidaDto) value;
-        return (c.getId() >= filterInt && c.getId() <= filterInt)
+        return c.getId().toLowerCase().contains(filterText)
                 || (String.valueOf(c.getFechaRegistro())).toLowerCase().contains(filterText)
                 || String.valueOf(c.getPrecioFinal()).contains(filterText)
                 || (c.getDependencia().getNombre()).toLowerCase().contains(filterText)
@@ -231,6 +239,17 @@ public class ComprobanteSalidaBeans implements Serializable {
         return stockInsuficiente;
     }
 
+    public void editarTabla(RowEditEvent<DetalleComprobanteSalidaDto> event){
+        int idtemp = Integer.parseInt(String.valueOf(event.getObject().getId()));
+        for (DetalleComprobanteSalidaDto detalle : detalleComprobanteSalidaDtos) {
+            if (detalle.getId() == idtemp) {
+                detalle.setPrecioTotal(detalle.getCantidad() * detalle.getPrecioTotal());
+                break;
+            }
+        }
+        calcularPrecioFinal();
+    }
+
     private void validarVerComprobanteSalida(int opcion) {
         switch (opcion) {
             case 1:
@@ -244,6 +263,23 @@ public class ComprobanteSalidaBeans implements Serializable {
                 inputObservacion = true;
                 break;
         }
+    }
+
+    public void aprobarComprobateSalida(){
+        ComprobanteSalida cs = comprobanteSalidaService.getById(idComprobateSalida);
+        Requerimiento requerimiento = requerimientoService.getRequerimiento(cs.getId());
+        List<DetalleComprobanteSalida> lst = comprobanteSalidaService.getDetalleComprobanteSalida(idComprobateSalida);
+        comprobanteSalidaService.insertToBD(cs,lst,requerimiento);
+        loadComprobanteSalida();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El comprobante de salidad  ha sido FINALIZADO en el sistema!"));
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    public void desaprobarComprobanteSalida(){
+        comprobanteSalidaService.changeEstadoDesaprobado(idComprobateSalida);
+        loadComprobanteSalida();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El comprobante de salidad  ha sido DESAPROBADO en el sistema!"));
+        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
 

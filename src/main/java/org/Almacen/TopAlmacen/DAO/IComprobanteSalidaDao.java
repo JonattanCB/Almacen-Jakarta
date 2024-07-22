@@ -12,7 +12,7 @@ public interface IComprobanteSalidaDao {
 
     ComprobanteSalida create(ComprobanteSalida c);
 
-    ComprobanteSalida update(UpdateComprobanteSalidaDto c, int id);
+    ComprobanteSalida update(UpdateComprobanteSalidaDto c, String id);
 
     ComprobanteSalida delete(String id);
 

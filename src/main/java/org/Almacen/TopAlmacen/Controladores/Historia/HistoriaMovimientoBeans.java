@@ -40,14 +40,14 @@ public class HistoriaMovimientoBeans implements Serializable {
         }
     }
 
-   /* public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+   public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
         MovimientoStockDto c = (MovimientoStockDto) value;
-        return c.getTipoUnidad().toLowerCase().contains(filterText);
-    }*/
+        return (c.getProducto().getNombre()).toLowerCase().contains(filterText);
+    }
 
 
 }

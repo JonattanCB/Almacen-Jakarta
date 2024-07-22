@@ -98,9 +98,11 @@ public class BeansLogin implements Serializable {
         itemMenu = DefaultMenuItem.builder().value("Comprobante Salida").icon("pi pi-home").url(contextPath+"/protegido/Salidas/ComprobanteSalida.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
+        itemMenu = DefaultMenuItem.builder().value("Contol Comporbate Salida  ").icon("pi pi-home").url(contextPath + "/protegido/Salidas/ControlComprobanteSalida.siman").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
 
     }
-
 
 
 

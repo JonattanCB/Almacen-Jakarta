@@ -9,7 +9,7 @@ public interface IDetalleComprobanteSalidaDao {
 
     List<DetalleComprobanteSalida> getAll();
 
-    List<DetalleComprobanteSalida> getAllbyComprobateSalida(int id);
+    List<DetalleComprobanteSalida> getAllbyComprobateSalida(String id);
 
     DetalleComprobanteSalida getById(int id);
 

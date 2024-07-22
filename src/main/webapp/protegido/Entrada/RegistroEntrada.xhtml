@@ -48,7 +48,7 @@
                         <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistro}" width="100">
                             <h:outputText value="#{obj.fechaRegistro}"/>
                         </p:column>
-                        <p:column headerText="Estado" sortBy="#{obj.estado}" width="40">
+                        <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
                             <h:outputText value="#{obj.estado}"
                                           styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
                         </p:column>
@@ -62,6 +62,11 @@
                                              actionListener="#{ReportesEntradaBeans.updateAndGeneratePDF(obj.OC)}"
                                              ajax="false">
                                 <p:fileDownload value="#{ReportesEntradaBeans.file}" />
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-trash" rendered="#{obj.estado == 'PENDIENTE'}" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                             action="#{RegistroEntradaBeans.deleteRegistroEntrada()}"
+                                             styleClass="edit-button ui-button-danger rounded-button"  >
+                                <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>

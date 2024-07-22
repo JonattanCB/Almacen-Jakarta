@@ -23,7 +23,7 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
     }
 
     @Override
-    public ComprobanteSalida getById(int id) {
+    public ComprobanteSalida getById(String id) {
         return _entityManager.createQuery("SELECT c FROM ComprobanteSalida c LEFT JOIN FETCH c.dependencia  LEFT JOIN FETCH c.usuario  WHERE c.id = :id",
                 ComprobanteSalida.class).setParameter("id", id).getSingleResult();
     }
@@ -31,11 +31,12 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
     @Override
     public ComprobanteSalida create(ComprobanteSalida c) {
         _entityManager.persist(c);
+        System.out.println("aca2");
         return c;
     }
 
     @Override
-    public ComprobanteSalida update(UpdateComprobanteSalidaDto updateComprobanteSalidaDto, int id) {
+    public ComprobanteSalida update(UpdateComprobanteSalidaDto updateComprobanteSalidaDto, String id) {
         var existingComprobante = _entityManager.find(ComprobanteSalida.class, id);
         if (existingComprobante != null) {
             existingComprobante.setDependencia(updateComprobanteSalidaDto.getDependencia());
@@ -49,7 +50,7 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
     }
 
     @Override
-    public ComprobanteSalida delete(int id) {
+    public ComprobanteSalida delete(String id) {
         var comprobanteSalida = _entityManager.find(ComprobanteSalida.class, id);
         if (comprobanteSalida != null) {
             _entityManager.remove(comprobanteSalida);
@@ -60,7 +61,7 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
     }
 
     @Override
-    public void setEstado(String estado, int id) {
+    public void setEstado(String estado, String id) {
         var findObj= getById(id);
         if (findObj != null) {
             findObj.setEstado(estado);

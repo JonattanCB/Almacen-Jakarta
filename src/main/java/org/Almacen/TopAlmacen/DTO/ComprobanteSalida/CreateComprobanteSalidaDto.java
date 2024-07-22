@@ -15,12 +15,11 @@ import org.Almacen.TopAlmacen.Model.Usuario;
 @NoArgsConstructor
 
 public class CreateComprobanteSalidaDto {
-
+    private String id;
     private Dependencia dependencia;
     private String paraUso;
     private String observacion;
     private double precioFinal;
     private String estado;
     private Usuario solicitante;
-
 }
