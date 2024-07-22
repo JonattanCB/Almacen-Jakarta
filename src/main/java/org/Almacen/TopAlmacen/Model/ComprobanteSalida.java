@@ -19,8 +19,7 @@ import java.util.List;
 @Table(name = "ComprobanteSalida")
 public class ComprobanteSalida {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Solicitante", nullable = false)
     private Usuario usuario;

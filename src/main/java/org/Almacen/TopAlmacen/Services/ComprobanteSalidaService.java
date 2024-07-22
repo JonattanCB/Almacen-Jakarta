@@ -29,6 +29,8 @@ public class ComprobanteSalidaService implements Serializable {
     private IMovimientoStockDao imovimientoStockDao;
     @Inject
     private IHistorialStockDao iHistorialStockDao;
+    @Inject
+    private IRequerimiento_ComprobanteSDao iRequerimiento_ComprobanteSDao;
 
     @Transactional
     public List<ComprobanteSalida> getall() {
@@ -36,7 +38,7 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public ComprobanteSalida getById(int id) {
+    public ComprobanteSalida getById(String id) {
         return iComprobanteSalidaDao.getById(id);
     }
 
@@ -62,7 +64,7 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public void insertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles) {
+    public void insertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles, Requerimiento req) {
         for (DetalleComprobanteSalida d : detalles) {
             var pptu = iPrecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(d.getProducto().getId(), d.getTipoUnidad().getId());
 
@@ -80,10 +82,15 @@ public class ComprobanteSalidaService implements Serializable {
             hisStock.setStockUnidades(d.getProducto().getStockUnidades());
             iHistorialStockDao.add(hisStock);
 
-            stockUnidadesService.subtractStockUnidades(pptu,d.getCantidad()*pptu.getUnidadesPorTipoUnidadDeProducto());
+            var reqSalida = new Requerimiento_ComprobanteS();
+            reqSalida.setComprobanteSalida(c);
+            reqSalida.setRequerimiento(req);
+            iRequerimiento_ComprobanteSDao.add(reqSalida);
+
+            stockUnidadesService.subtractStockUnidades(pptu, d.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto());
 
         }
-        iComprobanteSalidaDao.setEstado("COMPLETADO",c.getId());
+        iComprobanteSalidaDao.setEstado("COMPLETADO", c.getId());
     }
 
 

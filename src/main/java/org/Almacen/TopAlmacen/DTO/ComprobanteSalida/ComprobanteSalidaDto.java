@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 
 public class ComprobanteSalidaDto {
-    private int id;
+    private String id;
     private Dependencia dependencia;
     private String paraUso;
     private String observacion;

@@ -8,14 +8,14 @@ import java.util.List;
 public interface IComprobanteSalidaDao {
     List<ComprobanteSalida> getAll();
 
-    ComprobanteSalida getById(int id);
+    ComprobanteSalida getById(String id);
 
     ComprobanteSalida create(ComprobanteSalida c);
 
     ComprobanteSalida update(UpdateComprobanteSalidaDto c, int id);
 
-    ComprobanteSalida delete(int id);
+    ComprobanteSalida delete(String id);
 
-    void setEstado(String estado, int id);
+    void setEstado(String estado, String id);
 
 }
