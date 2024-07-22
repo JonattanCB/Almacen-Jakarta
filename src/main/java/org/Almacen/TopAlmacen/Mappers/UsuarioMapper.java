@@ -6,6 +6,10 @@ import org.Almacen.TopAlmacen.DTO.Usuario.UpdateUsuarioDto;
 import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Model.Usuario;
 
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class UsuarioMapper {
 
     public static UsuarioDto toDto(Usuario usuario) {
@@ -27,16 +31,12 @@ public class UsuarioMapper {
         return usuario;
     }
 
-    public static Usuario toUsuarioFromUpdate(UpdateUsuarioDto dto) {
-        Usuario usuario = new Usuario();
-        usuario.setCorreo(dto.getCorreo());
-        usuario.setContra(dto.getContra());
-        usuario.setNombres(dto.getNombres());
-        usuario.setApellidos(dto.getApellidos());
-        usuario.setEstado(dto.getEstado());
-        usuario.setUnidadDependencia(dto.getUnidad());
-        return usuario;
+    public static String toConcatuser(Usuario usuario) {
+        return Stream.of(usuario.getApellidos(), usuario.getNombres())
+                .filter(Objects::nonNull)
+                .map(String::valueOf)
+                .filter(s -> !s.trim().isEmpty())
+                .collect(Collectors.joining(" "));
+
     }
-
-
 }

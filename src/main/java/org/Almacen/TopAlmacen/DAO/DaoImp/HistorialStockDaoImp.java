@@ -42,4 +42,14 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
                 .setParameter("endDate", endDate)
                 .getResultList();
     }
+
+    @Override
+    public HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDate fecha) {
+        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId AND h.fechaRegistrada <= :fecha ORDER BY h.fechaRegistrada DESC", HistorialStock.class)
+                .setParameter("productoId", productoId)
+                .setParameter("fecha", fecha.atStartOfDay()) // Ajuste para comparar con LocalDateTime
+                .setMaxResults(1)
+                .getSingleResult();
+    }
+
 }

@@ -27,4 +27,8 @@ public class HistorialPrecios {
     private Double precioRegistro;
     @Column(name = "FechaRegistro", nullable = false)
     private LocalDateTime fechaRegistro = LocalDateTime.now();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Responsable", nullable = false)
+    private Usuario responsable;
+
 }

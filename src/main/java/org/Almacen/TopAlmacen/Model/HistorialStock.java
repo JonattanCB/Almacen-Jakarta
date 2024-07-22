@@ -29,6 +29,4 @@ public class HistorialStock {
 
     @Column(name = "FechaRegistrada", nullable = false)
     private LocalDateTime fechaRegistrada = LocalDateTime.now();
-
-
 }

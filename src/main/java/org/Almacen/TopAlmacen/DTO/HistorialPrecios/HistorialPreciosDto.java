@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.Almacen.TopAlmacen.Model.PrecioPorTipoUnidad;
+import org.Almacen.TopAlmacen.Model.Usuario;
 
 import java.time.LocalDateTime;
 
@@ -17,4 +18,5 @@ public class HistorialPreciosDto {
     private String precioPorTipoUnidad;
     private double precioRegistro;
     private LocalDateTime fechaRegistro;
+    private Usuario responsable;
 }

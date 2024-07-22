@@ -14,4 +14,6 @@ public interface IHistorialStockDao {
 
     List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
 
+    HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDate fecha);
+
 }

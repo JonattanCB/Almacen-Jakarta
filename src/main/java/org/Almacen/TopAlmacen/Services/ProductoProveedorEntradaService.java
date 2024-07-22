@@ -68,6 +68,7 @@ public class ProductoProveedorEntradaService implements Serializable {
             if (pptu.getPrecioUnitario() != d.getPrecioUnitario()) {
                 var hisPre = new HistorialPrecios();
                 hisPre.setPrecioPorTipoUnidad(pptu);
+                hisPre.setResponsable(c.getUsuario());
                 hisPre.setPrecioRegistro(d.getPrecioUnitario());
                 iHistorialPreciosDao.create(hisPre);
                 iPrecioPorTipoUnidadDao.updatePrecioU(d.getPrecioUnitario(), pptu.getId());

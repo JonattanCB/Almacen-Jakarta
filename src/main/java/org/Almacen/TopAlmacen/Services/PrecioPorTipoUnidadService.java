@@ -112,7 +112,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id) { //Actualizar
+    public PrecioPorTipoUnidad update(UpdatePrecioPorTipoUnidadDto dto, int id, Usuario usuario) { //Actualizar
         var getItem = iprecioPorTipoUnidadDao.getById(id);
         if (getItem != null) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromUpdate(dto);
@@ -122,6 +122,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
                 var hp = new HistorialPrecios();
                 hp.setPrecioPorTipoUnidad(getItem);
                 hp.setPrecioRegistro(pN);
+                hp.setResponsable(usuario);
                 ihistorialPreciosDao.create(hp);
             }
             getItem.setPrecioUnitario(dto.getPrecio());

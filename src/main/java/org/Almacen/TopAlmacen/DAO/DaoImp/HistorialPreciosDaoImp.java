@@ -20,7 +20,7 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
 
     @Override
     public List<HistorialPrecios> getAll() {
-        return _entityManager.createQuery("SELECT h FROM HistorialPrecios h", HistorialPrecios.class).getResultList();
+        return _entityManager.createQuery("SELECT h FROM HistorialPrecios h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.responsable ", HistorialPrecios.class).getResultList();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
     @Override
     public List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
 
-        return _entityManager.createQuery("SELECT h FROM HistorialPrecios  h WHERE h.precioPorTipoUnidad.producto= :productoId AND h.precioPorTipoUnidad.tipoUnidad.Abrev = :tipounidad AND h.fechaRegistro BETWEEN :startDate and :endDate", HistorialPrecios.class)
+        return _entityManager.createQuery("SELECT h FROM HistorialPrecios  h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.responsable  WHERE h.precioPorTipoUnidad.producto= :productoId AND h.precioPorTipoUnidad.tipoUnidad.Abrev = :tipounidad AND h.fechaRegistro BETWEEN :startDate and :endDate", HistorialPrecios.class)
                 .setParameter("productoId", productoId)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
@@ -69,7 +69,7 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
     @Override
     public HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDate fecha) {
         return _entityManager.createQuery(
-                        "SELECT h FROM HistorialPrecios h WHERE h.precioPorTipoUnidad.producto.id = :productoId AND h.fechaRegistro <= :fecha ORDER BY h.fechaRegistro DESC", HistorialPrecios.class)
+                        "SELECT h FROM HistorialPrecios h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.responsable WHERE h.precioPorTipoUnidad.producto.id = :productoId AND h.fechaRegistro <= :fecha ORDER BY h.fechaRegistro DESC", HistorialPrecios.class)
                 .setParameter("productoId", productoId)
                 .setParameter("fecha", fecha.atStartOfDay()) // Ajuste para comparar con LocalDateTime
                 .setMaxResults(1)
