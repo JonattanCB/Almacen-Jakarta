@@ -1,8 +1,9 @@
 package org.Almacen.TopAlmacen.Mappers;
 
+import org.Almacen.TopAlmacen.Controladores.ComprobanteSalida.PdfComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.ComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
-import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.PdfComprobanteSalidaDto;
+
 import org.Almacen.TopAlmacen.Model.ComprobanteSalida;
 
 public class ComprobanteSalidaMapper {
@@ -15,7 +16,7 @@ public class ComprobanteSalidaMapper {
     }
 
     public static PdfComprobanteSalidaDto toPdfDto(ComprobanteSalida cs) {
-        return new PdfComprobanteSalidaDto(cs.getFechaRegistro(),(cs.getUsuario().getNombres()+" "+cs.getUsuario().getApellidos()), cs.getDependencia().getNombre(),cs.getParaUso(),cs.getPrecioFinal());
+        return new PdfComprobanteSalidaDto(cs.getFechaRegistro(),(cs.getUsuario().getNombres()+" "+cs.getUsuario().getApellidos()), cs.getDependencia().getNombre(),cs.getParaUso(),cs.getEstado(),cs.getPrecioFinal());
     }
 
     public static ComprobanteSalida fromCreateDto(CreateComprobanteSalidaDto dto) {
