@@ -2,6 +2,7 @@ package org.Almacen.TopAlmacen.DAO;
 
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +17,9 @@ public interface IHistorialPreciosDao {
 
     boolean isBeingUsed(int id);
 
-    List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate);
+    List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
+
+    HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDate fecha);
+
 
 }

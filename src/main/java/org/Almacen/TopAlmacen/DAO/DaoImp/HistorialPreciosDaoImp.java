@@ -8,6 +8,7 @@ import org.Almacen.TopAlmacen.Model.Categoria;
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 import org.Almacen.TopAlmacen.Model.HistorialStock;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,15 +56,24 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
     }
 
     @Override
-    public List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
-        LocalDateTime truncatedStartDate = startDate.withNano(0);
-        LocalDateTime truncatedEndDate = endDate.withNano(0);
+    public List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
 
         return _entityManager.createQuery("SELECT h FROM HistorialPrecios  h WHERE h.precioPorTipoUnidad.producto= :productoId AND h.precioPorTipoUnidad.tipoUnidad.Abrev = :tipounidad AND h.fechaRegistro BETWEEN :startDate and :endDate", HistorialPrecios.class)
                 .setParameter("productoId", productoId)
-                .setParameter("startDate", truncatedStartDate)
-                .setParameter("endDate", truncatedEndDate)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
                 .setParameter("tipounidad", "UND")
                 .getResultList();
     }
+
+    @Override
+    public HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDate fecha) {
+        return _entityManager.createQuery(
+                        "SELECT h FROM HistorialPrecios h WHERE h.precioPorTipoUnidad.producto.id = :productoId AND h.fechaRegistro <= :fecha ORDER BY h.fechaRegistro DESC", HistorialPrecios.class)
+                .setParameter("productoId", productoId)
+                .setParameter("fecha", fecha.atStartOfDay()) // Ajuste para comparar con LocalDateTime
+                .setMaxResults(1)
+                .getSingleResult();
+    }
+
 }

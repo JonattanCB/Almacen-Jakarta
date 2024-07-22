@@ -7,6 +7,7 @@ import org.Almacen.TopAlmacen.DAO.IHistorialStockDao;
 import org.Almacen.TopAlmacen.Model.HistorialPrecios;
 import org.Almacen.TopAlmacen.Model.HistorialStock;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,8 +34,12 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
     }
 
     @Override
-    public List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
-        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId  AND h.fechaRegistrada " +
-                "BETWEEN :startDate AND :endDate").getResultList();
+    public List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
+
+        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId  AND h.fechaRegistrada BETWEEN :startDate AND :endDate", HistorialStock.class)
+                .setParameter("productoId", productoId)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
     }
 }

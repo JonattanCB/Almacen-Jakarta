@@ -2,7 +2,7 @@ package org.Almacen.TopAlmacen.DAO;
 
 import org.Almacen.TopAlmacen.Model.HistorialStock;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IHistorialStockDao {
@@ -12,6 +12,6 @@ public interface IHistorialStockDao {
 
     HistorialStock add(HistorialStock historialStock);
 
-    List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate);
+    List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
 
 }

@@ -32,12 +32,7 @@ public class MovimientoStockService implements Serializable {
 
     @Inject
     private IMovimientoStockDao iMovimientoStockDao;
-    @Inject
-    private IHistorialStockDao iHistorialStockDao;
-    @Inject
-    private IHistorialPreciosDao iHistorialPreciosDao;
-    @Inject
-    private IProductoDao iProductoDao;
+
 
     @Transactional
     public List<MovimientoStockDto> getAllMovimientoStock() {
@@ -58,39 +53,4 @@ public class MovimientoStockService implements Serializable {
         return mov;
     }
 
-    @Transactional
-    public KardexTemp createKardex(List<Date> dateRange, int productoId) {
-        if (dateRange != null && dateRange.size() == 2) {
-            Date startDate = dateRange.get(0);
-            Date endDate = dateRange.get(1);
-            String concatDate = "{startDate}-{endDate}";
-
-            var startDateTime = convertToLocalDateTimeViaInstant(startDate);
-            var endDateTime = convertToLocalDateTimeViaInstant(endDate);
-
-            var producto = iProductoDao.getById(productoId);
-
-            var listMovimientos = iMovimientoStockDao.findMovimientosByProductoAndFechaRange(productoId, startDateTime, endDateTime);
-            var listHisStock = iHistorialStockDao.findHistorialByProductoAndFechaRange(productoId, startDateTime, endDateTime);
-            var listHisPrecios = iHistorialPreciosDao.findHistorialByProductoAndFechaRange(productoId, startDateTime, endDateTime);
-
-            var kardex = new KardexTemp();
-            kardex.setProducto(ProductoMapper.toConcatProduct(producto));
-            kardex.setPeriodo(concatDate);
-            kardex.setInvInicial(listHisStock.get(0).getCantidadStock());
-            kardex.setUndMedida("UND");
-            double invIni= kardex.getInvInicial();
-            var itemsKardex = new ArrayList<ItemKardexTemp>();
-            for (MovimientoStock mov : listMovimientos) {
-                var item = new ItemKardexTemp();
-                item.setFecha(mov.getFechaRegistro());
-                item.setArea(mov.getDependencia().getNombre());
-                item.setSolicitanteResponsable(mov.getSolicitante_Responsable().getNombres() + " " + mov.getSolicitante_Responsable().getApellidos() + " " + mov.getSolicitante_Responsable().getNombres());
-                item.setInvInicial(invIni);
-             //   item.setCostoUni(mov.getTipoMovimiento().equals("ENTRADA"))?
-            }
-
-            }
-            return null;
-        }
     }

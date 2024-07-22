@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
 import org.Almacen.TopAlmacen.Model.MovimientoStock;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,15 +43,14 @@ public class MovimientoStockDaoImp implements IMovimientoStockDao {
     }
 
     @Override
-    public List<MovimientoStock> findMovimientosByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
-        LocalDateTime truncatedStartDate = startDate.withNano(0);
-        LocalDateTime truncatedEndDate = endDate.withNano(0);
+    public List<MovimientoStock> findMovimientosByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
+
         return _entityManager.createQuery(
                         "SELECT m FROM MovimientoStock m WHERE m.producto.id = :productoId AND m.fechaRegistro BETWEEN :startDate AND :endDate",
                         MovimientoStock.class)
                 .setParameter("productoId", productoId)
-                .setParameter("startDate", truncatedStartDate)
-                .setParameter("endDate", truncatedEndDate)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
                 .getResultList();
     }
 
