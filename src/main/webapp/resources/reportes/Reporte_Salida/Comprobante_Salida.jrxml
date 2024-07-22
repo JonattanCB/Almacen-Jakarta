@@ -50,7 +50,7 @@
 			</staticText>
 			<textField>
 				<reportElement x="119" y="98" width="446" height="20" uuid="2113d79b-41b3-471a-81a8-dbb961523c1f"/>
-				<box topPadding="1" rightPadding="3"/>
+				<box topPadding="0" rightPadding="3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -102,7 +102,7 @@
 			</textField>
 			<textField>
 				<reportElement x="146" y="72" width="419" height="20" uuid="a51c703e-3541-4a1a-9800-57b0a1af1a7d"/>
-				<box topPadding="1" rightPadding="3"/>
+				<box topPadding="2" rightPadding="3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -135,8 +135,8 @@
 				<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="87" y="103" width="338" height="20" uuid="b40d2a23-1dc7-44fc-9546-1c60ba6f3914"/>
-				<box topPadding="0" rightPadding="3"/>
+				<reportElement x="87" y="102" width="338" height="20" uuid="b40d2a23-1dc7-44fc-9546-1c60ba6f3914"/>
+				<box topPadding="1" rightPadding="3"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
