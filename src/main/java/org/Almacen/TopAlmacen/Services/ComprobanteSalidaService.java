@@ -6,7 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.Almacen.TopAlmacen.DAO.*;
 import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
-import org.Almacen.TopAlmacen.DTO.ComprobanteSalida.PdfComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.CreateDetalleComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.DTO.DetalleComprobanteSalida.PdfDetallesComprobanteSalidaDto;
 import org.Almacen.TopAlmacen.Mappers.ComprobanteSalidaMapper;
