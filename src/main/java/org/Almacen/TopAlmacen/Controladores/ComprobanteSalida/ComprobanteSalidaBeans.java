@@ -243,7 +243,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         int idtemp = Integer.parseInt(String.valueOf(event.getObject().getId()));
         for (DetalleComprobanteSalidaDto detalle : detalleComprobanteSalidaDtos) {
             if (detalle.getId() == idtemp) {
-                detalle.setPrecioTotal(detalle.getCantidad() * detalle.getPrecioTotal());
+                detalle.setPrecioTotal(detalle.getCantidad() * detalle.getPrecioUnitario());
                 break;
             }
         }
