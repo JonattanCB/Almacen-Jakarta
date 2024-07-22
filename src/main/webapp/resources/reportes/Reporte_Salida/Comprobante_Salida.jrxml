@@ -369,7 +369,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="719" y="0" width="17" height="20" uuid="3ef1ecf7-f479-4926-b11b-aab896f515f9"/>
-				<box topPadding="3" leftPadding="0">
+				<box topPadding="2" leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -380,7 +380,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="629" y="0" width="15" height="20" uuid="4631fb9d-455a-42d7-8064-8c223d7102ec"/>
-				<box topPadding="3" leftPadding="0">
+				<box topPadding="2" leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -415,7 +415,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="719" y="1" width="17" height="20" uuid="39ac0755-fd9b-4475-9164-40010e093a3b"/>
-				<box topPadding="3" leftPadding="0">
+				<box topPadding="2" leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
