@@ -17,6 +17,7 @@ import org.primefaces.util.LangUtils;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +35,8 @@ public class KardexBeans implements Serializable {
 
     private int idproducto;
 
+    private boolean validarBtns;
+
     private List<ProductoDescripcionDto> productoDescripcionDtos;
 
     private List<Date> fechasSeleccionadas;
@@ -44,7 +47,10 @@ public class KardexBeans implements Serializable {
 
     @PostConstruct
     private  void init(){
+        fechasSeleccionadas = new ArrayList<>();
+        itemKardexTemps = new ArrayList<>();
         loadProductoDescripcionDtos();
+        validarBotones();
     }
 
     private void loadProductoDescripcionDtos(){
@@ -53,10 +59,15 @@ public class KardexBeans implements Serializable {
 
     public void buscarKardex(){
         LocalDate startDate = fechasSeleccionadas.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate endDate = fechasSeleccionadas.get(fechasSeleccionadas.size() - 1).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDate;
+        if (fechasSeleccionadas.size() ==1){
+            endDate = fechasSeleccionadas.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }else{
+           endDate = fechasSeleccionadas.get(fechasSeleccionadas.size() - 1).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
         KardexTemp kardex = kardexService.generarKardex(idproducto, startDate, endDate);
         itemKardexTemps = kardex.getItems();
-        PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+        PrimeFaces.current().ajax().update( ":form-datos:tabla");
     }
 
 
@@ -67,6 +78,14 @@ public class KardexBeans implements Serializable {
         }
         ItemKardexTemp c = (ItemKardexTemp) value;
         return (String.valueOf(c.getFecha()).toLowerCase().contains(filterText));
+    }
+
+    public void validarBotones(){
+        if (fechasSeleccionadas.isEmpty() || idproducto ==0 || productoDescripcionDtos.isEmpty()){
+            validarBtns = true;
+        }else{
+            validarBtns = false;
+        }
     }
 
 }

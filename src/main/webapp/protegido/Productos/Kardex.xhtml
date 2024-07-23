@@ -15,33 +15,36 @@
                         <p:toolbar style="height: 8rem;">
                             <p:toolbarGroup>
                                 <h:panelGrid columns="3">
-                                    <h:panelGrid>
+                                    <h:panelGrid columns="2">
                                        <h:panelGrid>
                                            <h:outputText  styleClass="texto_dialog" value="Productos: " />
                                        </h:panelGrid>
                                         <h:panelGrid>
-                                            <p:selectOneMenu style="width:29.58vw" filter="true" filterMatchMode="startsWith" id="Producto" styleClass="ui-selectonemenu"
-                                                             value="#{KardexBeans.idproducto}"  required="true" autoWidth="false"    >
+                                            <p:selectOneMenu style="width:29.58vw" filter="true" filterMatchMode="startsWith" id="Producto"  styleClass="ui-selectonemenu"
+                                                             value="#{KardexBeans.idproducto}"  required="true" autoWidth="false"     >
                                                 <f:selectItem noSelectionOption="true" itemLabel="Seleccionar Opciones"  />
                                                 <f:selectItems value="#{KardexBeans.productoDescripcionDtos}" var="pro" itemLabel="#{pro.descripcion}" itemValue="#{pro.id}" />
+                                                <p:ajax event="valueChange" listener="#{KardexBeans.validarBotones()}"  update="busqueda pdf"  />
                                             </p:selectOneMenu>
                                         </h:panelGrid>
                                     </h:panelGrid>
-                                    <h:panelGrid>
+                                    <h:panelGrid  columns="2">
                                         <h:panelGrid>
                                             <h:outputText  styleClass="texto_dialog" value="Fechas: " />
                                         </h:panelGrid>
                                         <h:panelGrid>
-                                            <p:datePicker id="range" selectionMode="range" value="#{KardexBeans.fechasSeleccionadas}" readonlyInput="true" />
+                                            <p:datePicker id="range" selectionMode="range" value="#{KardexBeans.fechasSeleccionadas}" readonlyInput="true" >
+                                                <p:ajax event="valueChange" listener="#{KardexBeans.validarBotones()}"  update="busqueda pdf"  />
+                                            </p:datePicker>
                                         </h:panelGrid>
                                     </h:panelGrid>
-                                    <h:panelGrid>
-                                        <p:commandButton value="Buscar" styleClass="disenio-export"  action="#{KardexBeans.buscarKardex()}" />
-                                    </h:panelGrid>
+                                    <p:commandButton id="busqueda" value="Buscar" icon="pi pi-search" disabled="#{KardexBeans.validarBtns}"
+                                                     styleClass="disenio-export"  action="#{KardexBeans.buscarKardex()}" style="margin-left: 1rem;" />
                                 </h:panelGrid>
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
-                                <p:commandButton value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help"  >
+                                <p:commandButton id="pdf" value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help"
+                                                 style="margin-right: 0.5rem;" disabled="#{KardexBeans.validarBtns}"  >
 
                                 </p:commandButton>
                             </p:toolbarGroup>
