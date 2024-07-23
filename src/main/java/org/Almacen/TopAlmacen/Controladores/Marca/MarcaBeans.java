@@ -11,6 +11,7 @@ import lombok.Data;
 import org.Almacen.TopAlmacen.DTO.Marca.CreateMarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Marca.UpdateMarcaDto;
+import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Services.MarcaService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
@@ -28,14 +29,20 @@ public class MarcaBeans implements Serializable {
     private MarcaService marcaService;
 
     private List<MarcaDto> marcaDtoList;
+
     private List<MarcaDto> marcaDtoListSeleccionado;
+
     private MarcaDto marcaDto;
+
     private int idMarca;
+
+    private boolean renderBtnRol;
 
 
     @PostConstruct
     private void init(){
         loadMarca();
+        validarRol();
     }
 
     public  void nuevaMarca(){
@@ -129,6 +136,15 @@ public class MarcaBeans implements Serializable {
             return Integer.parseInt(string);
         } catch (NumberFormatException ex) {
             return 0;
+        }
+    }
+
+    private void validarRol(){
+        UsuarioDto user = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        if (user.getUnidad().getRol().getNombre().equalsIgnoreCase("Jefe")){
+            renderBtnRol = true;
+        }else{
+            renderBtnRol = false;
         }
     }
 

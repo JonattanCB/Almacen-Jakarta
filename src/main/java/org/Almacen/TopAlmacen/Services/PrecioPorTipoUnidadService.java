@@ -55,7 +55,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto) {// CUANDO ES UNIDAD
+    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto,Usuario usuario) {// CUANDO ES UNIDAD
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
             var nuevaUnidad = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);
@@ -64,6 +64,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
             var hp = new HistorialPrecios();
             hp.setPrecioPorTipoUnidad(created);
             hp.setPrecioRegistro(dto.getPrecio());
+            hp.setResponsable(usuario);
             ihistorialPreciosDao.create(hp);
 
             return created;
@@ -73,7 +74,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto) {//CUANDO ES PAQUETE
+    public PrecioPorTipoUnidad crearProductoConUnidadSuperior(CreatePrecioPorTipoUnidadDto dto,Usuario usuario) {//CUANDO ES PAQUETE
         if (existeUnidadBasica(dto.getProducto())) {
             var pptu = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
 
@@ -81,6 +82,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
             var historialPrecios = new HistorialPrecios();
             historialPrecios.setPrecioPorTipoUnidad(createdUnidad);
             historialPrecios.setPrecioRegistro(dto.getPrecio());
+            historialPrecios.setResponsable(usuario);
             ihistorialPreciosDao.create(historialPrecios);
             return createdUnidad;
         } else {

@@ -12,6 +12,7 @@ import org.Almacen.TopAlmacen.DTO.Marca.MarcaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.CreateProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.Producto.UpdateProductoDto;
+import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.CategoriaMapper;
 import org.Almacen.TopAlmacen.Mappers.MarcaMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
@@ -54,6 +55,8 @@ public class ProductosBeans implements Serializable {
 
     private boolean btnNuevoProducto;
 
+    private boolean btnRol;
+
     private List<ProductoDto> productosProductoDtoList;
 
     private List<ProductoDto> productoDtoListSeleccionable;
@@ -66,6 +69,7 @@ public class ProductosBeans implements Serializable {
     private void init() {
         loadProductos();
         verificarNuevoBoton();
+        verificarRol();
     }
 
     public void nuevoProducto() {
@@ -190,6 +194,15 @@ public class ProductosBeans implements Serializable {
             productosProductoDtoList = productoService.getAllProducto();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void  verificarRol(){
+        UsuarioDto user = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        if (user.getUnidad().getRol().getNombre().equalsIgnoreCase("Jefe")){
+            btnRol = true;
+        }else{
+            btnRol = false;
         }
     }
 

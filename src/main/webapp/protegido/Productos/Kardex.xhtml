@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../WEB-INF/templates/plantilla.xhtml">
+    <ui:define name="contenido">
+        <h:form id="form-datos">
+            <h:panelGrid styleClass="contenido-panel">
+                <p:growl id="messages"/>
+                    <h:panelGrid styleClass="contendedor-card-paneles">
+                        <p:toolbar style="height: 8rem;">
+                            <p:toolbarGroup>
+                                <h:panelGrid columns="3">
+                                    <h:panelGrid>
+                                       <h:panelGrid>
+                                           <h:outputText  styleClass="texto_dialog" value="Productos: " />
+                                       </h:panelGrid>
+                                        <h:panelGrid>
+                                            <p:selectOneMenu style="width:29.58vw" filter="true" filterMatchMode="startsWith" id="Producto" styleClass="ui-selectonemenu"
+                                                             value="#{KardexBeans.idproducto}"  required="true" autoWidth="false"    >
+                                                <f:selectItem noSelectionOption="true" itemLabel="Seleccionar Opciones"  />
+                                                <f:selectItems value="#{KardexBeans.productoDescripcionDtos}" var="pro" itemLabel="#{pro.descripcion}" itemValue="#{pro.id}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <h:panelGrid>
+                                        <h:panelGrid>
+                                            <h:outputText  styleClass="texto_dialog" value="Fechas: " />
+                                        </h:panelGrid>
+                                        <h:panelGrid>
+                                            <p:datePicker id="range" selectionMode="range" value="#{KardexBeans.fechasSeleccionadas}" readonlyInput="true" />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <h:panelGrid>
+                                        <p:commandButton value="Buscar" styleClass="disenio-export"  action="#{KardexBeans.buscarKardex()}" />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right" >
+                                <p:commandButton value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help"  >
+
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="tabla" var="obj" value="#{KardexBeans.itemKardexTemps}" widgetVar="obj" style="margin-top: 1rem"
+                                     emptyMessage="No hay elementos disponibles" filteredValue="#{KardexBeans.itemKardexTempsSeleccion}"
+                                     globalFilterFunction="#{KardexBeans.globalFilterFunction}"
+                                     rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                    <div class="header-tabla">
+                                        <span class="titulo-hearder-tabla">Kardex del Producto</span>
+                                        <span class="ui-input-icon-left busqueda-hearder-tabla">
+                                            <i class="pi pi-search"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
+                                                         style="font-size: 13px;width: 300px"
+                                                         placeholder="Buscar entre las fechas del producto"/>
+                                        </span>
+                                    </div>
+                            </f:facet>
+                            <p:column headerText="Fecha"  sortBy="#{obj.fecha}" width="80"  >
+                                <h:outputText value="#{obj.fecha}" />
+                            </p:column>
+                            <p:column headerText="Area"  sortBy="#{obj.area}" width="90"  >
+                                <h:outputText value="#{obj.area}" />
+                            </p:column>
+                            <p:column headerText="Soliciante"  sortBy="#{obj.solicitanteResponsable}" width="120"  >
+                                <h:outputText value="#{obj.solicitanteResponsable}" />
+                            </p:column>
+                            <p:column headerText="Inventario Inicial"  sortBy="#{obj.invInicial}" width="100"  >
+                                <h:outputText value="#{obj.invInicial}" />
+                            </p:column>
+                            <p:column headerText="Costo Unitario"  sortBy="#{obj.costoUni}" width="90"  >
+                                <h:outputText value="S./ #{obj.costoUni}" />
+                            </p:column>
+                            <p:column headerText="Entrada"  sortBy="#{obj.stockEntrada}" width="90"  >
+                                <h:outputText value="#{obj.stockEntrada}" />
+                            </p:column>
+                            <p:column headerText="Salida"  sortBy="#{obj.stockSalida}" width="90"  >
+                                <h:outputText value="#{obj.stockSalida}" />
+                            </p:column>
+                            <p:column headerText="Inventario Final"  sortBy="#{obj.invFinal}" width="100"  >
+                                <h:outputText value="#{obj.invFinal}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+             </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

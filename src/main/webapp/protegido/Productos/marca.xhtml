@@ -15,7 +15,7 @@
                         <p:toolbar>
                             <p:toolbarGroup>
                                 <p:commandButton value="Nueva Marca" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" actionListener="#{MarcaBeans.nuevaMarca()}"
-                                                 update="dialogs" oncomplete="PF('dialogsa').show()"  >
+                                                 update="dialogs" oncomplete="PF('dialogsa').show()"  rendered="#{MarcaBeans.renderBtnRol}" >
                                 </p:commandButton>
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
@@ -58,10 +58,10 @@
                             <p:column exportable="false" width="100">
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{MarcaBeans.CargarMarcaraparaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
-                                                 styleClass="edit-button rounded-button ui-button-warning"  >
+                                                 styleClass="edit-button rounded-button ui-button-warning"  rendered="#{MarcaBeans.renderBtnRol}" >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{MarcaBeans.renderBtnRol}"
                                                  icon="pi pi-arrow-right-arrow-left" action="#{MarcaBeans.CambiarEstado()}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{MarcaBeans.idMarca}" />
                                     <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la marca #{obj.nombre}?" icon="pi pi-info-circle"/>

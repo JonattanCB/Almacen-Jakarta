@@ -16,10 +16,13 @@ import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.CreateStockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.StockUnidades.StockUnidadesDto;
 import org.Almacen.TopAlmacen.DTO.TipoUnidad.TipoUnidadDto;
+import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Mappers.TipoUnidadMapper;
+import org.Almacen.TopAlmacen.Mappers.UsuarioMapper;
 import org.Almacen.TopAlmacen.Model.StockUnidades;
+import org.Almacen.TopAlmacen.Model.Usuario;
 import org.Almacen.TopAlmacen.Services.PrecioPorTipoUnidadService;
 import org.Almacen.TopAlmacen.Services.ProductoService;
 import org.Almacen.TopAlmacen.Services.StockUnidadesService;
@@ -145,8 +148,9 @@ public class PrecioTUBeans implements Serializable {
         createPrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
         createPrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         createPrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
+        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         if (createPrecioPorTipoUnidadDto.getTipoUnidad().getAbrev().equals("UND")) {
-            precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto);
+            precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto,UsuarioMapper.toUsuario(usuarioDto));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
             loadPrecioPorTipoUnidad();
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");
@@ -157,7 +161,7 @@ public class PrecioTUBeans implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                 PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
             } else {
-                if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto) == null) {
+                if (precioPorTipoUnidadService.crearProductoConUnidadSuperior(createPrecioPorTipoUnidadDto,UsuarioMapper.toUsuario(usuarioDto)) == null) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puede registrar el precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " sin tener registrada una unidad de ese producto."));
                     PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
                 } else {
@@ -172,11 +176,12 @@ public class PrecioTUBeans implements Serializable {
 
     private void updatePrecioPorTipoUnidad() {
         UpdatePrecioPorTipoUnidadDto updatePrecioPorTipoUnidadDto = new UpdatePrecioPorTipoUnidadDto();
+        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         updatePrecioPorTipoUnidadDto.setTipoUnidad(TipoUnidadMapper.toTipoUnidad(tipoUnidadService.getTipoUnidad(tipoUnidadID)));
         updatePrecioPorTipoUnidadDto.setProducto(ProductoMapper.toProducto(productoService.getProductoById(productoId)));
         updatePrecioPorTipoUnidadDto.setPrecio(precioPorTipoUnidadDto.getPrecioUnitario());
         updatePrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
-        precioPorTipoUnidadService.update(updatePrecioPorTipoUnidadDto, precioPorTipoUnidadID,);
+        precioPorTipoUnidadService.update(updatePrecioPorTipoUnidadDto, precioPorTipoUnidadID,UsuarioMapper.toUsuario(usuarioDto));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + updatePrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido actualizado exitosamente en el sistema!"));
         loadPrecioPorTipoUnidad();
         PrimeFaces.current().executeScript("PF('dialogsa').hide()");

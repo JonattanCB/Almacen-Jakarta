@@ -15,7 +15,7 @@
                         <p:toolbar>
                             <p:toolbarGroup>
                                 <p:commandButton value="Nueva Producto" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{ProductosBeans.nuevoProducto()}"
-                                                update="dialogs" disabled="#{ProductosBeans.btnNuevoProducto}"  oncomplete="PF('dialogsa').show()"  />
+                                                update="dialogs" rendered="#{ProductosBeans.btnRol}" disabled="#{ProductosBeans.btnNuevoProducto}"  oncomplete="PF('dialogsa').show()"  />
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
@@ -62,12 +62,12 @@
                                                  styleClass="edit-button rounded-button "  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{ProductosBeans.productoid}" />
                                 </p:commandButton>
-                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{ProductosBeans.btnRol}"
                                                  action="#{ProductosBeans.cargarProductoEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
                                                  styleClass="edit-button rounded-button ui-button-warning"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{ProductosBeans.productoid}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff ; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton class="edit-button ui-button-danger rounded-button" style="color: #ffffff ; height: 2.3rem; font-size: 0.2rem" rendered="#{ProductosBeans.btnRol}"
                                                  icon="pi pi-arrow-circle-down" action="#{ProductosBeans.cambiarEstado()}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{ProductosBeans.productoid}" />
                                     <p:confirm header="Confirmación del Sistema"

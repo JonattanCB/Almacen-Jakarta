@@ -14,8 +14,8 @@
                     <h:panelGrid styleClass="contendedor-card-paneles">
                         <p:toolbar>
                             <p:toolbarGroup>
-                                <p:commandButton value="Nueva Categoria" icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{CategoriaBeans.nuevaCategoria()}"
-                                                update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                                <p:commandButton value="Nueva Categoria"  icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{CategoriaBeans.nuevaCategoria()}"
+                                                update="dialogs" rendered="#{CategoriaBeans.renderRol}" oncomplete="PF('dialogsa').show()"  />
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
                                 <p:commandButton  value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" style="margin-right: 0.5rem;">
@@ -65,10 +65,10 @@
                                 </p:commandButton>
                                 <p:commandButton icon="pi pi-pencil" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                                  action="#{CategoriaBeans.cargarCategoriaParaEdicion()}" update=":dialogs"  oncomplete="PF('dialogsa').show()"
-                                                 styleClass="edit-button rounded-button ui-button-warning"  >
+                                                 styleClass="edit-button rounded-button ui-button-warning" rendered="#{CategoriaBeans.renderRol}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
                                 </p:commandButton>
-                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem"
+                                <p:commandButton class="edit-button ui-button-secondary rounded-button" style="color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{CategoriaBeans.renderRol}"
                                                  icon="pi pi-arrow-right-arrow-left" action="#{CategoriaBeans.cambiarEstado()}"  >
                                     <f:setPropertyActionListener value="#{obj.id}" target="#{CategoriaBeans.categoriaId}" />
                                     <p:confirm header="Confirmacion" message="¿Está seguro de que desea cambiar el estado de la Categoria #{obj.nombre}?" icon="pi pi-info-circle"/>

@@ -15,7 +15,7 @@
                     <p:toolbar>
                         <p:toolbarGroup>
                             <p:commandButton value="Registrar Comprobante Salida " icon="pi pi-plus" styleClass="disenio-nuevo ui-button-success" action="#{ComprobanteSalidaBeans.registrarComprobateSalida()}"
-                                  update="dialogs"  oncomplete="PF('dialogsa').show()"  />
+                                  update="dialogs"  disabled="#{ComprobanteSalidaBeans.btnRegistrar}"  oncomplete="PF('dialogsa').show()"  />
                         </p:toolbarGroup>
                     </p:toolbar>
                     <p:dataTable id="tabla" var="obj" value="#{ComprobanteSalidaBeans.comprobanteSalidaDtos}" widgetVar="obj" style="margin-top: 1rem"

@@ -40,6 +40,14 @@ public class BeansLogin implements Serializable {
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder().label("productos").expanded(true).build();
         DefaultMenuItem itemMenu = DefaultMenuItem.builder().value("marca").icon("pi pi-home").url(contextPath + "/protegido/Productos/marca.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
+
+
+        itemMenu = DefaultMenuItem.builder().value("Kardex").icon("pi pi-home").url(contextPath + "/protegido/Productos/Kardex.siman").update("contenido_escritorio-update").build();
+        firstSubmenu.getElements().add(itemMenu);
+
+
+
+
         itemMenu = DefaultMenuItem.builder().value("categoria").icon("pi pi-home").url(contextPath + "/protegido/Productos/categoria.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
         itemMenu = DefaultMenuItem.builder().value("Producto").icon("pi pi-home").url(contextPath + "/protegido/Productos/producto.siman").update("contenido_escritorio-update").build();

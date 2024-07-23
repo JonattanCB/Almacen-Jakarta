@@ -92,7 +92,7 @@ public class ReportesEntradaBeans implements Serializable {
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(pdfBytes);
 
                 file = DefaultStreamedContent.builder()
-                        .name("Registro_entradas.pdf")
+                        .name("Registro entrada.pdf")
                         .contentType("application/pdf")
                         .stream(() -> inputStream)
                         .build();

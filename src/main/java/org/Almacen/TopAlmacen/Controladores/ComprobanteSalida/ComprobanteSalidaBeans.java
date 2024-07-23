@@ -77,6 +77,8 @@ public class ComprobanteSalidaBeans implements Serializable {
 
     private boolean inputObservacion;
 
+    private boolean btnRegistrar;
+
     private List<RequerimientoDto> listRequermientoAprobado;
 
     private List<DetalleComprobanteSalidaDto> detalleComprobanteSalidaDtos;
@@ -90,6 +92,7 @@ public class ComprobanteSalidaBeans implements Serializable {
     @PostConstruct
     private void init() {
         loadComprobanteSalida();
+        ValidarRequerimientoExit();
     }
 
     public void registrarComprobateSalida() {
@@ -177,7 +180,7 @@ public class ComprobanteSalidaBeans implements Serializable {
         comprobanteSalidaDto = ComprobanteSalidaMapper.toDto(comprobanteSalidaService.getById(idComprobateSalida));
         fechaActual = comprobanteSalidaDto.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         listRequermientoAprobado = requerimientoService.getAllAprobed().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
-        idRequerimiento = "";
+        idRequerimiento = idComprobateSalida;
         detalleComprobanteSalidaDtos = comprobanteSalidaService.getDetalleComprobanteSalida(idComprobateSalida).stream().map(DetalleComprobanteSalidaMapper::toDto).collect(Collectors.toList());
         precioTotal = comprobanteSalidaDto.getPrecioFinal();
         validarVerComprobanteSalida(2);
@@ -280,6 +283,15 @@ public class ComprobanteSalidaBeans implements Serializable {
         loadComprobanteSalida();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El comprobante de salidad  ha sido DESAPROBADO en el sistema!"));
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
+    }
+
+    private  void ValidarRequerimientoExit(){
+        List<RequerimientoDto> lst = requerimientoService.getAllAprobed().stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+        if (lst.isEmpty()){
+            btnRegistrar = true;
+        }else{
+            btnRegistrar = false;
+        }
     }
 
 

@@ -77,7 +77,7 @@ public class ReportesComprobanteSalida implements Serializable {
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(pdfBytes);
 
                 file = DefaultStreamedContent.builder()
-                        .name("Registro_entradas.pdf")
+                        .name("Comprobante Salida.pdf")
                         .contentType("application/pdf")
                         .stream(() -> inputStream)
                         .build();

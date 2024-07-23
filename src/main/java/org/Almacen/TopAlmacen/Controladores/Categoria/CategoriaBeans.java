@@ -13,6 +13,7 @@ import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.CreateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Categoria.UpdateCategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDto;
+import org.Almacen.TopAlmacen.DTO.Usuario.UsuarioDto;
 import org.Almacen.TopAlmacen.Mappers.ProductoMapper;
 import org.Almacen.TopAlmacen.Model.Producto;
 import org.Almacen.TopAlmacen.Services.CategoriaService;
@@ -30,19 +31,31 @@ public class CategoriaBeans implements Serializable {
 
     @Inject
     private CategoriaService categoriaService;
+
     private CategoriaDto categoriaDto;
+
     private List<CategoriaDto> categorias;
+
     private List<CategoriaDto> categoriasSelecionadas;
+
     private List<ProductoDto> productoDtoList;
+
     private List<ProductoDto> productoDtoListSeleccion;
+
     private boolean renderedCategoria;
+
     private boolean renderedProducto;
+
     private boolean renderedBtnGuardar;
+
+    private boolean renderRol;
+
     private int categoriaId;
 
     @PostConstruct
     public void init() {
         loadCategorias();
+        validarNuevaCategoria();
     }
 
     public void nuevaCategoria() {
@@ -171,6 +184,15 @@ public class CategoriaBeans implements Serializable {
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
+
+    private void validarNuevaCategoria(){
+        UsuarioDto  user = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        if (user.getUnidad().getRol().getNombre().equalsIgnoreCase("Jefe")){
+            renderRol = true;
+        }else{
+            renderRol = false;
+        }
+    }
 
 
 }
