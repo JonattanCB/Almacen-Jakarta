@@ -99,7 +99,7 @@ public class BeansLogin implements Serializable {
                 itemMenu = DefaultMenuItem.builder().value("Unidad").icon("pi pi-home").url(contextPath+"/protegido/Personal/unidadDependencia.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
-        itemMenu = DefaultMenuItem.builder().value("Validar Requermiento").icon("pi pi-home").url(contextPath+"/protegido/Salidas/RequerimientosValidacion.siman").update("contenido_escritorio-update").build();
+        itemMenu = DefaultMenuItem.builder().value("Control Requermiento").icon("pi pi-home").url(contextPath+"/protegido/Salidas/ControlRequerimientos.siman").update("contenido_escritorio-update").build();
         firstSubmenu.getElements().add(itemMenu);
 
 

@@ -24,12 +24,12 @@
                                  rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                         <f:facet name="header">
                             <div class="header-tabla">
-                                <span class="titulo-hearder-tabla">Registro de Entradas</span>
+                                <span class="titulo-hearder-tabla">Control de Solicitudes</span>
                                 <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
                                                          style="font-size: 13px;width: 300px"
-                                                         placeholder="Buscar entre los datos de Requerimientos"/>
+                                                         placeholder="Buscar entre los datos de Solicitudes"/>
                                         </span>
                             </div>
                         </f:facet>
@@ -42,7 +42,7 @@
                         <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistrada}" width="150">
                             <h:outputText value="#{obj.fechaRegistrada}"/>
                         </p:column>
-                        <p:column headerText="Razon del requerimiento" sortBy="#{obj.razonEntrada}" width="150">
+                        <p:column headerText="Razon de la Solicitud" sortBy="#{obj.razonEntrada}" width="150">
                             <h:outputText value="#{obj.razonEntrada}"/>
                         </p:column>
                         <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
@@ -60,11 +60,11 @@
                                              ajax="false">
                                 <p:fileDownload value="#{ReporteRequerimientoBeans.file}" />
                             </p:commandButton>
-
                             <p:commandButton icon="bi bi-check2" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                               update=":form-dialogo-producto" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RequerimientoBeans.estadoAprobado()}"
                                              styleClass="edit-button ui-button-success rounded-button" >
                                 <f:setPropertyActionListener value="#{obj.id}" target="#{RequerimientoBeans.idRequerimiento}" />
+                                <p:confirm header="Confirmacion" message="¿Está seguro de que desea aprobar la solicitud #{obj.id}?" icon="pi pi-info-circle"/>
                             </p:commandButton>
                             <p:commandButton icon="bi bi-x" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem"
                                              update=":form-dialogo-producto" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RequerimientoBeans.limpiarObservacionSalidaDesaprobada()}" oncomplete="PF('aceptar').show()"
@@ -74,9 +74,13 @@
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="500">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="650"
+        <p:dialog id="dialogs" header="Detalles de la Solicitud" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="650"
                   widgetVar="dialogsa" styleClass="dialogs-barra">
             <h:form id="form-dialogProducto">
                 <p:outputPanel>

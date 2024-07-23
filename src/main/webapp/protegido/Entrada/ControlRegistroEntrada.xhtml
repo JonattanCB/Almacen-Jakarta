@@ -61,14 +61,20 @@
                             <p:commandButton icon="bi bi-check2" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RegistroEntradaBeans.estadoAprobado()}"
                                              styleClass="edit-button ui-button-success rounded-button" >
                                 <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
+                                <p:confirm header="Confirmacion" message="¿Está seguro de que desea aprobar el registro de entrada #{obj.OC}?" icon="pi pi-info-circle"/>
                             </p:commandButton>
                             <p:commandButton icon="bi bi-x" style="margin-right: 0.5rem;color: #ffffff; height: 2.3rem; font-size: 0.2rem" rendered="#{obj.estado == 'PENDIENTE'}" action="#{RegistroEntradaBeans.estadoDesaprobado()}" oncomplete="PF('aceptar').show()"
                                              styleClass="edit-button ui-button-danger rounded-button"  >
                                 <f:setPropertyActionListener value="#{obj.OC}" target="#{RegistroEntradaBeans.idRegistroEntrada}" />
+                                <p:confirm header="Confirmacion" message="¿Está seguro de que desea desaprobar el registro de entrada #{obj.OC}?" icon="pi pi-info-circle"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="500">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
             </h:panelGrid>
         </h:form>
 

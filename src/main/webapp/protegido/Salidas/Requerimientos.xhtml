@@ -14,7 +14,7 @@
                 <h:panelGrid styleClass="contendedor-card-paneles">
                     <p:toolbar>
                         <p:toolbarGroup>
-                            <p:commandButton value="Registrar Requerimientos" icon="pi pi-plus"
+                            <p:commandButton value="Registrar Solicitud" icon="pi pi-plus"
                                              styleClass="disenio-nuevo ui-button-success"
                                              action="#{RequerimientoBeans.NuevoRequerimiento()}"
                                              update="dialogs" oncomplete="PF('dialogsa').show()"/>
@@ -28,12 +28,12 @@
                                  rows="10" paginator="true" rowSelectMode="add" paginatorPosition="bottom">
                         <f:facet name="header">
                             <div class="header-tabla">
-                                <span class="titulo-hearder-tabla">Registro de Entradas</span>
+                                <span class="titulo-hearder-tabla">Registro de Solicitudes</span>
                                 <span class="ui-input-icon-left busqueda-hearder-tabla">
                                             <i class="pi pi-search"/>
                                             <p:inputText id="globalFilter" onkeyup="PF('obj').filter()"
                                                          style="font-size: 13px;width: 300px"
-                                                         placeholder="Buscar entre los datos de Requerimientos"/>
+                                                         placeholder="Buscar entre los datos de Solicitudes"/>
                                         </span>
                             </div>
                         </f:facet>
@@ -46,7 +46,7 @@
                         <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistrada}" width="150">
                             <h:outputText value="#{obj.fechaRegistrada}"/>
                         </p:column>
-                        <p:column headerText="Razon del requerimiento" sortBy="#{obj.razonEntrada}" width="150">
+                        <p:column headerText="Razon de la Solicitud" sortBy="#{obj.razonEntrada}" width="150">
                             <h:outputText value="#{obj.razonEntrada}"/>
                         </p:column>
                         <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
@@ -74,7 +74,7 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-        <p:dialog id="dialogs" header="Detalles del Requerimiento" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="750"
+        <p:dialog id="dialogs" header="Detalles de la Solicitud" showEffect="fade" appendTo="@(body)" modal="true" width="1400" height="750"
                   widgetVar="dialogsa" styleClass="dialogs-barra">
             <h:form id="form-dialogProducto">
                 <p:outputPanel>
