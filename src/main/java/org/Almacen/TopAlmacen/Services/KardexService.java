@@ -61,9 +61,9 @@ public class KardexService {
         return eventos;
     }
 
-    public List<KardexTemp> generarKardex(int productoId, LocalDate startDate, LocalDate endDate) {
+    @Transactional
+    public KardexTemp generarKardex(int productoId, LocalDate startDate, LocalDate endDate) {
         List<EventoKardex> eventos = combinarYOrdenarEventos(productoId, startDate, endDate);
-        List<KardexTemp> kardexList = new ArrayList<>();
         KardexTemp kardex = new KardexTemp();
 
         var producto = iProductoDao.getById(productoId);
@@ -80,7 +80,7 @@ public class KardexService {
             if (evento.getTipo().equals("Movimiento")) {
                 MovimientoStock movimiento = (MovimientoStock) evento.getEvento();
                 item.setArea(movimiento.getDependencia().getNombre());
-                item.setSolicitanteResponsable(movimiento.getSolicitante_Responsable().getNombres() + " " + movimiento.getSolicitante_Responsable().getApellidos());
+                item.setSolicitanteResponsable(UsuarioMapper.toConcatuser(movimiento.getSolicitante_Responsable()));
                 item.setInvInicial(inventarioInicial);
 
                 if (movimiento.getTipoMovimiento().equals("ENTRADA")) {
@@ -97,7 +97,7 @@ public class KardexService {
             } else if (evento.getTipo().equals("Precio")) {
                 HistorialPrecios historial = (HistorialPrecios) evento.getEvento();
                 item.setArea("Almacén");
-                item.setSolicitanteResponsable(UsuarioMapper.toConcatuser(historial.getResponsable()));
+                item.setSolicitanteResponsable(historial.getResponsable().getNombres() + " " + historial.getResponsable().getApellidos());
                 item.setInvInicial(inventarioInicial);
                 item.setStockEntrada(0);
                 item.setStockSalida(0);
@@ -106,8 +106,7 @@ public class KardexService {
             item.setInvFinal(inventarioInicial);
             kardex.getItems().add(item);
         }
-        kardexList.add(kardex);
-        return kardexList;
+        return kardex;
     }
 
     private double obtenerInventarioInicial(int productoId, LocalDate startDate) {
