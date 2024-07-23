@@ -5,7 +5,6 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.Almacen.TopAlmacen.DTO.Categoria.CategoriaDto;
 import org.Almacen.TopAlmacen.DTO.Producto.ProductoDescripcionDto;
 import org.Almacen.TopAlmacen.Services.KardexService;
 import org.Almacen.TopAlmacen.Services.ProductoService;
