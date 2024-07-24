@@ -4,100 +4,409 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <body>
    <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
       <ui:define name="contenido">
          <h:form>
             <h:panelGrid styleClass="contenido-panel">
-                <h:panelGrid columns="2" styleClass="estructura-card">
-                   <h:panelGrid styleClass="card-User">
-
-                   </h:panelGrid>
-                   <h:panelGrid columns="2" styleClass="estructura-card-info" >
-                      <p:panel styleClass="card-info" style=" border-left: 5px solid #7986cb; ">
-                         <h:panelGrid columns="3" styleClass="estructura-card-info-data" >
-                            <h:panelGrid styleClass="contendor-card-info-icon">
-                               <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/10982/10982466.png"
-                                               styleClass="icon-card-info" />
-                            </h:panelGrid>
-                            <h:panelGrid styleClass="vertical-line" />
-                            <h:panelGrid styleClass="contendor-card-texto">
-                               <p:outputLabel value="Productos" style="color: #64b5f6" />
-                               <p:outputLabel value="Cantidad: 10" />
-                            </h:panelGrid>
-                         </h:panelGrid>
-                      </p:panel>
-
-                      <p:panel styleClass="card-info" style=" border-left: 5px solid #7986cb; ">
-                         <h:panelGrid columns="3" styleClass="estructura-card-info-data" >
-                            <h:panelGrid styleClass="contendor-card-info-icon">
-                               <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/10982/10982466.png"
-                                               styleClass="icon-card-info" />
-                            </h:panelGrid>
-                            <h:panelGrid styleClass="vertical-line" />
-                            <h:panelGrid styleClass="contendor-card-texto">
-                               <p:outputLabel value="Productos" style="color: #64b5f6" />
-                               <p:outputLabel value="Cantidad: 10" />
-                            </h:panelGrid>
-                         </h:panelGrid>
-                      </p:panel>
-
-
-                      <p:panel styleClass="card-info" style=" border-left: 5px solid #7986cb; ">
-                         <h:panelGrid columns="3" styleClass="estructura-card-info-data" >
-                            <h:panelGrid styleClass="contendor-card-info-icon">
-                               <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/10982/10982466.png"
-                                               styleClass="icon-card-info" />
-                            </h:panelGrid>
-                            <h:panelGrid styleClass="vertical-line" />
-                            <h:panelGrid styleClass="contendor-card-texto">
-                               <p:outputLabel value="Productos" style="color: #64b5f6" />
-                               <p:outputLabel value="Cantidad: 10" />
-                            </h:panelGrid>
-                         </h:panelGrid>
-                      </p:panel>
-
-                      <p:panel styleClass="card-info" style=" border-left: 5px solid #7986cb; ">
-                         <h:panelGrid columns="3" styleClass="estructura-card-info-data" >
-                            <h:panelGrid styleClass="contendor-card-info-icon">
-                               <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/10982/10982466.png"
-                                               styleClass="icon-card-info" />
-                            </h:panelGrid>
-                            <h:panelGrid styleClass="vertical-line" />
-                            <h:panelGrid styleClass="contendor-card-texto">
-                               <p:outputLabel value="Productos" style="color: #64b5f6" />
-                               <p:outputLabel value="Cantidad: 10" />
-                            </h:panelGrid>
-                         </h:panelGrid>
-                      </p:panel>
-                   </h:panelGrid>
-                </h:panelGrid>
-
-
-
-
-
-               <h:outputLabel value="Dashboard" styleClass="title-Dashoard" />
-               <h:panelGrid columns="2">
-                  <h:outputText value="Hola Usuario : " styleClass="title-HolaUsuario" /><h:outputText styleClass="name-Usuario"  value="#{PrincipalBeans.us.nombres} #{PrincipalBeans.us.apellidos}" />
-               </h:panelGrid>
-
-
                <p:outputPanel rendered="#{PrincipalBeans.pantallaUnidad}">
-                  Unidad
+                  <h:panelGrid columns="2" styleClass="estructura-card">
+                     <h:panelGrid styleClass="card-User" >
+                        <h:panelGrid styleClass="card-user-contenedor" >
+                           <h:panelGrid styleClass="card-user-contenedor-title" >
+                              <h:outputLabel value="Dashboard" styleClass="title-Dashoard" />
+                           </h:panelGrid>
+                           <h:panelGrid columns="2"  style="height: 150px">
+                              <h:panelGrid style="margin-right: 1rem">
+                                 <p:avatar   styleClass="mr-2 "  style="width: 100px; height: 100px;font-size: 5rem ;background-color:#9c27b0;color:#fff;margin-left: 2rem;">
+                                    <i  class="pi pi-user" style="font-size: 4rem;" />
+                                 </p:avatar>
+                              </h:panelGrid>
+                              <h:panelGrid>
+                                 <h:panelGrid>
+                                    <h:outputText value="Hola #{PrincipalBeans.us.nombres} #{PrincipalBeans.us.apellidos}" styleClass="name-Usuario" />
+                                    <h:outputText value="#{PrincipalBeans.us.unidad.nombre} - #{PrincipalBeans.us.unidad.dependencia.nombre}" styleClass="name-Dependencia" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </h:panelGrid>
+                     </h:panelGrid>
+                     <h:panelGrid columns="2" styleClass="estructura-card-info" >
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/3382/3382106.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem2}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Pendiente" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad"  styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #4dd0e1; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/5442/5442020.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem1}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Aprobados" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad"  styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/6606/6606519.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem3}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Desaprobados" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem}" styleClass="name-subItem-card-number" />
+                                    <h:outputText value="Cantidad"  styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/14459/14459081.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem4}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Finalizadas" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText  value="#{PrincipalBeans.cantidadItem}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+                     </h:panelGrid>
+                  </h:panelGrid>
+                  <h:panelGrid styleClass="estructura-solicitudes">
+                     <h:panelGrid styleClass="card-solicitudes">
+                        <p:dataTable id="tabla" var="obj" widgetVar="obj"
+                                     style="width: 100%" value="#{PrincipalBeans.requerimientos}"
+                                     emptyMessage="No hay elementos disponibles" >
+                           <f:facet name="header">
+                              <div class="header-tabla">
+                                 <span class="titulo-hearder-tabla">Solicitudes Pendientes Tuyos</span>
+                              </div>
+                           </f:facet>
+                           <p:column headerText="#" sortBy="#{obj.id}" width="80">
+                              <h:outputText value="#{obj.id}"/>
+                           </p:column>
+                           <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistrada}" width="200">
+                              <h:outputText value="#{obj.fechaRegistrada}"/>
+                           </p:column>
+                           <p:column headerText="Razon de la Solicitud" sortBy="#{obj.razonEntrada}" width="200">
+                              <h:outputText value="#{obj.razonEntrada}"/>
+                           </p:column>
+                           <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
+                              <h:outputText value="#{obj.estado}"
+                                            styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                           </p:column>
+                        </p:dataTable>
+                     </h:panelGrid>
+                  </h:panelGrid>
                </p:outputPanel>
 
                <p:outputPanel rendered="#{PrincipalBeans.pantallaJefatura}">
-                  jefatura
+                  <h:panelGrid columns="2" styleClass="estructura-card">
+                     <h:panelGrid styleClass="card-User" >
+                        <h:panelGrid styleClass="card-user-contenedor" >
+                           <h:panelGrid styleClass="card-user-contenedor-title" >
+                              <h:outputLabel value="Dashboard" styleClass="title-Dashoard" />
+                           </h:panelGrid>
+                           <h:panelGrid columns="2"  style="height: 150px">
+                              <h:panelGrid style="margin-right: 1rem">
+                                 <p:avatar   styleClass="mr-2 "  style="width: 100px; height: 100px;font-size: 5rem ;background-color:#9c27b0;color:#fff;margin-left: 2rem;">
+                                    <i  class="pi pi-user" style="font-size: 4rem;" />
+                                 </p:avatar>
+                              </h:panelGrid>
+                              <h:panelGrid>
+                                 <h:panelGrid>
+                                    <h:outputText value="Hola #{PrincipalBeans.us.nombres} #{PrincipalBeans.us.apellidos}" styleClass="name-Usuario" />
+                                    <h:outputText value="#{PrincipalBeans.us.unidad.nombre} - #{PrincipalBeans.us.unidad.dependencia.nombre}" styleClass="name-Dependencia" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </h:panelGrid>
+                     </h:panelGrid>
+                     <h:panelGrid columns="2" styleClass="estructura-card-info" >
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/3382/3382106.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem1}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Pendiente" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText  value="#{PrincipalBeans.cantidadItem}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #4dd0e1; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/5442/5442020.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText  value="#{PrincipalBeans.cantidadItem2}"  styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Aprobados" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText  value="#{PrincipalBeans.cantidadItem}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/6606/6606519.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Solicitudes" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem3}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Desaprobadas" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText  value="#{PrincipalBeans.cantidadItem}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #4db6ac; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/476/476759.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Usuarios" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem5}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Activos" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem4}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                     </h:panelGrid>
+                  </h:panelGrid>
+                  <h:panelGrid styleClass="estructura-solicitudes">
+                     <h:panelGrid styleClass="card-solicitudes">
+                        <p:dataTable id="tabla-jefatura" var="obj" widgetVar="obj"
+                                     style="width: 100%" value="#{PrincipalBeans.requerimientos}"
+                                     emptyMessage="No hay elementos disponibles" >
+                           <f:facet name="header">
+                              <div class="header-tabla">
+                                 <span class="titulo-hearder-tabla">Solicitudes Pendientes de las Unidades</span>
+                              </div>
+                           </f:facet>
+                           <p:column headerText="#" sortBy="#{obj.id}" width="80">
+                              <h:outputText value="#{obj.id}"/>
+                           </p:column>
+                           <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistrada}" width="200">
+                              <h:outputText value="#{obj.fechaRegistrada}"/>
+                           </p:column>
+                           <p:column headerText="Razon de la Solicitud" sortBy="#{obj.razonEntrada}" width="200">
+                              <h:outputText value="#{obj.razonEntrada}"/>
+                           </p:column>
+                           <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
+                              <h:outputText value="#{obj.estado}"
+                                            styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                           </p:column>
+                        </p:dataTable>
+                     </h:panelGrid>
+                  </h:panelGrid>
                </p:outputPanel>
 
                <p:outputPanel rendered="#{PrincipalBeans.pantallaAlmacen}">
-                  Almacen
+                  <h:panelGrid columns="2" styleClass="estructura-card">
+                     <h:panelGrid styleClass="card-User" >
+                        <h:panelGrid styleClass="card-user-contenedor" >
+                           <h:panelGrid styleClass="card-user-contenedor-title" >
+                              <h:outputLabel value="Dashboard" styleClass="title-Dashoard" />
+                           </h:panelGrid>
+                           <h:panelGrid columns="2"  style="height: 150px">
+                              <h:panelGrid style="margin-right: 1rem">
+                                 <p:avatar   styleClass="mr-2 "  style="width: 100px; height: 100px;font-size: 5rem ;background-color:#9c27b0;color:#fff;margin-left: 2rem;">
+                                    <i  class="pi pi-user" style="font-size: 4rem;" />
+                                 </p:avatar>
+                              </h:panelGrid>
+                              <h:panelGrid>
+                                 <h:panelGrid>
+                                    <h:outputText value="Hola #{PrincipalBeans.us.nombres} #{PrincipalBeans.us.apellidos}" styleClass="name-Usuario" />
+                                    <h:outputText value="#{PrincipalBeans.us.unidad.dependencia.nombre} - #{PrincipalBeans.us.unidad.nombre}" styleClass="name-Dependencia" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </h:panelGrid>
+                     </h:panelGrid>
+                     <h:panelGrid columns="2" styleClass="estructura-card-info" >
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/10982/10982466.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Productos" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem1}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Activos" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #4db6ac; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/476/476759.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Usuarios" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem3}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Activos" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem2}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Cantidad" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #4dd0e1; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/9725/9725691.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Reg. Entrada" styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem4}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Pendientes" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem5}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Finalizados" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel styleClass="card-info" style=" padding: 0;  ;border-left: 5px solid #7986cb; ">
+                           <h:panelGrid columns="2" styleClass="estructura-card-info-data" >
+                              <h:panelGrid styleClass="contendor-card-info-icon">
+                                 <h:graphicImage url="https://cdn-icons-png.flaticon.com/256/4047/4047598.png"
+                                                 styleClass="icon-card-info" />
+                                 <h:outputText value="Comp. Salida " styleClass="name-card"  />
+                              </h:panelGrid>
+                              <h:panelGrid styleClass="contendor-card-texto" columns="3" >
+                                 <h:panelGrid styleClass="centrar">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem6}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Finalizados" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                                 <h:panelGrid styleClass="vertical-line centrar" />
+                                 <h:panelGrid styleClass="centrar" style="margin-left: 20px">
+                                    <h:outputText value="#{PrincipalBeans.cantidadItem7}" styleClass="name-subItem-card-number" />
+                                    <h:outputText  value="Pendientes" styleClass="name-subItem-card" />
+                                 </h:panelGrid>
+                              </h:panelGrid>
+                           </h:panelGrid>
+                        </p:panel>
+                     </h:panelGrid>
+                  </h:panelGrid>
+
+                  <h:panelGrid columns="2" styleClass="estructura-card-inf2">
+                     <h:panelGrid styleClass="estrucutura-card-Productos">
+                        <h:panelGrid styleClass="card-productos-contenedor">
+
+                        </h:panelGrid>
+                     </h:panelGrid>
+                     <h:panelGrid styleClass="estructura-card-info-Producto-data">
+                        <h:panelGrid styleClass="card-productosinf2-contenedor">
+
+                        </h:panelGrid>
+                     </h:panelGrid>
+                  </h:panelGrid>
                </p:outputPanel>
-
-
-
             </h:panelGrid>
          </h:form>
       </ui:define>

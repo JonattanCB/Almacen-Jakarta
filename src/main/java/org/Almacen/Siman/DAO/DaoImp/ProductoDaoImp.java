@@ -78,4 +78,24 @@ public class ProductoDaoImp implements IProductoDao {
         }
     }
 
+    @Override
+    public int CantidadProductos() {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(p) FROM Producto p " +
+                                "JOIN p.stockUnidades ", Long.class)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadProductosStatus(String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(p) FROM Producto p " +
+                                "JOIN p.stockUnidades " +
+                                "WHERE p.estado = :status", Long.class)
+                .setParameter("status", status)
+                .getSingleResult();
+        return count.intValue();
+    }
+
 }

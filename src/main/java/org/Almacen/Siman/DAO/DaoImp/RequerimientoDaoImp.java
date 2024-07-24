@@ -20,6 +20,78 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
                 .setParameter("id", idDepedencia)
                 .getResultList();
     }
+
+    @Override
+    public List<Requerimiento> getAllbyStatusPendiente(int idDependencia) {
+        return _entityManager.createQuery("SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.solicitante where r.solicitante.unidadDependencia.dependencia.id = :id and  r.Estado = 'PENDIENTE'", Requerimiento.class)
+                .setParameter("id", idDependencia)
+                .getResultList();
+    }
+
+    @Override
+    public List<Requerimiento> getAllByIdDependenciaUser(int idunidad, int idUser) {
+        return _entityManager.createQuery("SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.solicitante where r.solicitante.unidadDependencia.id= :id and r.solicitante.id=:user and r.Estado='PENDIENTE'", Requerimiento.class)
+                .setParameter("id", idunidad)
+                .setParameter("user",idUser)
+                .getResultList();
+    }
+
+    @Override
+    public int cantidadRequerimientosUserUnidad(int idunidad, int idUser) {
+         Long count = _entityManager.createQuery(
+                        "SELECT COUNT(r) FROM Requerimiento r " +
+                                "LEFT JOIN r.itemsRequerimientos " +
+                                "LEFT JOIN r.solicitante " +
+                                "WHERE r.solicitante.unidadDependencia.id = :id " +
+                                "AND r.solicitante.id = :user ", Long.class)
+                .setParameter("id", idunidad)
+                .setParameter("user", idUser)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadRequerimientosDependencia(int idDependencia) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(r) FROM Requerimiento r " +
+                                "LEFT JOIN r.itemsRequerimientos " +
+                                "LEFT JOIN r.solicitante " +
+                                "WHERE r.solicitante.unidadDependencia.dependencia.id = :id ", Long.class)
+                .setParameter("id", idDependencia)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadRequerimientosUserUnidadStatus(int idunidad, int idUser, String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(r) FROM Requerimiento r " +
+                                "LEFT JOIN r.itemsRequerimientos " +
+                                "LEFT JOIN r.solicitante " +
+                                "WHERE r.solicitante.unidadDependencia.id = :id " +
+                                "AND r.solicitante.id = :user and r.Estado = :status", Long.class)
+                .setParameter("id", idunidad)
+                .setParameter("user", idUser)
+                .setParameter("status", status)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadRequerimientosdependenciaStatus(int iddependencia, String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(r) FROM Requerimiento r " +
+                                "LEFT JOIN r.itemsRequerimientos " +
+                                "LEFT JOIN r.solicitante " +
+                                "WHERE r.solicitante.unidadDependencia.dependencia.id = :id " +
+                                "AND  r.Estado = :status", Long.class)
+                .setParameter("id", iddependencia)
+                .setParameter("status", status)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+
     @Override
     public List<Requerimiento> getAllFinalized() {
         return _entityManager.createQuery("SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.solicitante WHERE r.Estado='FINALIZADO'", Requerimiento.class).getResultList();

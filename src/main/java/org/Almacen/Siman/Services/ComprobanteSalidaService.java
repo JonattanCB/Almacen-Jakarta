@@ -126,7 +126,6 @@ public class ComprobanteSalidaService implements Serializable {
         return ls;
     }
 
-
     @Transactional
     public  void changeEstadoDesaprobado(String id) {
         iComprobanteSalidaDao.setEstado("DESAPROBADO", id);
@@ -135,6 +134,11 @@ public class ComprobanteSalidaService implements Serializable {
     @Transactional
     public List<DetalleComprobanteSalida> getDetalleComprobanteSalida(String id) {
         return iDetalleComprobanteSalidaDao.getAllbyComprobateSalida(id);
+    }
+
+    @Transactional
+    public int cantStatus(String status){
+        return  iComprobanteSalidaDao.cantStatus(status);
     }
 
 }

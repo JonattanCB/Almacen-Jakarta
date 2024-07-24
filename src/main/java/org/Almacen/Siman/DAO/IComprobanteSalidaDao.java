@@ -18,4 +18,6 @@ public interface IComprobanteSalidaDao {
 
     void setEstado(String estado, String id);
 
+    int cantStatus(String status);
+
 }

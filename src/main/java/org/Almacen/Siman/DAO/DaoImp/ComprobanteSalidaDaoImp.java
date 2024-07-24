@@ -66,4 +66,16 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
             _entityManager.merge(findObj);
         }
     }
+
+    @Override
+    public int cantStatus(String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(c) FROM ComprobanteSalida c " +
+                                "LEFT JOIN c.usuario " +
+                                "LEFT JOIN c.dependencia " +
+                                "LEFT JOIN c.usuario.unidadDependencia where c.estado = :status", Long.class)
+                .setParameter("status",status)
+                .getSingleResult();
+        return count.intValue();
+    }
 }

@@ -3,13 +3,12 @@
 .estructura-card{
     width: 100%;
     display: flex;
-    align-items: center;
-    height: 250px;
+    height: 300px;
 }
 
 .card-User{
     width: 30rem;
-    height: 246px;
+    height: 15rem;
     border-radius: 4px;
     background: #ffffff;
     margin-right: 2rem;
@@ -30,23 +29,24 @@
 }
 
 .estructura-card-info-data{
-    width: 300px;
-    height: 24px;
+    width: 500px;
+    height: 115px;
+    margin: 0;
+    padding: 0;
 }
 
 .contendor-card-info-icon{
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100px;
+    text-align: center;
+    padding-left: 15px;
 }
 
-
 .vertical-line {
-    height: 80px;
+    height: 50px;
     width: 0;
     border-left: 1px solid #dee2e6;
-    margin: 0 auto;
+    margin: 0 0;
 }
 
 .icon-card-info{
@@ -55,26 +55,119 @@
 }
 
 .contendor-card-texto{
-    padding: 0 10px;
+    width: 80%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
+.card-user-contenedor{
+    width: 100%;
+    margin-top: -20px;
+}
 
-
+.card-user-contenedor-title{
+    height: 10px;
+}
 
 .title-Dashoard{
     font-weight: 580;
     font-family: 'Nunito', sans-serif;
-    font-size: 3rem;
-}
-
-.title-HolaUsuario{
-    font-weight: 500;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    margin-left: 1rem;
 }
 
 .name-Usuario{
     font-weight: 400;
     font-family: 'Nunito', sans-serif;
     font-size: 1.1rem;
+    color: #545057;
+}
+
+.name-Dependencia{
+    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    color: #545057;
+}
+
+.name-card{
+    font-weight: 510;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    color: #545057;
+}
+
+.name-subItem-card{
+    font-weight: 480;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    color: #545057;
+}
+
+.name-subItem-card-number{
+    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.4rem;
+    color: #545057;
+}
+
+.centrar{
+    text-align: center;
+}
+
+
+body .ui-panel .ui-panel-content{
+    padding: 0;
+}
+
+.estructura-solicitudes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 510px;
+    justify-content: flex-start;
+}
+
+.card-solicitudes {
+    width: 99%;
+    padding: 1rem 1rem;
+    height: auto;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-right: 2rem;
+    box-shadow: 0px 0px 2px rgb(211,212,213);
+    margin-top: 10px;
+}
+
+
+.estructura-card-inf2{
+    width: 100%;
+    height: 300px;
+}
+
+.estrucutura-card-Productos{
+    width: 40rem;
+    height: 33rem ;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-right: 1rem;
+    box-shadow: 0px 0px 2px  rgb(211,212,213);
+}
+
+.estructura-card-info-Producto-data{
+    width: 55rem;
+    height: 33rem ;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 0px 0px 2px  rgb(211,212,213);
+}
+
+.card-productos-contenedor{
+    width: 100%;
+}
+
+.card-productosinf2-contenedor{
+    width: 100%;
 }

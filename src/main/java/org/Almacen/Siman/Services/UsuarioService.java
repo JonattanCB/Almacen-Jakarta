@@ -80,4 +80,24 @@ public class UsuarioService implements Serializable {
         iUsuarioDao.cambiarPasswor(MD5,id);
     }
 
+    @Transactional
+    public int cantidadUsuarioDependencia(int dependencia){
+        return iUsuarioDao.cantidadUsuarioDependencia(dependencia);
+    }
+
+    @Transactional
+    public  int cantidadUsuarioDependenciaStatus(int dependencia, String status){
+        return iUsuarioDao.cantidadUsuariosDependenciaStatus(dependencia,status);
+    }
+
+    @Transactional
+    public int cantidadUsuarios(){
+        return  iUsuarioDao.cantidadUsuarios();
+    }
+
+    @Transactional
+    public int cantidadUsuariosStatus(String status){
+        return  iUsuarioDao.cantidadUsuariosStatus(status);
+    }
+
 }

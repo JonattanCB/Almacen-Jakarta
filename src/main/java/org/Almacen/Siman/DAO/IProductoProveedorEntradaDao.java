@@ -19,4 +19,7 @@ public interface IProductoProveedorEntradaDao {
     void setEstado(String estado, String id);
 
     ProductoProveedorEntrada delete(String id);
+
+    int cantStatus(String status);
+
 }

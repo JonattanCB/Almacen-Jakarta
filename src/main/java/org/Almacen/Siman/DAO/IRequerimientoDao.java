@@ -8,6 +8,18 @@ import java.util.List;
 public interface IRequerimientoDao {
     List<Requerimiento> getAll(int idDependencia);
 
+    List<Requerimiento> getAllbyStatusPendiente(int idDependencia);
+
+    List<Requerimiento> getAllByIdDependenciaUser(int idunidad, int idUser);
+
+    int cantidadRequerimientosUserUnidad(int idunidad, int idUser);
+
+    int cantidadRequerimientosDependencia(int idDependencia);
+
+    int cantidadRequerimientosUserUnidadStatus(int idunidad, int idUser,String status);
+
+    int cantidadRequerimientosdependenciaStatus(int iddependencia,String status);
+
     List<Requerimiento> getAllFinalized();
 
     List<Requerimiento> getRequerimientoByDependencia();

@@ -72,4 +72,16 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
         }
         return null;
     }
+
+    @Override
+    public int cantStatus(String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(p) FROM ProductoProveedorEntrada p " +
+                                "LEFT JOIN p.DetalleProductoProveedorEntrada " +
+                                "LEFT JOIN p.usuario " +
+                                "LEFT JOIN p.empresa where  p.estado= :status", Long.class)
+                .setParameter("status",status)
+                .getSingleResult();
+        return count.intValue();
+    }
 }

@@ -64,6 +64,54 @@ public class UsuarioDaoImp implements IUsuarioDao {
     }
 
     @Override
+    public int cantidadUsuarioDependencia(int iddependencia) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(u) FROM Usuario u " +
+                                "LEFT JOIN u.unidadDependencia " +
+                                "LEFT JOIN u.unidadDependencia.dependencia " +
+                                "LEFT JOIN u.unidadDependencia.rol where u.unidadDependencia.dependencia.id = :id", Long.class)
+                .setParameter("id",iddependencia)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadUsuariosDependenciaStatus(int iddependencia, String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(u) FROM Usuario u " +
+                                "LEFT JOIN u.unidadDependencia " +
+                                "LEFT JOIN u.unidadDependencia.dependencia " +
+                                "LEFT JOIN u.unidadDependencia.rol where u.unidadDependencia.dependencia.id = :id and u.estado= :statu", Long.class)
+                .setParameter("id",iddependencia)
+                .setParameter("statu",status)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadUsuarios() {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(u) FROM Usuario u " +
+                                "LEFT JOIN u.unidadDependencia " +
+                                "LEFT JOIN u.unidadDependencia.dependencia " +
+                                "LEFT JOIN u.unidadDependencia.rol", Long.class)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    public int cantidadUsuariosStatus(String status) {
+        Long count = _entityManager.createQuery(
+                        "SELECT COUNT(u) FROM Usuario u " +
+                                "LEFT JOIN u.unidadDependencia " +
+                                "LEFT JOIN u.unidadDependencia.dependencia " +
+                                "LEFT JOIN u.unidadDependencia.rol where u.estado= :statu", Long.class)
+                .setParameter("statu",status)
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
     public void cambiarEstado(int id, String estado) {
         var query = _entityManager.createQuery(
                 "UPDATE Usuario u SET u.estado = :estado WHERE u.id = :id"

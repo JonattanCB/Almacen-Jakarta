@@ -90,4 +90,14 @@ public class ProductoService implements Serializable {
     public void ChangeStateINACTIVO(int id) {
         iProductoDao.changeState(id, "INACTIVO");
     }
+
+    @Transactional
+    public int cantidadProductos(){
+       return iProductoDao.CantidadProductos();
+    }
+
+    @Transactional
+    public int cantidadProductosStatus(String estado){
+        return  iProductoDao.cantidadProductosStatus(estado);
+    }
 }

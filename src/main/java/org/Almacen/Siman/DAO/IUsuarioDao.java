@@ -16,6 +16,14 @@ public interface IUsuarioDao {
 
     Usuario delete(int id);
 
+    int cantidadUsuarioDependencia(int iddependencia);
+
+    int cantidadUsuariosDependenciaStatus(int iddependencia, String status);
+
+    int cantidadUsuarios();
+
+    int cantidadUsuariosStatus(String status);
+
     void cambiarEstado(int id, String estado);
 
     boolean existeEmail(String email);

@@ -34,6 +34,12 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
+    public List<Requerimiento> getRequerimientosStatusPendiente(int idDependencia) {
+        return iRequerimientoDao.getAllbyStatusPendiente(idDependencia);
+    }
+
+
+    @Transactional
     public List<Requerimiento> getAllFinalized() {
         return iRequerimientoDao.getAllFinalized();
     }
@@ -83,6 +89,11 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
+    public List<Requerimiento> getAllByUnidadUser(int unidad, int user){
+        return  iRequerimientoDao.getAllByIdDependenciaUser(unidad, user);
+    }
+
+    @Transactional
     public void setEstadoAprobado(String id, String observacion) {
         iRequerimientoDao.setEstado(id, "APROBADO", observacion);
     }
@@ -96,4 +107,25 @@ public class RequerimientoService implements Serializable {
     public void setEstadoFinalizado(String id, String observacion) {
         iRequerimientoDao.setEstado(id, "FINALIZADO", observacion);
     }
+
+    @Transactional
+    public int setCantidadRequermientoStatus(int user, int unidad, String status){
+        return iRequerimientoDao.cantidadRequerimientosUserUnidadStatus(unidad,user,status);
+    }
+
+    @Transactional
+    public int setCantidadRequerimientoUser(int user, int unidad){
+        return iRequerimientoDao.cantidadRequerimientosUserUnidad(unidad,user);
+    }
+
+    @Transactional
+    public int setCantidadRequermientoDependenciaStatus(int dependencia, String status){
+        return iRequerimientoDao.cantidadRequerimientosdependenciaStatus(dependencia,status);
+    }
+
+    @Transactional
+    public int setCantidadRequerimientoDependencia(int dependencia){
+        return iRequerimientoDao.cantidadRequerimientosDependencia(dependencia);
+    }
+
 }

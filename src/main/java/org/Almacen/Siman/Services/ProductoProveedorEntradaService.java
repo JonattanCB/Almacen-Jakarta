@@ -114,5 +114,11 @@ public class ProductoProveedorEntradaService implements Serializable {
     public void delete(String id) {
         iProductoProveedorEntradaDao.delete(id);
     }
+
+    @Transactional
+    public int cantiStatus(String status){
+        return  iProductoProveedorEntradaDao.cantStatus(status);
+    }
+
 }
 

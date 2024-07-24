@@ -23,4 +23,8 @@ public interface IProductoDao {
 
     void changeState(int id, String estado);
 
+    int CantidadProductos();
+
+    int cantidadProductosStatus(String status);
+
 }
