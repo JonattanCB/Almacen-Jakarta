@@ -7,7 +7,6 @@
 	<parameter name="inv_inicial" class="java.lang.Double"/>
 	<parameter name="unid_medida" class="java.lang.String"/>
 	<parameter name="periodo" class="java.lang.String"/>
-	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<field name="Fecha" class="java.lang.String"/>
 	<field name="Area" class="java.lang.String"/>
 	<field name="SolicitanteResponsable" class="java.lang.String"/>
