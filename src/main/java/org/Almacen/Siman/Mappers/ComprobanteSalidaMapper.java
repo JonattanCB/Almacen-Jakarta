@@ -1,6 +1,6 @@
 package org.Almacen.Siman.Mappers;
 
-import org.Almacen.Siman.Controladores.ComprobanteSalida.PdfComprobanteSalidaDto;
+import org.Almacen.Siman.DTO.ComprobanteSalida.PdfComprobanteSalidaDto;
 import org.Almacen.Siman.DTO.ComprobanteSalida.ComprobanteSalidaDto;
 import org.Almacen.Siman.DTO.ComprobanteSalida.CreateComprobanteSalidaDto;
 

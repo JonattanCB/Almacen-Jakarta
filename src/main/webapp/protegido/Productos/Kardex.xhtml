@@ -43,9 +43,9 @@
                                 </h:panelGrid>
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right" >
-                                <p:commandButton id="pdf" value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help"
-                                                 style="margin-right: 0.5rem;" disabled="#{KardexBeans.validarBtns}"  >
-
+                                <p:commandButton id="pdf" value="pdf" icon="pi pi-file-pdf" styleClass="disenio-export ui-button-help" ajax="false"
+                                                 style="margin-right: 0.5rem;" disabled="#{KardexBeans.validarBtns}" actionListener="#{KardexBeans.GenerarPDF()}" >
+                                    <p:fileDownload value="#{KardexBeans.file}" />
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>

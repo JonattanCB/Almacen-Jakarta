@@ -102,6 +102,13 @@
                             <h:panelGrid><p:inputText id="peso"  styleClass="input-custom" value="#{ProductosBeans.productoDto.peso}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 14.17vw"  /></h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
+                    <h:panelGrid style="margin-top: 1rem" rendered="#{ProductosBeans.precioUnidadB}">
+                        <h:panelGrid><h:outputLabel for="precio" styleClass="texto_dialog" value="Precio por Unidad: "/></h:panelGrid>
+                        <h:panelGrid>
+                            <p:inputText id="precio"  styleClass="input-custom" value="#{ProductosBeans.precioUnidad}"  disabled="#{ProductosBeans.escribirDatos}" style="width: 29.58vw"  />
+                        </h:panelGrid>
+                    </h:panelGrid>
+
                     <h:panelGrid style="margin-top: 1rem">
                         <h:panelGrid><h:outputLabel for="Categoria" styleClass="texto_dialog" value="Categoria: "/></h:panelGrid>
                         <h:panelGrid>

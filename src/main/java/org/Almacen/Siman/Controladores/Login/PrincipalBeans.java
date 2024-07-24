@@ -6,13 +6,16 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
+import org.Almacen.Siman.DTO.HistorialPrecios.HistorialPreciosDto;
 import org.Almacen.Siman.DTO.Requerimiento.RequerimientoDto;
+import org.Almacen.Siman.DTO.StockUnidades.TablaStockUnidadesDto;
 import org.Almacen.Siman.DTO.Usuario.UsuarioDto;
 import org.Almacen.Siman.Mappers.RequerimientoMapper;
 import org.Almacen.Siman.Services.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Data
@@ -34,6 +37,9 @@ public class PrincipalBeans implements Serializable {
 
     @Inject
     private ComprobanteSalidaService comprobanteSalidaService;
+
+    @Inject
+    private StockUnidadesService stockUnidadesService;
 
     private UsuarioDto us;
 
@@ -60,8 +66,11 @@ public class PrincipalBeans implements Serializable {
 
     private int cantidadItem7;
 
-
     private List<RequerimientoDto> requerimientos;
+
+    private List<TablaStockUnidadesDto> stockUnidadesDtos;
+
+    private List<TablaStockUnidadesDto> stockUnidadesDtoBajos;
 
     @PostConstruct
     private void init(){
@@ -81,6 +90,8 @@ public class PrincipalBeans implements Serializable {
         } else if (us.getUnidad().getDependencia().getNombre().equalsIgnoreCase("Almacen")) {
             pantallaAlmacen = true;
             cargarCardAlmacen();
+            loadStockUnidad();
+            loadStockUnidadBajo();
         } else if (!us.getUnidad().getRol().getNombre().toLowerCase().contains("jef") &&
                 !us.getUnidad().getDependencia().getNombre().equalsIgnoreCase("Almacen")) {
             pantallaUnidad = true;
@@ -89,12 +100,25 @@ public class PrincipalBeans implements Serializable {
         }
     }
 
+    private void loadStockUnidadBajo(){
+        AtomicInteger counter = new AtomicInteger(1);
+        stockUnidadesDtoBajos = stockUnidadesService.getAllTablaStockUnidadesDto().stream().filter(dto -> dto.getCantidadStockUnidad() < 30).map(dto -> {
+                    dto.setId(counter.getAndDecrement());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
     private void loadRequerimientosUser(){
         requerimientos = requerimientoService.getAllByUnidadUser(us.getUnidad().getId(),us.getId()).stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
     }
 
     private void loadRequerimeintosJefatura(){
         requerimientos = requerimientoService.getRequerimientosStatusPendiente(us.getUnidad().getDependencia().getId()).stream().map(RequerimientoMapper::toDto).collect(Collectors.toList());
+    }
+
+    private void loadStockUnidad(){
+        stockUnidadesDtos = stockUnidadesService.getAllTablaStockUnidadesDto();
     }
 
     private void cargarCardAlmacen(){

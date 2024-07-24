@@ -14,10 +14,7 @@ import org.Almacen.Siman.DTO.Producto.CreateProductoDto;
 import org.Almacen.Siman.DTO.Producto.ProductoDto;
 import org.Almacen.Siman.DTO.Producto.UpdateProductoDto;
 import org.Almacen.Siman.DTO.Usuario.UsuarioDto;
-import org.Almacen.Siman.Mappers.CategoriaMapper;
-import org.Almacen.Siman.Mappers.MarcaMapper;
-import org.Almacen.Siman.Mappers.PrecioPorTipoUnidadMapper;
-import org.Almacen.Siman.Mappers.ProductoMapper;
+import org.Almacen.Siman.Mappers.*;
 import org.Almacen.Siman.Services.CategoriaService;
 import org.Almacen.Siman.Services.MarcaService;
 import org.Almacen.Siman.Services.ProductoService;
@@ -53,6 +50,10 @@ public class ProductosBeans implements Serializable {
 
     private int marcaid;
 
+    private double precioUnidad;
+
+    private boolean precioUnidadB;
+
     private boolean btnguardar;
 
     private boolean EscribirDatos;
@@ -82,6 +83,8 @@ public class ProductosBeans implements Serializable {
         marcaDtoListActiva = marcaService.getAllMarcaActiva();
         categoriaid = 0;
         marcaid = 0;
+        precioUnidadB = true;
+        precioUnidad = 0;
         validarOpcion(1);
     }
 
@@ -108,11 +111,13 @@ public class ProductosBeans implements Serializable {
     public void cargarProductoEdicion() {
         cargarProductos();
         validarOpcion(1);
+        precioUnidadB = false;
     }
 
     public void verProducto() {
         cargarProductos();
         validarOpcion(2);
+        precioUnidadB = false;
     }
 
     public void cambiarEstado() {
@@ -131,8 +136,9 @@ public class ProductosBeans implements Serializable {
         createProductoDto.setPeso(productoDto.getPeso());
         createProductoDto.setCategoria(CategoriaMapper.toCategoria(categoriaService.getCategoria(categoriaid)));
         createProductoDto.setMarca(MarcaMapper.toMarca(marcaService.getMarcaById(marcaid)));
-        var created = PrecioPorTipoUnidadMapper.toCreateFromProducto(ProductoMapper.toProducto(productoDto), )
-        productoService.createProducto(createProductoDto,created,);
+        UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        var created = PrecioPorTipoUnidadMapper.toCreateFromProducto(ProductoMapper.toProducto(productoDto),precioUnidad );
+        productoService.createProducto(createProductoDto,created, UsuarioMapper.toUsuario(usuarioDto));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + createProductoDto.getNombre() + " ha sido registrado exitosamente en el sistema!"));
     }
 

@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.Almacen.Siman.DTO.ComprobanteSalida.PdfComprobanteSalidaDto;
 import org.Almacen.Siman.DTO.DetalleComprobanteSalida.PdfDetallesComprobanteSalidaDto;
 import org.Almacen.Siman.Mappers.ComprobanteSalidaMapper;
 import org.Almacen.Siman.Services.ComprobanteSalidaService;

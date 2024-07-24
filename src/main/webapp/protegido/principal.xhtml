@@ -258,26 +258,27 @@
                   </h:panelGrid>
                   <h:panelGrid styleClass="estructura-solicitudes">
                      <h:panelGrid styleClass="card-solicitudes">
-                        <p:dataTable id="tabla-jefatura" var="obj" widgetVar="obj"
+                        <p:dataTable id="tabla-jefatura" var="objjefa" widgetVar="objjefa"
                                      style="width: 100%" value="#{PrincipalBeans.requerimientos}"
+                                     rows="7" paginator="true" rowSelectMode="add" paginatorPosition="bottom"
                                      emptyMessage="No hay elementos disponibles" >
                            <f:facet name="header">
                               <div class="header-tabla">
                                  <span class="titulo-hearder-tabla">Solicitudes Pendientes de las Unidades</span>
                               </div>
                            </f:facet>
-                           <p:column headerText="#" sortBy="#{obj.id}" width="80">
-                              <h:outputText value="#{obj.id}"/>
+                           <p:column headerText="#" sortBy="#{objjefa.id}" width="80">
+                              <h:outputText value="#{objjefa.id}"/>
                            </p:column>
-                           <p:column headerText="Fecha Registrada" sortBy="#{obj.fechaRegistrada}" width="200">
-                              <h:outputText value="#{obj.fechaRegistrada}"/>
+                           <p:column headerText="Fecha Registrada" sortBy="#{objjefa.fechaRegistrada}" width="200">
+                              <h:outputText value="#{objjefa.fechaRegistrada}"/>
                            </p:column>
-                           <p:column headerText="Razon de la Solicitud" sortBy="#{obj.razonEntrada}" width="200">
-                              <h:outputText value="#{obj.razonEntrada}"/>
+                           <p:column headerText="Razon de la Solicitud" sortBy="#{objjefa.razonEntrada}" width="200">
+                              <h:outputText value="#{objjefa.razonEntrada}"/>
                            </p:column>
-                           <p:column headerText="Estado" sortBy="#{obj.estado}" width="80">
-                              <h:outputText value="#{obj.estado}"
-                                            styleClass="botones-tabla customer-badge status-#{obj.estado}"/>
+                           <p:column headerText="Estado" sortBy="#{objjefa.estado}" width="80">
+                              <h:outputText value="#{objjefa.estado}"
+                                            styleClass="botones-tabla customer-badge status-#{objjefa.estado}"/>
                            </p:column>
                         </p:dataTable>
                      </h:panelGrid>
@@ -397,12 +398,48 @@
                   <h:panelGrid columns="2" styleClass="estructura-card-inf2">
                      <h:panelGrid styleClass="estrucutura-card-Productos">
                         <h:panelGrid styleClass="card-productos-contenedor">
-
+                           <p:dataTable id="tabla-prodUnidad" var="objproduc" widgetVar="obj"
+                                        style="width: 100%" value="#{PrincipalBeans.stockUnidadesDtos}"
+                                        rows="7" paginator="true" rowSelectMode="add" paginatorPosition="bottom"
+                                        emptyMessage="No hay elementos disponibles" >
+                              <f:facet name="header">
+                                 <div class="header-tabla">
+                                    <span class="titulo-hearder-tabla">Cantidad de Unidad de los productos</span>
+                                 </div>
+                              </f:facet>
+                              <p:column headerText="Producto " width="150">
+                                 <h:outputText  value="#{objproduc.descripcion}" />
+                              </p:column>
+                              <p:column headerText="Cantidad" width="80">
+                                 <h:outputText  value="#{objproduc.cantidadStockUnidad}" />
+                              </p:column>
+                           </p:dataTable>
                         </h:panelGrid>
                      </h:panelGrid>
                      <h:panelGrid styleClass="estructura-card-info-Producto-data">
                         <h:panelGrid styleClass="card-productosinf2-contenedor">
-
+                           <p:dataTable id="tabla-prodUnidad-bajo" var="objproducbajo" widgetVar="obj"
+                                        style="width: 100%" value="#{PrincipalBeans.stockUnidadesDtoBajos}"
+                                        rows="7" paginator="true" rowSelectMode="add" paginatorPosition="bottom"
+                                        emptyMessage="No hay elementos disponibles" >
+                              <f:facet name="header">
+                                 <div class="header-tabla">
+                                    <span class="titulo-hearder-tabla">Productos con Cantidad Menor a 30 unidades</span>
+                                 </div>
+                              </f:facet>
+                              <p:column headerText="#" width="80">
+                                 <h:outputText  value="#{objproducbajo.id}" />
+                              </p:column>
+                              <p:column headerText="Producto " width="150">
+                                 <h:outputText  value="#{objproducbajo.descripcion}" />
+                              </p:column>
+                              <p:column headerText="Cantidad" width="80">
+                                 <h:outputText  value="#{objproducbajo.cantidadStockUnidad}" />
+                              </p:column>
+                              <p:column headerText="Tipo Unidad" width="80">
+                                 <h:outputText  value="#{objproducbajo.tipoUnidad}" />
+                              </p:column>
+                           </p:dataTable>
                         </h:panelGrid>
                      </h:panelGrid>
                   </h:panelGrid>

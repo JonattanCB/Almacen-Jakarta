@@ -55,11 +55,10 @@ public class ProductoService implements Serializable {
         var stockCreated = new StockUnidades();
         stockCreated.setProducto(Producto);
         stockCreated.setCantidadStockUnidad(0);
-        iProductoDao.create(Producto);
+        Producto p = iProductoDao.create(Producto);
         iStockUnidadesDao.create(stockCreated);
-
+        dto.setProducto(p);
         precioPorTipoUnidadService.crearUnidadBasica(dto, u);
-
         return Producto;
     }
 

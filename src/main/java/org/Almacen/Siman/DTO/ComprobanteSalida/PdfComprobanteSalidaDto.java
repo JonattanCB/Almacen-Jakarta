@@ -1,4 +1,4 @@
-package org.Almacen.Siman.Controladores.ComprobanteSalida;
+package org.Almacen.Siman.DTO.ComprobanteSalida;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
