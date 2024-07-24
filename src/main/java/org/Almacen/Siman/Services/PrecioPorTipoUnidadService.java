@@ -54,7 +54,7 @@ public class PrecioPorTipoUnidadService implements Serializable {
     }
 
     @Transactional
-    public PrecioPorTipoUnidad CrearUnidadBasica(CreatePrecioPorTipoUnidadDto dto,Usuario usuario) {// CUANDO ES UNIDAD
+    public PrecioPorTipoUnidad crearUnidadBasica(CreatePrecioPorTipoUnidadDto dto,Usuario usuario) {// CUANDO ES UNIDAD
         if (!verificarUnidad(dto.getProducto(), dto.getTipoUnidad())) {
             var nuevaUnidad = PrecioPorTipoUnidadMapper.toPrecioPorTipoUnidadFromCreate(dto);
             nuevaUnidad.setUnidadesPorTipoUnidadDeProducto(1);

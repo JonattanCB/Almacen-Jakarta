@@ -9,12 +9,15 @@ import jakarta.inject.Named;
 import lombok.Data;
 import org.Almacen.Siman.DTO.Categoria.CategoriaDto;
 import org.Almacen.Siman.DTO.Marca.MarcaDto;
+import org.Almacen.Siman.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadDto;
 import org.Almacen.Siman.DTO.Producto.CreateProductoDto;
 import org.Almacen.Siman.DTO.Producto.ProductoDto;
 import org.Almacen.Siman.DTO.Producto.UpdateProductoDto;
 import org.Almacen.Siman.DTO.Usuario.UsuarioDto;
 import org.Almacen.Siman.Mappers.CategoriaMapper;
 import org.Almacen.Siman.Mappers.MarcaMapper;
+import org.Almacen.Siman.Mappers.PrecioPorTipoUnidadMapper;
+import org.Almacen.Siman.Mappers.ProductoMapper;
 import org.Almacen.Siman.Services.CategoriaService;
 import org.Almacen.Siman.Services.MarcaService;
 import org.Almacen.Siman.Services.ProductoService;
@@ -41,6 +44,8 @@ public class ProductosBeans implements Serializable {
     private MarcaService marcaService;
 
     private ProductoDto productoDto;
+
+    private CreatePrecioPorTipoUnidadDto createPrecioPorTipoUnidadDto;
 
     private int productoid;
 
@@ -75,7 +80,7 @@ public class ProductosBeans implements Serializable {
         productoDto = new ProductoDto();
         categoriaDtoListActiva = categoriaService.getAllCategoriasActivas();
         marcaDtoListActiva = marcaService.getAllMarcaActiva();
-        categoriaid = 0 ;
+        categoriaid = 0;
         marcaid = 0;
         validarOpcion(1);
     }
@@ -92,8 +97,7 @@ public class ProductosBeans implements Serializable {
     }
 
 
-
-    private void cargarProductos(){
+    private void cargarProductos() {
         categoriaDtoListActiva = categoriaService.getAllCategoriasActivas();
         marcaDtoListActiva = marcaService.getAllMarcaActiva();
         productoDto = productoService.getProductoById(productoid);
@@ -101,17 +105,17 @@ public class ProductosBeans implements Serializable {
         marcaid = productoDto.getMarca().getId();
     }
 
-    public void cargarProductoEdicion(){
+    public void cargarProductoEdicion() {
         cargarProductos();
         validarOpcion(1);
     }
 
-    public void verProducto(){
+    public void verProducto() {
         cargarProductos();
         validarOpcion(2);
     }
 
-    public void cambiarEstado (){
+    public void cambiarEstado() {
         ProductoDto p = productoService.getProductoById(productoid);
         productoService.ChangeStateINACTIVO(p.getId());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + p.getNombre() + " ha sido dado de baja exitosamente del sistema!"));
@@ -127,8 +131,9 @@ public class ProductosBeans implements Serializable {
         createProductoDto.setPeso(productoDto.getPeso());
         createProductoDto.setCategoria(CategoriaMapper.toCategoria(categoriaService.getCategoria(categoriaid)));
         createProductoDto.setMarca(MarcaMapper.toMarca(marcaService.getMarcaById(marcaid)));
-        productoService.createProducto(createProductoDto);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto "+createProductoDto.getNombre()+" ha sido registrado exitosamente en el sistema!"));
+        var created = PrecioPorTipoUnidadMapper.toCreateFromProducto(ProductoMapper.toProducto(productoDto), )
+        productoService.createProducto(createProductoDto,created,);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El producto " + createProductoDto.getNombre() + " ha sido registrado exitosamente en el sistema!"));
     }
 
 
@@ -140,7 +145,7 @@ public class ProductosBeans implements Serializable {
         updateProductoDto.setCategoria(CategoriaMapper.toCategoria(categoriaService.getCategoria(categoriaid)));
         updateProductoDto.setMarca(MarcaMapper.toMarca(marcaService.getMarcaById(marcaid)));
         productoService.updateProducto(productoid, updateProductoDto);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El Producto "+updateProductoDto.getNombre()+" ha sido actualizado exitosamente en el sistema!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El Producto " + updateProductoDto.getNombre() + " ha sido actualizado exitosamente en el sistema!"));
     }
 
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
@@ -165,8 +170,8 @@ public class ProductosBeans implements Serializable {
         }
     }
 
-    private  void validarOpcion(int opcion){
-        switch (opcion){
+    private void validarOpcion(int opcion) {
+        switch (opcion) {
             case 1:
                 btnguardar = true;
                 EscribirDatos = false;
@@ -178,16 +183,17 @@ public class ProductosBeans implements Serializable {
         }
     }
 
-    private void verificarNuevoBoton(){
+    private void verificarNuevoBoton() {
         List<CategoriaDto> categoriaDtoList = categoriaService.getAllCategoriasActivas();
         List<MarcaDto> marcaDtoList = marcaService.getAllMarcaActiva();
 
-        if (categoriaDtoList.isEmpty() || marcaDtoList.isEmpty()){
+        if (categoriaDtoList.isEmpty() || marcaDtoList.isEmpty()) {
             btnNuevoProducto = true;
-        }else {
+        } else {
             btnNuevoProducto = false;
         }
     }
+
     private void loadProductos() {
         try {
             productosProductoDtoList = productoService.getAllProducto();
@@ -196,11 +202,11 @@ public class ProductosBeans implements Serializable {
         }
     }
 
-    private void  verificarRol(){
+    private void verificarRol() {
         UsuarioDto user = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        if (user.getUnidad().getRol().getNombre().equalsIgnoreCase("Jefe")){
+        if (user.getUnidad().getRol().getNombre().equalsIgnoreCase("Jefe")) {
             btnRol = true;
-        }else{
+        } else {
             btnRol = false;
         }
     }

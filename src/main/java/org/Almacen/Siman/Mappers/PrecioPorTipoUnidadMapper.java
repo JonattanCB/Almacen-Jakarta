@@ -4,6 +4,8 @@ import org.Almacen.Siman.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadDto;
 import org.Almacen.Siman.DTO.PrecioPorTipoUnidad.PrecioPorTipoUnidadDto;
 import org.Almacen.Siman.DTO.PrecioPorTipoUnidad.UpdatePrecioPorTipoUnidadDto;
 import org.Almacen.Siman.Model.PrecioPorTipoUnidad;
+import org.Almacen.Siman.Model.Producto;
+import org.Almacen.Siman.Util.Constantes;
 
 public class PrecioPorTipoUnidadMapper {
     public static PrecioPorTipoUnidadDto toDto(PrecioPorTipoUnidad p) {
@@ -39,6 +41,15 @@ public class PrecioPorTipoUnidadMapper {
         precio.setUnidadesPorTipoUnidadDeProducto(p.getUnidadesPorTipoUnidadPorProducto());
 
         return precio;
+    }
+
+    public static CreatePrecioPorTipoUnidadDto toCreateFromProducto(Producto producto, double precioUnit) {
+        var p = new CreatePrecioPorTipoUnidadDto();
+        p.setTipoUnidad(Constantes.UND);
+        p.setProducto(producto);
+        p.setPrecio(precioUnit);
+        p.setUnidadesPorTipoUnidadPorProducto(1);
+        return p;
     }
 
 }

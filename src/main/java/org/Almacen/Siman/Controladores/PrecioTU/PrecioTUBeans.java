@@ -145,7 +145,7 @@ public class PrecioTUBeans implements Serializable {
         createPrecioPorTipoUnidadDto.setUnidadesPorTipoUnidadPorProducto(precioPorTipoUnidadDto.getUnidadesPorTipoUnidadPorProducto());
         UsuarioDto usuarioDto = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         if (createPrecioPorTipoUnidadDto.getTipoUnidad().getAbrev().equals("UND")) {
-            precioPorTipoUnidadService.CrearUnidadBasica(createPrecioPorTipoUnidadDto,UsuarioMapper.toUsuario(usuarioDto));
+            precioPorTipoUnidadService.crearUnidadBasica(createPrecioPorTipoUnidadDto,UsuarioMapper.toUsuario(usuarioDto));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El precio del producto " + createPrecioPorTipoUnidadDto.getProducto().getNombre() + " ha sido registrado exitosamente en el sistema!"));
             loadPrecioPorTipoUnidad();
             PrimeFaces.current().executeScript("PF('dialogsa').hide()");

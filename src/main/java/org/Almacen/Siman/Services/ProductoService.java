@@ -5,15 +5,20 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.Almacen.Siman.DAO.IPrecioPorTipoUnidadDao;
 import org.Almacen.Siman.DAO.IProductoDao;
 import org.Almacen.Siman.DAO.IStockUnidadesDao;
+import org.Almacen.Siman.DTO.PrecioPorTipoUnidad.CreatePrecioPorTipoUnidadDto;
 import org.Almacen.Siman.DTO.Producto.CreateProductoDto;
 import org.Almacen.Siman.DTO.Producto.ProductoDescripcionDto;
 import org.Almacen.Siman.DTO.Producto.ProductoDto;
 import org.Almacen.Siman.DTO.Producto.UpdateProductoDto;
+import org.Almacen.Siman.Mappers.PrecioPorTipoUnidadMapper;
 import org.Almacen.Siman.Mappers.ProductoMapper;
+import org.Almacen.Siman.Model.PrecioPorTipoUnidad;
 import org.Almacen.Siman.Model.Producto;
 import org.Almacen.Siman.Model.StockUnidades;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +31,9 @@ public class ProductoService implements Serializable {
     @Inject
     private IProductoDao iProductoDao;
     @Inject
-    private IStockUnidadesDao IStockUnidadesDao;
+    private IStockUnidadesDao iStockUnidadesDao;
+    @Inject
+    private PrecioPorTipoUnidadService precioPorTipoUnidadService;
 
     @Transactional
     public List<ProductoDto> getAllProducto() {
@@ -43,13 +50,16 @@ public class ProductoService implements Serializable {
     }
 
     @Transactional
-    public Producto createProducto(CreateProductoDto c) {
+    public Producto createProducto(CreateProductoDto c, CreatePrecioPorTipoUnidadDto dto, Usuario u) {
         var Producto = ProductoMapper.toProductoFromCreate(c);
         var stockCreated = new StockUnidades();
         stockCreated.setProducto(Producto);
         stockCreated.setCantidadStockUnidad(0);
         iProductoDao.create(Producto);
-        IStockUnidadesDao.create(stockCreated);
+        iStockUnidadesDao.create(stockCreated);
+
+        precioPorTipoUnidadService.crearUnidadBasica(dto, u);
+
         return Producto;
     }
 
@@ -76,7 +86,7 @@ public class ProductoService implements Serializable {
         return productos.stream().map(c -> new ProductoDescripcionDto(c.getId(), ProductoMapper.toConcatProduct(c))).collect(Collectors.toList());
     }
 
-    public List<ProductoDescripcionDto> getAllProductosDescripcipDto(){
+    public List<ProductoDescripcionDto> getAllProductosDescripcipDto() {
         List<Producto> productos = iProductoDao.getAllbyProductos();
         return productos.stream().map(c -> new ProductoDescripcionDto(c.getId(), ProductoMapper.toConcatProduct(c))).collect(Collectors.toList());
     }
