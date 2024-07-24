@@ -305,7 +305,7 @@ Unitario]]></text>
 					<rightPen lineWidth="1.0" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Area}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="268" y="0" width="145" height="20" uuid="bcd3967f-15fb-4757-a053-b1d3071ad22c"/>
