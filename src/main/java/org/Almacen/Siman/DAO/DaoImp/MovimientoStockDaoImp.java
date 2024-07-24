@@ -1,12 +1,12 @@
-package org.Almacen.Siman.DAO.DaoImp;
+package org.Almacen.TopAlmacen.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.Almacen.Siman.DAO.IMovimientoStockDao;
-import org.Almacen.Siman.Model.MovimientoStock;
+import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
+import org.Almacen.TopAlmacen.Model.MovimientoStock;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Named
@@ -42,15 +42,15 @@ public class MovimientoStockDaoImp implements IMovimientoStockDao {
     }
 
     @Override
-    public List<MovimientoStock> findMovimientosByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
-
+    public List<MovimientoStock> findMovimientosByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
         return _entityManager.createQuery(
-                        "SELECT m FROM MovimientoStock m WHERE m.producto.id = :productoId AND m.fechaRegistro BETWEEN :startDate AND :endDate",
+                        "SELECT m FROM MovimientoStock m WHERE m.producto.id = :productoId AND m.fechaRegistro BETWEEN :startDate AND :endDate ORDER BY m.fechaRegistro ASC",
                         MovimientoStock.class)
                 .setParameter("productoId", productoId)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .getResultList();
     }
+
 
 }

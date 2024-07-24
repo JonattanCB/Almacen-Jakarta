@@ -1,12 +1,14 @@
-package org.Almacen.Siman.DAO.DaoImp;
+package org.Almacen.TopAlmacen.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.Almacen.Siman.DAO.IHistorialStockDao;
-import org.Almacen.Siman.Model.HistorialStock;
+import org.Almacen.TopAlmacen.DAO.IHistorialStockDao;
+import org.Almacen.TopAlmacen.Model.HistorialPrecios;
+import org.Almacen.TopAlmacen.Model.HistorialStock;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Named
@@ -30,24 +32,27 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
         _entityManager.persist(historialStock);
         return historialStock;
     }
-
+/*
     @Override
-    public List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
+    public List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
 
         return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId  AND h.fechaRegistrada BETWEEN :startDate AND :endDate", HistorialStock.class)
                 .setParameter("productoId", productoId)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .getResultList();
-    }
+    }*/
 
     @Override
-    public HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDate fecha) {
-        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId AND h.fechaRegistrada <= :fecha ORDER BY h.fechaRegistrada DESC", HistorialStock.class)
+    public HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDateTime fecha) {
+        return _entityManager.createQuery(
+                        "SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto.id = :productoId AND h.fechaRegistrada <= :fecha ORDER BY h.fechaRegistrada DESC",
+                        HistorialStock.class)
                 .setParameter("productoId", productoId)
-                .setParameter("fecha", fecha.atStartOfDay()) // Ajuste para comparar con LocalDateTime
+                .setParameter("fecha", fecha)
                 .setMaxResults(1)
                 .getSingleResult();
     }
+
 
 }

@@ -2,6 +2,7 @@ package org.Almacen.Siman.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.Siman.DAO.IHistorialPreciosDao;
 import org.Almacen.Siman.Model.HistorialPrecios;
@@ -53,9 +54,11 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
     }
 
     @Override
-    public List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate) {
-
-        return _entityManager.createQuery("SELECT h FROM HistorialPrecios  h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.responsable  WHERE h.precioPorTipoUnidad.producto= :productoId AND h.precioPorTipoUnidad.tipoUnidad.Abrev = :tipounidad AND h.fechaRegistro BETWEEN :startDate and :endDate", HistorialPrecios.class)
+    public List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
+        return _entityManager.createQuery(
+                        "SELECT h FROM HistorialPrecios h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.precioPorTipoUnidad.producto JOIN FETCH h.precioPorTipoUnidad.tipoUnidad JOIN FETCH h.responsable " +
+                                "WHERE h.precioPorTipoUnidad.producto.id = :productoId AND h.precioPorTipoUnidad.tipoUnidad.Abrev = :tipounidad AND h.fechaRegistro BETWEEN :startDate AND :endDate ORDER BY h.fechaRegistro DESC",
+                        HistorialPrecios.class)
                 .setParameter("productoId", productoId)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
@@ -64,13 +67,21 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
     }
 
     @Override
-    public HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDate fecha) {
-        return _entityManager.createQuery(
-                        "SELECT h FROM HistorialPrecios h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.responsable WHERE h.precioPorTipoUnidad.producto.id = :productoId AND h.fechaRegistro <= :fecha ORDER BY h.fechaRegistro DESC", HistorialPrecios.class)
-                .setParameter("productoId", productoId)
-                .setParameter("fecha", fecha.atStartOfDay()) // Ajuste para comparar con LocalDateTime
-                .setMaxResults(1)
-                .getSingleResult();
+    public HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDateTime fecha) {
+        try {
+            return _entityManager.createQuery(
+                            "SELECT h FROM HistorialPrecios h JOIN FETCH h.precioPorTipoUnidad JOIN FETCH h.precioPorTipoUnidad.producto JOIN FETCH h.responsable " +
+                                    "WHERE h.precioPorTipoUnidad.producto.id = :productoId AND h.fechaRegistro <= :fecha ORDER BY h.fechaRegistro DESC",
+                            HistorialPrecios.class)
+                    .setParameter("productoId", productoId)
+                    .setParameter("fecha", fecha)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
+
+
 
 }

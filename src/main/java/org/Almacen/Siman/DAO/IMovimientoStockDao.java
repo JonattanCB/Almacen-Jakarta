@@ -3,6 +3,7 @@ package org.Almacen.Siman.DAO;
 import org.Almacen.Siman.Model.MovimientoStock;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IMovimientoStockDao {
@@ -14,6 +15,6 @@ public interface IMovimientoStockDao {
 
     MovimientoStock delete(int id);
 
-    public List<MovimientoStock> findMovimientosByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
+    List<MovimientoStock> findMovimientosByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate);
 
 }

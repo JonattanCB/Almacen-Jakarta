@@ -3,6 +3,7 @@ package org.Almacen.Siman.DAO;
 import org.Almacen.Siman.Model.HistorialStock;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IHistorialStockDao {
@@ -12,8 +13,8 @@ public interface IHistorialStockDao {
 
     HistorialStock add(HistorialStock historialStock);
 
-    List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
+   // List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
 
-    HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDate fecha);
+    HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDateTime fecha);
 
 }

@@ -45,28 +45,29 @@ public class KardexBeans implements Serializable {
     private List<ItemKardexTemp> itemKardexTempsSeleccion;
 
     @PostConstruct
-    private  void init(){
+    private void init() {
         fechasSeleccionadas = new ArrayList<>();
         itemKardexTemps = new ArrayList<>();
         loadProductoDescripcionDtos();
         validarBotones();
     }
 
-    private void loadProductoDescripcionDtos(){
+    private void loadProductoDescripcionDtos() {
         this.productoDescripcionDtos = productoService.productoDescripcionDtos();
     }
 
-    public void buscarKardex(){
+    public void buscarKardex() {
         LocalDate startDate = fechasSeleccionadas.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate endDate;
-        if (fechasSeleccionadas.size() ==1){
+        if (fechasSeleccionadas.size() == 1) {
             endDate = fechasSeleccionadas.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }else{
-           endDate = fechasSeleccionadas.get(fechasSeleccionadas.size() - 1).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            endDate = fechasSeleccionadas.get(fechasSeleccionadas.size() - 1).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
+        System.out.println(startDate + " - " + endDate);
         KardexTemp kardex = kardexService.generarKardex(idproducto, startDate, endDate);
         itemKardexTemps = kardex.getItems();
-        PrimeFaces.current().ajax().update( ":form-datos:tabla");
+        PrimeFaces.current().ajax().update(":form-datos:tabla");
     }
 
 
@@ -79,10 +80,10 @@ public class KardexBeans implements Serializable {
         return (String.valueOf(c.getFecha()).toLowerCase().contains(filterText));
     }
 
-    public void validarBotones(){
-        if (fechasSeleccionadas.isEmpty() || idproducto ==0 || productoDescripcionDtos.isEmpty()){
+    public void validarBotones() {
+        if (fechasSeleccionadas.isEmpty() || idproducto == 0 || productoDescripcionDtos.isEmpty()) {
             validarBtns = true;
-        }else{
+        } else {
             validarBtns = false;
         }
     }

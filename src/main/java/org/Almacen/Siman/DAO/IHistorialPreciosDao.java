@@ -16,9 +16,9 @@ public interface IHistorialPreciosDao {
 
     boolean isBeingUsed(int id);
 
-    List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDate startDate, LocalDate endDate);
+    List<HistorialPrecios> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate);
 
-    HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDate fecha);
+    HistorialPrecios obtenerUltimoPrecioAntesDeFecha(int productoId, LocalDateTime fecha);
 
 
 }
