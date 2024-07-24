@@ -168,7 +168,7 @@
         <p:dialog id="dialogProducto" header="Detalles de la Verificacion Stock" appendTo="@(body)" width="1000" height="400" showEffect="fade" modal="true"  widgetVar="dialogProducto" >
             <h:form id="form-dialogo-producto">
                 <h:panelGrid>
-                    <p:dataTable size="small"  scrollable="true" scrollHeight="150" value="#{ComprobanteSalidaBeans.validacionStockDtos}"
+                    <p:dataTable size="small"  scrollable="true" scrollHeight="250" value="#{ComprobanteSalidaBeans.validacionStockDtos}"
                                  rows="6" paginator="true" rowSelectMode="add" paginatorPosition="bottom" var="vs" >
                         <p:column headerText="#" width="80">
                             <h:outputText  value="#{vs.id}"  />
@@ -187,7 +187,7 @@
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
-                <h:panelGrid columns="2" style="float: right;" >
+                <h:panelGrid columns="2" style=" right: 0;  position: absolute; top: 25rem ; margin-right: 1rem" >
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dialogProducto').hide()" update="form-dialogProducto"  styleClass="ui-button-secondary" type="button"/>
                 </h:panelGrid>
             </h:form>
