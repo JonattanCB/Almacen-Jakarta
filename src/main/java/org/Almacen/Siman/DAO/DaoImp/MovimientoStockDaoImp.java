@@ -1,13 +1,14 @@
-package org.Almacen.TopAlmacen.DAO.DaoImp;
-
+package org.Almacen.Siman.DAO.DaoImp;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.Almacen.TopAlmacen.DAO.IMovimientoStockDao;
-import org.Almacen.TopAlmacen.Model.MovimientoStock;
+import org.Almacen.Siman.DAO.IMovimientoStockDao;
+import org.Almacen.Siman.Model.MovimientoStock;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Named
 public class MovimientoStockDaoImp implements IMovimientoStockDao {

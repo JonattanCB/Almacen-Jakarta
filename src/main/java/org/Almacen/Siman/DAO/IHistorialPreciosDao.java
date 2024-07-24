@@ -2,7 +2,7 @@ package org.Almacen.Siman.DAO;
 
 import org.Almacen.Siman.Model.HistorialPrecios;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IHistorialPreciosDao {

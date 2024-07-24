@@ -51,11 +51,9 @@ public class KardexService {
         List<EventoKardex> eventos = new ArrayList<>();
         for (MovimientoStock movimiento : movimientos) {
             eventos.add(new EventoKardex(movimiento.getFechaRegistro(), "Movimiento", movimiento));
-            System.out.println(movimiento.getId() + "Encontrado");
         }
         for (HistorialPrecios historial : historiales) {
             eventos.add(new EventoKardex(historial.getFechaRegistro(), "Precio", historial));
-            System.out.println(historial.getId() + "Encontrado");
         }
         eventos.sort(Comparator.comparing(EventoKardex::getFecha));
         return eventos;
@@ -127,7 +125,7 @@ public class KardexService {
 
     private double obtenerInventarioInicial(int productoId, LocalDateTime startDate) {
         var obj = iHistorialStockDao.obtenerUltimoStockAntesDeFecha(productoId, startDate);
-        System.out.println(obj.getCantidadStock() + "Esta es la cantidad");
+        System.out.println(obj.getCantidadStock()+"ENCONTRADO");
         return obj.getCantidadStock();
     }
 }

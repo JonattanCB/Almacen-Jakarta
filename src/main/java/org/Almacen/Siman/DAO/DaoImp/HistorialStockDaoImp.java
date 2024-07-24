@@ -1,15 +1,14 @@
-package org.Almacen.TopAlmacen.DAO.DaoImp;
+package org.Almacen.Siman.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.Almacen.TopAlmacen.DAO.IHistorialStockDao;
-import org.Almacen.TopAlmacen.Model.HistorialPrecios;
-import org.Almacen.TopAlmacen.Model.HistorialStock;
+import org.Almacen.Siman.DAO.IHistorialStockDao;
+import org.Almacen.Siman.Model.HistorialStock;
 
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Named
 
@@ -32,16 +31,7 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
         _entityManager.persist(historialStock);
         return historialStock;
     }
-/*
-    @Override
-    public List<HistorialStock> findHistorialByProductoAndFechaRange(int productoId, LocalDateTime startDate, LocalDateTime endDate) {
 
-        return _entityManager.createQuery("SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto=:productoId  AND h.fechaRegistrada BETWEEN :startDate AND :endDate", HistorialStock.class)
-                .setParameter("productoId", productoId)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .getResultList();
-    }*/
 
     @Override
     public HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDateTime fecha) {
@@ -53,6 +43,7 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
                 .setMaxResults(1)
                 .getSingleResult();
     }
+
 
 
 }

@@ -8,6 +8,7 @@ import org.Almacen.Siman.DAO.IHistorialPreciosDao;
 import org.Almacen.Siman.Model.HistorialPrecios;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Named
@@ -81,6 +82,7 @@ public class HistorialPreciosDaoImp implements IHistorialPreciosDao {
             return null;
         }
     }
+
 
 
 
