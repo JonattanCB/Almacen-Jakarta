@@ -2,14 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante_Salida" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a9c8a9b-c3c2-4796-a86b-a6c62a9a2cf2">
 	<property name="ireport.zoom" value="0.9090909090909145"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="30"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="dependencia_s" class="java.lang.String"/>
 	<parameter name="para_uso" class="java.lang.String"/>
 	<parameter name="totalC_v" class="java.lang.Double"/>
-	<parameter name="estado" class="java.lang.String"/>
+	<parameter name="nombre_ap" class="java.lang.String"/>
+	<parameter name="estado_ap" class="java.lang.String"/>
 	<field name="item_s" class="java.lang.Integer"/>
 	<field name="cantidad_s" class="java.lang.Double"/>
 	<field name="medida_s" class="java.lang.String"/>
@@ -25,15 +26,15 @@
 	<title>
 		<band height="124" splitType="Stretch">
 			<rectangle>
-				<reportElement x="2" y="14" width="400" height="57" forecolor="#000000" uuid="a05e4d74-0feb-476a-b26d-5a0573c0547c"/>
+				<reportElement x="2" y="14" width="356" height="57" forecolor="#000000" uuid="a05e4d74-0feb-476a-b26d-5a0573c0547c"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="24" y="24" width="515" height="36" forecolor="#000000" uuid="e1443faa-bb71-40de-8796-0656dcc6d2dd"/>
+				<reportElement x="13" y="24" width="515" height="36" forecolor="#000000" uuid="e1443faa-bb71-40de-8796-0656dcc6d2dd"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Cooper Black" size="24" isBold="true"/>
+					<font fontName="Cooper Black" size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comprobante de Salida Almacen]]></text>
 			</staticText>
@@ -44,12 +45,12 @@
 			<staticText>
 				<reportElement x="28" y="97" width="123" height="22" uuid="f7b91e35-195e-4dad-ad71-f61249ec86f0"/>
 				<textElement>
-					<font fontName="Arial Black" size="13"/>
+					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[ENTREGAR A:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="119" y="98" width="446" height="20" uuid="2113d79b-41b3-471a-81a8-dbb961523c1f"/>
+				<reportElement x="113" y="99" width="446" height="20" uuid="2113d79b-41b3-471a-81a8-dbb961523c1f"/>
 				<box topPadding="0" rightPadding="3"/>
 				<textElement>
 					<font size="12"/>
@@ -59,33 +60,33 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="144" splitType="Stretch">
+		<band height="103" splitType="Stretch">
 			<rectangle>
 				<reportElement x="593" y="0" width="100" height="27" backcolor="#F1F6EE" uuid="3010307c-45b3-4e1e-b86c-146b01fbf853"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="28" y="8" width="230" height="19" uuid="f2d0e395-2aa3-43f4-990d-6a577a641001"/>
 				<textElement>
-					<font fontName="Arial Black" size="13"/>
+					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[DEPENDENCIA SOLICITANTE:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="28" y="42" width="85" height="20" uuid="1259089b-ff69-49c7-9cf1-09b9ad573d3f"/>
 				<textElement>
-					<font fontName="Arial Black" size="13"/>
+					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[PARA USO:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="28" y="72" width="152" height="20" uuid="15d601da-e513-4085-9677-81023247b497"/>
 				<textElement>
-					<font fontName="Arial Black" size="13"/>
+					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[FECHA ENTREGA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="220" y="8" width="348" height="19" uuid="c6c200b8-4597-455b-9f8d-ff4523f4aacd"/>
+				<reportElement x="205" y="8" width="348" height="19" uuid="c6c200b8-4597-455b-9f8d-ff4523f4aacd"/>
 				<box topPadding="1" rightPadding="3"/>
 				<textElement>
 					<font size="12"/>
@@ -93,7 +94,7 @@
 				<textFieldExpression><![CDATA[$P{dependencia_s}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="101" y="42" width="464" height="20" uuid="c96e6152-26b4-418d-b669-cad47e1d1bfe"/>
+				<reportElement x="97" y="43" width="464" height="20" uuid="c96e6152-26b4-418d-b669-cad47e1d1bfe"/>
 				<box topPadding="1" rightPadding="3"/>
 				<textElement>
 					<font size="12"/>
@@ -101,7 +102,7 @@
 				<textFieldExpression><![CDATA[$P{para_uso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="146" y="72" width="419" height="20" uuid="a51c703e-3541-4a1a-9800-57b0a1af1a7d"/>
+				<reportElement x="140" y="71" width="419" height="20" uuid="a51c703e-3541-4a1a-9800-57b0a1af1a7d"/>
 				<box topPadding="2" rightPadding="3"/>
 				<textElement>
 					<font size="12"/>
@@ -117,7 +118,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Britannic Bold" size="14"/>
+					<font fontName="Britannic Bold" size="13"/>
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
@@ -134,21 +135,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="87" y="102" width="338" height="20" uuid="b40d2a23-1dc7-44fc-9546-1c60ba6f3914"/>
-				<box topPadding="1" rightPadding="3"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="28" y="103" width="137" height="20" uuid="57fbf5a2-f6db-4a3e-a5bd-f37985f6938b"/>
-				<textElement>
-					<font fontName="Arial Black" size="13"/>
-				</textElement>
-				<text><![CDATA[ESTADO:]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -391,6 +377,35 @@
 			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="113">
+			<textField isBlankWhenNull="false">
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="279" y="71" width="239" height="20" uuid="cdd81e7d-605a-4214-ac5e-2bb60aa6c609"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre_ap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="51" width="239" height="20" uuid="378e8b50-a482-4ba2-b07f-66f0630bdf7a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estado_ap}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="347" y="91" width="97" height="20" uuid="97f3b605-919b-46ef-8121-2f5e17a8382c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jefatura - Almacen]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="21" splitType="Stretch">
 			<textField isStretchWithOverflow="true">

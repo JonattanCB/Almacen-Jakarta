@@ -2,14 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Formulacion_Pedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="478457f3-3ffd-40af-9b21-b355e5c8d44c">
 	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="186"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="fecha" class="java.lang.String"/>
 	<parameter name="id" class="java.lang.String"/>
 	<parameter name="D_sol" class="java.lang.String"/>
-	<parameter name="estado" class="java.lang.String"/>
 	<parameter name="r_entrada" class="java.lang.String"/>
 	<parameter name="r_salida" class="java.lang.String"/>
+	<parameter name="nombre_jd" class="java.lang.String"/>
+	<parameter name="estado_ap" class="java.lang.String"/>
 	<field name="id_p" class="java.lang.Integer"/>
 	<field name="desc_p" class="java.lang.String"/>
 	<field name="nom_tunid" class="java.lang.String"/>
@@ -26,9 +27,9 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="339" y="77" width="115" height="20" uuid="e82d80bb-8a6a-48f9-b4e7-60353f1c0bf9"/>
+				<reportElement x="337" y="77" width="138" height="20" uuid="e82d80bb-8a6a-48f9-b4e7-60353f1c0bf9"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Berlin Sans FB Demi" size="11"/>
+					<font fontName="Arial Black" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
@@ -44,14 +45,14 @@
 				<text><![CDATA[Formato de Requerimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="339" y="104" width="115" height="20" uuid="10313f52-7cec-4358-9d45-1295078552f6"/>
+				<reportElement x="337" y="104" width="138" height="20" uuid="10313f52-7cec-4358-9d45-1295078552f6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Berlin Sans FB Demi" size="11"/>
+					<font fontName="Arial Black" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[N REQUERIMIENTO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="454" y="104" width="88" height="20" uuid="e4db4869-901c-4c18-8ccd-4d6e6e37bf7f"/>
+				<reportElement x="455" y="104" width="87" height="20" uuid="e4db4869-901c-4c18-8ccd-4d6e6e37bf7f"/>
 				<box topPadding="4" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -74,16 +75,16 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="86" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<staticText>
-				<reportElement x="14" y="37" width="201" height="20" uuid="ec68f440-487e-4842-bb80-a52c1a87d72e"/>
+				<reportElement x="14" y="10" width="240" height="20" uuid="ec68f440-487e-4842-bb80-a52c1a87d72e"/>
 				<textElement>
-					<font fontName="Berlin Sans FB Demi" size="12"/>
+					<font fontName="Arial Black" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[DEPENDENCIA DEL SOLICITANTE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="15" y="61" width="528" height="20" uuid="cdf90e56-6989-46cf-95a5-40af37c236c6"/>
+				<reportElement x="15" y="34" width="528" height="20" uuid="cdf90e56-6989-46cf-95a5-40af37c236c6"/>
 				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="4">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -92,19 +93,6 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textFieldExpression><![CDATA[$P{D_sol}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="14" y="0" width="55" height="20" uuid="9934f8c7-7ecc-4768-9af8-bf8df210f003"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Berlin Sans FB Demi" size="11"/>
-				</textElement>
-				<text><![CDATA[ESTADO:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="65" y="0" width="179" height="20" uuid="5024b1b9-febd-4895-a6c3-6ca35e250ec1"/>
-				<box topPadding="4" rightPadding="3"/>
-				<textElement verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -207,12 +195,41 @@
 			</textField>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="89">
+			<textField>
+				<reportElement x="183" y="42" width="193" height="20" uuid="35065224-31c8-4cf8-9c8a-e5df8006b066"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre_jd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="22" width="193" height="20" uuid="395dae11-4690-43de-b51e-6b06bc78e9c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estado_ap}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="62" width="97" height="20" uuid="a360553e-8427-41f3-8b71-39ffe23023de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jefatura]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="208" splitType="Stretch">
 			<staticText>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="106" width="151" height="20" isPrintWhenDetailOverflows="true" uuid="22ce25df-b088-4b26-8daa-d7ed26083b84"/>
 				<textElement>
-					<font fontName="Berlin Sans FB Demi" size="12" isBold="false"/>
+					<font fontName="Arial Black" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[RAZON DE SALIDA:]]></text>
 			</staticText>
@@ -229,7 +246,7 @@
 			<staticText>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="21" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="26ef9ff4-1ff7-499a-8423-be694922f45a"/>
 				<textElement>
-					<font fontName="Berlin Sans FB Demi" size="12" isBold="false"/>
+					<font fontName="Arial Black" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[RAZON DE ENTRADA:]]></text>
 			</staticText>

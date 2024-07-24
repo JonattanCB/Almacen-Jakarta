@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Kardex" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f867132c-1f22-4f8a-8589-ee677e422712">
-	<property name="ireport.zoom" value="1.1000000000000112"/>
+	<property name="ireport.zoom" value="1.0000000000000124"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="n_kardex" class="java.lang.Integer"/>
@@ -8,6 +8,7 @@
 	<parameter name="inv_inicial" class="java.lang.Integer"/>
 	<parameter name="unid_medida" class="java.lang.String"/>
 	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<field name="fecha_k" class="java.lang.String"/>
 	<field name="area_k" class="java.lang.String"/>
 	<field name="nombre_k" class="java.lang.String"/>
@@ -26,10 +27,10 @@
 				<reportElement x="0" y="0" width="802" height="56" forecolor="#000000" backcolor="#F1F6EE" uuid="60326d94-ebc4-4d1e-bc73-a56af51b11a9"/>
 			</rectangle>
 			<rectangle radius="20">
-				<reportElement x="11" y="10" width="654" height="34" forecolor="#000000" backcolor="#F1F6EE" uuid="f5797cf8-60b0-4c37-a73e-5f840dd4c2fd"/>
+				<reportElement x="142" y="10" width="523" height="34" forecolor="#000000" backcolor="#F1F6EE" uuid="f5797cf8-60b0-4c37-a73e-5f840dd4c2fd"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="221" y="8" width="364" height="36" forecolor="#000000" uuid="98c4597b-3795-49a3-8ab9-9e6d88d71071"/>
+				<reportElement x="300" y="8" width="364" height="36" forecolor="#000000" uuid="98c4597b-3795-49a3-8ab9-9e6d88d71071"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cooper Black" size="24" isBold="true"/>
 				</textElement>
@@ -50,70 +51,95 @@
 				</textElement>
 				<text><![CDATA[N°]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="3" width="133" height="54" uuid="733b3243-060d-4390-bf83-65ca3ddd804f"/>
+				<imageExpression><![CDATA[$P{Ruta_Imagen}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="106" splitType="Stretch">
+		<band height="67" splitType="Stretch">
 			<rectangle>
-				<reportElement x="108" y="22" width="331" height="20" forecolor="#000000" backcolor="#F1F6EE" uuid="26b67421-4264-436d-9505-7b9e371c90c0"/>
+				<reportElement x="74" y="19" width="183" height="19" forecolor="#000000" backcolor="#F1F6EE" uuid="26b67421-4264-436d-9505-7b9e371c90c0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="558" y="19" width="162" height="19" forecolor="#000000" backcolor="#F1F6EE" uuid="9db8749f-552b-4acb-bcca-82bcd8159f8d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="257" y="19" width="183" height="19" forecolor="#000000" backcolor="#F1F6EE" uuid="96f74e86-5254-499d-95ae-f1b613723745"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="440" y="19" width="118" height="19" forecolor="#000000" backcolor="#F1F6EE" uuid="c96729e2-6cfb-4708-9a10-2c4219ffe7bd"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="23" y="22" width="85" height="22" uuid="5fbd4b29-b5d2-4291-988a-919b34905a3b"/>
-				<textElement>
+				<reportElement x="74" y="18" width="183" height="19" backcolor="#FFFFFF" uuid="5fbd4b29-b5d2-4291-988a-919b34905a3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
-				<text><![CDATA[ARTICULO:]]></text>
+				<text><![CDATA[ARTICULO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="55" width="162" height="42" uuid="9fd730f5-cbd5-4ddb-9825-1a2856fb224d"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="558" y="18" width="162" height="20" uuid="9fd730f5-cbd5-4ddb-9825-1a2856fb224d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
-				<text><![CDATA[INVENTARIO INICIAL: ]]></text>
+				<text><![CDATA[INVENTARIO INICIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="501" y="23" width="153" height="21" uuid="56634001-5a70-43dd-9a7a-1ded426e12e1"/>
-				<textElement>
+				<reportElement x="257" y="18" width="183" height="19" uuid="56634001-5a70-43dd-9a7a-1ded426e12e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
-				<text><![CDATA[UNIDAD DE MEDIDA:]]></text>
+				<text><![CDATA[UNIDAD DE MEDIDA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="108" y="22" width="331" height="20" backcolor="#FFFFFF" uuid="655948e6-e167-4554-8986-578a5b2853fc"/>
-				<box leftPadding="2" rightPadding="2"/>
+				<reportElement x="74" y="37" width="183" height="20" backcolor="#FFFFFF" uuid="655948e6-e167-4554-8986-578a5b2853fc"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{articulo}]]></textFieldExpression>
 			</textField>
-			<rectangle>
-				<reportElement x="185" y="57" width="115" height="40" forecolor="#000000" backcolor="#F1F6EE" uuid="f6ab308a-4508-4ce6-8cec-933f81c03364"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="654" y="15" width="115" height="37" forecolor="#000000" backcolor="#F1F6EE" uuid="9db8749f-552b-4acb-bcca-82bcd8159f8d"/>
-			</rectangle>
 			<textField>
-				<reportElement x="654" y="15" width="115" height="37" backcolor="#000000" uuid="dde305a2-9371-4ab8-95d5-c5a5b7fed92d"/>
-				<box leftPadding="2" rightPadding="2"/>
+				<reportElement x="257" y="38" width="183" height="19" backcolor="#000000" uuid="dde305a2-9371-4ab8-95d5-c5a5b7fed92d"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{unid_medida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="185" y="57" width="115" height="40" uuid="6c211b9a-7cd5-4398-b1ff-c609008c38d3"/>
-				<box leftPadding="2" rightPadding="2"/>
+				<reportElement x="558" y="38" width="162" height="19" uuid="6c211b9a-7cd5-4398-b1ff-c609008c38d3"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{inv_inicial}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="572" y="68" width="82" height="21" uuid="2d989bd0-f787-420d-97da-e6602ab4881e"/>
-				<textElement>
+				<reportElement x="440" y="19" width="118" height="19" uuid="2d989bd0-f787-420d-97da-e6602ab4881e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
-				<text><![CDATA[PERIODO:]]></text>
+				<text><![CDATA[PERIODO]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="654" y="60" width="133" height="37" forecolor="#000000" backcolor="#F1F6EE" uuid="c96729e2-6cfb-4708-9a10-2c4219ffe7bd"/>
-			</rectangle>
 			<textField>
-				<reportElement x="654" y="62" width="133" height="35" uuid="f729f843-d7e1-443c-afb6-60dcb0b70ae3"/>
+				<reportElement x="440" y="38" width="118" height="19" uuid="f729f843-d7e1-443c-afb6-60dcb0b70ae3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
 			</textField>
