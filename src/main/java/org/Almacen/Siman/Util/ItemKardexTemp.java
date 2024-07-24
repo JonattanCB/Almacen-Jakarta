@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemKardexTemp {
-    private LocalDateTime Fecha;
+    private String Fecha;
     private String Area;
     private String SolicitanteResponsable;
     private double invInicial;

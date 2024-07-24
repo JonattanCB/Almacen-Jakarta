@@ -1,9 +1,11 @@
 package org.Almacen.Siman.Services;
 
-import jakarta.ejb.Local;
+import java.time.format.DateTimeFormatter;
+
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.persistence.NoResultException;
 import jakarta.transaction.Transactional;
 import org.Almacen.Siman.DAO.IHistorialPreciosDao;
 import org.Almacen.Siman.DAO.IHistorialStockDao;
@@ -40,24 +42,25 @@ public class KardexService {
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.plusDays(1).atStartOfDay().minusNanos(1);
 
-        List<MovimientoStock> movimientos = iMovimientoStockDao.findMovimientosByProductoAndFechaRange(productoId, startDateTime, endDateTime);
-        List<HistorialPrecios> historiales = iHistorialPreciosDao.findHistorialByProductoAndFechaRange(productoId, startDateTime, endDateTime);
-        for (MovimientoStock mv : movimientos) {
-            System.out.println(mv.getProducto().getNombre());
-        }
-        for (HistorialPrecios hp : historiales) {
-            System.out.println(hp.getResponsable().getApellidos());
-        }
-        List<EventoKardex> eventos = new ArrayList<>();
+        var movimientos = iMovimientoStockDao.findMovimientosByProductoAndFechaRange(productoId, startDateTime, endDateTime);
+        var historiales = iHistorialPreciosDao.findHistorialByProductoAndFechaRange(productoId, startDateTime, endDateTime);
+
+        var eventos = new ArrayList<EventoKardex>();
         for (MovimientoStock movimiento : movimientos) {
-            eventos.add(new EventoKardex(movimiento.getFechaRegistro(), "Movimiento", movimiento));
+            LocalDateTime fechaSinNanos = movimiento.getFechaRegistro().withNano(0);
+            eventos.add(new EventoKardex(fechaSinNanos, "Movimiento", movimiento));
         }
+
         for (HistorialPrecios historial : historiales) {
-            eventos.add(new EventoKardex(historial.getFechaRegistro(), "Precio", historial));
+            LocalDateTime fechaSinNanos = historial.getFechaRegistro().withNano(0);
+            eventos.add(new EventoKardex(fechaSinNanos, "Precio", historial));
         }
+
         eventos.sort(Comparator.comparing(EventoKardex::getFecha));
+
         return eventos;
     }
+
 
     @Transactional
     public KardexTemp generarKardex(int productoId, LocalDate startDate, LocalDate endDate) {
@@ -77,17 +80,16 @@ public class KardexService {
         System.out.println("Inventario inicial: " + inventarioInicial);
         kardex.setInvInicial(inventarioInicial);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         for (EventoKardex evento : eventos) {
             ItemKardexTemp item = new ItemKardexTemp();
-            item.setFecha(evento.getFecha());
-            System.out.println("Evento fecha: " + evento.getFecha());
+            item.setFecha(evento.getFecha().format(formatter)); // Formatear fecha
 
             if (evento.getTipo().equals("Movimiento")) {
                 MovimientoStock movimiento = (MovimientoStock) evento.getEvento();
-                System.out.println("Movimiento: " + movimiento.getTipoMovimiento() + " - Cantidad: " + movimiento.getCantidad());
-
                 item.setArea(movimiento.getDependencia().getNombre());
-                item.setSolicitanteResponsable(movimiento.getSolicitante_Responsable().getNombres() + " " + movimiento.getSolicitante_Responsable().getApellidos());
+                item.setSolicitanteResponsable(UsuarioMapper.toConcatuser(movimiento.getSolicitante_Responsable()));
                 item.setInvInicial(inventarioInicial);
 
                 if (movimiento.getTipoMovimiento().equals("ENTRADA")) {
@@ -100,18 +102,11 @@ public class KardexService {
                     inventarioInicial -= movimiento.getCantidad();
                 }
                 HistorialPrecios precioActual = iHistorialPreciosDao.obtenerUltimoPrecioAntesDeFecha(productoId, evento.getFecha());
-                if (precioActual != null) {
-                    item.setCostoUni(precioActual.getPrecioRegistro());
-                    System.out.println("Costo unitario: " + precioActual.getPrecioRegistro());
-                } else {
-                    item.setCostoUni(0.0);
-                }
+                item.setCostoUni(precioActual.getPrecioRegistro());
             } else if (evento.getTipo().equals("Precio")) {
                 HistorialPrecios historial = (HistorialPrecios) evento.getEvento();
-                System.out.println("Cambio de precio: " + historial.getPrecioRegistro());
-
                 item.setArea("Almacén");
-                item.setSolicitanteResponsable(historial.getResponsable().getNombres() + " " + historial.getResponsable().getApellidos());
+                item.setSolicitanteResponsable(UsuarioMapper.toConcatuser(historial.getResponsable()));
                 item.setInvInicial(inventarioInicial);
                 item.setStockEntrada(0);
                 item.setStockSalida(0);
@@ -120,12 +115,18 @@ public class KardexService {
             item.setInvFinal(inventarioInicial);
             kardex.getItems().add(item);
         }
+
         return kardex;
     }
 
     private double obtenerInventarioInicial(int productoId, LocalDateTime startDate) {
-        var obj = iHistorialStockDao.obtenerUltimoStockAntesDeFecha(productoId, startDate);
-        System.out.println(obj.getCantidadStock()+"ENCONTRADO");
-        return obj.getCantidadStock();
+        try {
+            var obj = iHistorialStockDao.obtenerUltimoStockAntesDeFecha(productoId, startDate);
+            return obj != null ? obj.getCantidadStock() : 0.0;
+        } catch (NoResultException e) {
+            return 0.0;
+        }
     }
+
+
 }

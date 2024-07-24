@@ -2,6 +2,7 @@ package org.Almacen.Siman.DAO.DaoImp;
 
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.Siman.DAO.IHistorialStockDao;
 import org.Almacen.Siman.Model.HistorialStock;
@@ -35,14 +36,19 @@ public class HistorialStockDaoImp implements IHistorialStockDao {
 
     @Override
     public HistorialStock obtenerUltimoStockAntesDeFecha(int productoId, LocalDateTime fecha) {
-        return _entityManager.createQuery(
-                        "SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto.id = :productoId AND h.fechaRegistrada <= :fecha ORDER BY h.fechaRegistrada DESC",
-                        HistorialStock.class)
-                .setParameter("productoId", productoId)
-                .setParameter("fecha", fecha)
-                .setMaxResults(1)
-                .getSingleResult();
+        try {
+            return _entityManager.createQuery(
+                            "SELECT h FROM HistorialStock h WHERE h.stockUnidades.producto.id = :productoId AND h.fechaRegistrada <= :fecha ORDER BY h.fechaRegistrada DESC",
+                            HistorialStock.class)
+                    .setParameter("productoId", productoId)
+                    .setParameter("fecha", fecha)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
+
 
 
 
