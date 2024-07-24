@@ -15,6 +15,7 @@ public class RequerimientoMapper {
         requerimientoDto.setRazonSalida(requerimiento.getRazonSalida());
         requerimientoDto.setRequerimiento(requerimiento.getItemsRequerimientos());
         requerimientoDto.setDependencia(requerimiento.getDependencia());
+        requerimiento.setAprobadoPor(requerimiento.getAprobadoPor());
         return requerimientoDto;
     }
 
@@ -28,6 +29,7 @@ public class RequerimientoMapper {
         requerimiento.setRazonSalida(requerimientoDto.getRazonSalida());
         requerimiento.setItemsRequerimientos(requerimientoDto.getRequerimiento());
         requerimiento.setDependencia(requerimientoDto.getDependencia());
+        requerimiento.setAprobadoPor(requerimientoDto.getAprobadoPor());
         return requerimiento;
     }
 
@@ -39,6 +41,7 @@ public class RequerimientoMapper {
         requerimiento.setSolicitante(dto.getUsuario());
         requerimiento.setRazonEntrada(dto.getRazonEntrada());
         requerimiento.setDependencia(dto.getDependencia());
+
         return requerimiento;
     }
 

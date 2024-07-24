@@ -44,4 +44,9 @@ public class DetalleComprobanteSalidaDaoImp implements IDetalleComprobanteSalida
         return c;
     }
 
+    @Override
+    public void delete(DetalleComprobanteSalida c) {
+        _entityManager.remove(c);
+    }
+
 }

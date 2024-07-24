@@ -5,7 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.Siman.DAO.IComprobanteSalidaDao;
 import org.Almacen.Siman.DTO.ComprobanteSalida.UpdateComprobanteSalidaDto;
+import org.Almacen.Siman.Mappers.UsuarioMapper;
 import org.Almacen.Siman.Model.ComprobanteSalida;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.util.List;
 
@@ -29,7 +31,6 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
     @Override
     public ComprobanteSalida create(ComprobanteSalida c) {
         _entityManager.persist(c);
-        System.out.println("aca2");
         return c;
     }
 
@@ -45,6 +46,12 @@ public class ComprobanteSalidaDaoImp implements IComprobanteSalidaDao {
         } else {
             return null;
         }
+    }
+    @Override
+    public ComprobanteSalida setAprobado(ComprobanteSalida cs, Usuario usuario){
+        cs.setAprobadoPor(UsuarioMapper.toConcatuser(usuario));
+        _entityManager.merge(cs);
+        return cs;
     }
 
     @Override

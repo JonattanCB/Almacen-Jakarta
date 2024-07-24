@@ -8,15 +8,15 @@ import org.Almacen.Siman.Model.ComprobanteSalida;
 
 public class ComprobanteSalidaMapper {
     public static ComprobanteSalidaDto toDto(ComprobanteSalida cs) {
-        return new ComprobanteSalidaDto(cs.getId(), cs.getDependencia(), cs.getParaUso(), cs.getObservacion(), cs.getFechaRegistro(), cs.getPrecioFinal(), cs.getEstado(), cs.getUsuario());
+        return new ComprobanteSalidaDto(cs.getId(), cs.getDependencia(), cs.getParaUso(), cs.getObservacion(), cs.getFechaRegistro(), cs.getPrecioFinal(), cs.getEstado(), cs.getUsuario(), cs.getAprobadoPor());
     }
 
     public static ComprobanteSalida toEntity(ComprobanteSalidaDto cs) {
-        return new ComprobanteSalida(cs.getId(), cs.getSolicitante(), cs.getDependencia(), cs.getParaUso(), cs.getFechaRegistro(), cs.getPrecioFinal(), cs.getObservacion(), null, cs.getEstado());
+        return new ComprobanteSalida(cs.getId(), cs.getSolicitante(), cs.getDependencia(), cs.getParaUso(), cs.getFechaRegistro(), cs.getPrecioFinal(), cs.getObservacion(), null, cs.getEstado(), cs.getAprobadoPor());
     }
 
     public static PdfComprobanteSalidaDto toPdfDto(ComprobanteSalida cs) {
-        return new PdfComprobanteSalidaDto(cs.getFechaRegistro(),(cs.getUsuario().getNombres()+" "+cs.getUsuario().getApellidos()), cs.getDependencia().getNombre(),cs.getParaUso(),cs.getEstado(),cs.getPrecioFinal());
+        return new PdfComprobanteSalidaDto(cs.getFechaRegistro(), (cs.getUsuario().getNombres() + " " + cs.getUsuario().getApellidos()), cs.getDependencia().getNombre(), cs.getParaUso(), cs.getEstado(), cs.getPrecioFinal(), cs.getAprobadoPor());
     }
 
     public static ComprobanteSalida fromCreateDto(CreateComprobanteSalidaDto dto) {

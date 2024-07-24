@@ -37,4 +37,6 @@ public class ComprobanteSalida {
     private List<DetalleComprobanteSalida> detalleComprobanteSalida;
     @Column(name = "Estado", nullable = false)
     private String estado;
+    @Column(name = "AprobadoPor")
+    private String AprobadoPor;
 }

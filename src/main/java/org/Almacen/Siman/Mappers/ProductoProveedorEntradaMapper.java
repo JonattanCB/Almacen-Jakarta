@@ -6,7 +6,7 @@ import org.Almacen.Siman.Model.ProductoProveedorEntrada;
 
 public class ProductoProveedorEntradaMapper {
     public static ProductoProveedorEntradaDto toDto(ProductoProveedorEntrada p) {
-        return new ProductoProveedorEntradaDto(p.getOC(), p.getEmpresa(), p.getFechaRegistro(), p.getUsuario(), p.getPrecioFinal(), p.getObservacion(), p.getEstado());
+        return new ProductoProveedorEntradaDto(p.getOC(), p.getEmpresa(), p.getFechaRegistro(), p.getUsuario(), p.getPrecioFinal(), p.getObservacion(), p.getEstado(),p.getAprobadoPor());
     }
 
     public static ProductoProveedorEntrada toEntity(ProductoProveedorEntradaDto dto) {
@@ -17,6 +17,7 @@ public class ProductoProveedorEntradaMapper {
         p.setPrecioFinal(dto.getPrecioFinal());
         p.setObservacion(dto.getObservacion());
         p.setEstado(dto.getEstado());
+        p.setAprobadoPor(dto.getAprobadoPor());
         return p;
     }
 

@@ -14,4 +14,6 @@ public interface IDetalleComprobanteSalidaDao {
     DetalleComprobanteSalida getById(int id);
 
     DetalleComprobanteSalida create(DetalleComprobanteSalida c);
+
+    void delete(DetalleComprobanteSalida c);
 }

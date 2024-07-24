@@ -5,7 +5,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.Siman.DAO.IRequerimientoDao;
 import org.Almacen.Siman.DTO.Requerimiento.UpdateRequerimientoDto;
+import org.Almacen.Siman.Mappers.UsuarioMapper;
+import org.Almacen.Siman.Model.ComprobanteSalida;
 import org.Almacen.Siman.Model.Requerimiento;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.util.List;
 
@@ -29,16 +32,29 @@ public class RequerimientoDaoImp implements IRequerimientoDao {
     }
 
     @Override
+    public Requerimiento setAprobado(String idReq, Usuario usuario) {
+        var findobj = getById(idReq);
+        if (findobj != null) {
+            findobj.setAprobadoPor(UsuarioMapper.toConcatuser(usuario));
+            _entityManager.merge(findobj);
+            return findobj;
+        } else {
+            return null;
+        }
+    }
+
+
+    @Override
     public List<Requerimiento> getAllByIdDependenciaUser(int idunidad, int idUser) {
         return _entityManager.createQuery("SELECT r FROM Requerimiento r LEFT JOIN FETCH r.itemsRequerimientos LEFT JOIN FETCH r.solicitante where r.solicitante.unidadDependencia.id= :id and r.solicitante.id=:user and r.Estado='PENDIENTE'", Requerimiento.class)
                 .setParameter("id", idunidad)
-                .setParameter("user",idUser)
+                .setParameter("user", idUser)
                 .getResultList();
     }
 
     @Override
     public int cantidadRequerimientosUserUnidad(int idunidad, int idUser) {
-         Long count = _entityManager.createQuery(
+        Long count = _entityManager.createQuery(
                         "SELECT COUNT(r) FROM Requerimiento r " +
                                 "LEFT JOIN r.itemsRequerimientos " +
                                 "LEFT JOIN r.solicitante " +

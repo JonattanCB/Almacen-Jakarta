@@ -16,4 +16,6 @@ public class PdfComprobanteSalidaDto {
     private String para_uso;
     private String estado;
     private double totalC_v;
+    private String aprobadoPor;
+
 }

@@ -24,4 +24,5 @@ public class RequerimientoDto {
     private String RazonEntrada;
     private String RazonSalida;
     private List<ItemsRequerimiento> requerimiento;
+    private String aprobadoPor;
 }

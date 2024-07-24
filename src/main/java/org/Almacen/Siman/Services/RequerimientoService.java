@@ -14,6 +14,7 @@ import org.Almacen.Siman.Mappers.ItemsRequerimientoMapper;
 import org.Almacen.Siman.Mappers.RequerimientoMapper;
 import org.Almacen.Siman.Model.ItemsRequerimiento;
 import org.Almacen.Siman.Model.Requerimiento;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.io.Serializable;
 import java.util.List;
@@ -89,12 +90,13 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
-    public List<Requerimiento> getAllByUnidadUser(int unidad, int user){
-        return  iRequerimientoDao.getAllByIdDependenciaUser(unidad, user);
+    public List<Requerimiento> getAllByUnidadUser(int unidad, int user) {
+        return iRequerimientoDao.getAllByIdDependenciaUser(unidad, user);
     }
 
     @Transactional
-    public void setEstadoAprobado(String id, String observacion) {
+    public void setEstadoAprobado(String id, String observacion, Usuario usuario) {
+        iRequerimientoDao.setAprobado(id, usuario);
         iRequerimientoDao.setEstado(id, "APROBADO", observacion);
     }
 
@@ -109,22 +111,22 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
-    public int setCantidadRequermientoStatus(int user, int unidad, String status){
-        return iRequerimientoDao.cantidadRequerimientosUserUnidadStatus(unidad,user,status);
+    public int setCantidadRequermientoStatus(int user, int unidad, String status) {
+        return iRequerimientoDao.cantidadRequerimientosUserUnidadStatus(unidad, user, status);
     }
 
     @Transactional
-    public int setCantidadRequerimientoUser(int user, int unidad){
-        return iRequerimientoDao.cantidadRequerimientosUserUnidad(unidad,user);
+    public int setCantidadRequerimientoUser(int user, int unidad) {
+        return iRequerimientoDao.cantidadRequerimientosUserUnidad(unidad, user);
     }
 
     @Transactional
-    public int setCantidadRequermientoDependenciaStatus(int dependencia, String status){
-        return iRequerimientoDao.cantidadRequerimientosdependenciaStatus(dependencia,status);
+    public int setCantidadRequermientoDependenciaStatus(int dependencia, String status) {
+        return iRequerimientoDao.cantidadRequerimientosdependenciaStatus(dependencia, status);
     }
 
     @Transactional
-    public int setCantidadRequerimientoDependencia(int dependencia){
+    public int setCantidadRequerimientoDependencia(int dependencia) {
         return iRequerimientoDao.cantidadRequerimientosDependencia(dependencia);
     }
 

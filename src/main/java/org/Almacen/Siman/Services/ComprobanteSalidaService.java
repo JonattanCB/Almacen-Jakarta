@@ -50,7 +50,6 @@ public class ComprobanteSalidaService implements Serializable {
 
     @Transactional
     public ComprobanteSalida create(CreateComprobanteSalidaDto dto, List<CreateDetalleComprobanteSalidaDto> detallesDto) {
-        System.out.println("aca1");
         var newComprobante = ComprobanteSalidaMapper.fromCreateDto(dto);
         var c = iComprobanteSalidaDao.create(newComprobante);
         for (CreateDetalleComprobanteSalidaDto detalleDto : detallesDto) {
@@ -71,7 +70,8 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public void insertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles, Requerimiento req) {
+    public void insertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles, Requerimiento req, Usuario usuario) {
+        iComprobanteSalidaDao.setAprobado(c, usuario);
         for (DetalleComprobanteSalida d : detalles) {
             var pptu = iPrecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(d.getProducto().getId(), d.getTipoUnidad().getId());
 
@@ -89,18 +89,27 @@ public class ComprobanteSalidaService implements Serializable {
             hisStock.setStockUnidades(d.getProducto().getStockUnidades());
             iHistorialStockDao.add(hisStock);
 
-            stockUnidadesService.subtractStockUnidades(pptu,d.getCantidad()*pptu.getUnidadesPorTipoUnidadDeProducto());
+            stockUnidadesService.subtractStockUnidades(pptu, d.getCantidad() * pptu.getUnidadesPorTipoUnidadDeProducto());
 
         }
         var reqSalida = new Requerimiento_ComprobanteS();
         reqSalida.setComprobanteSalida(c);
         reqSalida.setRequerimiento(req);
         iRequerimiento_ComprobanteSDao.add(reqSalida);
-        iComprobanteSalidaDao.setEstado("FINALIZADO",c.getId());
+        iComprobanteSalidaDao.setEstado("FINALIZADO", c.getId());
     }
 
     @Transactional
-    public List<PdfDetallesComprobanteSalidaDto> getAlltToPdf(String codeRequerimeinto, String codeComprobanteSalida){
+    public void noInsertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles) {
+        for (DetalleComprobanteSalida d : detalles) {
+            iDetalleComprobanteSalidaDao.delete(d);
+        }
+        iComprobanteSalidaDao.delete(c.getId());
+    }
+
+
+    @Transactional
+    public List<PdfDetallesComprobanteSalidaDto> getAlltToPdf(String codeRequerimeinto, String codeComprobanteSalida) {
         List<PdfDetallesComprobanteSalidaDto> ls = new ArrayList<>();
         List<ItemsRequerimiento> requerimientoList = requerimientoService.getItemsByRequerimientoId(codeRequerimeinto);
         List<DetalleComprobanteSalida> detalles = getDetalleComprobanteSalida(codeComprobanteSalida);
@@ -127,7 +136,7 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public  void changeEstadoDesaprobado(String id) {
+    public void changeEstadoDesaprobado(String id) {
         iComprobanteSalidaDao.setEstado("DESAPROBADO", id);
     }
 
@@ -137,8 +146,8 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public int cantStatus(String status){
-        return  iComprobanteSalidaDao.cantStatus(status);
+    public int cantStatus(String status) {
+        return iComprobanteSalidaDao.cantStatus(status);
     }
 
 }

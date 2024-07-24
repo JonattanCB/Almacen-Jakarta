@@ -2,6 +2,7 @@ package org.Almacen.Siman.DAO;
 
 import org.Almacen.Siman.DTO.ComprobanteSalida.UpdateComprobanteSalidaDto;
 import org.Almacen.Siman.Model.ComprobanteSalida;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface IComprobanteSalidaDao {
     ComprobanteSalida create(ComprobanteSalida c);
 
     ComprobanteSalida update(UpdateComprobanteSalidaDto c, String id);
+
+    ComprobanteSalida setAprobado(ComprobanteSalida cs, Usuario usuario);
 
     ComprobanteSalida delete(String id);
 

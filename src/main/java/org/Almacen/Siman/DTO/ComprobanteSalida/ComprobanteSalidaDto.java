@@ -23,4 +23,5 @@ public class ComprobanteSalidaDto {
     private double precioFinal;
     private String estado;
     private Usuario solicitante;
+    private String aprobadoPor;
 }

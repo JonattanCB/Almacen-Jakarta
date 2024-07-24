@@ -35,4 +35,6 @@ public class ProductoProveedorEntrada {
     private String Observacion;
     @Column(name = "Estado")
     private String estado;
+    @Column(name = "AprobadoPor")
+    private String AprobadoPor;
 }

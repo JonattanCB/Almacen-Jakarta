@@ -2,6 +2,7 @@ package org.Almacen.Siman.DAO;
 
 import org.Almacen.Siman.DTO.Requerimiento.UpdateRequerimientoDto;
 import org.Almacen.Siman.Model.Requerimiento;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.util.List;
 
@@ -16,9 +17,11 @@ public interface IRequerimientoDao {
 
     int cantidadRequerimientosDependencia(int idDependencia);
 
-    int cantidadRequerimientosUserUnidadStatus(int idunidad, int idUser,String status);
+    int cantidadRequerimientosUserUnidadStatus(int idunidad, int idUser, String status);
 
-    int cantidadRequerimientosdependenciaStatus(int iddependencia,String status);
+    int cantidadRequerimientosdependenciaStatus(int iddependencia, String status);
+
+    Requerimiento setAprobado(String idReq, Usuario usuario);
 
     List<Requerimiento> getAllFinalized();
 

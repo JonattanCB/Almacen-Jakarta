@@ -61,7 +61,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     }
 
     @Transactional
-    public void insertToBD(ProductoProveedorEntrada c, List<DetalleProductoProveedorEntrada> entradas) {
+    public void insertToBD(ProductoProveedorEntrada c, List<DetalleProductoProveedorEntrada> entradas, Usuario u) {
+        iProductoProveedorEntradaDao.setAprobadoPor(c, u);
         for (DetalleProductoProveedorEntrada d : entradas) {
             var pptu = iPrecioPorTipoUnidadDao.getByIdProductoIdTipoUnidad(d.getProducto().getId(), d.getTipoUnidad().getId());
             if (pptu.getPrecioUnitario() != d.getPrecioUnitario()) {
@@ -116,8 +117,8 @@ public class ProductoProveedorEntradaService implements Serializable {
     }
 
     @Transactional
-    public int cantiStatus(String status){
-        return  iProductoProveedorEntradaDao.cantStatus(status);
+    public int cantiStatus(String status) {
+        return iProductoProveedorEntradaDao.cantStatus(status);
     }
 
 }

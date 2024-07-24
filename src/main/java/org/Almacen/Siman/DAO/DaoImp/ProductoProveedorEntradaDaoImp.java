@@ -5,7 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.Siman.DAO.IProductoProveedorEntradaDao;
 import org.Almacen.Siman.DTO.ProductoProveedorEntrada.UpdateProductoProveedorEntradaDto;
+import org.Almacen.Siman.Mappers.UsuarioMapper;
 import org.Almacen.Siman.Model.ProductoProveedorEntrada;
+import org.Almacen.Siman.Model.Usuario;
 
 import java.util.List;
 
@@ -55,6 +57,12 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
     }
 
     @Override
+    public void setAprobadoPor(ProductoProveedorEntrada p, Usuario u) {
+        p.setAprobadoPor(UsuarioMapper.toConcatuser(u));
+        _entityManager.merge(p);
+    }
+
+    @Override
     public void setEstado(String estado, String id) {
         var findObj = getById(id);
         if (findObj != null) {
@@ -80,7 +88,7 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
                                 "LEFT JOIN p.DetalleProductoProveedorEntrada " +
                                 "LEFT JOIN p.usuario " +
                                 "LEFT JOIN p.empresa where  p.estado= :status", Long.class)
-                .setParameter("status",status)
+                .setParameter("status", status)
                 .getSingleResult();
         return count.intValue();
     }
