@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Formulacion_Pedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="478457f3-3ffd-40af-9b21-b355e5c8d44c">
 	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="186"/>
+	<property name="ireport.y" value="196"/>
 	<parameter name="Ruta_Imagen" class="java.io.InputStream"/>
 	<parameter name="fecha" class="java.lang.String"/>
 	<parameter name="id" class="java.lang.String"/>
@@ -197,7 +197,7 @@
 	</detail>
 	<pageFooter>
 		<band height="89">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="183" y="42" width="193" height="20" uuid="35065224-31c8-4cf8-9c8a-e5df8006b066"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -208,7 +208,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombre_jd}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="183" y="22" width="193" height="20" uuid="395dae11-4690-43de-b51e-6b06bc78e9c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11"/>
@@ -233,7 +233,7 @@
 				</textElement>
 				<text><![CDATA[RAZON DE SALIDA:]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="16" y="126" width="526" height="57" uuid="ad8ef488-7c86-40b6-928b-523e5e3af53a"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
@@ -250,7 +250,7 @@
 				</textElement>
 				<text><![CDATA[RAZON DE ENTRADA:]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="14" y="41" width="527" height="55" uuid="0fc79be5-3fc5-47d6-b53c-3f44102b44fa"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
