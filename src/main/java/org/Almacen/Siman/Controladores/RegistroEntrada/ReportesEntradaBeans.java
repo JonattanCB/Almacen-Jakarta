@@ -71,6 +71,10 @@ public class ReportesEntradaBeans implements Serializable {
             InputStream logoEmpresa = servletContext.getResourceAsStream("/resources/imagenes/logo.png");
             InputStream reporteEntrada = servletContext.getResourceAsStream("/resources/reportes/Reporte_Entrada/Comprobante_Entrada.jasper");
 
+            if(dto.getEstado().equalsIgnoreCase("FINALIZADO")){
+                dto.setEstado("APROBADO");
+            }
+
             if (logoEmpresa != null && reporteEntrada != null) {
                 JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
                 Map<String, Object> parameters = new HashMap<>();
@@ -80,6 +84,8 @@ public class ReportesEntradaBeans implements Serializable {
                 parameters.put("n_orden_compra", dto.getOC());
                 parameters.put("observacion", dto.getObservacion());
                 parameters.put("Ruta_Imagen", logoEmpresa);
+                parameters.put("nombre_ap",dto.getAprobadoPor());
+                parameters.put("estado_ap",dto.getEstado());
 
                 JasperReport report = (JasperReport) JRLoader.loadObject(reporteEntrada);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);

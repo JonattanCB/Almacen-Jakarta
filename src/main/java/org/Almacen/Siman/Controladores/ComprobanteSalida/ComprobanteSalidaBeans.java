@@ -14,6 +14,7 @@ import org.Almacen.Siman.DTO.DetalleComprobanteSalida.CreateDetalleComprobanteSa
 import org.Almacen.Siman.DTO.DetalleComprobanteSalida.DetalleComprobanteSalidaDto;
 import org.Almacen.Siman.DTO.MovimientoStock.ValidacionStockDto;
 import org.Almacen.Siman.DTO.Requerimiento.RequerimientoDto;
+import org.Almacen.Siman.DTO.Usuario.UsuarioDto;
 import org.Almacen.Siman.Mappers.*;
 import org.Almacen.Siman.Model.ComprobanteSalida;
 import org.Almacen.Siman.Model.DetalleComprobanteSalida;
@@ -269,14 +270,16 @@ public class ComprobanteSalidaBeans implements Serializable {
         ComprobanteSalida cs = comprobanteSalidaService.getById(idComprobateSalida);
         Requerimiento requerimiento = requerimientoService.getRequerimiento(cs.getId());
         List<DetalleComprobanteSalida> lst = comprobanteSalidaService.getDetalleComprobanteSalida(idComprobateSalida);
-        comprobanteSalidaService.insertToBD(cs,lst,requerimiento);
+        UsuarioDto us = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        comprobanteSalidaService.insertToBD(cs,lst,requerimiento, UsuarioMapper.toUsuario(us));
         loadComprobanteSalida();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El comprobante de salidad  ha sido FINALIZADO en el sistema!"));
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     public void desaprobarComprobanteSalida(){
-        comprobanteSalidaService.changeEstadoDesaprobado(idComprobateSalida);
+        UsuarioDto us = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        comprobanteSalidaService.changeEstadoDesaprobado(UsuarioMapper.toUsuario(us),idComprobateSalida);
         loadComprobanteSalida();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El comprobante de salidad  ha sido DESAPROBADO en el sistema!"));
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");

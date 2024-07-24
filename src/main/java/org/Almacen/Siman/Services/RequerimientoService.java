@@ -101,7 +101,8 @@ public class RequerimientoService implements Serializable {
     }
 
     @Transactional
-    public void setEstadoDesaprobado(String id, String observacion) {
+    public void setEstadoDesaprobado(String id, String observacion, Usuario usuario) {
+        iRequerimientoDao.setAprobado(id,usuario);
         iRequerimientoDao.setEstado(id, "DESAPROBADO", observacion);
     }
 

@@ -49,6 +49,11 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
+    public Requerimiento_ComprobanteS getbyReq_Cs(String id){
+        return  iRequerimiento_ComprobanteSDao.getById(id);
+    }
+
+    @Transactional
     public ComprobanteSalida create(CreateComprobanteSalidaDto dto, List<CreateDetalleComprobanteSalidaDto> detallesDto) {
         var newComprobante = ComprobanteSalidaMapper.fromCreateDto(dto);
         var c = iComprobanteSalidaDao.create(newComprobante);
@@ -99,6 +104,9 @@ public class ComprobanteSalidaService implements Serializable {
         iComprobanteSalidaDao.setEstado("FINALIZADO", c.getId());
     }
 
+
+
+
     @Transactional
     public void noInsertToBD(ComprobanteSalida c, List<DetalleComprobanteSalida> detalles) {
         for (DetalleComprobanteSalida d : detalles) {
@@ -136,8 +144,10 @@ public class ComprobanteSalidaService implements Serializable {
     }
 
     @Transactional
-    public void changeEstadoDesaprobado(String id) {
+    public void changeEstadoDesaprobado(Usuario user,String id) {
+        ComprobanteSalida c = getById(id);
         iComprobanteSalidaDao.setEstado("DESAPROBADO", id);
+        iComprobanteSalidaDao.setAprobado(c,user);
     }
 
     @Transactional

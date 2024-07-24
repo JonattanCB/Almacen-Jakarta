@@ -4,6 +4,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.Almacen.Siman.DAO.IRequerimiento_ComprobanteSDao;
+import org.Almacen.Siman.Model.ComprobanteSalida;
 import org.Almacen.Siman.Model.Requerimiento_ComprobanteS;
 
 import java.util.List;
@@ -20,8 +21,9 @@ public class Requerimiento_ComprobanteSDaoImp implements IRequerimiento_Comproba
     }
 
     @Override
-    public Requerimiento_ComprobanteS getById(int id) {
-        return _entityManager.find(Requerimiento_ComprobanteS.class, id);
+    public Requerimiento_ComprobanteS getById(String id) {
+        return _entityManager.createQuery("SELECT r FROM Requerimiento_ComprobanteS r LEFT JOIN FETCH r.comprobanteSalida  LEFT JOIN FETCH r.requerimiento WHERE r.comprobanteSalida.id= :id",
+                Requerimiento_ComprobanteS.class).setParameter("id", id).getSingleResult();
     }
 
     @Override

@@ -251,7 +251,8 @@ public class RequerimientoBeans implements Serializable {
     }
 
     public void estadoAprobado() {
-        requerimientoService.setEstadoAprobado(idRequerimiento, " ");
+        UsuarioDto us = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        requerimientoService.setEstadoAprobado(idRequerimiento, " ",UsuarioMapper.toUsuario(us));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El requerimiento ha sido aprobado.!", null));
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");
@@ -260,7 +261,8 @@ public class RequerimientoBeans implements Serializable {
     }
 
     public void estadoDesaprobado() {
-        requerimientoService.setEstadoDesaprobado(idRequerimiento, observacionSalida);
+        UsuarioDto us = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        requerimientoService.setEstadoDesaprobado(idRequerimiento, observacionSalida, UsuarioMapper.toUsuario(us));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El requerimiento ha sido desaprobado.!"));
         loadRequerimiento();
         PrimeFaces.current().executeScript("PF('aceptar').hide()");

@@ -63,10 +63,11 @@ public class ProductoProveedorEntradaDaoImp implements IProductoProveedorEntrada
     }
 
     @Override
-    public void setEstado(String estado, String id) {
+    public void setEstado(String usuario, String estado, String id) {
         var findObj = getById(id);
         if (findObj != null) {
             findObj.setEstado(estado);
+            findObj.setAprobadoPor(usuario);
             _entityManager.merge(findObj);
         }
 

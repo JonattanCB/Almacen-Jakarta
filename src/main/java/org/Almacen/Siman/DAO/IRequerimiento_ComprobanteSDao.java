@@ -7,7 +7,7 @@ import java.util.List;
 public interface IRequerimiento_ComprobanteSDao {
     List<Requerimiento_ComprobanteS> getAll();
 
-    Requerimiento_ComprobanteS getById(int id);
+    Requerimiento_ComprobanteS getById(String id);
 
     void add(Requerimiento_ComprobanteS r);
 }

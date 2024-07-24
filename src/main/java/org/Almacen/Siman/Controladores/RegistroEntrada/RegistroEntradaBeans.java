@@ -21,6 +21,7 @@ import org.Almacen.Siman.DTO.Usuario.UsuarioDto;
 import org.Almacen.Siman.Mappers.*;
 import org.Almacen.Siman.Model.DetalleProductoProveedorEntrada;
 import org.Almacen.Siman.Model.ProductoProveedorEntrada;
+import org.Almacen.Siman.Model.Usuario;
 import org.Almacen.Siman.Services.*;
 import org.Almacen.Siman.Util.CodeGenerator;
 import org.primefaces.PrimeFaces;
@@ -379,14 +380,16 @@ public class RegistroEntradaBeans implements Serializable {
     public void estadoAprobado(){
         ProductoProveedorEntrada entity = ProductoProveedorEntradaMapper.toEntity(productoProveedorEntradaService.findById(idRegistroEntrada));
         List<DetalleProductoProveedorEntrada> lst = detalleProductoProveedorEntradaService.getAllByProveedorEntradaId(entity.getOC());
-        productoProveedorEntradaService.insertToBD(entity, lst);
+        UsuarioDto us = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        productoProveedorEntradaService.insertToBD(entity, lst, UsuarioMapper.toConcatuser(UsuarioMapper.toUsuario(us)));
         loadRegistrarEntrant();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El registro de entrada ha sido COMPLETADO en el sistema!"));
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");
     }
 
     public void estadoDesaprobado(){
-        productoProveedorEntradaService.cambiarEstado("DESAPROBADO", idRegistroEntrada);
+        UsuarioDto us = (UsuarioDto) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        productoProveedorEntradaService.cambiarEstado(UsuarioMapper.toConcatuser(UsuarioMapper.toUsuario(us)),"DESAPROBADO", idRegistroEntrada);
         loadRegistrarEntrant();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡El registro de entrada ha sido DESAPROBADO en el sistema!"));
         PrimeFaces.current().ajax().update(":form-datos:messages", ":form-datos:tabla");

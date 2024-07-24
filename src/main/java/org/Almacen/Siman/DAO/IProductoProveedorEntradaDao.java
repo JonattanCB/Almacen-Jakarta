@@ -17,7 +17,7 @@ public interface IProductoProveedorEntradaDao {
 
     void updatePrice(double price, String oc);
 
-    void setEstado(String estado, String id);
+    void setEstado(String usuario, String estado, String id);
 
     void setAprobadoPor(ProductoProveedorEntrada p, Usuario u);
 

@@ -89,30 +89,30 @@ public class KardexService {
             if (evento.getTipo().equals("Movimiento")) {
                 MovimientoStock movimiento = (MovimientoStock) evento.getEvento();
                 item.setArea(movimiento.getDependencia().getNombre());
-                item.setSolicitanteResponsable(UsuarioMapper.toConcatuser(movimiento.getSolicitante_Responsable()));
-                item.setInvInicial(inventarioInicial);
+                item.setSolicitanteresponsable(UsuarioMapper.toConcatuser(movimiento.getSolicitante_Responsable()));
+                item.setInvfinal(inventarioInicial);
 
                 if (movimiento.getTipoMovimiento().equals("ENTRADA")) {
-                    item.setStockEntrada(movimiento.getCantidad());
-                    item.setStockSalida(0);
+                    item.setStockentrada(movimiento.getCantidad());
+                    item.setStocksalida(0);
                     inventarioInicial += movimiento.getCantidad();
                 } else {
-                    item.setStockEntrada(0);
-                    item.setStockSalida(movimiento.getCantidad());
+                    item.setStockentrada(0);
+                    item.setStocksalida(movimiento.getCantidad());
                     inventarioInicial -= movimiento.getCantidad();
                 }
                 HistorialPrecios precioActual = iHistorialPreciosDao.obtenerUltimoPrecioAntesDeFecha(productoId, evento.getFecha());
-                item.setCostoUni(precioActual.getPrecioRegistro());
+                item.setCostouni(precioActual.getPrecioRegistro());
             } else if (evento.getTipo().equals("Precio")) {
                 HistorialPrecios historial = (HistorialPrecios) evento.getEvento();
                 item.setArea("Almacén");
-                item.setSolicitanteResponsable(UsuarioMapper.toConcatuser(historial.getResponsable()));
-                item.setInvInicial(inventarioInicial);
-                item.setStockEntrada(0);
-                item.setStockSalida(0);
-                item.setCostoUni(historial.getPrecioRegistro());
+                item.setSolicitanteresponsable(UsuarioMapper.toConcatuser(historial.getResponsable()));
+                item.setInvinicial(inventarioInicial);
+                item.setStockentrada(0);
+                item.setStocksalida(0);
+                item.setCostouni(historial.getPrecioRegistro());
             }
-            item.setInvFinal(inventarioInicial);
+            item.setInvfinal(inventarioInicial);
             kardex.getItems().add(item);
         }
 

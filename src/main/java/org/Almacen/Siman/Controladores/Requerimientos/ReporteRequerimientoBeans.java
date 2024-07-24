@@ -65,6 +65,10 @@ public class ReporteRequerimientoBeans implements Serializable {
             InputStream logoEmpresa = servletContext.getResourceAsStream("/resources/imagenes/logo.png");
             InputStream reporteEntrada = servletContext.getResourceAsStream("/resources/reportes/Reporte_Requerimientos/Formulacion_Pedido.jasper");
 
+            if (dto.getEstado().equalsIgnoreCase("FINALIZADO")){
+                dto.setEstado("APROBADO");
+            }
+
             if (logoEmpresa != null && reporteEntrada != null) {
                 JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
                 Map<String, Object> parameters = new HashMap<>();
@@ -73,7 +77,8 @@ public class ReporteRequerimientoBeans implements Serializable {
                 parameters.put("fecha", fecha);
                 parameters.put("id", dto.getId());
                 parameters.put("D_sol", dto.getDependencia().getNombre());
-                parameters.put("estado", dto.getEstado());
+                parameters.put("estado_ap", dto.getEstado());
+                parameters.put("nombre_jd",dto.getAprobadoPor());
                 parameters.put("r_entrada", dto.getRazonEntrada());
                 parameters.put("r_salida", dto.getRazonSalida());
 

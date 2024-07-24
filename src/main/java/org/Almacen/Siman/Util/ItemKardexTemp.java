@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemKardexTemp {
-    private String Fecha;
-    private String Area;
-    private String SolicitanteResponsable;
-    private double invInicial;
-    private double costoUni;
-    private double stockEntrada;
-    private double stockSalida;
-    private double invFinal;
+    private String fecha;
+    private String area;
+    private String solicitanteresponsable;
+    private double invinicial;
+    private double costouni;
+    private double stockentrada;
+    private double stocksalida;
+    private double invfinal;
 }

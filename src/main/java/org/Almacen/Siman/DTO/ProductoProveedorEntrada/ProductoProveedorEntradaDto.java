@@ -21,6 +21,6 @@ public class ProductoProveedorEntradaDto {
     private double precioFinal;
     private String observacion;
     private String estado;
-    private String aprobadoPor;
+    private String AprobadoPor;
 
 }

@@ -14,7 +14,9 @@ import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.Almacen.Siman.DTO.ComprobanteSalida.PdfComprobanteSalidaDto;
 import org.Almacen.Siman.DTO.DetalleComprobanteSalida.PdfDetallesComprobanteSalidaDto;
+import org.Almacen.Siman.DTO.Requerimiento.RequerimientoDto;
 import org.Almacen.Siman.Mappers.ComprobanteSalidaMapper;
+import org.Almacen.Siman.Mappers.RequerimientoMapper;
 import org.Almacen.Siman.Services.ComprobanteSalidaService;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -48,14 +50,22 @@ public class ReportesComprobanteSalida implements Serializable {
     public void GenerarPDF() {
         try {
             // Fetching data
-            PdfComprobanteSalidaDto csDto = ComprobanteSalidaMapper.toPdfDto(comprobanteSalidaService.getById(idcomprobanteSalida));
-            List<PdfDetallesComprobanteSalidaDto> lst = comprobanteSalidaService.getAlltToPdf(idcomprobanteSalida, idcomprobanteSalida);
+            var req_cs = comprobanteSalidaService.getbyReq_Cs(idcomprobanteSalida);
+
+            PdfComprobanteSalidaDto csDto = ComprobanteSalidaMapper.toPdfDto(comprobanteSalidaService.getById(req_cs.getComprobanteSalida().getId()));
+            RequerimientoDto rqdto = RequerimientoMapper.toDto(req_cs.getRequerimiento());
+            List<PdfDetallesComprobanteSalidaDto> lst = comprobanteSalidaService.getAlltToPdf(req_cs.getRequerimiento().getId(), idcomprobanteSalida);
 
             // Getting resources
             FacesContext context = FacesContext.getCurrentInstance();
             ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
             InputStream logoEmpresa = servletContext.getResourceAsStream("/resources/imagenes/logo.png");
             InputStream reporteSalida = servletContext.getResourceAsStream("/resources/reportes/Reporte_Salida/Comprobante_Salida.jasper");
+
+
+            if (csDto.getEstado().equalsIgnoreCase("FINALIZADO")){
+                csDto.setEstado("APROBADO");
+            }
 
             if (logoEmpresa != null && reporteSalida != null) {
                 JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lst.toArray());
@@ -65,8 +75,11 @@ public class ReportesComprobanteSalida implements Serializable {
                 parameters.put("dependencia_s", csDto.getDependencia_s());
                 parameters.put("para_uso", csDto.getPara_uso());
                 parameters.put("totalC_v", csDto.getTotalC_v());
-                parameters.put("estado",csDto.getEstado());
+                parameters.put("estado_ap",csDto.getEstado());
                 parameters.put("Ruta_Imagen", logoEmpresa);
+                parameters.put("nombre_apr", rqdto.getAprobadoPor());
+                parameters.put("nombre_ap", csDto.getAprobadoPor());
+
 
                 JasperReport report = (JasperReport) JRLoader.loadObject(reporteSalida);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
