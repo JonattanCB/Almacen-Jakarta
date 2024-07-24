@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Kardex" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65ed429e-4df6-488b-94b8-e7ba4d1f62d8">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="7"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="articulo" class="java.lang.String"/>
 	<parameter name="inv_inicial" class="java.lang.Double"/>
 	<parameter name="unid_medida" class="java.lang.String"/>
 	<parameter name="periodo" class="java.lang.String"/>
-	<field name="Fecha" class="java.lang.String"/>
 	<field name="Area" class="java.lang.String"/>
 	<field name="SolicitanteResponsable" class="java.lang.String"/>
 	<field name="invInicial" class="java.lang.Double"/>
@@ -378,17 +377,6 @@ Unitario]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<text><![CDATA[S/.]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="122" height="20" uuid="def9dd08-bee1-42a2-9c9a-ec1c01c4f0a4"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 </jasperReport>
